@@ -39,6 +39,10 @@ class ConfigReader:
         return self.configuration["detectedMotionPath"]
 
     @property
+    def detectedFaceSavePath(self):
+        return self.configuration["detectedFaceSavePath"]
+
+    @property
     def piCameraUsed(self):
         return self.configuration["piCameraUsed"]
 

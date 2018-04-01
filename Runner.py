@@ -5,6 +5,7 @@ import imutils
 import datetime
 
 from config_reader.config_reader import ConfigReader
+from files_manager.files_manager import FilesManager
 from logger.logger_factory import LoggerFactory
 
 
@@ -13,6 +14,7 @@ class Runner:
     def __init__(self):
         self.configReader = ConfigReader()
         self.logger = LoggerFactory()
+        self.filesManager= FilesManager()
         self.camera = 'camera'
         self.averageFrame = None
         self.motionCounter = 0
@@ -91,6 +93,7 @@ class Runner:
                     # check to see if the number of frames with consistent motion is
                     # high enough
                     if motionCounter >= self.configReader.min_motion_frames:
+                        self.filesManager.save_motion(frame)
                         print("MOVEMENT SAVED")
             else:
                 motionCounter = 0

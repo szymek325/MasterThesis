@@ -10,6 +10,7 @@
   "fps": 16,
   "min_area": 500,
   "detectedMotionPath": "detectedMotion/",
+  "detectedFaceSavePath": "detectedFace",
   "piCameraUsed": false,
   "cameraPort": 0
 }
