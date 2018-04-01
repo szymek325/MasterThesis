@@ -3,13 +3,13 @@
   "use_dropbox": true,
   "min_motion_frames": 8,
   "camera_warmup_time": 2.5,
-  "delta_thresh": 5,
+  "delta_thresh": 25,
   "resolution": [
     640,
     480
   ],
   "fps": 16,
-  "min_area": 5000,
+  "min_area": 500,
   "detectedMotionPath": "detectedMotion/",
   "piCameraUsed": false,
   "cameraPort": 0
