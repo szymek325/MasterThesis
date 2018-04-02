@@ -1,9 +1,9 @@
 from datetime import datetime
 import cv2
 from os import listdir
-from exception_handler.exception_handler import exception
+from helpers.exception_handler import exception
 
-from config_reader.config_reader import ConfigReader
+from helpers.config_reader import ConfigReader
 
 
 class FilesManager:
