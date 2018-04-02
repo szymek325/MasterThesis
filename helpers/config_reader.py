@@ -57,3 +57,15 @@ class ConfigReader:
     @property
     def face_recognition_interval(self):
         return self.configuration["time_interval_between_processing_files"]
+
+    @property
+    def dnn_model(self):
+        return self.configuration["dnn_model"]
+
+    @property
+    def proto_txt(self):
+        return self.configuration["proto_txt"]
+
+    @property
+    def required_face_confidence(self):
+        return self.configuration["required_face_confidence"]
