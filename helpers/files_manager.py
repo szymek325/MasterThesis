@@ -12,24 +12,24 @@ class FilesManager:
         self.configReader = ConfigReader()
         self.facePath = self.configReader.detectedFaceSavePath
         self.motionPath = self.configReader.detectedMotionPath
-        self.logger= LoggerFactory()
+        self.logger = LoggerFactory()
 
     @exception
     def save_face(self, face):
         date_string = datetime.now().strftime("%Y-%m-%d-%H-%M")
-        dir=self.facePath
-        numberOfFiles = self.get_count_of_files_with_name(date_string,dir)
+        dir = self.facePath
+        numberOfFiles = self.get_count_of_files_with_name(date_string, dir)
         cv2.imwrite(f"{self.facePath}/face_{date_string}-nr-{numberOfFiles+1}.jpg", face);
 
     @exception
     def save_motion(self, movement):
-        date_string = datetime.now().strftime("%Y-%m-%d-%H-%M")
-        numberOfFiles = self.get_count_of_files_with_name(date_string,self.motionPath)
-        fileName=f"movement_{date_string}-nr-{numberOfFiles+1}.jpg"
+        fileName = f"movement_{datetime.now().strftime('%Y-%m-%d-%H-%M')}-nr-"
+        numberOfFiles = self.get_count_of_files_with_name(fileName, self.motionPath)
+        fileName += str((numberOfFiles + 1)) + ".jpg"
         cv2.imwrite(f"{self.motionPath}/{fileName}", movement);
-        self.logger.info(f"{date_string} movement detected. File saved: {fileName}")
+        self.logger.info(f"Movement detected. File saved: {fileName}")
 
     @exception
-    def get_count_of_files_with_name(self, fileName,dir):
+    def get_count_of_files_with_name(self, fileName, dir):
         filesWithFileName = [f for f in listdir(dir) if fileName in f]
         return len(filesWithFileName)
