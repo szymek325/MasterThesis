@@ -16,9 +16,8 @@ class FilesManager:
 
     @exception
     def save_face(self, face, fileName):
-        fileName=fileName.replace("movement", "faces")
-        cv2.imwrite(f"{self.facePath}/{fileName}", face);
-        self.logger.info(f"Faces detected. File saved: {fileName}")
+        cv2.imwrite(f"{self.facePath}/{fileName}.jpg", face);
+        self.logger.info(f"     File saved: {fileName}.jpg")
 
     @exception
     def save_motion(self, movement):

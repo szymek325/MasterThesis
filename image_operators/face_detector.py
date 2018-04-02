@@ -15,6 +15,7 @@ class FaceDetector:
         self.filesManager = FilesManager()
         self.faceCascade = cv2.CascadeClassifier(self.configReader.face_cascade_path)
         self.net = cv2.dnn.readNetFromCaffe(self.configReader.proto_txt, self.configReader.dnn_model)
+        self.wasSomethingDetected = False
 
     @exception
     def run_face_detector(self):
@@ -35,11 +36,17 @@ class FaceDetector:
             os.remove(f"{self.configReader.detectedMotionPath}{fileName}")
 
     def detect_faces_by_dnn(self, fileName, image):
-        wasSomethingDetected = False
-        (h, w) = image.shape[:2]
-        blob = cv2.dnn.blobFromImage(cv2.resize(image, (300, 300)), 1.0, (300, 300), (104.0, 177.0, 123.0))
+        imageToSave = image.copy()
+        self.wasSomethingDetected = False
+        (h, w) = imageToSave.shape[:2]
+        blob = cv2.dnn.blobFromImage(cv2.resize(imageToSave, (300, 300)), 1.0, (300, 300), (104.0, 177.0, 123.0))
         self.net.setInput(blob)
         detections = self.net.forward()
+        self.draw_faces_by_dnn(detections, h, imageToSave, w)
+        if self.wasSomethingDetected:
+            self.filesManager.save_face(imageToSave, fileName.replace(".jpg", "dnn"))
+
+    def draw_faces_by_dnn(self, detections, h, imageToSave, w):
         for i in range(0, detections.shape[2]):
             confidence = detections[0, 0, i, 2]
             if confidence > self.configReader.required_face_confidence:
@@ -47,22 +54,18 @@ class FaceDetector:
                 (startX, startY, endX, endY) = box.astype("int")
                 text = "{:.2f}%".format(confidence * 100)
                 y = startY - 10 if startY - 10 > 10 else startY + 10
-                cv2.rectangle(image, (startX, startY), (endX, endY), (0, 0, 255), 2)
-                cv2.putText(image, text, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
-                wasSomethingDetected = True
-        if wasSomethingDetected:
-            fileName = fileName.replace("movement", "dnn")
-            self.filesManager.save_face(image, fileName)
+                cv2.rectangle(imageToSave, (startX, startY), (endX, endY), (0, 0, 255), 2)
+                cv2.putText(imageToSave, text, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
+                self.wasSomethingDetected = True
 
     def detect_faces_by_haar_method(self, fileName, image):
+        imageToSave = image.copy()
         faces = self.get_faces_from_image_by_haar(image)
         if len(faces) is not 0:
             for face in faces:
                 x, y, w, h = face
-                cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            self.filesManager.save_face(image, fileName)
-        else:
-            self.logger.info("No faces detected")
+                cv2.rectangle(imageToSave, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            self.filesManager.save_face(imageToSave, fileName.replace(".jpg", "_haar"))
 
     def get_faces_from_image_by_haar(self, image):
         imageInGray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
