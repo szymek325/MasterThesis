@@ -19,6 +19,7 @@ class LoggerFactory:
     def info(self, message):
         self.logger.setLevel(logging.INFO)
         self.logger.info(message)
+        print(message)
 
     def error(self, message):
         self.logger.setLevel(logging.ERROR)

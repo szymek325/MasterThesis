@@ -4,6 +4,7 @@ from os import listdir
 from helpers.exception_handler import exception
 
 from helpers.config_reader import ConfigReader
+from helpers.logger_factory import LoggerFactory
 
 
 class FilesManager:
@@ -11,6 +12,7 @@ class FilesManager:
         self.configReader = ConfigReader()
         self.facePath = self.configReader.detectedFaceSavePath
         self.motionPath = self.configReader.detectedMotionPath
+        self.logger= LoggerFactory()
 
     @exception
     def save_face(self, face):
@@ -22,9 +24,10 @@ class FilesManager:
     @exception
     def save_motion(self, movement):
         date_string = datetime.now().strftime("%Y-%m-%d-%H-%M")
-        dir=self.motionPath
-        numberOfFiles = self.get_count_of_files_with_name(date_string,dir)
-        cv2.imwrite(f"{dir}/movement_{date_string}-nr-{numberOfFiles+1}.jpg", movement);
+        numberOfFiles = self.get_count_of_files_with_name(date_string,self.motionPath)
+        fileName=f"movement_{date_string}-nr-{numberOfFiles+1}.jpg"
+        cv2.imwrite(f"{self.motionPath}/{fileName}", movement);
+        self.logger.info(f"{date_string} movement detected. File saved: {fileName}")
 
     @exception
     def get_count_of_files_with_name(self, fileName,dir):
