@@ -10,7 +10,10 @@
   "fps": 16,
   "min_area": 500,
   "detectedMotionPath": "detectedMotion/",
-  "detectedFaceSavePath": "detectedFace",
+  "detectedFaceSavePath": "detectedFace/",
   "piCameraUsed": false,
-  "cameraPort": 0
+  "cameraPort": 0,
+  "face_cascade_path": "opencvFiles/lbpcascade_frontalface_improved.xml",
+  "time_interval_between_processing_files": 60
 }
+

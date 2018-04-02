@@ -33,3 +33,7 @@ class FilesManager:
     def get_count_of_files_with_name(self, fileName, dir):
         filesWithFileName = [f for f in listdir(dir) if fileName in f]
         return len(filesWithFileName)
+
+    def get_unprocessed_files(self):
+        unprocessedFiles = [f for f in listdir(self.motionPath)]
+        return unprocessedFiles

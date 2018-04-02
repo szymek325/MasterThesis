@@ -49,3 +49,11 @@ class ConfigReader:
     @property
     def cameraPort(self):
         return self.configuration["cameraPort"]
+
+    @property
+    def face_cascade_path(self):
+        return self.configuration["face_cascade_path"]
+
+    @property
+    def face_recognition_interval(self):
+        return self.configuration["time_interval_between_processing_files"]
