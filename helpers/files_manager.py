@@ -15,11 +15,10 @@ class FilesManager:
         self.logger = LoggerFactory()
 
     @exception
-    def save_face(self, face):
-        date_string = datetime.now().strftime("%Y-%m-%d-%H-%M")
-        dir = self.facePath
-        numberOfFiles = self.get_count_of_files_with_name(date_string, dir)
-        cv2.imwrite(f"{self.facePath}/face_{date_string}-nr-{numberOfFiles+1}.jpg", face);
+    def save_face(self, face, fileName):
+        fileName=fileName.replace("movement", "faces")
+        cv2.imwrite(f"{self.facePath}/{fileName}", face);
+        self.logger.info(f"Faces detected. File saved: {fileName}")
 
     @exception
     def save_motion(self, movement):

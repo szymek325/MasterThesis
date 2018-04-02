@@ -1,12 +1,14 @@
 import logging
 import datetime
 
+from helpers.singleton import Singleton
 
-class LoggerFactory:
+
+class LoggerFactory(metaclass=Singleton):
 
     def __init__(self):
         self.logger = logging.getLogger('FaceRecognitionLogger')
-        fileHandler= logging.FileHandler(f'Logs/logs_{datetime.date.today()}.log')
+        fileHandler = logging.FileHandler(f'Logs/logs_{datetime.date.today()}.log')
         fileHandler.setLevel(logging.DEBUG)
         streamHandler = logging.StreamHandler()
         streamHandler.setLevel(logging.ERROR)

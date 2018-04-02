@@ -19,7 +19,7 @@ class FaceDetector():
         while True:
             filesToProcess = self.filesManager.get_unprocessed_files()
             if len(filesToProcess) is 0:
-                self.logger("No files to process detected, going into sleep")
+                self.logger.info("No files to process detected, going into sleep")
                 time.sleep(self.configReader.face_recognition_interval)
             else:
                 self.process_files(filesToProcess)
@@ -33,8 +33,7 @@ class FaceDetector():
                 for face in faces:
                     x, y, w, h = face
                     cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                self.filesManager.save_face(image)
-                self.logger.info("Faces was detected")
+                self.filesManager.save_face(image, fileName)
             else:
                 self.logger.info("No faces detected")
             os.remove(f"{self.configReader.detectedMotionPath}{fileName}")
