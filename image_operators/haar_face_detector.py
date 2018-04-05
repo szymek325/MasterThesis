@@ -12,16 +12,7 @@ class HaarFaceDetector:
         self.faceCascade = cv2.CascadeClassifier(self.configReader.face_cascade_path)
 
     @exception
-    def detect_faces(self, fileName, image):
-        imageToSave = image.copy()
-        faces = self.get_faces_from_source_image(image)
-        if len(faces) is not 0:
-            for face in faces:
-                x, y, w, h = face
-                cv2.rectangle(imageToSave, (x, y), (x + w, y + h), (0, 255, 0), 2)
-            self.filesManager.save_face(imageToSave, fileName.replace(".jpg", "_haar"))
-
-    def get_faces_from_source_image(self, image):
+    def detect_faces(self, image):
         imageInGray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         faces = self.faceCascade.detectMultiScale(imageInGray, scaleFactor=1.2, minNeighbors=1)
         return faces

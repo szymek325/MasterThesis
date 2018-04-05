@@ -21,7 +21,7 @@ class FilesManager:
 
     @exception
     def save_motion(self, movement):
-        fileName = f"movement_{datetime.now().strftime('%Y-%m-%d-%H-%M')}-nr-"
+        fileName = f"movement_{datetime.now().strftime('%Y-%m-%d-%H-%M')}_nr-"
         numberOfFiles = self.get_count_of_files_with_name(fileName, self.motionPath)
         fileName += str((numberOfFiles + 1)) + ".jpg"
         cv2.imwrite(f"{self.motionPath}/{fileName}", movement);
