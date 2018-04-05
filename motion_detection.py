@@ -1,4 +1,4 @@
-from image_operators.movement_detector import MovementDetector
+from runners.movement_detector_runner import MovementDetectorRunner
 
-motion_detector = MovementDetector()
-motion_detector.detect_motion()
+motion_detector = MovementDetectorRunner()
+motion_detector.detect_motion_on_video()

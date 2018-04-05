@@ -17,6 +17,7 @@
   "time_interval_between_processing_files": 60,
   "proto_txt": "opencvFiles/deploy.prototxt.txt",
   "dnn_model": "opencvFiles/res10_300x300_ssd_iter_140000.caffemodel",
-  "required_face_confidence": 0.5
+  "required_face_confidence": 0.5,
+  "mark_frame_with_detected_movement" : true
 }
 

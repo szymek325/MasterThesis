@@ -69,3 +69,7 @@ class ConfigReader:
     @property
     def required_face_confidence(self):
         return self.configuration["required_face_confidence"]
+
+    @property
+    def mark_frame_with_detected_movement(self):
+        return self.configuration["mark_frame_with_detected_movement"]
