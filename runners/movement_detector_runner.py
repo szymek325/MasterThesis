@@ -23,16 +23,21 @@ class MovementDetectorRunner:
     def detect_motion_on_video(self):
         self.__init_camera__()
         while True:
+            self.stateOfRoom = "Unoccupied"
             grabbed, frame = self.camera.read()
 
             if not grabbed:
                 self.logger.error("Camera didn't grab a frame, raising error")
                 break
 
-            self.stateOfRoom = self.movementDetector.detect_motion(frame)
+            movements = self.movementDetector.detect_motion(frame)
+            if len(movements) is not 0:
+                self.stateOfRoom = "Occupied"
 
-            if self.configReader.mark_frame_with_detected_movement:
+            if self.configReader.movement_timestamp:
                 self.__mark_frame__(frame)
+            if self.configReader.movement_marking:
+                self.__draw_contour__(movements, frame)
 
             self.__save_frame_if_room_is_occupied__(frame)
 
@@ -73,8 +78,8 @@ class MovementDetectorRunner:
         cv2.putText(frame, f"Room Status: {self.stateOfRoom}", (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
         cv2.putText(frame, ts, (10, frame.shape[0] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
 
-
     @staticmethod
-    def __draw_contour__(c, frame):
-        (x, y, w, h) = cv2.boundingRect(c)
-        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+    def __draw_contour__(contours, frame):
+        for c in contours:
+            (x, y, w, h) = cv2.boundingRect(c)
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)

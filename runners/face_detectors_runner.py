@@ -31,7 +31,7 @@ class FaceDetectorsRunner:
         for fileName in files:
             self.logger.info(f"File: {fileName} loaded for processing")
             image = cv2.imread(f"{self.configReader.detectedMotionPath}{fileName}")
-            faces_detected_by_Haar = self.haarDetector.detect_faces(image)
+            faces_detected_by_Haar = self.haarDetector.run_detector(image)
             faces_detected_by_Dnn = self.dnnDetector.run_detector(image)
             self.logger.info(f"Faces detected by "
                              f"\n   Haar: {faces_detected_by_Haar}"

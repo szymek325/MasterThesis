@@ -71,5 +71,9 @@ class ConfigReader:
         return self.configuration["required_face_confidence"]
 
     @property
-    def mark_frame_with_detected_movement(self):
-        return self.configuration["mark_frame_with_detected_movement"]
+    def movement_timestamp(self):
+        return self.configuration["movement_timestamp"]
+
+    @property
+    def movement_marking(self):
+        return self.configuration["movement_marking"]

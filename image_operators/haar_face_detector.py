@@ -12,7 +12,7 @@ class HaarFaceDetector:
         self.faceCascade = cv2.CascadeClassifier(self.configReader.face_cascade_path)
 
     @exception
-    def detect_faces(self, image):
+    def run_detector(self, image):
         imageInGray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         faces = self.faceCascade.detectMultiScale(imageInGray, scaleFactor=1.2, minNeighbors=1)
         return faces
