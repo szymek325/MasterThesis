@@ -83,3 +83,8 @@ class MovementDetectorRunner:
         for c in contours:
             (x, y, w, h) = cv2.boundingRect(c)
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+
+if __name__ == "__main__":
+    motion_detector = MovementDetectorRunner()
+    motion_detector.detect_motion_on_video()

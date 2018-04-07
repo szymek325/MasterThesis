@@ -1,4 +1,0 @@
-from runners.face_detectors_runner import FaceDetectorsRunner
-
-face_detector = FaceDetectorsRunner()
-face_detector.run_face_detector_on_motion_detector_pictures()
