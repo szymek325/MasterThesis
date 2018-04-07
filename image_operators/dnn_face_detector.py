@@ -14,14 +14,18 @@ class DnnFaceDetector:
 
     @exception
     def run_detector(self, image):
+        """
+        :param image: loaded by cv2.imread
+        :return:list of  startX, startY, endX, endY
+        """
         self.wasSomethingDetected = False
         (h, w) = image.shape[:2]
         blob = cv2.dnn.blobFromImage(cv2.resize(image, (300, 300)), 1.0, (300, 300), (104.0, 177.0, 123.0))
         self.net.setInput(blob)
         detections = self.net.forward()
-        return self.detect_faces(detections, h, w)
+        return self.__detect_faces__(detections, h, w)
 
-    def detect_faces(self, detections, h, w):
+    def __detect_faces__(self, detections, h, w):
         faces = []
         for i in range(0, detections.shape[2]):
             confidence = detections[0, 0, i, 2]

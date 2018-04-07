@@ -14,6 +14,10 @@ class MovementDetector:
 
     @exception
     def detect_motion(self, frame):
+        """
+        :param: image/frame: cv.imread
+        :return: contours: list of contours of movement
+        """
         frame = imutils.resize(frame, width=500)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         gray = cv2.GaussianBlur(gray, (21, 21), 0)

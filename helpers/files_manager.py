@@ -1,6 +1,6 @@
 from datetime import datetime
 import cv2
-from os import listdir
+from os import listdir, path
 from helpers.exception_handler import exception
 
 from helpers.config_reader import ConfigReader
@@ -35,3 +35,7 @@ class FilesManager:
     def get_unprocessed_files(self):
         unprocessedFiles = [f for f in listdir(self.motionPath)]
         return unprocessedFiles
+
+    def get_faces_filepaths(self):
+        imagePaths = [path.join(self.facePath, f) for f in listdir(self.facePath)]
+        return imagePaths
