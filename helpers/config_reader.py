@@ -77,3 +77,11 @@ class ConfigReader:
     @property
     def movement_marking(self):
         return self.configuration["movement_marking"]
+
+    @property
+    def training_data(self):
+        return self.configuration["training_data"]
+
+    @property
+    def openCv_files_path(self):
+        return self.configuration["openCv_files_path"]

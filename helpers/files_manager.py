@@ -12,6 +12,7 @@ class FilesManager:
         self.configReader = ConfigReader()
         self.facePath = self.configReader.detectedFaceSavePath
         self.motionPath = self.configReader.detectedMotionPath
+        self.trainingDataPath = self.configReader.training_data
         self.logger = LoggerFactory()
 
     @exception
@@ -36,6 +37,6 @@ class FilesManager:
         unprocessedFiles = [f for f in listdir(self.motionPath)]
         return unprocessedFiles
 
-    def get_faces_filepaths(self):
-        imagePaths = [path.join(self.facePath, f) for f in listdir(self.facePath)]
+    def get_training_data(self):
+        imagePaths = [path.join(self.trainingDataPath, f) for f in listdir(self.trainingDataPath)]
         return imagePaths

@@ -40,6 +40,7 @@ class FaceDetectorsRunner:
             naming = fileName.split('_')
             number = naming[2].split('.')[0]
             self.filesManager.save_face(newImage, f"faces_{naming[1]}_{number}")
+
             os.remove(f"{self.configReader.detectedMotionPath}{fileName}")
 
     def __draw_faces__(self, sourceImage, haarFaces, dnnFaces):
