@@ -46,8 +46,8 @@ class FaceDetectorsRunner:
     def __draw_faces__(self, sourceImage, haarFaces, dnnFaces):
         if len(haarFaces) is not 0:
             for face in haarFaces:
-                x, y, w, h = face
-                cv2.rectangle(sourceImage, (x, y), (x + w, y + h), (0, 255, 0), 2)  # green
+                startX, startY, endX, endY = face
+                cv2.rectangle(sourceImage, (startX, startY), (endX, endY), (0, 255, 0), 2)  # green
         if len(dnnFaces) is not 0:
             for face in dnnFaces:
                 startX, startY, endX, endY = face

@@ -26,9 +26,8 @@ class FaceRecognitionTrainer:
             pilImage = Image.open(imagePath).convert("RGB")
             opencvImage = cv2.cvtColor(np.array(pilImage), cv2.COLOR_RGB2BGR)
             faces = self.faceDetector.run_detector(opencvImage)
-            faceId=int(os.path.split(imagePath)[1].split("_")[0].replace("subject", "").replace(".jpg",""))
-            print(f"{faceId}")
             if len(faces) is not 0:
+                faceId = int(os.path.split(imagePath)[1].split("_")[0].replace("subject", "").replace(".jpg", ""))
                 imageNp = np.array(pilImage.convert('L'), 'uint8')
                 for (startX, startY, endX, endY) in faces:
                     faceSamples.append(imageNp[startY:endY, startX:endX])

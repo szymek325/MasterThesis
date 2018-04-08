@@ -15,8 +15,9 @@ class HaarFaceDetector:
     def run_detector(self, image):
         """
         :param image: loaded by cv2.imread
-        :return: list of  posX, posY, width, height
+        :return: list of  startX, startY, endX, endY
         """
         imageInGray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         faces = self.faceCascade.detectMultiScale(imageInGray, scaleFactor=1.2, minNeighbors=1)
-        return faces
+        newFaces = [(x, y, x + w, y + h) for x, y, w, h in faces]
+        return newFaces
