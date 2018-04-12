@@ -1,10 +1,7 @@
-﻿using System;
-using System.Reflection;
-using DataLayer.Implementation.Entities;
+﻿using DataLayer.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 
-namespace DataLayer.Implementation
+namespace DataLayer
 {
     public class MasterContext : DbContext
     {
@@ -18,27 +15,6 @@ namespace DataLayer.Implementation
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<FaceRecognitionJob>().ToTable(nameof(FaceRecognitionJob));
-        }
-    }
-
-
-    public class TemporaryDbContextFactory : IDesignTimeDbContextFactory<MasterContext>
-    {
-        //public MasterContext CreateDbContext(string[] args)
-        //{
-        //    Console.WriteLine("dupa1");
-        //    var builder = new DbContextOptionsBuilder<MasterContext>();
-        //    builder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=TestDb;Trusted_Connection=True;ConnectRetryCount=0",
-        //        optionsBuilder => optionsBuilder.MigrationsAssembly(typeof(MasterContext).GetTypeInfo().Assembly.GetName().Name));
-        //    return new MasterContext(builder.Options);
-        //}
-
-        MasterContext IDesignTimeDbContextFactory<MasterContext>.CreateDbContext(string[] args)
-        {
-            var builder = new DbContextOptionsBuilder<MasterContext>();
-            builder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=TestDb;Trusted_Connection=True;ConnectRetryCount=0",
-                optionsBuilder => optionsBuilder.MigrationsAssembly(typeof(MasterContext).GetTypeInfo().Assembly.GetName().Name));
-            return new MasterContext(builder.Options);
         }
     }
 }

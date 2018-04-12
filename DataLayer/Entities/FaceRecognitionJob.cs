@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DataLayer.Implementation.Entities
+namespace DataLayer.Entities
 {
     public class FaceRecognitionJob
     {
