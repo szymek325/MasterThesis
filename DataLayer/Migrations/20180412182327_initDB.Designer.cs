@@ -11,8 +11,8 @@ using System;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(MasterContext))]
-    [Migration("20180412174242_Init")]
-    partial class Init
+    [Migration("20180412182327_initDB")]
+    partial class initDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

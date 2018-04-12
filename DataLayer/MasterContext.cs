@@ -24,19 +24,17 @@ namespace DataLayer.Implementation
 
     public class TemporaryDbContextFactory : IDesignTimeDbContextFactory<MasterContext>
     {
-        public MasterContext CreateDbContext(string[] args)
-        {
-            Console.WriteLine("dupa1");
-            var builder = new DbContextOptionsBuilder<MasterContext>();
-            builder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=TestDb;Trusted_Connection=True;ConnectRetryCount=0",
-                optionsBuilder => optionsBuilder.MigrationsAssembly(typeof(MasterContext).GetTypeInfo().Assembly.GetName().Name));
-            return new MasterContext(builder.Options);
-        }
+        //public MasterContext CreateDbContext(string[] args)
+        //{
+        //    Console.WriteLine("dupa1");
+        //    var builder = new DbContextOptionsBuilder<MasterContext>();
+        //    builder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=TestDb;Trusted_Connection=True;ConnectRetryCount=0",
+        //        optionsBuilder => optionsBuilder.MigrationsAssembly(typeof(MasterContext).GetTypeInfo().Assembly.GetName().Name));
+        //    return new MasterContext(builder.Options);
+        //}
 
         MasterContext IDesignTimeDbContextFactory<MasterContext>.CreateDbContext(string[] args)
         {
-            Console.WriteLine("dupa2");
-            Console.WriteLine(string.Join(' ',args));
             var builder = new DbContextOptionsBuilder<MasterContext>();
             builder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=TestDb;Trusted_Connection=True;ConnectRetryCount=0",
                 optionsBuilder => optionsBuilder.MigrationsAssembly(typeof(MasterContext).GetTypeInfo().Assembly.GetName().Name));
