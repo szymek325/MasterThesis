@@ -1,0 +1,43 @@
+.phototable {
+    background: #eee;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.photo {
+    margin: 10px 0;
+    width: 120px;
+    background: white;
+    padding: 10px;
+    opacity: 0.7;
+    border-radius: 5px;
+    border: 1px solid silver;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    
+
+    will-change: transform;
+    align-items: flex-start;
+}
+
+.photo img {
+    flex-basis: 100%;
+    width: 100px;
+}
+
+.photo figcaption {
+    margin-top: 10px;
+}
+
+.photo:nth-child(even) {
+
+}
+
+.photo:hover {
+    opacity: 1;
+    transform: scale(2);
+}
