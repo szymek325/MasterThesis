@@ -3,13 +3,13 @@ import numpy
 from helpers.config_reader import ConfigReader
 from helpers.exception_handler import exception
 from helpers.files_manager import FilesManager
-
+import os
 
 class DnnFaceDetector:
     def __init__(self):
         self.configReader = ConfigReader()
         self.filesManager = FilesManager()
-        self.net = cv2.dnn.readNetFromCaffe(self.configReader.proto_txt, self.configReader.dnn_model)
+        self.net = cv2.dnn.readNetFromCaffe(os.path.abspath(self.configReader.proto_txt),os.path.abspath(self.configReader.dnn_model) )
         self.wasSomethingDetected = False
 
     @exception

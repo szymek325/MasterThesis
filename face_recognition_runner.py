@@ -24,7 +24,7 @@ class FaceRecognitionRunner:
             pilImage = Image.open(imagePath).convert("RGB")
             opencvImage = cv2.cvtColor(np.array(pilImage), cv2.COLOR_RGB2BGR)
             faceId = int(os.path.split(imagePath)[1].split("_")[0].replace("subject", "").replace(".jpg", ""))
-            self.faceRecognizer.recognize_face(opencvImage, faceId)
+            self.faceRecognizer.recognize_face_and_print_result(opencvImage, faceId)
 
 
 if __name__ == "__main__":
