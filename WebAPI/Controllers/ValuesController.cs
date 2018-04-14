@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DataLayer.Repositories.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -7,11 +8,13 @@ namespace WebAPI.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        private readonly IFaceRecognitionJobRepository jobsRepo;
         private readonly ILogger<ValuesController> logger;
 
-        public ValuesController(ILogger<ValuesController> logger)
+        public ValuesController(ILogger<ValuesController> logger, IFaceRecognitionJobRepository jobsRepo)
         {
             this.logger = logger;
+            this.jobsRepo = jobsRepo;
         }
 
 
@@ -19,6 +22,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            jobsRepo.Get(x => x.Id == 2);
             return new[] {"value1", "value2"};
         }
 
