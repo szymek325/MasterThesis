@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -14,7 +14,8 @@ import { HomeControlComponent } from "./components/control/homecontrol.component
 import { SensorTableComponent } from "./components/readings/sensorstable.component";
 import { SensorDataComponent } from "./components/readings/sensordata.component";
 import { CounterComponent } from "./components/counter/counter.component";
-import { AttachmentListComponent } from './components/attachment-list/attachment-list.component';
+import { AttachmentListComponent } from "./components/attachment-list/attachment-list.component";
+import { FormdataUploadComponent } from "./components/formdata-upload/formdata-upload.component";
 
 @NgModule({
     declarations: [
@@ -28,9 +29,11 @@ import { AttachmentListComponent } from './components/attachment-list/attachment
         HomeControlComponent,
         SensorTableComponent,
         SensorDataComponent,
-        AttachmentListComponent
+        AttachmentListComponent,
+        FormdataUploadComponent
     ],
     imports: [
+        ReactiveFormsModule,
         CommonModule,
         HttpClientModule,
         FormsModule,
@@ -43,7 +46,8 @@ import { AttachmentListComponent } from './components/attachment-list/attachment
             { path: "accesscontrol", component: AccessControlComponent },
             { path: "homecontrol", component: HomeControlComponent },
             { path: "sensordata", component: SensorDataComponent },
-            { path: "attachments", component: AttachmentListComponent }
+            { path: "attachments", component: AttachmentListComponent },
+            { path: "formdata-upload", component: FormdataUploadComponent }
         ])
     ],
 })
