@@ -2,34 +2,49 @@ import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 
+var inputElement: HTMLInputElement;
+
 @Component({
     selector: 'attachment-list',
     styleUrls: ['./attachment-list.component.css'],
     templateUrl: './attachment-list.component.html'
 })
 export class AttachmentListComponent {
+    files: any;
+    formData: any;
     constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
-    upload(event: Event) {
-        const inputElement = <HTMLInputElement>(event.srcElement || event.target);
-        const files = inputElement.files;
+    add(event: Event) {
+        inputElement = <HTMLInputElement>(event.srcElement || event.target);
+        this.files = inputElement.files;
 
-        if (!files) return;
+        if (!this.files) return;
 
-        const formData = new FormData();
-        for (var index = 0; index < files.length; index++) {
-            const file = files[index];
-            formData.set(file.name, file);
+        this.formData = new FormData();
+        for (var index = 0; index < this.files.length; index++) {
+            const file = this.files[index];
+            this.formData.set(file.name, file);
         }
 
-        console.log(formData);
+        console.log(this.formData);
+    }
 
-        this.httpClient.post<{ contents: string }>(this.baseUrl + 'upload', formData)
+    upload() {
+        this.httpClient.post<{ contents: string }>(this.baseUrl + 'upload', this.formData)
             .subscribe(
-                response => console.log(response),
+            response => {
+                console.log(response);
+                this.clearFiles();
+            },
                 error => console.log(error));
+    }
 
-        // Clear the value to allow uploading the same file again.
+    clearFiles() {
         inputElement.value = '';
     }
+}
+
+interface IFile {
+    name: string;
+    file: File;
 }

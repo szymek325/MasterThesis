@@ -1,4 +1,10 @@
 <h1>Attachments</h1>
+<div *ngFor="let file of files">
+    <button class="btn btn-default">{{file.name}}</button>
+</div>
+
 <label class="btn btn-primary">
-    Upload <input type="file" multiple hidden (change)="upload($event)">
+    add files <input type="file" multiple hidden (change)="add($event)">
 </label>
+<button type="button" class="btn btn-default" (click)="clearFiles()">clear file</button>
+<button type="button" class="btn btn-default" (click)="upload()">upload</button>
