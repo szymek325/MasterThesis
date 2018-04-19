@@ -1,5 +1,5 @@
 ﻿import {Component, Inject} from '@angular/core';
-import {Http} from "@angular/http";
+import {HttpClient} from "@angular/common/http";
 
 
 @Component({
@@ -27,11 +27,11 @@ import {Http} from "@angular/http";
     styleUrls: ['./sensordata.component.css']
 })
 export class SensorTableComponent {
-    public sensors: Sensor[];
+    sensors!: Sensor[];
 
-    constructor(http: Http, @Inject('BASE_URL') baseUrl: string) {
+    constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
         http.get(baseUrl + 'api/SensorDataController/GetSensors').subscribe(result => {
-            this.sensors = result.json() as Sensor[];
+            this.sensors = result as Sensor[];
         }, error => console.error(error));
     }
 }

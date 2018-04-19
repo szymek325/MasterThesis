@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from "./components/app/app.component";
@@ -14,6 +14,7 @@ import { HomeControlComponent } from "./components/control/homecontrol.component
 import { SensorTableComponent } from "./components/readings/sensorstable.component";
 import { SensorDataComponent } from "./components/readings/sensordata.component";
 import { CounterComponent } from "./components/counter/counter.component";
+import { AttachmentListComponent } from './components/attachment-list/attachment-list.component';
 
 @NgModule({
     declarations: [
@@ -26,11 +27,12 @@ import { CounterComponent } from "./components/counter/counter.component";
         AccessControlComponent,
         HomeControlComponent,
         SensorTableComponent,
-        SensorDataComponent
+        SensorDataComponent,
+        AttachmentListComponent
     ],
     imports: [
         CommonModule,
-        HttpModule,
+        HttpClientModule,
         FormsModule,
         RouterModule.forRoot([
             { path: "", redirectTo: "home", pathMatch: "full" },

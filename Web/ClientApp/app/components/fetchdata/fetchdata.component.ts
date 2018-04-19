@@ -1,25 +1,25 @@
 import { Component, Inject } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'fetchdata',
     templateUrl: './fetchdata.component.html'
 })
 export class FetchDataComponent {
-    public forecasts: WeatherForecast[];
-    public rooms: Room[];
+    forecasts!: WeatherForecast[];
+    rooms!: Room[];
 
-    constructor(http: Http, @Inject('BASE_URL') baseUrl: string) {
+    constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
         http.get(baseUrl + 'api/SampleData/WeatherForecasts').subscribe(result => {
-            this.forecasts = result.json() as WeatherForecast[];
+            this.forecasts = result as WeatherForecast[];
         }, error => console.error(error));
 
         http.get(baseUrl + 'api/SensorDataController/GetRooms').subscribe(result => {
-            this.rooms = result.json() as Room[];
+            this.rooms = result as Room[];
         }, error => console.error(error));
 
-
     }
+
 }
 
 interface WeatherForecast {
