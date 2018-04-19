@@ -42,7 +42,8 @@ import { AttachmentListComponent } from './components/attachment-list/attachment
             { path: "activities", component: ActivitiesComponent },
             { path: "accesscontrol", component: AccessControlComponent },
             { path: "homecontrol", component: HomeControlComponent },
-            { path: "sensordata", component: SensorDataComponent }
+            { path: "sensordata", component: SensorDataComponent },
+            { path: "attachments", component: AttachmentListComponent }
         ])
     ],
 })
