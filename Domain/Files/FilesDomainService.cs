@@ -30,7 +30,11 @@ namespace Domain.Files
         public async Task<FileToUpload> Download(string path,string fileName)
         {
             var file = await filesManager.DownloadAsStream(path, fileName);
-            var fileToDownload = mapper.Map<FileToUpload>(file);
+            var fileToDownload = new FileToUpload
+            {
+                FileStream = file,
+                FileName = fileName
+            };
             return fileToDownload;
         }
 
