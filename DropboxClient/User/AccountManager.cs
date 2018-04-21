@@ -2,16 +2,20 @@
 using Dropbox.Api;
 using Dropbox.Api.Users;
 using DropboxIntegration.Client;
+using Microsoft.Extensions.Logging;
 
 namespace DropboxIntegration.User
 {
     public class AccountManager : IAccountManager
     {
         private readonly DropboxClient dbClient;
+        private readonly ILogger logger;
 
-        public AccountManager()
+        public AccountManager(ILogger logger)
         {
+            this.logger = logger;
             dbClient = DropboxClientFactory.GetDropboxClient();
+
         }
 
         public async Task<FullAccount> GetAccountDataAsync()

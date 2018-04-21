@@ -2,6 +2,7 @@
 using Domain.Providers;
 using DropboxIntegration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Domain
 {
@@ -11,6 +12,7 @@ namespace Domain
         {
             services.AddDropboxConnector();
             services.AddDataLayerModule();
+            services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
 
             services.AddTransient<IFaceRecognitionJobProvider, FaceRecognitionJobProvider>();
             return services;
