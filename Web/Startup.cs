@@ -1,4 +1,5 @@
 using DataLayer;
+using Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -27,9 +28,10 @@ namespace Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDbContext<MasterContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                    x => x.MigrationsAssembly("DataLayer")));
+            services.AddDomainModule();
+            //services.AddDbContext<MasterContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+            //        x => x.MigrationsAssembly("DataLayer")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
