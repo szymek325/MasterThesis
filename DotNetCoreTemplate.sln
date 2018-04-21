@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer", "DataLayer\Data
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{59A4835B-972C-4558-A1FA-67287A9C1B63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropboxClient", "DropboxClient\DropboxClient.csproj", "{5992707F-A1EE-4543-B78C-EFB1D76B60DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DropboxIntegration", "DropboxClient\DropboxIntegration.csproj", "{5992707F-A1EE-4543-B78C-EFB1D76B60DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{57356DF6-EF05-4793-8E1C-1261630D90A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{57356DF6-EF05-4793-8E1C-1261630D90A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppForTestingPurposes", "ConsoleAppForTestingPurposes\ConsoleAppForTestingPurposes.csproj", "{46FFCF07-4445-458A-952C-6B0C47A164A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,12 @@ Global
 		{57356DF6-EF05-4793-8E1C-1261630D90A6}.gearHost|Any CPU.Build.0 = Debug|Any CPU
 		{57356DF6-EF05-4793-8E1C-1261630D90A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57356DF6-EF05-4793-8E1C-1261630D90A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46FFCF07-4445-458A-952C-6B0C47A164A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46FFCF07-4445-458A-952C-6B0C47A164A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46FFCF07-4445-458A-952C-6B0C47A164A6}.gearHost|Any CPU.ActiveCfg = Debug|Any CPU
+		{46FFCF07-4445-458A-952C-6B0C47A164A6}.gearHost|Any CPU.Build.0 = Debug|Any CPU
+		{46FFCF07-4445-458A-952C-6B0C47A164A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46FFCF07-4445-458A-952C-6B0C47A164A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

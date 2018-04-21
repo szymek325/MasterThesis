@@ -1,7 +1,6 @@
 ﻿using DataLayer;
-using DataLayer.Repositories.Interface;
 using Domain.Providers;
-using DropboxClient;
+using DropboxIntegration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Domain
