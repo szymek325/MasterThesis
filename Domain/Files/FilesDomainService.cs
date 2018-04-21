@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using DropboxIntegration.Files;
+using DropboxIntegration.Files.DTO;
 using Microsoft.Extensions.Logging;
 
 namespace Domain.Files
 {
-    public class FilesDomainService:IFilesDomainService
+    public class FilesDomainService : IFilesDomainService
     {
         private readonly IFilesManager filesManager;
         private readonly ILogger<FilesDomainService> logger;
@@ -19,9 +17,10 @@ namespace Domain.Files
             this.logger = logger;
         }
 
-        public async Task Upload(Stream formFileCollection)
+        public async Task Upload(IEnumerable<FileToUpload> files)
         {
-            await filesManager.Upload("/reco", "file1", formFileCollection);
+            foreach (var fileToUpload in files)
+                await filesManager.Upload("/reco", fileToUpload.FileName, fileToUpload.FileStream);
         }
     }
 }

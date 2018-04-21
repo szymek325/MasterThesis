@@ -1,10 +1,11 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using DropboxIntegration.Files.DTO;
 
 namespace Domain.Files
 {
     public interface IFilesDomainService
     {
-        Task Upload(Stream formFileCollection);
+        Task Upload(IEnumerable<FileToUpload> files);
     }
 }
