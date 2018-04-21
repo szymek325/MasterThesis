@@ -1,3 +1,4 @@
+using AutoMapper;
 using DataLayer;
 using Domain;
 using Microsoft.AspNetCore.Builder;
@@ -23,6 +24,7 @@ namespace Web
         {
             services.AddMvc();
             services.AddDomainModule();
+            services.AddAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +55,7 @@ namespace Web
                     "spa-fallback",
                     new {controller = "Home", action = "Index"});
             });
+
         }
     }
 }
