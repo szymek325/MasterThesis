@@ -1,4 +1,6 @@
 ﻿using DataLayer;
+using DataLayer.Repositories.Interface;
+using Domain.Providers;
 using DropboxClient;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +12,8 @@ namespace Domain
         {
             services.AddDropboxConnector();
             services.AddDataLayerModule();
+
+            services.AddTransient<IFaceRecognitionJobProvider, FaceRecognitionJobProvider>();
             return services;
         }
     }
