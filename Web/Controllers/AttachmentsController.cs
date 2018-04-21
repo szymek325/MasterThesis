@@ -34,14 +34,11 @@ namespace Web.Controllers
             return Ok(new {count = files.Count()});
         }
 
-        //[HttpGet("/getFile")]
-        //public async Task<IActionResult> GetFile(IFormCollection collections)
-        //{
-        //    var files = mapper.Map<IEnumerable<FileToUpload>>(collections.Files);
-        //    await filesService.Upload(files);
-
-
-        //    return Ok(new { count = files.Count() });
+        [HttpGet("/getFile")]
+        public async Task<IActionResult> GetFile(string name)
+        {
+            var file=await filesService.Download("/reco",name);
+            return File(file.FileStream, file.FileName);
         }
     }
 }
