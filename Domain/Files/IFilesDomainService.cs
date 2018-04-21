@@ -7,5 +7,6 @@ namespace Domain.Files
     public interface IFilesDomainService
     {
         Task Upload(IEnumerable<FileToUpload> files);
+        Task<FileToUpload> Download(string path, string fileName);
     }
 }

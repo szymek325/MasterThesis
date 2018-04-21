@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Dropbox.Api;
 using Dropbox.Api.Users;
-using DropboxIntegration.Client;
+using DropboxIntegration.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace DropboxIntegration.User

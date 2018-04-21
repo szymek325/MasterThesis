@@ -6,6 +6,7 @@ namespace DropboxIntegration.Files
     public interface IFilesManager
     {
         Task Upload(string folder, string file, Stream content);
-        Task<string> Download(string folder, string file);
+        Task<string> DownloadAsString(string folder, string file);
+        Task<Stream> DownloadAsStream(string folder, string file);
     }
 }

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using Dropbox.Api;
 using Dropbox.Api.Files;
-using DropboxIntegration.Client;
+using DropboxIntegration.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace DropboxIntegration.Files
@@ -29,10 +28,17 @@ namespace DropboxIntegration.Files
             Console.WriteLine($"Saved {folder}/{file} rev {updated.Rev}");
         }
 
-        public async Task<string> Download(string folder, string file)
+        public async Task<string> DownloadAsString(string folder, string file)
         {
             var response = await dbxClient.Files.DownloadAsync(folder + "/" + file);
             var fileMetadata = await response.GetContentAsStringAsync();
+            return fileMetadata;
+        }
+
+        public async Task<Stream> DownloadAsStream(string folder, string file)
+        {
+            var response = await dbxClient.Files.DownloadAsync(folder + "/" + file);
+            var fileMetadata = await response.GetContentAsStreamAsync();
             return fileMetadata;
         }
     }

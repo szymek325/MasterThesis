@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Domain.Files.DTO;
 using DropboxIntegration.Files;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 
 namespace Domain.Files
@@ -10,11 +12,13 @@ namespace Domain.Files
     {
         private readonly IFilesManager filesManager;
         private readonly ILogger<FilesDomainService> logger;
+        private readonly IMapper mapper;
 
-        public FilesDomainService(IFilesManager filesManager, ILogger<FilesDomainService> logger)
+        public FilesDomainService(IFilesManager filesManager, ILogger<FilesDomainService> logger, IMapper mapper)
         {
             this.filesManager = filesManager;
             this.logger = logger;
+            this.mapper = mapper;
         }
 
         public async Task Upload(IEnumerable<FileToUpload> files)
@@ -22,5 +26,13 @@ namespace Domain.Files
             foreach (var fileToUpload in files)
                 await filesManager.Upload("/reco", fileToUpload.FileName, fileToUpload.FileStream);
         }
+
+        public async Task<FileToUpload> Download(string path,string fileName)
+        {
+            var file = await filesManager.DownloadAsStream(path, fileName);
+            var fileToDownload = mapper.Map<FileToUpload>(file);
+            return fileToDownload;
+        }
+
     }
 }
