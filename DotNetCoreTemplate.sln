@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DropboxIntegration", "Dropb
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{57356DF6-EF05-4793-8E1C-1261630D90A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppForTestingPurposes", "ConsoleAppForTestingPurposes\ConsoleAppForTestingPurposes.csproj", "{46FFCF07-4445-458A-952C-6B0C47A164A6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,12 +42,6 @@ Global
 		{57356DF6-EF05-4793-8E1C-1261630D90A6}.gearHost|Any CPU.Build.0 = Debug|Any CPU
 		{57356DF6-EF05-4793-8E1C-1261630D90A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57356DF6-EF05-4793-8E1C-1261630D90A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{46FFCF07-4445-458A-952C-6B0C47A164A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{46FFCF07-4445-458A-952C-6B0C47A164A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{46FFCF07-4445-458A-952C-6B0C47A164A6}.gearHost|Any CPU.ActiveCfg = Debug|Any CPU
-		{46FFCF07-4445-458A-952C-6B0C47A164A6}.gearHost|Any CPU.Build.0 = Debug|Any CPU
-		{46FFCF07-4445-458A-952C-6B0C47A164A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{46FFCF07-4445-458A-952C-6B0C47A164A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

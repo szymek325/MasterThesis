@@ -1,5 +1,9 @@
-﻿using System.Threading.Tasks;
-using Domain.Providers;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
+using Domain.Files;
+using Domain.Files.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -8,32 +12,33 @@ namespace Web.Controllers
 {
     public class AttachmentsController : Controller
     {
-        private readonly IFaceRecognitionJobProvider faceProvider;
+        private readonly IFilesDomainService filesService;
         private readonly ILogger<AttachmentsController> logger;
+        private readonly IMapper mapper;
 
-
-        public AttachmentsController(IFaceRecognitionJobProvider faceProvider, ILogger<AttachmentsController> logger)
+        public AttachmentsController(IFilesDomainService filesService, ILogger<AttachmentsController> logger,
+            IMapper mapper)
         {
-            this.faceProvider = faceProvider;
+            this.filesService = filesService;
             this.logger = logger;
+            this.mapper = mapper;
         }
 
         [HttpPost("/upload")]
         public async Task<IActionResult> UploadAsync(IFormCollection collections)
         {
-            var f = collections.Files;
+            var files = mapper.Map<IEnumerable<FileToUpload>>(collections.Files);
+            await filesService.Upload(files);
 
-            foreach (var file in f)
-            {
-                //....
-            }
 
-            logger.LogDebug($"{f.Count} files received");
-            var cos = faceProvider.GetAll();
-            // process uploaded files
-            // Don't rely on or trust the FileName property without validation.
+            return Ok(new {count = files.Count()});
+        }
 
-            return Ok(new {count = f.Count});
+        [HttpGet("/getFile")]
+        public async Task<IActionResult> GetFile(string name)
+        {
+            var file = await filesService.Download("/reco", "winnn.png");
+            return File(file.FileStream, "application/octet-stream", file.FileName);
         }
     }
 }

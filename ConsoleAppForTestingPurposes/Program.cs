@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Dropbox.Api.Users;
 using DropboxIntegration;
+using DropboxIntegration.Files;
+using DropboxIntegration.User;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ConsoleAppForTestingPurposes
@@ -17,10 +20,9 @@ namespace ConsoleAppForTestingPurposes
             var task = Task.Run(Run);
             task.Wait();
 
-            var dropbox = provider.GetService<IFilesUploader>();
+            var dropbox = provider.GetService<IAccountManager>();
 
 
-            dropbox.GetAccountData();
             Console.ReadKey();
             
             Console.WriteLine("Hello World!");
