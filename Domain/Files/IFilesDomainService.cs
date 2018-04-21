@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DropboxIntegration.Files.DTO;
+using Domain.Files.DTO;
 
 namespace Domain.Files
 {

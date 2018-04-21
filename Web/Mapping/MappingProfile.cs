@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using Dropbox.Api.FileProperties;
-using DropboxIntegration.Files.DTO;
+using Domain.Files.DTO;
 using Microsoft.AspNetCore.Http;
 
 namespace Web.Mapping

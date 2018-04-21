@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace DropboxIntegration.Files.DTO
+namespace Domain.Files.DTO
 {
     public class FileToUpload
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Domain.Files.DTO;
 using DropboxIntegration.Files;
-using DropboxIntegration.Files.DTO;
 using Microsoft.Extensions.Logging;
 
 namespace Domain.Files
