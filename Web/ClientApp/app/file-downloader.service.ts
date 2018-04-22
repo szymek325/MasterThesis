@@ -16,12 +16,6 @@ export class FileDownloaderService {
         const params = new HttpParams().set("fileName", fileName);
         return this.httpClient.get(this.baseUrl + "getFileLink", { responseType: "blob", params: params });
 
-        //.subscribe(
-        //    m => {
-        //        objectUrl = URL.createObjectURL(m);
-        //        console.log(objectUrl);
-        //    },
-        //    error => { console.log(error) });
     }
 
     getFileNormal(fileName: string) {
@@ -35,38 +29,12 @@ export class FileDownloaderService {
             error => { console.log(error) });
     }
 
+    getFileLink(fileName: string): Observable<Object> {
+        const objectUrl: string = null;
+        const params = new HttpParams().set("fileName", fileName);
+        return this.httpClient.get(this.baseUrl + "getFileLink", { params });
+    };
 
-    //.subscribe(
-    //    m => {
-    //        objectUrl = URL.createObjectURL(m);
-    //        console.log(objectUrl);
-    //    },
-    //    error => { console.log(error) });
-
-
-    //getFile(fileName: string): Observable<Blob> {
-    //    const params = new HttpParams().set("fileName", fileName);
-    //    return this.httpClient
-    //        .get(this.baseUrl + "getFile", {
-    //            responseType: "blob",
-    //            params:params
-    //        });
-    //}
-
-    //getFile(fileName: string): Observable<Blob>  {
-    //    const params = new HttpParams().set("fileName", fileName);
-    //    let objectUrl: string = null;
-
-    //    this.httpClient
-    //        .get(this.baseUrl + "getFile",
-    //            {
-    //                responseType: 'blob',
-    //                params: params
-    //            })
-    //        .subscribe(m => {
-    //            objectUrl = URL.createObjectURL(m);
-    //        });
-    //}
 }
 
 interface FileLink {
