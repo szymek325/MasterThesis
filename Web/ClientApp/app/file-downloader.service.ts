@@ -1,5 +1,5 @@
 
-import { Injectable, Inject } from "@angular/core";
+import { Injectable, Inject, EventEmitter } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 
@@ -26,11 +26,13 @@ export class FileDownloaderService {
 
     getFileNormal(fileName: string) {
         const params = new HttpParams().set("fileName", fileName);
+        var cartData = new EventEmitter<any>();
         this.httpClient.get(this.baseUrl + "getFileLink", { params }).subscribe(result => {
                 this.links = result as FileLink;
+                cartData.emit(this.links);
                 console.log(this.links);
             },
-            error => { console.log(error) });;
+            error => { console.log(error) });
     }
 
 

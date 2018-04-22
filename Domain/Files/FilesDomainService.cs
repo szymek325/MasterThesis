@@ -7,7 +7,6 @@ using Domain.Files.DTO;
 using Dropbox.Api;
 using DropboxIntegration.Files;
 using DropboxIntegration.Links;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 
 namespace Domain.Files
@@ -47,7 +46,7 @@ namespace Domain.Files
 
         public async Task<FileLink> GetLinkToFile(string path, string fileName)
         {
-            string link="";
+            var link="";
             try
             {
                 var pathToFile = $"{path}/{fileName}";
@@ -58,6 +57,7 @@ namespace Domain.Files
                 logger.LogError($"{ex.Message}");
                 link = await GetExistingLink(fileName, link);
             }
+            link = TurnIntoSourceLink(link);
             return new FileLink {Url = link};
         }
 
@@ -66,6 +66,11 @@ namespace Domain.Files
             var cos = await urlManager.GetAllLinks();
             link = cos.FirstOrDefault(x => x.Name == fileName).Url;
             return link;
+        }
+
+        private string TurnIntoSourceLink(string url)
+        {
+            return url.Replace("www.dropbox.com", "dl.dropboxusercontent.com");
         }
     }
 }

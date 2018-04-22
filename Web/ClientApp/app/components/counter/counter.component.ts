@@ -1,24 +1,36 @@
-import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
+import { Component, OnInit, Inject } from "@angular/core";
 import {FileDownloaderService} from "../../file-downloader.service";
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 @Component({
-    selector: 'counter',
-    templateUrl: './counter.component.html'
+    selector: "counter",
+    templateUrl: "./counter.component.html"
 })
 export class CounterComponent implements OnInit {
+    links: FileLink;
 
-    @ViewChild("heroImage") image: ElementRef;
+    constructor(private httpClient: HttpClient,
+        @Inject("BASE_URL") private baseUrl: string,
+        private fileDownloader: FileDownloaderService) {
+    }
 
-    constructor(private fileDownloader: FileDownloaderService) {}
+    imagePath;
+    currentCount = 0;
 
-    public currentCount = 0;
+    incrementCounter() {
+        const params = new HttpParams().set("fileName", "1h_realbench.PNG");
+        this.httpClient.get(this.baseUrl + "getFileLink", { params }).subscribe(result => {
+            this.links = result as FileLink;
+                this.imagePath = this.links.url;
+                console.log(this.links);
+            },
+            error => { console.log(error) });
 
-    public incrementCounter() {
 
-        this.fileDownloader.getFileNormal("1h_realbench.PNG");
-
+        //const data = this.fileDownloader.getFileNormal("1h_realbench.PNG");
+        //console.log("data in counter");
+        //console.log(data);
+        //this.imagePath = data.url;
         this.currentCount++;
     }
 
@@ -36,3 +48,6 @@ export class CounterComponent implements OnInit {
 }
 
 
+interface FileLink {
+    url: string;
+}
