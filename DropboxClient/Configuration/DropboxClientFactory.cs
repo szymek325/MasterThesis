@@ -8,7 +8,7 @@ namespace DropboxIntegration.Configuration
 
         static DropboxClientFactory()
         {
-            client = new DropboxClient("qDKRP9Nt71gAAAAAAAAkfWWHoeroKQ9X9-ek-KuXO_PfG_Elip-UMP2acgUY_3C9");
+            client = new DropboxClient("bJ90jq_k1TAAAAAAAAAABiHGq8c16qGnRew7tKYN1yJdChP3CRiPIpOG30ExjVkZ");
         }
 
         public static DropboxClient GetDropboxClient()

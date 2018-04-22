@@ -29,6 +29,7 @@ namespace Domain.Files
 
         public async Task<FileToUpload> Download(string path,string fileName)
         {
+
             var file = await filesManager.DownloadAsStream(path, fileName);
             var fileToDownload = new FileToUpload
             {

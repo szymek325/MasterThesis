@@ -1,4 +1,5 @@
 ﻿using DropboxIntegration.Files;
+using DropboxIntegration.Links;
 using DropboxIntegration.User;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,7 @@ namespace DropboxIntegration
         {
             services.AddTransient<IFilesManager, FilesManager>();
             services.AddTransient<IAccountManager, AccountManager>();
+            services.AddTransient<IFileUrlProvider, FileUrlProvider>();
             return services;
         }
     }
