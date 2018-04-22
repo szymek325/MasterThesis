@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Dropbox.Api;
+using Dropbox.Api.Sharing;
 using DropboxIntegration.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -20,6 +22,12 @@ namespace DropboxIntegration.Links
         {
             var response = await dbxClient.Sharing.CreateSharedLinkWithSettingsAsync(pathToFile);
             return response.Url;
+        }
+
+        public async Task<IEnumerable<SharedLinkMetadata>> GetAllLinks(string pathToFolder)
+        {
+            var response = await dbxClient.Sharing.ListSharedLinksAsync(pathToFolder);
+            return response.Links;
         }
     }
 }

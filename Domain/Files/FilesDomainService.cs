@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Files.DTO;
+using Dropbox.Api;
 using DropboxIntegration.Files;
 using DropboxIntegration.Links;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -44,10 +47,25 @@ namespace Domain.Files
 
         public async Task<FileLink> GetLinkToFile(string path, string fileName)
         {
-            var pathToFile = $"{path}/{fileName}";
-            var link = await urlManager.CreateLinkToFile(pathToFile);
+            string link="";
+            try
+            {
+                var pathToFile = $"{path}/{fileName}";
+                link = await urlManager.CreateLinkToFile(pathToFile);
+            }
+            catch (DropboxException ex)
+            {
+                logger.LogError($"{ex.Message}");
+                link = await GetExistingLink(fileName, link);
+            }
             return new FileLink {Url = link};
         }
 
+        private async Task<string> GetExistingLink(string fileName, string link)
+        {
+            var cos = await urlManager.GetAllLinks();
+            link = cos.FirstOrDefault(x => x.Name == fileName).Url;
+            return link;
+        }
     }
 }
