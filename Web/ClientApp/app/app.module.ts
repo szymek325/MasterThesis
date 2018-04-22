@@ -16,6 +16,8 @@ import { SensorDataComponent } from "./components/readings/sensordata.component"
 import { CounterComponent } from "./components/counter/counter.component";
 import { AttachmentListComponent } from "./components/attachment-list/attachment-list.component";
 import { FormdataUploadComponent } from "./components/formdata-upload/formdata-upload.component";
+import { FileUploaderService } from './file-uploader.service';
+import { FileDownloaderService } from './file-downloader.service';
 
 @NgModule({
     declarations: [
@@ -50,6 +52,7 @@ import { FormdataUploadComponent } from "./components/formdata-upload/formdata-u
             { path: "formdata-upload", component: FormdataUploadComponent }
         ])
     ],
+    providers: [FileUploaderService, FileDownloaderService],
 })
 export class AppModuleShared {
 }

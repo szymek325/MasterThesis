@@ -35,9 +35,9 @@ namespace Web.Controllers
         }
 
         [HttpGet("/getFile")]
-        public async Task<IActionResult> GetFile(string name)
+        public async Task<IActionResult> GetFile([FromQuery] string fileName)
         {
-            var file = await filesService.Download("/reco", "winnn.png");
+            var file = await filesService.Download("/reco", fileName);
             return File(file.FileStream, "application/octet-stream", file.FileName);
         }
     }

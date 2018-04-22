@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
+import {FileUploaderService} from "../../file-uploader.service";
 
 var inputElement: HTMLInputElement;
 
@@ -12,7 +13,7 @@ var inputElement: HTMLInputElement;
 export class AttachmentListComponent {
     files: any;
     formData: any;
-    constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+    constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string, private fileUploader:FileUploaderService) { }
 
     add(event: Event) {
         inputElement = <HTMLInputElement>(event.srcElement || event.target);
@@ -30,13 +31,7 @@ export class AttachmentListComponent {
     }
 
     upload() {
-        this.httpClient.post<{ contents: string }>(this.baseUrl + 'upload', this.formData)
-            .subscribe(
-            response => {
-                console.log(response);
-                this.clearFiles();
-            },
-                error => console.log(error));
+        this.fileUploader.uploadFiles(this.formData)
     }
 
     clearFiles() {
