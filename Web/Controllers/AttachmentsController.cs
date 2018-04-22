@@ -7,6 +7,7 @@ using Domain.Files.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace Web.Controllers
 {
@@ -39,6 +40,13 @@ namespace Web.Controllers
         {
             var file = await filesService.Download("/reco", fileName);
             return File(file.FileStream, "application/octet-stream", file.FileName);
+        }
+
+        [HttpGet("/getFileLink")]
+        public async Task<FileLink> GetFileLink([FromQuery] string fileName)
+        {
+            var file = await filesService.GetLinkToFile("/reco", fileName);
+            return file;
         }
     }
 }

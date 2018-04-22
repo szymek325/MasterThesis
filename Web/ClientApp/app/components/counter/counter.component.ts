@@ -17,23 +17,22 @@ export class CounterComponent implements OnInit {
 
     public incrementCounter() {
 
-        this.fileDownloader.getFile("stare.PNG");
+        this.fileDownloader.getFileNormal("1h_realbench.PNG");
+
         this.currentCount++;
     }
 
     ngOnInit() {
-        let objectUrl: string = null;
-        this.fileDownloader.getFile("stare.PNG").subscribe(
-            m => {
-                objectUrl = URL.createObjectURL(m);
-                console.log(objectUrl);
-            },
-            error => { console.log(error) });
-        //const myObservable = Observable.create((observer: Observer) => {
-        //    setTimeout(() => {
-        //            observer.next(this.fileDownloader.getFile("stare.PNG"));
-        //        },2000);
-        //});
+
+        //this.fileDownloader.getFileNormal("stare.PNG").subscribe(
+        //    m => {
+        //        objectUrl = URL.createObjectURL(m);
+        //        console.log(objectUrl);
+        //    },
+        //    error => { console.log(error) });
     }
 
+
 }
+
+

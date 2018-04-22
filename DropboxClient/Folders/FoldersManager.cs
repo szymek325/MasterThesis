@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Dropbox.Api;
 using Dropbox.Api.Files;
+using DropboxIntegration.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace DropboxIntegration.Folders
@@ -10,9 +11,9 @@ namespace DropboxIntegration.Folders
         private readonly DropboxClient dbxClient;
         private readonly ILogger<FoldersManager> logger;
 
-        public FoldersManager(DropboxClient dbxClient, ILogger<FoldersManager> logger)
+        public FoldersManager(ILogger<FoldersManager> logger)
         {
-            this.dbxClient = dbxClient;
+            dbxClient = DropboxClientFactory.GetDropboxClient();
             this.logger = logger;
         }
 

@@ -8,5 +8,6 @@ namespace Domain.Files
     {
         Task Upload(IEnumerable<FileToUpload> files);
         Task<FileToUpload> Download(string path, string fileName);
+        Task<FileLink> GetLinkToFile(string path, string fileName);
     }
 }

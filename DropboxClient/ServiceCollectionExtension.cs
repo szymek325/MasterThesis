@@ -11,7 +11,7 @@ namespace DropboxIntegration
         {
             services.AddTransient<IFilesManager, FilesManager>();
             services.AddTransient<IAccountManager, AccountManager>();
-            services.AddTransient<IFileUrlProvider, FileUrlProvider>();
+            services.AddTransient<IUrlManager, UrlManager>();
             return services;
         }
     }
