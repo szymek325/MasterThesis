@@ -1,13 +1,13 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import {FileDownloaderService} from "../../file-downloader.service";
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
     selector: "counter",
     templateUrl: "./counter.component.html"
 })
 export class CounterComponent implements OnInit {
-    links: FileLink;
+    links: IFileLink;
 
     constructor(private httpClient: HttpClient,
         @Inject("BASE_URL") private baseUrl: string,
@@ -18,14 +18,13 @@ export class CounterComponent implements OnInit {
     currentCount = 0;
 
     incrementCounter() {
-        const params = new HttpParams().set("fileName", "1h_realbench.PNG");
         this.fileDownloader.getFileLink("1h_realbench.PNG")
             .subscribe(result => {
-            this.links = result as FileLink;
-                this.imagePath = this.links.url;
-                console.log(this.links);
-            },
-            error => { console.log(error) });
+                    this.links = result as IFileLink;
+                    this.imagePath = this.links.url;
+                    console.log(this.links);
+                },
+                error => { console.log(error) });
 
 
         this.currentCount++;
@@ -39,6 +38,6 @@ export class CounterComponent implements OnInit {
 }
 
 
-interface FileLink {
+interface IFileLink {
     url: string;
 }
