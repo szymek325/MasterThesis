@@ -1,7 +1,18 @@
 <h1>Attachments</h1>
-<div *ngFor="let file of files">
-    <button class="btn btn-default">{{file.name}}</button>
-</div>
+<alert></alert>
+
+<table class='table' *ngIf="files">
+    <thead>
+        <tr>
+            <th>FileName</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let file of files">
+            <td>{{file.name}}</td>
+        </tr>
+    </tbody>
+</table>
 
 <label class="btn btn-primary">
     add files <input type="file" multiple hidden (change)="add($event)">
