@@ -8,7 +8,7 @@ export class FileUploaderService {
     constructor(private httpClient: HttpClient, @Inject("BASE_URL") private baseUrl: string) {}
 
     uploadFiles(formData: string): Observable<Object> {
-        return this.httpClient.post<{ contents: string }>(this.baseUrl + "api/Attachments/UploadAsync", formData);
+        return this.httpClient.post<{ contents: string }>(this.baseUrl + "api/Attachments/UploadAsynca", formData);
     }
 
 }

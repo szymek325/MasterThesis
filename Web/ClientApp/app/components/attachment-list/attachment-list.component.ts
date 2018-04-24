@@ -1,6 +1,7 @@
 import { Component, Inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import {FileUploaderService} from "../../file-uploader.service";
+import {FileUploaderService} from "../../services/file-uploader.service";
+import {AlertService} from "../../services/alert.service";
 
 var inputElement: HTMLInputElement;
 
@@ -15,7 +16,8 @@ export class AttachmentListComponent {
 
     constructor(private httpClient: HttpClient,
         @Inject("BASE_URL") private baseUrl: string,
-        private fileUploader: FileUploaderService) {
+        private fileUploader: FileUploaderService,
+        private alertService: AlertService) {
     }
 
     add(event: Event) {
@@ -39,12 +41,16 @@ export class AttachmentListComponent {
                 response => {
                     console.log(response);
                     this.clearFiles();
+                    this.files = [];
                 },
-                error => console.log(error));
+                error => {
+                    console.log(error);
+                    this.alertService.error('dupa');
+                });
     }
 
     clearFiles() {
-        inputElement.value = "";
+        this.formData = new FormData();
     }
 }
 

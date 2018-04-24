@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from "@angular/core";
-import {FileDownloaderService} from "../../file-downloader.service";
+import {FileDownloaderService} from "../../services/file-downloader.service";
 import { HttpClient } from "@angular/common/http";
 
 @Component({

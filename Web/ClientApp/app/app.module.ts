@@ -12,9 +12,11 @@ import { SensorDataComponent } from "./components/readings/sensordata.component"
 import { CounterComponent } from "./components/counter/counter.component";
 import { AttachmentListComponent } from "./components/attachment-list/attachment-list.component";
 import { FormdataUploadComponent } from "./components/formdata-upload/formdata-upload.component";
-import { FileUploaderService } from "./file-uploader.service";
-import { FileDownloaderService } from "./file-downloader.service";
+import { FileUploaderService } from "./services/file-uploader.service";
+import { FileDownloaderService } from "./services/file-downloader.service";
 import {HomeComponent} from "./components/home/home.component";
+import { AlertComponent } from "./components/alert/alert.component";
+import { AlertService } from "./services/alert.service";
 
 
 @NgModule({
@@ -28,6 +30,7 @@ import {HomeComponent} from "./components/home/home.component";
         AttachmentListComponent,
         FormdataUploadComponent,
         HomeComponent,
+        AlertComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -44,7 +47,7 @@ import {HomeComponent} from "./components/home/home.component";
             { path: "formdata-upload", component: FormdataUploadComponent }
         ])
     ],
-    providers: [FileUploaderService, FileDownloaderService],
+    providers: [FileUploaderService, FileDownloaderService, AlertService],
 })
 export class AppModuleShared {
 }
