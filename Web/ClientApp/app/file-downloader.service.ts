@@ -14,14 +14,14 @@ export class FileDownloaderService {
     getFile(fileName: string): Observable<Blob> {
         const objectUrl: string = null;
         const params = new HttpParams().set("fileName", fileName);
-        return this.httpClient.get(this.baseUrl + "getFileLink", { responseType: "blob", params: params });
+        return this.httpClient.get(this.baseUrl + "api/Attachments/GetFileLink", { responseType: "blob", params: params });
 
     }
 
     getFileNormal(fileName: string) {
         const params = new HttpParams().set("fileName", fileName);
         var cartData = new EventEmitter<any>();
-        this.httpClient.get(this.baseUrl + "getFileLink", { params }).subscribe(result => {
+        this.httpClient.get(this.baseUrl + "api/Attachments/GetFileLink", { params }).subscribe(result => {
                 this.links = result as FileLink;
                 cartData.emit(this.links);
                 console.log(this.links);
@@ -32,7 +32,7 @@ export class FileDownloaderService {
     getFileLink(fileName: string): Observable<Object> {
         const objectUrl: string = null;
         const params = new HttpParams().set("fileName", fileName);
-        return this.httpClient.get(this.baseUrl + "getFileLink", { params });
+        return this.httpClient.get(this.baseUrl + "api/Attachments/GetFileLink", { params });
     };
 
 }

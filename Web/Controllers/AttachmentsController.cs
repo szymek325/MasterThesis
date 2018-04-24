@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 
 namespace Web.Controllers
 {
+    [Route("api/[controller]")]
     public class AttachmentsController : Controller
     {
         private readonly IFilesDomainService filesService;
@@ -25,7 +26,7 @@ namespace Web.Controllers
             this.mapper = mapper;
         }
 
-        [HttpPost("/upload")]
+        [HttpPost("[action]")]
         public async Task<IActionResult> UploadAsync(IFormCollection collections)
         {
             var files = mapper.Map<IEnumerable<FileToUpload>>(collections.Files);
@@ -35,14 +36,14 @@ namespace Web.Controllers
             return Ok(new {count = files.Count()});
         }
 
-        [HttpGet("/getFile")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> GetFile([FromQuery] string fileName)
         {
             var file = await filesService.Download("/reco", fileName);
             return File(file.FileStream, "application/octet-stream", file.FileName);
         }
 
-        [HttpGet("/getFileLink")]
+        [HttpGet("[action]")]
         public async Task<FileLink> GetFileLink([FromQuery] string fileName)
         {
             var file = await filesService.GetLinkToFile("/reco", fileName);
