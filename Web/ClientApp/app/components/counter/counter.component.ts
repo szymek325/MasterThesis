@@ -7,7 +7,6 @@ import { HttpClient } from "@angular/common/http";
     templateUrl: "./counter.component.html"
 })
 export class CounterComponent implements OnInit {
-    links: IFileLink;
 
     constructor(private httpClient: HttpClient,
         @Inject("BASE_URL") private baseUrl: string,
@@ -18,13 +17,7 @@ export class CounterComponent implements OnInit {
     currentCount = 0;
 
     incrementCounter() {
-        this.fileDownloader.getFileLink("1h_realbench.PNG")
-            .subscribe(result => {
-                    this.links = result as IFileLink;
-                    this.imagePath = this.links.url;
-                    console.log(this.links);
-                },
-                error => { console.log(error) });
+
 
 
         this.currentCount++;
@@ -35,9 +28,4 @@ export class CounterComponent implements OnInit {
     }
 
 
-}
-
-
-interface IFileLink {
-    url: string;
 }

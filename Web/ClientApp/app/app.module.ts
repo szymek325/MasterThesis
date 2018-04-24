@@ -11,12 +11,12 @@ import { SensorTableComponent } from "./components/readings/sensorstable.compone
 import { SensorDataComponent } from "./components/readings/sensordata.component";
 import { CounterComponent } from "./components/counter/counter.component";
 import { AttachmentListComponent } from "./components/attachment-list/attachment-list.component";
-import { FormdataUploadComponent } from "./components/formdata-upload/formdata-upload.component";
 import { FileUploaderService } from "./services/file-uploader.service";
 import { FileDownloaderService } from "./services/file-downloader.service";
 import {HomeComponent} from "./components/home/home.component";
 import { AlertComponent } from "./components/alert/alert.component";
 import { AlertService } from "./services/alert.service";
+import { DropboxPicturesExampleComponent } from "./components/dropbox-pictures-example/dropbox-pictures-example.component";
 
 
 @NgModule({
@@ -28,9 +28,9 @@ import { AlertService } from "./services/alert.service";
         SensorTableComponent,
         SensorDataComponent,
         AttachmentListComponent,
-        FormdataUploadComponent,
         HomeComponent,
-        AlertComponent
+        AlertComponent,
+        DropboxPicturesExampleComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -44,7 +44,7 @@ import { AlertService } from "./services/alert.service";
             { path: "fetch-data", component: FetchDataComponent },
             { path: "sensordata", component: SensorDataComponent },
             { path: "attachments", component: AttachmentListComponent },
-            { path: "formdata-upload", component: FormdataUploadComponent }
+            { path: "dropboxpictures", component: DropboxPicturesExampleComponent }
         ])
     ],
     providers: [FileUploaderService, FileDownloaderService, AlertService],
