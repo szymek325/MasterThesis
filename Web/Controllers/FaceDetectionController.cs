@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Domain.FaceDetection;
 using Domain.FaceDetection.DTO;
+using Domain.Files.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,10 +14,12 @@ namespace Web.Controllers
     public class FaceDetectionController : Controller
     {
         private readonly IFaceDetectionService faceDetectionService;
+        private readonly IMapper mapper;
 
-        public FaceDetectionController(IFaceDetectionService faceDetectionService)
+        public FaceDetectionController(IFaceDetectionService faceDetectionService, IMapper mapper)
         {
             this.faceDetectionService = faceDetectionService;
+            this.mapper = mapper;
         }
 
         [HttpGet("[action]")]
@@ -26,7 +31,15 @@ namespace Web.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Create(IFormCollection collections)
         {
-            return Ok(new { task_Id = 5 });
+            var files = mapper.Map<IEnumerable<FileToUpload>>(collections.Files);
+            collections.TryGetValue("name", out var requestName);
+
+            var response=faceDetectionService.CreateRequest(new NewRequest
+            {
+                Name = requestName,
+                Files = files
+            });
+            return Ok(new {task_Id = response });
         }
     }
 }

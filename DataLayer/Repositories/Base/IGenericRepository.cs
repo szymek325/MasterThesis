@@ -13,5 +13,6 @@ namespace DataLayer.Repositories.Base
         void Delete(T entity);
         void Update(T entity);
         IQueryable<T> GetAll();
+        void Save();
     }
 }

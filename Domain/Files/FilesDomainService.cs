@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Files.DTO;
 using Dropbox.Api;
+using Dropbox.Api.Files;
 using DropboxIntegration.Files;
 using DropboxIntegration.Links;
 using Microsoft.Extensions.Logging;
@@ -26,10 +27,10 @@ namespace Domain.Files
             this.mapper = mapper;
         }
 
-        public async Task Upload(IEnumerable<FileToUpload> files)
+        public async Task Upload(IEnumerable<FileToUpload> files, string location="/reco")
         {
             foreach (var fileToUpload in files)
-                await filesManager.Upload("/reco", fileToUpload.FileName, fileToUpload.FileStream);
+                await filesManager.Upload(location, fileToUpload.FileName, fileToUpload.FileStream);
         }
 
         public async Task<FileToUpload> Download(string path,string fileName)
