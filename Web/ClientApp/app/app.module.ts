@@ -17,6 +17,7 @@ import {HomeComponent} from "./components/home/home.component";
 import { AlertComponent } from "./components/alert/alert.component";
 import { AlertService } from "./services/alert.service";
 import { DropboxPicturesExampleComponent } from "./components/dropbox-pictures-example/dropbox-pictures-example.component";
+import { FaceDetectionsComponent } from './components/face-detections/face-detections.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { DropboxPicturesExampleComponent } from "./components/dropbox-pictures-e
         AttachmentListComponent,
         HomeComponent,
         AlertComponent,
-        DropboxPicturesExampleComponent
+        DropboxPicturesExampleComponent,
+        FaceDetectionsComponent
     ],
     imports: [
         ReactiveFormsModule,
