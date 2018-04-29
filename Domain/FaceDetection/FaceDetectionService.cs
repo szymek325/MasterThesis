@@ -18,7 +18,7 @@ namespace Domain.FaceDetection
 
         public IEnumerable<FaceDetectionRequest> GetAllFaceDetections()
         {
-            var faceDetections = detectionRepository.Get();
+            var faceDetections = detectionRepository.GetAllFaces();
             var requests = mapper.Map<IEnumerable<FaceDetectionRequest>>(faceDetections);
             return requests;
         }

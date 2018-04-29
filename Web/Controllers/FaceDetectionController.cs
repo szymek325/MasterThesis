@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Domain.Files.DTO;
+using Domain.FaceDetection;
+using Domain.FaceDetection.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,12 +9,17 @@ namespace Web.Controllers
     [Route("api/[controller]")]
     public class FaceDetectionController : Controller
     {
-        //[HttpGet("[action]")]
-        //public async IEnumerable<> GetAll(IFormCollection collections)
-        //{
+        private readonly IFaceDetectionService faceDetectionService;
 
+        public FaceDetectionController(IFaceDetectionService faceDetectionService)
+        {
+            this.faceDetectionService = faceDetectionService;
+        }
 
-        //    return Ok(new { count = files.Count() });
-        //}
+        [HttpGet("[action]")]
+        public IEnumerable<FaceDetectionRequest> GetAll(IFormCollection collections)
+        {
+            return faceDetectionService.GetAllFaceDetections();
+        }
     }
 }

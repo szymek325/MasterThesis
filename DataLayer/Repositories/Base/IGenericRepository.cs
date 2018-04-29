@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace DataLayer.Repositories.Base
@@ -11,5 +12,6 @@ namespace DataLayer.Repositories.Base
         void Add(T entity);
         void Delete(T entity);
         void Update(T entity);
+        IQueryable<T> GetAll();
     }
 }

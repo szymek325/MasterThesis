@@ -14,6 +14,7 @@ namespace DataLayer
                     "Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=TestDb;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;",
                     optionsBuilder =>optionsBuilder.MigrationsAssembly(typeof(MasterContext).GetTypeInfo().Assembly.GetName().Name)));
             services.AddTransient<IFaceRecognitionJobRepository, FaceRecognitionJobRepository>();
+            services.AddTransient<IFaceDetectionRepository, FaceDetectionRepository>();
             return services;
         }
     }
