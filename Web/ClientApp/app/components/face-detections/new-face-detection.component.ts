@@ -1,8 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import {FaceDetectionService} from "../../services/face-detection.service";
 import {AlertService} from "../../services/alert.service";
-
-var inputElement: HTMLInputElement;
+import { Router } from "@angular/router";
 
 @Component({
     selector: "new-face-detection",
@@ -12,29 +11,35 @@ var inputElement: HTMLInputElement;
 export class NewFaceDetectionComponent implements OnInit {
     name: string;
     files: any;
+    faceImage: any;
     formData: any;
+    @ViewChild("FaceImage")
+    Face_Image;
 
-    constructor(private requestDownloader: FaceDetectionService, private alertService: AlertService) { }
+    constructor(private requestDownloader: FaceDetectionService, private alertService: AlertService, private router: Router) {}
 
-    add(event: Event) {
-        inputElement = ((event.srcElement || event.target) as HTMLInputElement);
-        this.files = inputElement.files;
 
-        if (!this.files) return;
-
-        this.formData = new FormData();
-        for (let index = 0; index < this.files.length; index++) {
-            const file = this.files[index];
-            this.formData.set(file.name, file);
+    onClickSubmit(data) {
+        const Image = this.Face_Image.nativeElement;
+        if (Image.files && Image.files[0]) {
+            this.faceImage = Image.files[0];
+            console.log(this.faceImage);
         }
-
+        this.formData = new FormData();
+        this.formData.set(this.faceImage.name, this.faceImage);
+        this.formData.set("name", data.name);
         console.log(this.formData);
+
+        this.requestDownloader.createNewRequest(this.formData)
+            .subscribe(result => {
+                    this.router.navigateByUrl("face-detection");
+                },
+                error => { console.log(error) });
     }
 
     ngOnInit() {
 
     }
-
 
 
 }

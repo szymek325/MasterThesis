@@ -23,7 +23,7 @@ export class AttachmentListComponent {
     add(event: Event) {
         inputElement = ((event.srcElement || event.target) as HTMLInputElement);
         this.files = inputElement.files;
-
+        console.log(this.files);
         if (!this.files) return;
 
         this.formData = new FormData();
