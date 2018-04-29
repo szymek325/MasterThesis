@@ -1,17 +1,37 @@
 ﻿<div class="container">
-    <h1>Hero Form</h1>
+    <h1>New Face Detection request form</h1>
     <form>
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" required>
-        </div>
-
-        <div class="form-group">
-            <label for="alterEgo">Alter Ego</label>
-            <input type="text" class="form-control" id="alterEgo">
+            <input type="text" class="form-control" id="name" required [(ngModel)]="model.name" name="name" >
         </div>
 
         <button type="submit" class="btn btn-success">Submit</button>
 
     </form>
+    <div>
+        Attachments
+        <table class='table' *ngIf="files">
+            <thead>
+            <tr>
+                <th>FileName</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let file of files">
+                <td>{{file.name}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <label class="btn btn-primary">
+            add files <input type="file" multiple hidden (change)="add($event)">
+        </label>
+        <button type="button" class="btn btn-default" (click)="clearFiles()">clear file</button>
+        <button type="button" class="btn btn-default" (click)="upload()">upload</button>
+    </div>
+
 </div>
+
+
+
+
