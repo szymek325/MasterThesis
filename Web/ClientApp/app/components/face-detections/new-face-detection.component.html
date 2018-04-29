@@ -1,7 +1,7 @@
 ﻿<div class="container">
     <h1>New Face Detection request form</h1>
     <form [formGroup]="detectionForm" (ngSubmit)="onClickSubmit(detectionForm.value)">
-        <p>Is "myForm" valid? {{detectionForm.valid}}</p>
+        <p>Is "myForm" valid? {{detectionForm.valid}}&&{{isFileValid}}</p>
 
         <div class="form-group">
             <label for="name">Name</label>
@@ -11,11 +11,12 @@
         
         <div class="form-group">
             <label for="file">File</label>
-            <input type="file" class="form-control" formControlName="file" id="file" accept=".jpeg, .bmp, .png" ngModel #FaceImage>
+            <input type="file" class="form-control" [ngModelOptions]="{standalone: true}" (change)="validateFile($event)" id="file" accept=".jpeg, .bmp, .png" ngModel #FaceImage>
         </div>
-        
+        <div class="alert" *ngIf="!isFileValid">dupa</div>
+
         <div>
-            <button type="submit" [disabled]="!detectionForm.valid" class="btn btn-success">Submit</button>
+            <button type="submit" [disabled]="!(detectionForm.valid && isFileValid)" class="btn btn-success">Submit</button>
         </div>
 
     </form>
