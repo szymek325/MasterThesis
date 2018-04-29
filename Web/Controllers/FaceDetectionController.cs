@@ -34,7 +34,7 @@ namespace Web.Controllers
             var files = mapper.Map<IEnumerable<FileToUpload>>(collections.Files);
             collections.TryGetValue("name", out var requestName);
 
-            var response=faceDetectionService.CreateRequest(new NewRequest
+            var response=await faceDetectionService.CreateRequest(new NewRequest
             {
                 Name = requestName,
                 Files = files

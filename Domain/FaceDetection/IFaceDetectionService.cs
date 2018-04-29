@@ -7,6 +7,6 @@ namespace Domain.FaceDetection
     public interface IFaceDetectionService
     {
         IEnumerable<FaceDetectionRequest> GetAllFaceDetections();
-        int CreateRequest(NewRequest request);
+        Task<int> CreateRequest(NewRequest request);
     }
 }

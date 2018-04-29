@@ -29,7 +29,7 @@ namespace Domain.FaceDetection
             return requests;
         }
 
-        public int CreateRequest(NewRequest request)
+        public async Task<int> CreateRequest(NewRequest request)
         {
             var newDetection = new DataLayer.Entities.FaceDetection
             {
@@ -39,7 +39,7 @@ namespace Domain.FaceDetection
             detectionRepository.Add(newDetection);
             detectionRepository.Save();
 
-            filesService.Upload(request.Files, $"/faceDetection/{newDetection.Id}");
+            await filesService.Upload(request.Files, $"/faceDetection/{newDetection.Id}");
 
             return newDetection.Id ;
         }
