@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import {FaceDetectionService} from "../../services/face-detection.service";
 import {AlertService} from "../../services/alert.service";
 import { Router } from "@angular/router";
+import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
 
 @Component({
     selector: "new-face-detection",
@@ -9,6 +10,7 @@ import { Router } from "@angular/router";
     styleUrls: ["./face-detection.components.css"],
 })
 export class NewFaceDetectionComponent implements OnInit {
+    faceDetectionForm;
     name: string;
     files: any;
     faceImage: any;
@@ -16,7 +18,7 @@ export class NewFaceDetectionComponent implements OnInit {
     @ViewChild("FaceImage")
     Face_Image;
 
-    constructor(private requestDownloader: FaceDetectionService, private alertService: AlertService, private router: Router) {}
+    constructor(private requestDownloader: FaceDetectionService, private alertService: AlertService, private router: Router, private formBuilder: FormBuilder) {}
 
 
     onClickSubmit(data) {
@@ -34,12 +36,27 @@ export class NewFaceDetectionComponent implements OnInit {
             .subscribe(result => {
                     this.router.navigateByUrl("face-detection");
                 },
-                error => { console.log(error) });
+                error => {
+                    console.log(error.message);
+                    this.alertService.error(error.message);
+                });
+    }
+
+    validateFile() {
+        const Image = this.Face_Image.nativeElement;
+        if (Image.files && Image.files[0]) {
+            this.faceImage = Image.files[0];
+            console.log(this.faceImage);
+        }
     }
 
     ngOnInit() {
-
+        this.detectionForm = this.formBuilder.group({
+            name: ['name', [Validators.required, Validators.minLength(3)]],
+            file:[]
+        });
     }
 
 
+    detectionForm: FormGroup;
 }

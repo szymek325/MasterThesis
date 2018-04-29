@@ -1,20 +1,24 @@
 ﻿<div class="container">
     <h1>New Face Detection request form</h1>
-    <form #detection ="ngForm" (ngSubmit)="onClickSubmit(detection.value)">
+    <form [formGroup]="detectionForm" (ngSubmit)="onClickSubmit(detectionForm.value)">
+        <p>Is "myForm" valid? {{detectionForm.valid}}</p>
+
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" required name="name" placeholder="name" id="name" ngModel>
+            <input type="text" class="form-control" formControlName="name" id="name" ngModel>
         </div>
+        <div class="alert" *ngIf="!detectionForm.controls['name'].valid && detectionForm.controls['name'].touched">dupa</div>
+        
         <div class="form-group">
             <label for="file">File</label>
-            <input type="file" class="form-control" required name="file" placeholder="file" id="file" ngModel #FaceImage>
+            <input type="file" class="form-control" formControlName="file" id="file" accept=".jpeg, .bmp, .png" ngModel #FaceImage>
         </div>
-
-        <button type="submit" class="btn btn-success">Submit</button>
+        
+        <div>
+            <button type="submit" [disabled]="!detectionForm.valid" class="btn btn-success">Submit</button>
+        </div>
 
     </form>
 </div>
 
-
-
-
+<alert></alert>
