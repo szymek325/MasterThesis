@@ -19,6 +19,7 @@ import { AlertService } from "./services/alert.service";
 import { DropboxPicturesExampleComponent } from "./components/dropbox-pictures-example/dropbox-pictures-example.component";
 import { FaceDetectionsComponent } from './components/face-detections/face-detections.component';
 import { FaceDetectionService } from './services/face-detection.service';
+import { NewFaceDetectionComponent } from './components/face-detections/new-face-detection.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { FaceDetectionService } from './services/face-detection.service';
         HomeComponent,
         AlertComponent,
         DropboxPicturesExampleComponent,
-        FaceDetectionsComponent
+        FaceDetectionsComponent,
+        NewFaceDetectionComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -48,7 +50,8 @@ import { FaceDetectionService } from './services/face-detection.service';
             { path: "sensordata", component: SensorDataComponent },
             { path: "attachments", component: AttachmentListComponent },
             { path: "dropboxpictures", component: DropboxPicturesExampleComponent },
-            { path: "face-detection", component: FaceDetectionsComponent }
+            { path: "face-detection", component: FaceDetectionsComponent },
+            { path: "new-face-detection", component: NewFaceDetectionComponent }
         ])
     ],
     providers: [FileUploaderService, FileDownloaderService, AlertService, FaceDetectionService],

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Domain.FaceDetection;
 using Domain.FaceDetection.DTO;
 using Microsoft.AspNetCore.Http;
@@ -17,9 +18,15 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<FaceDetectionRequest> GetAll(IFormCollection collections)
+        public IEnumerable<FaceDetectionRequest> GetAll()
         {
             return faceDetectionService.GetAllFaceDetections();
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Create(IFormCollection collections)
+        {
+            return Ok(new { task_Id = 5 });
         }
     }
 }

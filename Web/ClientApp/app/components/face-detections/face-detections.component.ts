@@ -1,17 +1,23 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit} from "@angular/core";
 import {FaceDetectionService} from "../../services/face-detection.service";
-import {FaceDetectionRequest} from "../../interfaces/face-detection-request";
+import { FaceDetectionRequest } from "../../interfaces/face-detection-request";
+import { Router } from "@angular/router";
 
 
 @Component({
     selector: "app-face-detections",
     templateUrl: "./face-detections.component.html",
-    styleUrls: ["./face-detections.component.css"]
 })
 export class FaceDetectionsComponent implements OnInit {
     requests: FaceDetectionRequest[];
 
-    constructor(private requestDownloader: FaceDetectionService) {}
+    constructor(private requestDownloader: FaceDetectionService, private router: Router) {}
+
+    newRequest() {
+        this.router.navigateByUrl("/new-face-detection");
+    }
+
+
 
     ngOnInit() {
         this.requestDownloader.getAllFaceDetectionRequests()
