@@ -18,6 +18,7 @@ import { AlertComponent } from "./components/alert/alert.component";
 import { AlertService } from "./services/alert.service";
 import { DropboxPicturesExampleComponent } from "./components/dropbox-pictures-example/dropbox-pictures-example.component";
 import { FaceDetectionsComponent } from './components/face-detections/face-detections.component';
+import { FaceDetectionService } from './services/face-detection.service';
 
 
 @NgModule({
@@ -46,10 +47,11 @@ import { FaceDetectionsComponent } from './components/face-detections/face-detec
             { path: "fetch-data", component: FetchDataComponent },
             { path: "sensordata", component: SensorDataComponent },
             { path: "attachments", component: AttachmentListComponent },
-            { path: "dropboxpictures", component: DropboxPicturesExampleComponent }
+            { path: "dropboxpictures", component: DropboxPicturesExampleComponent },
+            { path: "face-detection", component: FaceDetectionsComponent }
         ])
     ],
-    providers: [FileUploaderService, FileDownloaderService, AlertService],
+    providers: [FileUploaderService, FileDownloaderService, AlertService, FaceDetectionService],
 })
 export class AppModuleShared {
 }

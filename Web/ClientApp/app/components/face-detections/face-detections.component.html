@@ -1,3 +1,24 @@
-<p>
-  face-detections works!
+<p *ngIf="!requests">
+    <em>Loading...</em>
 </p>
+
+<table class="table" *ngIf="requests">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Deep Neural Network</th>
+        <th>Haar</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let face of requests">
+        <td>{{ face.id }}</td>
+        <td>{{ face.name }}</td>
+        <td>{{ face.dnnFaces }}</td>
+        <td>{{ face.haarFaces }}</td>
+        <td>{{ face.status }}</td>
+    </tr>
+    </tbody>
+</table>
