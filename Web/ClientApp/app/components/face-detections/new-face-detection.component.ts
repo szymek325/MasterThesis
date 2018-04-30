@@ -37,11 +37,11 @@ export class NewFaceDetectionComponent implements OnInit {
 
     validateFile(fileInput: any) {
         this.file = fileInput.target.files[0];
-        this.isFileValid = this.checkExtension(this.file.name);
-        if (this.isFileValid) {
-
+        if (this.file != null) {
+            this.isFileValid = this.checkExtension(this.file.name);
+        } else {
+            this.isFileValid = false;
         }
-
     }
 
     ngOnInit() {
