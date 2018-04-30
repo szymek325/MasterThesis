@@ -2,7 +2,7 @@ import cv2
 import numpy
 
 from faceDetection.configuration.config_reader import ConfigReader
-from helpers.exception_handler import exception
+from configuration_global.exception_handler import exception
 import os
 
 

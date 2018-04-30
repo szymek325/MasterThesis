@@ -4,7 +4,7 @@ import json
 class ConfigReader:
 
     def __init__(self):
-        self.configuration = json.load(open("helpers/config.json"))
+        self.configuration = json.load(open("configuration_global/config.json"))
 
     @property
     def detected_motion_path(self):

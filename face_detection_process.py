@@ -5,9 +5,9 @@ from dropbox_integration.dropbox_client import DropboxClient
 from dataLayer.database_connection import Base, engine, Session
 from faceDetection.dnn_face_detector import DnnFaceDetector
 from faceDetection.haar_face_detector import HaarFaceDetector
-from helpers.config_reader import ConfigReader
-from helpers.exception_handler import exception
-from helpers.logger_factory import LoggerFactory
+from configuration_global.config_reader import ConfigReader
+from configuration_global.exception_handler import exception
+from configuration_global.logger_factory import LoggerFactory
 
 
 class FaceDetectionProcess():

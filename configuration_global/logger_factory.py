@@ -1,7 +1,7 @@
 import logging
 import datetime
 
-from helpers.singleton import Singleton
+from configuration_global.singleton import Singleton
 
 
 class LoggerFactory(metaclass=Singleton):

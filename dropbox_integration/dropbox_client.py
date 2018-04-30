@@ -1,7 +1,7 @@
 import dropbox
 import os
 from dropbox_integration.configuration.config_reader import ConfigReader
-from helpers.exception_handler import exception
+from configuration_global.exception_handler import exception
 
 
 class DropboxClient:
@@ -17,9 +17,9 @@ class DropboxClient:
         if not files.entries.count == 0:
             file = files.entries[0]
             file_type = file.name.split('.')[1]
-            save_path = f"{save_location}/{request_id}/input.{file_type}"
+            save_path = f"{save_location}{request_id}"
             self.create_directory_if_doesnt_exist(save_path)
-            self.client.files_download_to_file(save_path, file.path_lower)
+            self.client.files_download_to_file(f"{save_path}/input.{file_type}", file.path_lower)
 
     @staticmethod
     def create_directory_if_doesnt_exist(save_directory):

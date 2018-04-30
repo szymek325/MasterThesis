@@ -1,4 +1,4 @@
-from helpers.logger_factory import LoggerFactory
+from configuration_global.logger_factory import LoggerFactory
 import RPi.GPIO as gpio
 
 class GpioReader():

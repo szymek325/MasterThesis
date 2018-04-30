@@ -1,7 +1,7 @@
 import cv2
 import imutils
-from helpers.exception_handler import exception
-from helpers.logger_factory import LoggerFactory
+from configuration_global.exception_handler import exception
+from configuration_global.logger_factory import LoggerFactory
 from motionDetection.configuration.config_reader import ConfigReader
 
 

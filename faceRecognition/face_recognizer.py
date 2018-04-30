@@ -1,8 +1,8 @@
 from faceDetection.dnn_face_detector import DnnFaceDetector
 from faceRecognition.configuration.config_reader import ConfigReader
-from helpers.exception_handler import exception
-from helpers.files_manager import FilesManager
-from helpers.logger_factory import LoggerFactory
+from configuration_global.exception_handler import exception
+from configuration_global.files_manager import FilesManager
+from configuration_global.logger_factory import LoggerFactory
 from PIL import Image
 import cv2
 import numpy as np

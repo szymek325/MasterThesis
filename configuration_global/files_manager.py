@@ -1,10 +1,10 @@
 from datetime import datetime
 import cv2
 from os import listdir, path
-from helpers.exception_handler import exception
+from configuration_global.exception_handler import exception
 
-from helpers.config_reader import ConfigReader
-from helpers.logger_factory import LoggerFactory
+from configuration_global.config_reader import ConfigReader
+from configuration_global.logger_factory import LoggerFactory
 
 
 class FilesManager:
