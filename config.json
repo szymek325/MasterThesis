@@ -24,14 +24,18 @@
   "movement_marking": false,
   "linux_driver": "{FreeTDS}",
   "windows_driver": "{ODBC Driver 13 for SQL Server}",
-  "db_server": "den1.mssql6.gear.host",
-  "db_name": "masterthesisdb",
-  "db_login": "masterthesisdb",
-  "db_password": "Zp9P?Q!ezuXH",
-  "local_db_server": "(LocalDb)\\MSSQLLocalDB",
-  "local_db_name": "TestDb",
-  "local_login": "testAccount",
-  "local_password": "drift111",
-  "use_local_db": true
+  "local_db": {
+    "server": "(LocalDb)\\MSSQLLocalDB",
+    "db_name": "TestDb",
+    "login": "testAccount",
+    "password": "drift111"
+  },
+  "gear_host_db": {
+    "server": "den1.mssql6.gear.host",
+    "db_name": "masterthesisdb",
+    "login": "masterthesisdb",
+    "password": "Zp9P?Q!ezuXH"
+  },
+  "use_local_db": false
 }
 

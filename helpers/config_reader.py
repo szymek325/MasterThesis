@@ -100,32 +100,32 @@ class ConfigReader:
 
     @property
     def db_login(self):
-        return self.configuration["db_login"]
+        return self.configuration['gear_host_db']["login"]
 
     @property
     def db_password(self):
-        return self.configuration["db_password"]
+        return self.configuration['gear_host_db']["password"]
 
     @property
     def local_login(self):
-        return self.configuration["local_login"]
+        return self.configuration['local_db']["login"]
 
     @property
     def local_password(self):
-        return self.configuration["local_password"]
+        return self.configuration['local_db']["password"]
 
     @property
     def db_name(self):
-        return self.configuration["db_name"]
+        return self.configuration['gear_host_db']["db_name"]
 
     @property
     def local_db_name(self):
-        return self.configuration["local_db_name"]
+        return self.configuration['local_db']["db_name"]
 
     @property
     def db_server(self):
-        return self.configuration["db_server"]
+        return self.configuration['gear_host_db']["server"]
 
     @property
     def local_db_server(self):
-        return self.configuration["local_db_server"]
+        return self.configuration['local_db']["server"]
