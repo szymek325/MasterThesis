@@ -421,3 +421,23 @@
 2018-04-30 08:47:55.2794 Info Adding target File Target[ownFile-web]
 2018-04-30 08:47:55.3206 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Debug\netcoreapp2.0\nlog.config...
 2018-04-30 08:47:55.3542 Info Found 42 configuration items
+2018-04-30 09:20:30.1252 Info Message Template Auto Format enabled
+2018-04-30 09:20:30.1912 Info Adding target File Target[allfile]
+2018-04-30 09:20:30.2198 Info Adding target File Target[ownFile-web]
+2018-04-30 09:20:30.2478 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Debug\netcoreapp2.0\NLog.config...
+2018-04-30 09:20:30.2777 Info Found 45 configuration items
+2018-04-30 09:20:30.2917 Info Configuration initialized.
+2018-04-30 09:20:30.3105 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.3.7533. Product version: 4.5.3.
+2018-04-30 09:20:36.5813 Info Shutting down logging...
+2018-04-30 09:20:36.6195 Info Logger has been shut down.
+2018-04-30 09:20:46.6654 Info Message Template Auto Format enabled
+2018-04-30 09:20:46.7538 Info Adding target File Target[allfile]
+2018-04-30 09:20:46.8064 Error Error parsing layout aspnet-request-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-request-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-04-30 09:20:46.8322 Error Error parsing layout aspnet-mvc-action will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-mvc-action'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-04-30 09:20:46.8585 Info Adding target File Target[ownFile-web]
+2018-04-30 09:20:46.8877 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Debug\netcoreapp2.0\nlog.config...
+2018-04-30 09:20:46.9218 Info Found 42 configuration items
