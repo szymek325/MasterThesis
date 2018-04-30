@@ -1,5 +1,7 @@
 import dropbox
 import os
+
+from configuration_global.directory_manager import DirectoryManager
 from dropbox_integration.configuration.config_reader import ConfigReader
 from configuration_global.exception_handler import exception
 
@@ -8,6 +10,7 @@ class DropboxClient:
 
     def __init__(self):
         self.config = ConfigReader()
+        self.directory = DirectoryManager()
         self.client = dropbox.Dropbox(self.config.dropbox_access_token)
 
     @exception
@@ -18,13 +21,11 @@ class DropboxClient:
             file = files.entries[0]
             file_type = file.name.split('.')[1]
             save_path = f"{save_location}{request_id}"
-            self.create_directory_if_doesnt_exist(save_path)
+            self.directory.create_directory_if_doesnt_exist(save_path)
             self.client.files_download_to_file(f"{save_path}/input.{file_type}", file.path_lower)
 
-    @staticmethod
-    def create_directory_if_doesnt_exist(save_directory):
-        if not os.path.exists(save_directory):
-            os.makedirs(save_directory)
+    def upload_file(self, file, request_id,file_name):
+        self.client.files_upload(file, f"{self.config.face_detection_jobs_path}/{request_id}/result/{file_name}")
 
 
 if __name__ == "__main__":
