@@ -30,7 +30,7 @@ class FaceDetectorsRunner:
     def __process_files__(self, files):
         for fileName in files:
             self.logger.info(f"File: {fileName} loaded for processing")
-            image = cv2.imread(f"{self.configReader.detectedMotionPath}{fileName}")
+            image = cv2.imread(f"{self.configReader.detected_motion_path}{fileName}")
             faces_detected_by_Haar = self.haarDetector.run_detector(image)
             faces_detected_by_Dnn = self.dnnDetector.run_detector(image)
             self.logger.info(f"Faces detected by "
@@ -41,7 +41,7 @@ class FaceDetectorsRunner:
             number = naming[2].split('.')[0]
             self.filesManager.save_face(newImage, f"faces_{naming[1]}_{number}")
 
-            os.remove(f"{self.configReader.detectedMotionPath}{fileName}")
+            os.remove(f"{self.configReader.detected_motion_path}{fileName}")
 
     def __draw_faces__(self, sourceImage, haarFaces, dnnFaces):
         if len(haarFaces) is not 0:

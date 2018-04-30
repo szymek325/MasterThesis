@@ -10,8 +10,8 @@ from helpers.logger_factory import LoggerFactory
 class FilesManager:
     def __init__(self):
         self.configReader = ConfigReader()
-        self.facePath = self.configReader.detectedFaceSavePath
-        self.motionPath = self.configReader.detectedMotionPath
+        self.facePath = self.configReader.detected_face_save_path
+        self.motionPath = self.configReader.detected_motion_path
         self.trainingDataPath = self.configReader.training_data
         self.logger = LoggerFactory()
 

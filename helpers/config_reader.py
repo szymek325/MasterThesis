@@ -35,19 +35,19 @@ class ConfigReader:
         return self.configuration["min_area"]
 
     @property
-    def detectedMotionPath(self):
+    def detected_motion_path(self):
         return self.configuration["detectedMotionPath"]
 
     @property
-    def detectedFaceSavePath(self):
+    def detected_face_save_path(self):
         return self.configuration["detectedFaceSavePath"]
 
     @property
-    def piCameraUsed(self):
+    def pi_camera_used(self):
         return self.configuration["piCameraUsed"]
 
     @property
-    def cameraPort(self):
+    def camera_port(self):
         return self.configuration["cameraPort"]
 
     @property
@@ -85,3 +85,47 @@ class ConfigReader:
     @property
     def openCv_files_path(self):
         return self.configuration["openCv_files_path"]
+
+    @property
+    def use_local_db(self):
+        return self.configuration["use_local_db"]
+
+    @property
+    def linux_driver(self):
+        return self.configuration["linux_driver"]
+
+    @property
+    def windows_driver(self):
+        return self.configuration["windows_driver"]
+
+    @property
+    def db_login(self):
+        return self.configuration["db_login"]
+
+    @property
+    def db_password(self):
+        return self.configuration["db_password"]
+
+    @property
+    def local_login(self):
+        return self.configuration["local_login"]
+
+    @property
+    def local_password(self):
+        return self.configuration["local_password"]
+
+    @property
+    def db_name(self):
+        return self.configuration["db_name"]
+
+    @property
+    def local_db_name(self):
+        return self.configuration["local_db_name"]
+
+    @property
+    def db_server(self):
+        return self.configuration["db_server"]
+
+    @property
+    def local_db_server(self):
+        return self.configuration["local_db_server"]

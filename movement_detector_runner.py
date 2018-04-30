@@ -52,7 +52,7 @@ class MovementDetectorRunner:
 
     @exception
     def __init_camera__(self):
-        if self.configReader.piCameraUsed:
+        if self.configReader.pi_camera_used:
             print("Picamera cannot be launch on windows")
             raise Exception("Picamera cannot be launch on windows")
         # COnfiguration for Raspberry
@@ -61,7 +61,7 @@ class MovementDetectorRunner:
         # camera.framerate = conf["fps"]
         # rawCapture = PiRGBArray(camera, size=tuple(conf["resolution"]))
         else:
-            self.camera = cv2.VideoCapture(self.configReader.cameraPort)
+            self.camera = cv2.VideoCapture(self.configReader.camera_port)
         time.sleep(self.configReader.camera_warmup_time)
 
     def __save_frame_if_room_is_occupied__(self, frame):
