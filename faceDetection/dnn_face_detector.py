@@ -1,6 +1,7 @@
 import cv2
 import numpy
-from faceDetection.config_reader import ConfigReader
+
+from faceDetection.configuration.config_reader import ConfigReader
 from helpers.exception_handler import exception
 import os
 

@@ -1,6 +1,5 @@
-from entities.face_detection import FaceDetection
-from entities.sensors_reading import SensorsReading
-from helpers.database_connection import Base, engine, Session
+from dataLayer.database_connection import Base, engine, Session
+from dataLayer.entities.face_detection import FaceDetection
 
 Base.metadata.create_all(engine)
 session = Session()

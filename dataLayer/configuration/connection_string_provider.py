@@ -1,7 +1,7 @@
 import platform
 import urllib.parse
 
-from helpers.config_reader import ConfigReader
+from dataLayer.configuration.config_reader import ConfigReader
 
 
 class ConnectionStringProvider():

@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String, Integer, Date
 
-from helpers.database_connection import Base
+from dataLayer.database_connection import Base
 
 
 class FaceDetection(Base):
@@ -11,4 +11,3 @@ class FaceDetection(Base):
     haarFaces = Column('HaarFaces', Integer)
     name = Column('Name', String)
     statusId = Column('StatusId', Integer)
-

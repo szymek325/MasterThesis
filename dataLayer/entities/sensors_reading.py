@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String, Integer, Date
 
-from helpers.database_connection import Base
+from dataLayer.database_connection import Base
 
 
 class SensorsReading(Base):

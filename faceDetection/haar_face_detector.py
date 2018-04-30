@@ -1,5 +1,6 @@
 import cv2
-from helpers.config_reader import ConfigReader
+
+from faceDetection.configuration.config_reader import ConfigReader
 from helpers.exception_handler import exception
 from helpers.files_manager import FilesManager
 import os
