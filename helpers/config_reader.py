@@ -7,28 +7,8 @@ class ConfigReader:
         self.configuration = json.load(open("./config.json"))
 
     @property
-    def show_video(self):
-        return self.configuration["show_video"]
-
-    @property
-    def min_motion_frames(self):
-        return self.configuration["min_motion_frames"]
-
-    @property
-    def camera_warmup_time(self):
-        return self.configuration["camera_warmup_time"]
-
-    @property
     def delta_thresh(self):
         return self.configuration["delta_thresh"]
-
-    @property
-    def resolution(self):
-        return self.configuration["resolution"]
-
-    @property
-    def fps(self):
-        return self.configuration["fps"]
 
     @property
     def min_area(self):
@@ -41,14 +21,6 @@ class ConfigReader:
     @property
     def detected_face_save_path(self):
         return self.configuration["detectedFaceSavePath"]
-
-    @property
-    def pi_camera_used(self):
-        return self.configuration["piCameraUsed"]
-
-    @property
-    def camera_port(self):
-        return self.configuration["cameraPort"]
 
     @property
     def face_cascade_path(self):
@@ -69,14 +41,6 @@ class ConfigReader:
     @property
     def required_face_confidence(self):
         return self.configuration["required_face_confidence"]
-
-    @property
-    def movement_timestamp(self):
-        return self.configuration["movement_timestamp"]
-
-    @property
-    def movement_marking(self):
-        return self.configuration["movement_marking"]
 
     @property
     def training_data(self):
