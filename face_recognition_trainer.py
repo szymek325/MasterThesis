@@ -1,8 +1,8 @@
-from helpers.config_reader import ConfigReader
+from faceDetection.dnn_face_detector import DnnFaceDetector
+from faceRecognition.configuration.config_reader import ConfigReader
 from helpers.exception_handler import exception
 from helpers.files_manager import FilesManager
 from helpers.logger_factory import LoggerFactory
-from image_operators.dnn_face_detector import DnnFaceDetector
 from PIL import Image
 import numpy as np
 import cv2
@@ -34,7 +34,7 @@ class FaceRecognitionTrainer:
                     ids.append(faceId)
                     self.logger.info('adding sample to learning array')
         self.recognizer.train(faceSamples, np.array(ids))
-        self.recognizer.write(f'{self.config.openCv_files_path}faceRecognizer.yml')
+        self.recognizer.write(f'{self.config.openCv_files_path}faceRecognizer2.yml')
 
 
 
