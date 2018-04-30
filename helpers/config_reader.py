@@ -21,3 +21,7 @@ class ConfigReader:
     @property
     def face_recognition_interval(self):
         return self.configuration["face_recognition_interval"]
+
+    @property
+    def face_detection_requests_path(self):
+        return self.configuration["face_detection_requests_path"]

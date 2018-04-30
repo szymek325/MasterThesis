@@ -11,16 +11,22 @@ class DropboxClient:
         self.client = dropbox.Dropbox(self.config.dropbox_access_token)
 
     @exception
-    def get_file(self, request_id):
+    def download_face_detection_input(self, request_id, save_location):
         folder_path = f"{self.config.face_detection_jobs_path}/{request_id}"
-        save_directory = f"{self.config.temporary_files_path}/{request_id}"
-        file = self.client.files_list_folder(folder_path).entries[0]
-        file_type = file.name.split('.')[1]
+        files = self.client.files_list_folder(folder_path)
+        if not files.entries.count == 0:
+            file = files.entries[0]
+            file_type = file.name.split('.')[1]
+            save_path = f"{save_location}/{request_id}/input.{file_type}"
+            self.create_directory_if_doesnt_exist(save_path)
+            self.client.files_download_to_file(save_path, file.path_lower)
+
+    @staticmethod
+    def create_directory_if_doesnt_exist(save_directory):
         if not os.path.exists(save_directory):
             os.makedirs(save_directory)
-        self.client.files_download_to_file(f"{save_directory}/input.{file_type}", file.path_lower)
 
 
 if __name__ == "__main__":
     drop = DropboxClient()
-    drop.get_file(3)
+    drop.download_face_detection_input(3)

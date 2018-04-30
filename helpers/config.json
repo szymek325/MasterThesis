@@ -2,6 +2,7 @@
   "detectedMotionPath": "temp/detectedMotion/",
   "detectedFaceSavePath": "temp/detectedFace/",
   "training_data": "temp/trainingFaces/",
+  "face_detection_requests_path":"temp/faceDetectionRequests/",
   "face_recognition_interval": 60
 }
 
