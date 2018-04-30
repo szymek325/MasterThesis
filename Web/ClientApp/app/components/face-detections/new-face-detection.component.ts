@@ -10,26 +10,18 @@ import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms"
     styleUrls: ["./face-detection.components.css"],
 })
 export class NewFaceDetectionComponent implements OnInit {
-    faceDetectionForm;
-    name: string;
-    files: any;
-    faceImage: any;
     formData: any;
-    @ViewChild("FaceImage") Face_Image;
     detectionForm: FormGroup;
+    file: any;
     isFileValid:boolean;
 
     constructor(private requestDownloader: FaceDetectionService, private alertService: AlertService, private router: Router, private formBuilder: FormBuilder) {}
 
 
     onClickSubmit(data) {
-        const Image = this.Face_Image.nativeElement;
-        if (Image.files && Image.files[0]) {
-            this.faceImage = Image.files[0];
-            console.log(this.faceImage);
-        }
+
         this.formData = new FormData();
-        this.formData.set(this.faceImage.name, this.faceImage);
+        this.formData.set(this.file.name, this.file);
         this.formData.set("name", data.name);
         console.log(this.formData);
 
@@ -44,8 +36,11 @@ export class NewFaceDetectionComponent implements OnInit {
     }
 
     validateFile(fileInput: any) {
-        var file = fileInput.target.files[0];
-        this.isFileValid = this.checkExtension(file.name);
+        this.file = fileInput.target.files[0];
+        this.isFileValid = this.checkExtension(this.file.name);
+        if (this.isFileValid) {
+
+        }
 
     }
 
@@ -58,7 +53,7 @@ export class NewFaceDetectionComponent implements OnInit {
 
     private checkExtension(name:string) {
         let valToLower = name.toLowerCase();
-        let regex = new RegExp("(.*?)\.(jpg|png|jpeg)$"); //add or remove required extensions here
+        let regex = new RegExp("(.*?)\.(jpg|png|jpeg)$");
         let regexTest = regex.test(valToLower);
         //return !regexTest ? { "notSupportedFileType": true } : null;
         return regexTest ;

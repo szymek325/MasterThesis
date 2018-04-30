@@ -7,13 +7,13 @@
             <label for="name">Name</label>
             <input type="text" class="form-control" formControlName="name" id="name" ngModel>
         </div>
-        <div class="alert" *ngIf="!detectionForm.controls['name'].valid && detectionForm.controls['name'].touched">dupa</div>
+        <div class="alert alert-danger" *ngIf="!detectionForm.controls['name'].valid && detectionForm.controls['name'].touched">'Name' field is required</div>
         
         <div class="form-group">
             <label for="file">File</label>
             <input type="file" class="form-control" [ngModelOptions]="{standalone: true}" (change)="validateFile($event)" id="file" accept=".jpeg, .bmp, .png" ngModel #FaceImage>
         </div>
-        <div class="alert" *ngIf="!isFileValid">dupa</div>
+        <div class="alert alert-danger" *ngIf="!isFileValid">File is required</div>
 
         <div>
             <button type="submit" [disabled]="!(detectionForm.valid && isFileValid)" class="btn btn-success">Submit</button>
