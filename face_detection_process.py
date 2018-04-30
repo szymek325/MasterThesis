@@ -37,6 +37,17 @@ class FaceDetectionProcess():
                                  f"\n   DNN: {faces_detected_by_Dnn}")
                 self.__draw_faces__(image, faces_detected_by_Haar, faces_detected_by_Dnn, request.id)
                 self.__prepare_to_upload(request.id)
+                self.__mark_as_completed__(request)
+
+    @staticmethod
+    def __mark_as_completed__(request):
+        Base.metadata.create_all(engine)
+        session = Session()
+        requests = session.query(FaceDetection).filter_by(id=request.id)
+        for req in requests:
+            req.statusId = 3
+        session.commit()
+        session.close()
 
     @staticmethod
     def __get_all_requests__():
