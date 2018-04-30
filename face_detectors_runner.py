@@ -1,12 +1,13 @@
 import cv2
 import time
 import os
+
+from faceDetection.dnn_face_detector import DnnFaceDetector
+from faceDetection.haar_face_detector import HaarFaceDetector
 from helpers.config_reader import ConfigReader
 from helpers.exception_handler import exception
 from helpers.files_manager import FilesManager
 from helpers.logger_factory import LoggerFactory
-from image_operators.dnn_face_detector import DnnFaceDetector
-from image_operators.haar_face_detector import HaarFaceDetector
 
 
 class FaceDetectorsRunner:

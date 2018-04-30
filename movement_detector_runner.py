@@ -2,11 +2,11 @@ import time
 import cv2
 import imutils
 from datetime import datetime
-from helpers.config_reader import ConfigReader
 from helpers.exception_handler import exception
 from helpers.files_manager import FilesManager
 from helpers.logger_factory import LoggerFactory
-from image_operators.movement_detector import MovementDetector
+from motionDetection.configuration.config_reader import ConfigReader
+from motionDetection.movement_detector import MovementDetector
 
 
 class MovementDetectorRunner:

@@ -1,4 +1,4 @@
-from helpers.config_reader import ConfigReader
+from faceRecognition.face_recognizer import FaceRecognizer
 from helpers.exception_handler import exception
 from helpers.files_manager import FilesManager
 from helpers.logger_factory import LoggerFactory
@@ -7,12 +7,10 @@ import numpy as np
 import cv2
 import os
 
-from image_operators.face_recognizer import FaceRecognizer
 
 
 class FaceRecognitionRunner:
     def __init__(self):
-        self.config = ConfigReader()
         self.filesManager = FilesManager()
         self.logger = LoggerFactory()
         self.faceRecognizer = FaceRecognizer()

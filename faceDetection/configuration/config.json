@@ -1,0 +1,7 @@
+{
+  "face_cascade_path": "faceDetection/configuration//lbpcascade_frontalface_improved.xml",
+  "proto_txt": "faceDetection/configuration//deploy.prototxt.txt",
+  "dnn_model": "faceDetection/configuration//res10_300x300_ssd_iter_140000.caffemodel",
+  "required_face_confidence": 0.5
+}
+

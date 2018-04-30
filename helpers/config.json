@@ -1,0 +1,6 @@
+{
+  "detectedMotionPath": "detectedMotion/",
+  "detectedFaceSavePath": "detectedFace/",
+  "training_data": "trainingFaces/",
+}
+
