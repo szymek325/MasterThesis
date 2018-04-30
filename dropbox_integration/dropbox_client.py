@@ -1,18 +1,24 @@
 import dropbox
-
+import os
 from dropbox_integration.configuration.config_reader import ConfigReader
+from helpers.exception_handler import exception
 
 
 class DropboxClient:
 
     def __init__(self):
-        self.config=ConfigReader()
-        self.client=dropbox.Dropbox(self.config.dropbox_access_token)
+        self.config = ConfigReader()
+        self.client = dropbox.Dropbox(self.config.dropbox_access_token)
 
-    def get_file(self,requestId):
-        file,meta=self.client.files_download(f"{self.config.face_detection_jobs_path}/{requestId}/4700_1h.PNG")
-        print(self.client.users_get_current_account())
-
+    @exception
+    def get_file(self, request_id):
+        folder_path = f"{self.config.face_detection_jobs_path}/{request_id}"
+        save_directory = f"{self.config.temporary_files_path}/{request_id}"
+        file = self.client.files_list_folder(folder_path).entries[0]
+        file_type = file.name.split('.')[1]
+        if not os.path.exists(save_directory):
+            os.makedirs(save_directory)
+        self.client.files_download_to_file(f"{save_directory}/input.{file_type}", file.path_lower)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 {
-  "detectedMotionPath": "detectedMotion/",
-  "detectedFaceSavePath": "detectedFace/",
-  "training_data": "trainingFaces/",
+  "detectedMotionPath": "temp/detectedMotion/",
+  "detectedFaceSavePath": "temp/detectedFace/",
+  "training_data": "temp/trainingFaces/",
+  "face_recognition_interval": 60
 }
 

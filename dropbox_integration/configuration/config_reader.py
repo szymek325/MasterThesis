@@ -13,3 +13,7 @@ class ConfigReader:
     @property
     def face_detection_jobs_path(self):
         return self.configuration["face_detection_jobs_path"]
+
+    @property
+    def temporary_files_path(self):
+        return self.configuration["temporary_files_path"]
