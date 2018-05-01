@@ -17,6 +17,10 @@ import {HomeComponent} from "./components/home/home.component";
 import { AlertComponent } from "./components/alert/alert.component";
 import { AlertService } from "./services/alert.service";
 import { DropboxPicturesExampleComponent } from "./components/dropbox-pictures-example/dropbox-pictures-example.component";
+import { FaceDetectionsComponent } from './components/face-detections/face-detections.component';
+import { FaceDetectionService } from './services/face-detection.service';
+import { NewFaceDetectionComponent } from './components/face-detections/new-face-detection.component';
+import {FaceDetectionRequestComponent} from "./components/face-detections/face-detection-request.component";
 
 
 @NgModule({
@@ -30,7 +34,10 @@ import { DropboxPicturesExampleComponent } from "./components/dropbox-pictures-e
         AttachmentListComponent,
         HomeComponent,
         AlertComponent,
-        DropboxPicturesExampleComponent
+        DropboxPicturesExampleComponent,
+        FaceDetectionsComponent,
+        NewFaceDetectionComponent,
+        FaceDetectionRequestComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -44,10 +51,13 @@ import { DropboxPicturesExampleComponent } from "./components/dropbox-pictures-e
             { path: "fetch-data", component: FetchDataComponent },
             { path: "sensordata", component: SensorDataComponent },
             { path: "attachments", component: AttachmentListComponent },
-            { path: "dropboxpictures", component: DropboxPicturesExampleComponent }
+            { path: "dropboxpictures", component: DropboxPicturesExampleComponent },
+            { path: "face-detection", component: FaceDetectionsComponent },
+            { path: "new-face-detection", component: NewFaceDetectionComponent },
+            { path: "face-detection-request/:id", component: FaceDetectionRequestComponent }
         ])
     ],
-    providers: [FileUploaderService, FileDownloaderService, AlertService],
+    providers: [FileUploaderService, FileDownloaderService, AlertService, FaceDetectionService],
 })
 export class AppModuleShared {
 }

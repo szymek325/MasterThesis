@@ -1,4 +1,5 @@
 ﻿using DataLayer;
+using Domain.FaceDetection;
 using Domain.Files;
 using Domain.Providers;
 using DropboxIntegration;
@@ -15,6 +16,7 @@ namespace Domain
 
             services.AddTransient<IFaceRecognitionJobProvider, FaceRecognitionJobProvider>();
             services.AddTransient<IFilesDomainService, FilesDomainService>();
+            services.AddTransient<IFaceDetectionService, FaceDetectionService>();
             return services;
         }
     }

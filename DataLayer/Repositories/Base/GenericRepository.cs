@@ -36,10 +36,20 @@ namespace DataLayer.Repositories.Base
             return context.Set<T>().Where(predicate).AsEnumerable();
         }
 
+        public IQueryable<T> GetAll()
+        {
+            return context.Set<T>();
+        }
+
         public void Update(T entity)
         {
             context.Entry(entity).State = EntityState.Modified;
             context.Set<T>().Attach(entity);
+        }
+
+        public void Save()
+        {
+            context.SaveChanges();
         }
     }
 }

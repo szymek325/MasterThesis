@@ -1,4 +1,5 @@
-﻿using DataLayer.Entities;
+﻿using System.Collections.Generic;
+using DataLayer.Entities;
 using DataLayer.Repositories.Base;
 using DataLayer.Repositories.Interface;
 
@@ -9,5 +10,6 @@ namespace DataLayer.Repositories.Implementation
         public FaceRecognitionJobRepository(MasterContext context) : base(context)
         {
         }
+
     }
 }

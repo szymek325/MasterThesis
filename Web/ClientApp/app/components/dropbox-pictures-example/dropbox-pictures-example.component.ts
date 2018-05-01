@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FileDownloaderService} from "../../services/file-downloader.service";
-import {FileLink} from "../../interfaces/file-link";
+import {IFileLink as FileLink} from "../../interfaces/file-link";
 
 @Component({
   selector: 'app-dropbox-pictures-example',

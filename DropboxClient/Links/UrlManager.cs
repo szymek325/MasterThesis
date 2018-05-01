@@ -24,7 +24,13 @@ namespace DropboxIntegration.Links
             return response.Url;
         }
 
-        public async Task<IEnumerable<SharedLinkMetadata>> GetAllLinks(string pathToFolder)
+        public async Task<IEnumerable<SharedLinkMetadata>> GetAllLinks()
+        {
+            var response = await dbxClient.Sharing.ListSharedLinksAsync();
+            return response.Links;
+        }
+
+        public async Task<IEnumerable<SharedLinkMetadata>> GetAllLinksFromFolder(string pathToFolder)
         {
             var response = await dbxClient.Sharing.ListSharedLinksAsync(pathToFolder);
             return response.Links;

@@ -7,6 +7,7 @@ namespace DropboxIntegration.Links
     public interface IUrlManager
     {
         Task<string> CreateLinkToFile(string pathToFile);
-        Task<IEnumerable<SharedLinkMetadata>> GetAllLinks(string pathToFolder=null);
+        Task<IEnumerable<SharedLinkMetadata>> GetAllLinks();
+        Task<IEnumerable<SharedLinkMetadata>> GetAllLinksFromFolder(string pathToFolder);
     }
 }
