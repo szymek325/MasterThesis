@@ -1,18 +1,16 @@
-from helpers.config_reader import ConfigReader
-from helpers.exception_handler import exception
-from helpers.files_manager import FilesManager
-from helpers.logger_factory import LoggerFactory
+from faceRecognition.face_recognizer import FaceRecognizer
+from configuration_global.exception_handler import exception
+from configuration_global.files_manager import FilesManager
+from configuration_global.logger_factory import LoggerFactory
 from PIL import Image
 import numpy as np
 import cv2
 import os
 
-from image_operators.face_recognizer import FaceRecognizer
 
 
 class FaceRecognitionRunner:
     def __init__(self):
-        self.config = ConfigReader()
         self.filesManager = FilesManager()
         self.logger = LoggerFactory()
         self.faceRecognizer = FaceRecognizer()

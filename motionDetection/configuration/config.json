@@ -1,0 +1,17 @@
+{
+  "delta_thresh": 25,
+  "min_area": 500,
+  "movement_timestamp": true,
+  "movement_marking": false,
+  "show_video": false,
+  "piCameraUsed": false,
+  "cameraPort": 0,
+  "camera_warmup_time": 2.5,
+  "min_motion_frames": 8,
+  "resolution": [
+    640,
+    480
+  ],
+  "fps": 16
+}
+

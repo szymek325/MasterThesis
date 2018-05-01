@@ -1,12 +1,13 @@
 import cv2
 import time
 import os
-from helpers.config_reader import ConfigReader
-from helpers.exception_handler import exception
-from helpers.files_manager import FilesManager
-from helpers.logger_factory import LoggerFactory
-from image_operators.dnn_face_detector import DnnFaceDetector
-from image_operators.haar_face_detector import HaarFaceDetector
+
+from faceDetection.dnn_face_detector import DnnFaceDetector
+from faceDetection.haar_face_detector import HaarFaceDetector
+from configuration_global.config_reader import ConfigReader
+from configuration_global.exception_handler import exception
+from configuration_global.files_manager import FilesManager
+from configuration_global.logger_factory import LoggerFactory
 
 
 class FaceDetectorsRunner:
@@ -30,7 +31,7 @@ class FaceDetectorsRunner:
     def __process_files__(self, files):
         for fileName in files:
             self.logger.info(f"File: {fileName} loaded for processing")
-            image = cv2.imread(f"{self.configReader.detectedMotionPath}{fileName}")
+            image = cv2.imread(f"{self.configReader.detected_motion_path}{fileName}")
             faces_detected_by_Haar = self.haarDetector.run_detector(image)
             faces_detected_by_Dnn = self.dnnDetector.run_detector(image)
             self.logger.info(f"Faces detected by "
@@ -41,7 +42,7 @@ class FaceDetectorsRunner:
             number = naming[2].split('.')[0]
             self.filesManager.save_face(newImage, f"faces_{naming[1]}_{number}")
 
-            os.remove(f"{self.configReader.detectedMotionPath}{fileName}")
+            os.remove(f"{self.configReader.detected_motion_path}{fileName}")
 
     def __draw_faces__(self, sourceImage, haarFaces, dnnFaces):
         if len(haarFaces) is not 0:

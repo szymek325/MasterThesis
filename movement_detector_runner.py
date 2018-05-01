@@ -2,11 +2,11 @@ import time
 import cv2
 import imutils
 from datetime import datetime
-from helpers.config_reader import ConfigReader
-from helpers.exception_handler import exception
-from helpers.files_manager import FilesManager
-from helpers.logger_factory import LoggerFactory
-from image_operators.movement_detector import MovementDetector
+from configuration_global.exception_handler import exception
+from configuration_global.files_manager import FilesManager
+from configuration_global.logger_factory import LoggerFactory
+from motionDetection.configuration.config_reader import ConfigReader
+from motionDetection.movement_detector import MovementDetector
 
 
 class MovementDetectorRunner:
@@ -52,7 +52,7 @@ class MovementDetectorRunner:
 
     @exception
     def __init_camera__(self):
-        if self.configReader.piCameraUsed:
+        if self.configReader.pi_camera_used:
             print("Picamera cannot be launch on windows")
             raise Exception("Picamera cannot be launch on windows")
         # COnfiguration for Raspberry
@@ -61,7 +61,7 @@ class MovementDetectorRunner:
         # camera.framerate = conf["fps"]
         # rawCapture = PiRGBArray(camera, size=tuple(conf["resolution"]))
         else:
-            self.camera = cv2.VideoCapture(self.configReader.cameraPort)
+            self.camera = cv2.VideoCapture(self.configReader.camera_port)
         time.sleep(self.configReader.camera_warmup_time)
 
     def __save_frame_if_room_is_occupied__(self, frame):

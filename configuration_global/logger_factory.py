@@ -1,14 +1,19 @@
 import logging
 import datetime
+import os
 
-from helpers.singleton import Singleton
+from configuration_global.directory_manager import DirectoryManager
+from configuration_global.singleton import Singleton
 
 
 class LoggerFactory(metaclass=Singleton):
 
     def __init__(self):
+        self.dir_path = os.path.dirname(os.path.realpath(__file__))
         self.logger = logging.getLogger('FaceRecognitionLogger')
-        fileHandler = logging.FileHandler(f'Logs/logs_{datetime.date.today()}.log')
+        self.directory = DirectoryManager()
+        self.directory.create_directory_if_doesnt_exist(f'temp/logs')
+        fileHandler = logging.FileHandler(f'temp/logs/logs_{datetime.date.today()}.log')
         fileHandler.setLevel(logging.DEBUG)
         streamHandler = logging.StreamHandler()
         streamHandler.setLevel(logging.ERROR)

@@ -1,17 +1,17 @@
 from datetime import datetime
 import cv2
 from os import listdir, path
-from helpers.exception_handler import exception
+from configuration_global.exception_handler import exception
 
-from helpers.config_reader import ConfigReader
-from helpers.logger_factory import LoggerFactory
+from configuration_global.config_reader import ConfigReader
+from configuration_global.logger_factory import LoggerFactory
 
 
 class FilesManager:
     def __init__(self):
         self.configReader = ConfigReader()
-        self.facePath = self.configReader.detectedFaceSavePath
-        self.motionPath = self.configReader.detectedMotionPath
+        self.facePath = self.configReader.detected_face_save_path
+        self.motionPath = self.configReader.detected_motion_path
         self.trainingDataPath = self.configReader.training_data
         self.logger = LoggerFactory()
 
