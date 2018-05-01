@@ -5,6 +5,7 @@ from sqlalchemy import null
 
 from configuration_global.directory_manager import DirectoryManager
 from dataLayer.entities.face_detection import FaceDetection
+from dataLayer.repositories.face_detection_repository import FaceDetectionRepository
 from dropbox_integration.dropbox_client import DropboxClient
 from dataLayer.database_connection import Base, engine, Session
 from faceDetection.dnn_face_detector import DnnFaceDetector
@@ -23,10 +24,11 @@ class FaceDetectionProcess():
         self.logger = LoggerFactory()
         self.requests_path = self.config.face_detection_requests_path
         self.directory = DirectoryManager()
+        self.faceDetectionRepository= FaceDetectionRepository()
 
     @exception
     def run_face_detection(self):
-        requests = self.__get_all_requests__()
+        requests = self.faceDetectionRepository.get_all_not_completed()
         if not requests == null:
             for request in requests:
                 print(request.id)
@@ -39,25 +41,10 @@ class FaceDetectionProcess():
                                  f"\n   DNN: {faces_detected_by_Dnn}")
                 self.__draw_faces__(image, faces_detected_by_Haar, faces_detected_by_Dnn, request.id)
                 self.__prepare_to_upload(request.id)
-                self.__mark_as_completed__(request)
+                self.faceDetectionRepository.mark_as_completed_by_id(request.id)
 
-    @staticmethod
-    def __mark_as_completed__(request):
-        Base.metadata.create_all(engine)
-        session = Session()
-        requests = session.query(FaceDetection).filter_by(id=request.id)
-        for req in requests:
-            req.statusId = 3
-        session.commit()
-        session.close()
 
-    @staticmethod
-    def __get_all_requests__():
-        Base.metadata.create_all(engine)
-        session = Session()
-        requests = session.query(FaceDetection).filter_by(statusId=1)
-        session.close()
-        return requests
+
 
     def __draw_faces__(self, sourceImage, haarFaces, dnnFaces, id):
         haar = sourceImage.copy()
@@ -84,6 +71,5 @@ class FaceDetectionProcess():
 
 
 if __name__ == "__main__":
-    print("DUPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
     drop = FaceDetectionProcess()
     drop.run_face_detection()
