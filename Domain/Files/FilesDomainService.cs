@@ -62,6 +62,12 @@ namespace Domain.Files
             return new FileLink {Url = link};
         }
 
+        public async Task<IEnumerable<FileLink>> GetLinks(string folderPath)
+        {
+            var links= new List<FileLink>();
+            return links;
+        }
+
         private async Task<string> GetExistingLink(string fileName, string link)
         {
             var cos = await urlManager.GetAllLinks();

@@ -17,5 +17,10 @@ namespace DataLayer.Repositories.Implementation
         {
             return GetAll().Include(x => x.Status).AsEnumerable();
         }
+
+        public FaceDetection GetRequestById(int id)
+        {
+            return GetAll().Include(x => x.Status).FirstOrDefault(x => x.Id == id);
+        }
     }
 }

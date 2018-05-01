@@ -32,25 +32,10 @@ namespace Domain.FaceDetection
 
         public FaceDetectionRequest GetRequestData(int id)
         {
-            var lnkList = new List<FileLink>
-            {
-                new FileLink
-                {
-                    Url = "123"
-                },
-                new FileLink
-                {
-                    Url = "trest23"
-                }
-            };
-            var request = new FaceDetectionRequest
-            {
-                Name = "test test",
-                HaarFaces = 2,
-                DnnFaces = 3,
-                Id = 100,
-                FileLinks = lnkList
-            };
+            var detectionJob = detectionRepository.GetRequestById(id);
+            var links = filesService.GetLinks($"/faceDetection/{id}");
+            var request = mapper.Map<FaceDetectionRequest>(detectionJob);
+            request.FileLinks = links.Result;
             return request;
         }
 
