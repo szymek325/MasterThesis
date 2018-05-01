@@ -29,10 +29,10 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
-        public FaceDetectionRequest GetRequest(int id)
+        public async Task<FaceDetectionRequest> GetRequest(int id)
         {
 
-            var request=faceDetectionService.GetRequestData(id);
+            var request=await faceDetectionService.GetRequestData(id);
             return request;
         }
 

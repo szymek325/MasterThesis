@@ -1,4 +1,4 @@
-﻿import {IFileLink as FileLink} from "./file-link";
+﻿import {IFileLink} from "./file-link";
 
 export interface IFaceDetectionRequest{
     id: number;
@@ -8,6 +8,6 @@ export interface IFaceDetectionRequest{
     haar: number;
     fileLinks:
     {
-        [key:string]:FileLink
+        [key: string]: IFileLink
     };
 }

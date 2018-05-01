@@ -46,8 +46,12 @@ namespace Web.Controllers
         [HttpGet("[action]")]
         public async Task<FileLink> GetFileLink([FromQuery] string fileName)
         {
-            var file = await filesService.GetLinkToFile("/reco", fileName);
-            return file;
+            var link = await filesService.GetLinkToFile("/reco", fileName);
+
+            return new FileLink
+            {
+                Url = link
+            };
         }
     }
 }

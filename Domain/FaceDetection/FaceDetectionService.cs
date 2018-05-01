@@ -30,12 +30,12 @@ namespace Domain.FaceDetection
             return requests;
         }
 
-        public FaceDetectionRequest GetRequestData(int id)
+        public async Task<FaceDetectionRequest> GetRequestData(int id)
         {
             var detectionJob = detectionRepository.GetRequestById(id);
-            var links = filesService.GetLinks($"/faceDetection/{id}");
+            var links = await filesService.GetLinksToFilesInFolder($"/faceDetection/{id}");
             var request = mapper.Map<FaceDetectionRequest>(detectionJob);
-            request.FileLinks = links.Result;
+            request.FileLinks = links;
             return request;
         }
 
