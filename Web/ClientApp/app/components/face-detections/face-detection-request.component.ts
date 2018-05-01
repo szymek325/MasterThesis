@@ -21,7 +21,7 @@ export class FaceDetectionRequestComponent implements OnInit, OnDestroy {
 
             // In a real app: dispatch action to load the details here.
         });
-        this.requestDownloader.getAllFaceDetectionRequests()
+        this.requestDownloader.getRequest(this.id.toString())
             .subscribe(result => {
                     this.request = result as IFaceDetectionRequest;
                     console.log(this.request);

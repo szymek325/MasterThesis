@@ -5,6 +5,7 @@ using AutoMapper;
 using DataLayer.Repositories.Interface;
 using Domain.FaceDetection.DTO;
 using Domain.Files;
+using Domain.Files.DTO;
 
 namespace Domain.FaceDetection
 {
@@ -29,11 +30,28 @@ namespace Domain.FaceDetection
             return requests;
         }
 
-        public IEnumerable<FaceDetectionRequest> GetRequestData(int id)
+        public FaceDetectionRequest GetRequestData(int id)
         {
-            var faceDetections = detectionRepository.GetAllFaces();
-            var requests = mapper.Map<IEnumerable<FaceDetectionRequest>>(faceDetections);
-            return requests;
+            var lnkList = new List<FileLink>
+            {
+                new FileLink
+                {
+                    Url = "123"
+                },
+                new FileLink
+                {
+                    Url = "trest23"
+                }
+            };
+            var request = new FaceDetectionRequest
+            {
+                Name = "test test",
+                HaarFaces = 2,
+                DnnFaces = 3,
+                Id = 100,
+                FileLinks = lnkList
+            };
+            return request;
         }
 
         public async Task<int> CreateRequest(NewRequest request)

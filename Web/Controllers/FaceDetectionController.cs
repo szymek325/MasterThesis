@@ -29,10 +29,11 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<FaceDetectionRequest> GetRequest(int id)
+        public FaceDetectionRequest GetRequest(int id)
         {
 
-            return faceDetectionService.GetAllFaceDetections();
+            var request=faceDetectionService.GetRequestData(id);
+            return request;
         }
 
         [HttpPost("[action]")]

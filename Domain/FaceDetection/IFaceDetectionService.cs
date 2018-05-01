@@ -8,5 +8,6 @@ namespace Domain.FaceDetection
     {
         IEnumerable<FaceDetectionRequest> GetAllFaceDetections();
         Task<int> CreateRequest(NewRequest request);
+        FaceDetectionRequest GetRequestData(int id);
     }
 }
