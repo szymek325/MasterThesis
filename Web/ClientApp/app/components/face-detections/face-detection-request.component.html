@@ -1,6 +1,28 @@
 ﻿<div class="container">
-    <h1>New Face Detection request form</h1>
-    <form [formGroup]="detectionForm" (ngSubmit)="onClickSubmit(detectionForm.value)">
+    <h1>Face Detection Request : {{id}}</h1>
+    
+    <div>
+        <label for="name">Name</label>
+        <div id="name">{{name}}</div>
+    </div>
+    <div>
+        <label for="input">Input image</label>
+        <img id="input"/>
+    </div>
+
+    <div>
+        <label for="haar">Faces detected by Haar</label>
+        <div id="name">dsadsa</div>
+        <img/>
+    </div>
+    
+    <div>
+        <label for="dnn">Faces detected by Deep Neural Network</label>
+        <div id="name">dsadsa</div>
+        <img />
+    </div>
+
+    <!--<form [formGroup]="detectionForm" (ngSubmit)="onClickSubmit(detectionForm.value)">
 
         <div class="form-group">
             <label for="name">Name</label>
@@ -18,7 +40,7 @@
             <button type="submit" [disabled]="!(detectionForm.valid && isFileValid)" class="btn btn-success">Submit</button>
         </div>
 
-    </form>
+    </form>-->
 </div>
 
 <alert></alert>

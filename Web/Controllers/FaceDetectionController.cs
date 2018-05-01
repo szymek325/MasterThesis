@@ -28,6 +28,13 @@ namespace Web.Controllers
             return faceDetectionService.GetAllFaceDetections();
         }
 
+        [HttpGet("[action]")]
+        public IEnumerable<FaceDetectionRequest> GetRequest(int id)
+        {
+
+            return faceDetectionService.GetAllFaceDetections();
+        }
+
         [HttpPost("[action]")]
         public async Task<IActionResult> Create(IFormCollection collections)
         {

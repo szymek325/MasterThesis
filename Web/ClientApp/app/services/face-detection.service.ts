@@ -11,6 +11,11 @@ export class FaceDetectionService {
         return this.httpClient.get(this.baseUrl + "api/FaceDetection/GetAll");
     };
 
+    getRequest(id: string): Observable<Object> {
+        const params = new HttpParams().set("id", id);
+        return this.httpClient.get(this.baseUrl + "api/FaceDetection/GetRequest", {params});
+    };
+
     createNewRequest(formData: string): Observable<Object> {
         return this.httpClient.post<{ contents: string }>(this.baseUrl + "api/FaceDetection/Create", formData);
     };

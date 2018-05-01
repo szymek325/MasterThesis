@@ -1,4 +1,7 @@
-﻿namespace Domain.FaceDetection.DTO
+﻿using System.Collections.Generic;
+using Domain.Files.DTO;
+
+namespace Domain.FaceDetection.DTO
 {
     public class FaceDetectionRequest
     {
@@ -7,5 +10,6 @@
         public string Status { get; set; }
         public int DnnFaces { get; set; }
         public int HaarFaces { get; set; }
+        public IEnumerable<FileLink> FileLinks { get; set; }
     }
 }

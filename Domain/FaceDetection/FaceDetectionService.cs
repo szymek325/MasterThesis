@@ -29,6 +29,13 @@ namespace Domain.FaceDetection
             return requests;
         }
 
+        public IEnumerable<FaceDetectionRequest> GetRequestData(int id)
+        {
+            var faceDetections = detectionRepository.GetAllFaces();
+            var requests = mapper.Map<IEnumerable<FaceDetectionRequest>>(faceDetections);
+            return requests;
+        }
+
         public async Task<int> CreateRequest(NewRequest request)
         {
             var newDetection = new DataLayer.Entities.FaceDetection

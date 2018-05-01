@@ -1,3 +1,3 @@
-export class FileLink {
+export interface IFileLink {
     url: string;
 }
