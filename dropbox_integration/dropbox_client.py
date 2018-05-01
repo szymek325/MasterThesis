@@ -25,7 +25,7 @@ class DropboxClient:
             self.client.files_download_to_file(f"{save_path}/input.{file_type}", file.path_lower)
 
     def upload_file(self, file, request_id,file_name):
-        self.client.files_upload(file, f"{self.config.face_detection_jobs_path}/{request_id}/result/{file_name}")
+        self.client.files_upload(file, f"{self.config.face_detection_jobs_path}/{request_id}/{file_name}")
 
 
 if __name__ == "__main__":

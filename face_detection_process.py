@@ -68,13 +68,13 @@ class FaceDetectionProcess():
             for face in dnnFaces:
                 startX, startY, endX, endY = face
                 cv2.rectangle(dnn, (startX, startY), (endX, endY), (0, 0, 255), 2)  # red
-        save_path = f"{self.requests_path}{id}/result"
+        save_path = f"{self.requests_path}{id}"
         self.directory.create_directory_if_doesnt_exist(save_path)
         cv2.imwrite(f"{save_path}/haar.png", haar)
         cv2.imwrite(f"{save_path}/dnn.png", dnn)
 
     def __prepare_to_upload(self, id):
-        path = f"{self.requests_path}{id}/result"
+        path = f"{self.requests_path}{id}"
         haar = open(f"{path}/haar.png", 'rb')
         dnn = open(f"{path}/dnn.png", 'rb')
         self.dbxClient.upload_file(haar.read(), id, "haar.png")
