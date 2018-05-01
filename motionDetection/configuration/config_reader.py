@@ -1,10 +1,12 @@
 import json
+import os
 
 
 class ConfigReader:
 
     def __init__(self):
-        self.configuration = json.load(open("motionDetection/configuration/config.json"))
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        self.configuration = json.load(open(f"{dir_path}/config.json"))
 
     @property
     def delta_thresh(self):

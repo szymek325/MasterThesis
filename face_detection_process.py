@@ -1,3 +1,5 @@
+import os
+
 import cv2
 from sqlalchemy import null
 
@@ -82,5 +84,6 @@ class FaceDetectionProcess():
 
 
 if __name__ == "__main__":
+    print("DUPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
     drop = FaceDetectionProcess()
     drop.run_face_detection()
