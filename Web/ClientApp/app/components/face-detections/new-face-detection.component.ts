@@ -27,6 +27,10 @@ export class NewFaceDetectionComponent implements OnInit {
 
         this.requestDownloader.createNewRequest(this.formData)
             .subscribe(result => {
+                if (result === 0) {
+                    this.alertService.error("Exception occured during request creation");
+                    alert("Exception occured during request creation");
+                }
                     this.router.navigateByUrl("face-detection");
                 },
                 error => {

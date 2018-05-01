@@ -6,8 +6,5 @@ export interface IFaceDetectionRequest{
     status: string;
     dnn: number;
     haar: number;
-    fileLinks:
-    {
-        [key: string]: IFileLink
-    };
+    fileLinks: IFileLink[];
 }

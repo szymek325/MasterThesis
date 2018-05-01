@@ -9,6 +9,9 @@ import {IFaceDetectionRequest} from "../../interfaces/face-detection-request";
 })
 export class FaceDetectionRequestComponent implements OnInit, OnDestroy {
     request: IFaceDetectionRequest;
+    haarLink;
+    dnnLink;
+    inputLink;
     id: number;
     private sub: any;
 
@@ -24,6 +27,9 @@ export class FaceDetectionRequestComponent implements OnInit, OnDestroy {
         this.requestDownloader.getRequest(this.id.toString())
             .subscribe(result => {
                     this.request = result as IFaceDetectionRequest;
+                    this.dnnLink = this.request.fileLinks.filter(x => x.fileName.split(".")[0] === "dnn")[0];
+                    this.haarLink = this.request.fileLinks.filter(x => x.fileName.split(".")[0] === "haar")[0];
+                    this.inputLink = this.request.fileLinks.filter(x => x.fileName.split(".")[0] === "input")[0];
                     console.log(this.request);
                 },
                 error => { console.log(error) });

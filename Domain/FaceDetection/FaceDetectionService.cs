@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DataLayer.Repositories.Interface;
@@ -41,6 +42,12 @@ namespace Domain.FaceDetection
 
         public async Task<int> CreateRequest(NewRequest request)
         {
+            var attachment = request.Files.FirstOrDefault();
+            if (attachment == null)
+            {
+                return 0;
+            }
+
             var newDetection = new DataLayer.Entities.FaceDetection
             {
                 Name = request.Name,
@@ -48,7 +55,8 @@ namespace Domain.FaceDetection
             };
             detectionRepository.Add(newDetection);
             detectionRepository.Save();
-
+            var fileToUpload = request.Files.FirstOrDefault();
+            attachment.FileName = "input." + attachment.FileName.Split('.').Last();
             await filesService.Upload(request.Files, $"/faceDetection/{newDetection.Id}");
 
             return newDetection.Id ;

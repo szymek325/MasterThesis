@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Files.DTO;
 using Dropbox.Api;
-using Dropbox.Api.Files;
 using DropboxIntegration.Files;
 using DropboxIntegration.Folders;
 using DropboxIntegration.Links;
@@ -17,9 +16,9 @@ namespace Domain.Files
     {
         private readonly IFilesManager filesManager;
         private readonly IFoldersManager foldersManager;
-        private readonly IUrlManager urlManager;
         private readonly ILogger<FilesDomainService> logger;
         private readonly IMapper mapper;
+        private readonly IUrlManager urlManager;
 
         public FilesDomainService(IFilesManager filesManager, IFoldersManager foldersManager, IUrlManager urlManager,
             ILogger<FilesDomainService> logger, IMapper mapper)
@@ -31,15 +30,14 @@ namespace Domain.Files
             this.mapper = mapper;
         }
 
-        public async Task Upload(IEnumerable<FileToUpload> files, string location="/reco")
+        public async Task Upload(IEnumerable<FileToUpload> files, string location = "/reco")
         {
             foreach (var fileToUpload in files)
                 await filesManager.Upload(location, fileToUpload.FileName, fileToUpload.FileStream);
         }
 
-        public async Task<FileToUpload> Download(string path,string fileName)
+        public async Task<FileToUpload> Download(string path, string fileName)
         {
-
             var file = await filesManager.DownloadAsStream(path, fileName);
             var fileToDownload = new FileToUpload
             {
@@ -51,7 +49,7 @@ namespace Domain.Files
 
         public async Task<string> GetLinkToFile(string path, string fileName)
         {
-            var link="";
+            var link = "";
             try
             {
                 var pathToFile = $"{path}/{fileName}";
@@ -62,6 +60,7 @@ namespace Domain.Files
                 logger.LogError($"{ex.Message}");
                 link = await GetExistingLink(fileName);
             }
+
             link = TurnIntoSourceLink(link);
             return link;
         }
@@ -74,7 +73,7 @@ namespace Domain.Files
             {
                 var files = await foldersManager.GetFolderContent(folderPath);
 
-                var retrievedLinks = await urlManager.GetAllLinksFromFolder(folderPath);
+                var retrievedLinks = await urlManager.GetAllLinks();
                 var sharedLinkMetadatas = retrievedLinks.ToList();
                 foreach (var file in files.Entries)
                 {
@@ -82,21 +81,20 @@ namespace Domain.Files
                     {
                         FileName = file.Name
                     };
-                    var existingSharedFile = sharedLinkMetadatas.FirstOrDefault(x => x.Name == file.Name);
-                    link.Url = existingSharedFile != null
-                        ? existingSharedFile.Url
-                        : TurnIntoSourceLink(await urlManager.CreateLinkToFile(file.PathLower));
+                    var existingSharedFile = sharedLinkMetadatas.FirstOrDefault(x => x.PathLower == file.PathLower);
+                    link.Url = TurnIntoSourceLink(
+                        existingSharedFile != null
+                            ? existingSharedFile.Url
+                            : await urlManager.CreateLinkToFile(file.PathLower));
                     links.Add(link);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-
             }
 
             return links;
         }
-
 
 
         private async Task<string> GetExistingLink(string fileName)

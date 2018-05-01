@@ -1,46 +1,31 @@
 ﻿<div class="container">
     <h1>Face Detection Request : {{id}}</h1>
     
-    <div>
-        <label for="name">Name</label>
-        <div id="name">{{name}}</div>
-    </div>
-    <div>
-        <label for="input">Input image</label>
-        <img id="input"/>
-    </div>
-
-    <div>
-        <label for="haar">Faces detected by Haar</label>
-        <div id="name">dsadsa</div>
-        <img/>
-    </div>
-    
-    <div>
-        <label for="dnn">Faces detected by Deep Neural Network</label>
-        <div id="name">dsadsa</div>
-        <img />
-    </div>
-
-    <!--<form [formGroup]="detectionForm" (ngSubmit)="onClickSubmit(detectionForm.value)">
-
-        <div class="form-group">
+    <p *ngIf="!request"><em>Loading request data...</em></p>
+    <div *ngIf="request">
+        <div>
             <label for="name">Name</label>
-            <input type="text" class="form-control" formControlName="name" id="name" ngModel>
+            <div id="name">{{request.name}}</div>
         </div>
-        <div class="alert alert-danger" *ngIf="!detectionForm.controls['name'].valid && detectionForm.controls['name'].touched">'Name' field is required</div>
-
-        <div class="form-group">
-            <label for="file">File</label>
-            <input type="file" class="form-control" [ngModelOptions]="{standalone: true}" (change)="validateFile($event)" id="file" accept=".jpeg, .bmp, .png, .jpg" ngModel #FaceImage>
+        <div>
+            <label for="input">Input image</label>
+            <img id="input"/>
+            <img src="{{inputLink.url}}"/>
         </div>
-        <div class="alert alert-danger" *ngIf="!isFileValid">File must be of type .jpeg, .jpg, or .png</div>
 
         <div>
-            <button type="submit" [disabled]="!(detectionForm.valid && isFileValid)" class="btn btn-success">Submit</button>
+            <label for="haar">Faces detected by Haar</label>
+            <div id="haar">{{request.haar}}</div>
+            <img src="{{haarLink.url}}"/>
         </div>
 
-    </form>-->
+        <div>
+            <label for="dnn">Faces detected by Deep Neural Network</label>
+            <div id="dnn">{{request.dnn}}</div>
+            <img src="{{dnnLink.url}}"/>
+        </div>
+    </div>
+
 </div>
 
 <alert></alert>
