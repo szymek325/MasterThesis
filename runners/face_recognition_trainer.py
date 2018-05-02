@@ -34,7 +34,7 @@ class FaceRecognitionTrainer:
                     ids.append(faceId)
                     self.logger.info('adding sample to learning array')
         self.recognizer.train(faceSamples, np.array(ids))
-        self.recognizer.write(f'{self.config.openCv_files_path}faceRecognizer.yml')
+        self.recognizer.write(f'{self.config.openCv_files_path}/faceRecognizer.yml')
 
 
 
