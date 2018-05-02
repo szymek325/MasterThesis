@@ -8,7 +8,7 @@ from configuration_global.exception_handler import exception
 
 class FaceDetectionProcess():
     def __init__(self):
-        self.request_manager=FaceDetectionRequestsManager()
+        self.request_manager = FaceDetectionRequestsManager()
         self.directory = DirectoryManager()
         self.faceDetectionRepository = FaceDetectionRepository()
 
@@ -18,7 +18,7 @@ class FaceDetectionProcess():
         if not requests == null:
             for request in requests:
                 self.request_manager.process_request(request.id)
-        self.directory.clean_face_detection_requests()
+            self.directory.clean_face_detection_requests()
 
 
 if __name__ == "__main__":

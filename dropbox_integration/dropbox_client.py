@@ -18,12 +18,12 @@ class DropboxClient:
         files = self.client.files_list_folder(folder_path)
         if not files.entries.count == 0:
             file = files.entries[0]
-            file_type = file.name.split('.')[1]
             save_path = f"{save_location}{request_id}"
             self.directory.create_directory_if_doesnt_exist(save_path)
-            self.client.files_download_to_file(f"{save_path}/input.{file_type}", file.path_lower)
+            self.client.files_download_to_file(f"{save_path}/{file.name}", file.path_lower)
+            return file.name
 
-    def upload_file(self, file, request_id,file_name):
+    def upload_file(self, file, request_id, file_name):
         self.client.files_upload(file, f"{self.config.face_detection_jobs_path}/{request_id}/{file_name}")
 
 
