@@ -1,15 +1,10 @@
-import os
-
 import cv2
 from sqlalchemy import null
 
-from configuration_global.directory_manager import DirectoryManager
-from dataLayer.entities.face_detection import FaceDetection
+from domain.directory_manager import DirectoryManager
 from dataLayer.repositories.face_detection_repository import FaceDetectionRepository
+from domain.face_detectors_manager import FaceDetectorsManager
 from dropbox_integration.dropbox_client import DropboxClient
-from dataLayer.database_connection import Base, engine, Session
-from faceDetection.dnn_face_detector import DnnFaceDetector
-from faceDetection.haar_face_detector import HaarFaceDetector
 from configuration_global.config_reader import ConfigReader
 from configuration_global.exception_handler import exception
 from configuration_global.logger_factory import LoggerFactory
@@ -19,32 +14,27 @@ class FaceDetectionProcess():
     def __init__(self):
         self.config = ConfigReader()
         self.dbxClient = DropboxClient()
-        self.haarDetector = HaarFaceDetector()
-        self.dnnDetector = DnnFaceDetector()
+        self.faceDetectorsManager = FaceDetectorsManager()
         self.logger = LoggerFactory()
         self.requests_path = self.config.face_detection_requests_path
         self.directory = DirectoryManager()
-        self.faceDetectionRepository= FaceDetectionRepository()
+        self.faceDetectionRepository = FaceDetectionRepository()
 
     @exception
     def run_face_detection(self):
         requests = self.faceDetectionRepository.get_all_not_completed()
         if not requests == null:
             for request in requests:
-                print(request.id)
+                self.logger.info(f"Working on Face Detection Request id: {request.id} started")
                 self.dbxClient.download_face_detection_input(request.id, self.requests_path)
+
                 image = cv2.imread(f"{self.requests_path}{request.id}/input.jpg")
-                faces_detected_by_Haar = self.haarDetector.run_detector(image)
-                faces_detected_by_Dnn = self.dnnDetector.run_detector(image)
-                self.logger.info(f"Faces detected by "
-                                 f"\n   Haar: {faces_detected_by_Haar}"
-                                 f"\n   DNN: {faces_detected_by_Dnn}")
-                self.__draw_faces__(image, faces_detected_by_Haar, faces_detected_by_Dnn, request.id)
+                faces_detected_by_haar, faces_detected_by_dnn = self.faceDetectorsManager.get_faces_on_image(image)
+
+                self.__draw_faces__(image, faces_detected_by_haar, faces_detected_by_dnn, request.id)
                 self.__prepare_to_upload(request.id)
                 self.faceDetectionRepository.mark_as_completed_by_id(request.id)
-
-
-
+                self.logger.info(f"Finished Face Detection Request id: {request.id} ")
 
     def __draw_faces__(self, sourceImage, haarFaces, dnnFaces, id):
         haar = sourceImage.copy()

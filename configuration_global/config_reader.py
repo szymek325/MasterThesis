@@ -32,4 +32,4 @@ class ConfigReader:
     @property
     def face_detection_requests_path(self):
         return os.path.join(self.project_directory,
-                            self.project_directory + self.configuration["face_detection_requests_path"])
+                            self.configuration["face_detection_requests_path"])

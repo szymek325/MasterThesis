@@ -1,7 +1,6 @@
 import dropbox
-import os
 
-from configuration_global.directory_manager import DirectoryManager
+from domain.directory_manager import DirectoryManager
 from dropbox_integration.configuration.config_reader import ConfigReader
 from configuration_global.exception_handler import exception
 

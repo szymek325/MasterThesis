@@ -1,9 +1,8 @@
 import logging
 import datetime
-import os
 
 from configuration_global.config_reader import ConfigReader
-from configuration_global.directory_manager import DirectoryManager
+from domain.directory_manager import DirectoryManager
 from configuration_global.singleton import Singleton
 
 

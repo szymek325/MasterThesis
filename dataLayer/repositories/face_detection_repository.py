@@ -11,7 +11,7 @@ class FaceDetectionRepository():
         session.close()
         return requests
 
-    def mark_as_completed_by_id(self,id):
+    def mark_as_completed_by_id(self, id):
         Base.metadata.create_all(engine)
         session = Session()
         requests = session.query(FaceDetection).filter_by(id=id)
