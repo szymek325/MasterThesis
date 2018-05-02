@@ -16,4 +16,5 @@ class DirectoryManager:
 
     @exception
     def clean_face_detection_requests(self):
-        shutil.rmtree(self.config.face_detection_requests_path)
+        if os.path.exists(self.config.face_detection_requests_path):
+            shutil.rmtree(self.config.face_detection_requests_path)
