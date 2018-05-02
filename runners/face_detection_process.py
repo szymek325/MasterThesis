@@ -20,17 +20,12 @@ class FaceDetectionProcess():
 
     @exception
     def run_face_detection(self):
-        while True:
-            requests = self.faceDetectionRepository.get_all_not_completed()
-            if not requests == null:
-                for request in requests:
-                    self.request_manager.process_request(request.id)
-                self.directory.clean_face_detection_requests()
-                self.logger.info("No face detection requests to process detected, going into sleep")
-                time.sleep(self.config.face_recognition_interval)
-            else:
-                self.logger.info("No face detection requests to process detected, going into sleep")
-                time.sleep(self.config.face_recognition_interval)
+        requests = self.faceDetectionRepository.get_all_not_completed()
+        if not requests == null:
+            for request in requests:
+                self.request_manager.process_request(request.id)
+            self.directory.clean_face_detection_requests()
+            self.logger.info("Processing done")
 
 
 if __name__ == "__main__":
