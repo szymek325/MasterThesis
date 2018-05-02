@@ -4,6 +4,7 @@ from sqlalchemy import null
 from domain.directory_manager import DirectoryManager
 from dataLayer.repositories.face_detection_repository import FaceDetectionRepository
 from domain.face_detectors_manager import FaceDetectorsManager
+from domain.temporary_files_janitor import TemporaryFilesJanitor
 from dropbox_integration.dropbox_client import DropboxClient
 from configuration_global.config_reader import ConfigReader
 from configuration_global.exception_handler import exception
@@ -13,6 +14,7 @@ from configuration_global.logger_factory import LoggerFactory
 class FaceDetectionProcess():
     def __init__(self):
         self.config = ConfigReader()
+        self.janitor = TemporaryFilesJanitor()
         self.dbxClient = DropboxClient()
         self.faceDetectorsManager = FaceDetectorsManager()
         self.logger = LoggerFactory()
@@ -33,9 +35,11 @@ class FaceDetectionProcess():
 
                 self.__draw_faces__(image, faces_detected_by_haar, faces_detected_by_dnn, request.id)
                 self.__prepare_to_upload(request.id)
-                self.faceDetectionRepository.mark_as_completed_by_id(request.id)
+                self.faceDetectionRepository.complete_request(request.id, len(faces_detected_by_haar),
+                                                              len(faces_detected_by_dnn))
                 self.logger.info(f"Finished Face Detection Request id: {request.id} ")
-
+        self.janitor.clean_face_detection_requests()
+        
     def __draw_faces__(self, sourceImage, haarFaces, dnnFaces, id):
         haar = sourceImage.copy()
         dnn = sourceImage.copy()
