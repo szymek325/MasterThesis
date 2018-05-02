@@ -6,7 +6,7 @@ from faceDetection.dnn_face_detector import DnnFaceDetector
 from faceDetection.haar_face_detector import HaarFaceDetector
 from configuration_global.config_reader import ConfigReader
 from configuration_global.exception_handler import exception
-from configuration_global.files_manager import FilesManager
+from domain.files_manager import FilesManager
 from configuration_global.logger_factory import LoggerFactory
 
 
