@@ -16,11 +16,14 @@ import { FileDownloaderService } from "./services/file-downloader.service";
 import {HomeComponent} from "./components/home/home.component";
 import { AlertComponent } from "./components/alert/alert.component";
 import { AlertService } from "./services/alert.service";
-import { DropboxPicturesExampleComponent } from "./components/dropbox-pictures-example/dropbox-pictures-example.component";
-import { FaceDetectionsComponent } from './components/face-detections/face-detections.component';
-import { FaceDetectionService } from './services/face-detection.service';
-import { NewFaceDetectionComponent } from './components/face-detections/new-face-detection.component';
+import { DropboxPicturesExampleComponent } from
+    "./components/dropbox-pictures-example/dropbox-pictures-example.component";
+import { FaceDetectionsComponent } from "./components/face-detections/face-detections.component";
+import { FaceDetectionService } from "./services/face-detection.service";
+import { NewFaceDetectionComponent } from "./components/face-detections/new-face-detection.component";
 import {FaceDetectionRequestComponent} from "./components/face-detections/face-detection-request.component";
+import { SensorReadingsComponent } from "./components/sensor-readings/sensor-readings.component";
+import { ReadingsProviderService } from "./services/readings-provider.service";
 
 
 @NgModule({
@@ -37,7 +40,8 @@ import {FaceDetectionRequestComponent} from "./components/face-detections/face-d
         DropboxPicturesExampleComponent,
         FaceDetectionsComponent,
         NewFaceDetectionComponent,
-        FaceDetectionRequestComponent
+        FaceDetectionRequestComponent,
+        SensorReadingsComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -54,10 +58,13 @@ import {FaceDetectionRequestComponent} from "./components/face-detections/face-d
             { path: "dropboxpictures", component: DropboxPicturesExampleComponent },
             { path: "face-detection", component: FaceDetectionsComponent },
             { path: "new-face-detection", component: NewFaceDetectionComponent },
-            { path: "face-detection-request/:id", component: FaceDetectionRequestComponent }
+            { path: "face-detection-request/:id", component: FaceDetectionRequestComponent },
+            { path: "sensor-readings", component: SensorReadingsComponent }
         ])
     ],
-    providers: [FileUploaderService, FileDownloaderService, AlertService, FaceDetectionService],
+    providers: [
+        FileUploaderService, FileDownloaderService, AlertService, FaceDetectionService, ReadingsProviderService
+    ],
 })
 export class AppModuleShared {
 }

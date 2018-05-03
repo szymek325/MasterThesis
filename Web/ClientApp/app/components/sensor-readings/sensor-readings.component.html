@@ -1,0 +1,21 @@
+<p *ngIf="!readings">
+    <em>Loading...</em>
+</p>
+
+
+<table class="table" *ngIf="readings">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Temperature</th>
+        <th>Humidity</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let reading of readings">
+        <td>{{ reading.id }}</td>
+        <td>{{ reading.humidity }}</td>
+        <td>{{ reading.temperature }}</td>
+    </tr>
+    </tbody>
+</table>
