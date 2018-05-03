@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Domain.Files.DTO;
 
 namespace Domain.FaceDetection.DTO
@@ -10,6 +11,7 @@ namespace Domain.FaceDetection.DTO
         public string Status { get; set; }
         public int DnnFaces { get; set; }
         public int HaarFaces { get; set; }
+        public DateTime CreationTime { get; set; }
         public IEnumerable<FileLink> FileLinks { get; set; }
     }
 }

@@ -2,4 +2,5 @@
     id: number;
     humidity: number;
     temperature: number;
+    creationTime: string;
 }
