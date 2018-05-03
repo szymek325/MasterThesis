@@ -15,9 +15,11 @@ namespace DataLayer
             //        optionsBuilder =>optionsBuilder.MigrationsAssembly(typeof(MasterContext).GetTypeInfo().Assembly.GetName().Name)));
             services.AddDbContext<MasterContext>(options => options.UseSqlServer(
                 "Data Source=den1.mssql6.gear.host;Initial Catalog=masterthesisdb;Integrated Security=False;User ID=masterthesisdb;Password=Zp9P?Q!ezuXH;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
-                optionsBuilder => optionsBuilder.MigrationsAssembly(typeof(MasterContext).GetTypeInfo().Assembly.GetName().Name)));
+                optionsBuilder =>
+                    optionsBuilder.MigrationsAssembly(typeof(MasterContext).GetTypeInfo().Assembly.GetName().Name)));
             services.AddTransient<IFaceRecognitionJobRepository, FaceRecognitionJobRepository>();
             services.AddTransient<IFaceDetectionRepository, FaceDetectionRepository>();
+            services.AddTransient<ISensorsReadingRepository, SensorsReadingRepository>();
             return services;
         }
     }
