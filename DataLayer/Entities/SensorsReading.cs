@@ -1,12 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace DataLayer.Entities
+﻿namespace DataLayer.Entities
 {
-    public class SensorsReading
+    public class SensorsReading : EntityBase
     {
-        [Key]
-        public int Id { get; set; }
-
         public int Humidity { get; set; }
         public int Temperature { get; set; }
     }

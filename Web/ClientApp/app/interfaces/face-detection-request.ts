@@ -7,4 +7,5 @@ export interface IFaceDetectionRequest{
     dnn: number;
     haar: number;
     fileLinks: IFileLink[];
+    creationTime:string;
 }

@@ -1,11 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace DataLayer.Entities
+﻿namespace DataLayer.Entities
 {
-    public class FaceDetection
+    public class FaceDetection : EntityBase
     {
-        [Key]
-        public int Id { get; set; }
         public string Name { get; set; }
         public int DnnFaces { get; set; }
         public int HaarFaces { get; set; }

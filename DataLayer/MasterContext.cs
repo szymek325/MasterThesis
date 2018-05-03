@@ -1,7 +1,6 @@
-﻿using System.Reflection;
+﻿using System.Linq;
 using DataLayer.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 
 namespace DataLayer
 {
@@ -19,6 +18,18 @@ namespace DataLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes()
+                .Where(t => t.ClrType.IsSubclassOf(typeof(EntityBase))))
+            {
+                modelBuilder.Entity(
+                    entityType.Name,
+                    x =>
+                    {
+                        x.Property("CreationTime")
+                            .HasDefaultValueSql("getutcdate()");
+                    });
+            }
+
             modelBuilder.Entity<FaceRecognitionJob>().ToTable(nameof(FaceRecognitionJob));
             modelBuilder.Entity<SensorsReading>().ToTable(nameof(SensorsReading));
             modelBuilder.Entity<Status>().ToTable(nameof(Status));

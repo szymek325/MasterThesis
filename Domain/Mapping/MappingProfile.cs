@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Domain.FaceDetection.DTO;
+using Domain.SensorsReading.DTO;
 
 namespace Domain.Mapping
 {
@@ -12,7 +13,9 @@ namespace Domain.Mapping
                 .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Status, opts => opts.MapFrom(src => src.Status.Name))
                 .ForMember(dest => dest.DnnFaces, opts => opts.MapFrom(src => src.DnnFaces))
-                .ForMember(dest => dest.HaarFaces, opts => opts.MapFrom(src => src.HaarFaces));
+                .ForMember(dest => dest.HaarFaces, opts => opts.MapFrom(src => src.HaarFaces))
+                .ForMember(dest => dest.CreationTime, opts => opts.MapFrom(src => src.CreationTime));
+            CreateMap<DataLayer.Entities.SensorsReading, Reading>().ReverseMap();
         }
     }
 }

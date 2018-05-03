@@ -1,11 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace DataLayer.Entities
+﻿namespace DataLayer.Entities
 {
-    public class Status
+    public class Status : EntityBase
     {
-        [Key]
-        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

@@ -11,8 +11,8 @@ using System;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(MasterContext))]
-    [Migration("20180429155144_StatusIdMayBeNull")]
-    partial class StatusIdMayBeNull
+    [Migration("20180503114658_InitDb")]
+    partial class InitDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,9 +26,15 @@ namespace DataLayer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreationTime")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasDefaultValueSql("getutcdate()");
+
                     b.Property<int>("DnnFaces");
 
                     b.Property<int>("HaarFaces");
+
+                    b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<string>("Name");
 
@@ -46,7 +52,13 @@ namespace DataLayer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreationTime")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasDefaultValueSql("getutcdate()");
+
                     b.Property<string>("Description");
+
+                    b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<string>("Name");
 
@@ -62,7 +74,13 @@ namespace DataLayer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreationTime")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasDefaultValueSql("getutcdate()");
+
                     b.Property<int>("Humidity");
+
+                    b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<int>("Temperature");
 
@@ -75,6 +93,12 @@ namespace DataLayer.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationTime")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasDefaultValueSql("getutcdate()");
+
+                    b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<string>("Name");
 
