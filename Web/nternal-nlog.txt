@@ -1208,3 +1208,54 @@
 2018-05-04 15:42:50.8514 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.3.7533. Product version: 4.5.3.
 2018-05-04 15:42:55.3548 Info Shutting down logging...
 2018-05-04 15:42:55.3697 Info Logger has been shut down.
+2018-05-04 15:54:23.1647 Info Message Template Auto Format enabled
+2018-05-04 15:54:23.2233 Info Adding target File Target[allfile]
+2018-05-04 15:54:23.2523 Error Error parsing layout aspnet-request-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-request-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-05-04 15:54:23.2546 Error Error parsing layout aspnet-mvc-action will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-mvc-action'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-05-04 15:54:23.2546 Info Adding target File Target[ownFile-web]
+2018-05-04 15:54:23.2546 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Debug\netcoreapp2.0\nlog.config...
+2018-05-04 15:54:23.2714 Info Found 42 configuration items
+2018-05-04 16:01:39.5821 Info Message Template Auto Format enabled
+2018-05-04 16:01:39.6540 Info Adding target File Target[allfile]
+2018-05-04 16:01:39.6833 Error Error parsing layout aspnet-request-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-request-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-05-04 16:01:39.6833 Error Error parsing layout aspnet-mvc-action will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-mvc-action'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-05-04 16:01:39.6833 Info Adding target File Target[ownFile-web]
+2018-05-04 16:01:39.6924 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Debug\netcoreapp2.0\nlog.config...
+2018-05-04 16:01:39.6924 Info Found 42 configuration items
+2018-05-04 16:07:29.8922 Info Message Template Auto Format enabled
+2018-05-04 16:07:29.9545 Info Adding target File Target[allfile]
+2018-05-04 16:07:29.9829 Error Error parsing layout aspnet-request-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-request-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-05-04 16:07:29.9829 Error Error parsing layout aspnet-mvc-action will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-mvc-action'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-05-04 16:07:29.9829 Info Adding target File Target[ownFile-web]
+2018-05-04 16:07:29.9914 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Debug\netcoreapp2.0\nlog.config...
+2018-05-04 16:07:29.9914 Info Found 42 configuration items
+2018-05-04 17:33:09.3910 Info Message Template Auto Format enabled
+2018-05-04 17:33:09.5571 Info Adding target File Target[allfile]
+2018-05-04 17:33:09.5571 Info Adding target File Target[ownFile-web]
+2018-05-04 17:33:09.5571 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Debug\netcoreapp2.0\NLog.config...
+2018-05-04 17:33:09.5716 Info Found 45 configuration items
+2018-05-04 17:33:09.5843 Info Configuration initialized.
+2018-05-04 17:33:09.5843 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.3.7533. Product version: 4.5.3.
+2018-05-04 17:33:11.9193 Info Shutting down logging...
+2018-05-04 17:33:11.9357 Info Logger has been shut down.
+2018-05-04 17:33:19.9436 Info Message Template Auto Format enabled
+2018-05-04 17:33:19.9854 Info Adding target File Target[allfile]
+2018-05-04 17:33:19.9900 Info Adding target File Target[ownFile-web]
+2018-05-04 17:33:19.9900 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Debug\netcoreapp2.0\NLog.config...
+2018-05-04 17:33:19.9900 Info Found 45 configuration items
+2018-05-04 17:33:20.0208 Info Configuration initialized.
+2018-05-04 17:33:20.0208 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.3.7533. Product version: 4.5.3.
+2018-05-04 17:33:24.2499 Info Shutting down logging...
+2018-05-04 17:33:24.2658 Info Logger has been shut down.

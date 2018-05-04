@@ -22,6 +22,7 @@ import { SensorReadingsComponent } from "./components/sensor-readings/sensor-rea
 import { ReadingsProviderService } from "./services/readings-provider.service";
 import { PeopleComponent } from "./components/people/people.component";
 import { NewPersonComponent } from "./components/new-person/new-person.component";
+import { PeopleService } from './services/people.service';
 
 
 @NgModule({
@@ -58,7 +59,7 @@ import { NewPersonComponent } from "./components/new-person/new-person.component
         ])
     ],
     providers: [
-        FileUploaderService, FileDownloaderService, AlertService, FaceDetectionService, ReadingsProviderService
+        FileUploaderService, FileDownloaderService, AlertService, FaceDetectionService, ReadingsProviderService, PeopleService
     ],
 })
 export class AppModuleShared {

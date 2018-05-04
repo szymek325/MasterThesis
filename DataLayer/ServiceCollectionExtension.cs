@@ -21,6 +21,7 @@ namespace DataLayer
             services.AddTransient<IFaceDetectionRepository, FaceDetectionRepository>();
             services.AddTransient<ISensorsReadingRepository, SensorsReadingRepository>();
             services.AddTransient<IFileRepository, FileRepository>();
+            services.AddTransient<IPersonRepository, PersonRepository>();
             return services;
         }
     }

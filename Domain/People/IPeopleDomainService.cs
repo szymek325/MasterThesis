@@ -1,9 +1,10 @@
-﻿using Domain.People.DTO;
+﻿using System.Threading.Tasks;
+using Domain.People.DTO;
 
 namespace Domain.People
 {
     public interface IPeopleDomainService
     {
-        void CreateNew(PersonInput input);
+        Task<int> CreateNew(PersonInput input);
     }
 }

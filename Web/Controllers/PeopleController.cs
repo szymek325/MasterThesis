@@ -27,12 +27,12 @@ namespace Web.Controllers
             var files = mapper.Map<IEnumerable<FileToUpload>>(collections.Files);
             collections.TryGetValue("name", out var requestName);
 
-            peopleService.CreateNew(new PersonInput
+            var response=await peopleService.CreateNew(new PersonInput
             {
                 Name = requestName,
                 Files = files
             });
-            return Ok();
+            return Ok(new { person_id = response });
         }
     }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import {Router} from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AlertService } from "../../services/alert.service";
+import {PeopleService} from "../../services/people.service";
 
 @Component({
     selector: "app-new-person",
@@ -14,7 +15,7 @@ export class NewPersonComponent implements OnInit {
     previewFiles: IPreviewFile[]=[];
     isFileValid: boolean;
 
-    constructor(private router: Router, private formBuilder: FormBuilder, private alertService: AlertService) {}
+    constructor(private peopleService:PeopleService,private router: Router, private formBuilder: FormBuilder, private alertService: AlertService) {}
 
     validateFile(fileInput: any) {
         this.alertService.clear();
@@ -42,6 +43,29 @@ export class NewPersonComponent implements OnInit {
                 }
             }
     }
+
+    onClickSubmit(data) {
+
+        this.formData = new FormData();
+        for (let file of this.previewFiles) {
+            this.formData.set(file.file.name, file.file);
+        }
+        this.formData.set("name", data.name);
+        console.log(this.formData);
+
+        this.peopleService.createNewPerson(this.formData)
+            .subscribe(result => {
+                    if (result === 0) {
+                        alert("Exception occured during request creation");
+                    }
+                    this.router.navigateByUrl("people");
+                },
+                error => {
+                    console.log(error.message);
+                    this.alertService.error(error.message);
+                });
+    }
+
 
     ngOnInit() {
         this.isFileValid = false;
