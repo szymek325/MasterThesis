@@ -1,6 +1,7 @@
 ﻿using DataLayer;
 using Domain.FaceDetection;
 using Domain.Files;
+using Domain.People;
 using Domain.Providers;
 using Domain.SensorsReading;
 using DropboxIntegration;
@@ -19,6 +20,7 @@ namespace Domain
             services.AddTransient<IFilesDomainService, FilesDomainService>();
             services.AddTransient<IFaceDetectionService, FaceDetectionService>();
             services.AddTransient<IReadingsProvider, ReadingsProvider>();
+            services.AddTransient<IPeopleDomainService, PeopleDomainService>();
 
             return services;
         }

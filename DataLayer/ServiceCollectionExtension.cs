@@ -20,6 +20,7 @@ namespace DataLayer
             services.AddTransient<IFaceRecognitionJobRepository, FaceRecognitionJobRepository>();
             services.AddTransient<IFaceDetectionRepository, FaceDetectionRepository>();
             services.AddTransient<ISensorsReadingRepository, SensorsReadingRepository>();
+            services.AddTransient<IFileRepository, FileRepository>();
             return services;
         }
     }

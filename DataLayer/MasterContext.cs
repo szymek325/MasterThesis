@@ -16,6 +16,7 @@ namespace DataLayer
         public DbSet<Status> Statuses { get; set; }
         public DbSet<FaceDetection> FaceDetections { get; set; }
         public DbSet<File> Files { get; set; }
+        public DbSet<FileSource> FileSources { get; set; }
         public DbSet<Person> People { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,6 +39,7 @@ namespace DataLayer
             modelBuilder.Entity<FaceDetection>().ToTable(nameof(FaceDetection));
             modelBuilder.Entity<File>().ToTable(nameof(File));
             modelBuilder.Entity<Person>().ToTable(nameof(Person));
+            modelBuilder.Entity<FileSource>().ToTable(nameof(FileSource));
         }
     }
 
