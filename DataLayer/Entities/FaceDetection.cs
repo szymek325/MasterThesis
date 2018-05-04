@@ -1,4 +1,6 @@
-﻿namespace DataLayer.Entities
+﻿using System.Collections.Generic;
+
+namespace DataLayer.Entities
 {
     public class FaceDetection : EntityBase
     {
@@ -7,7 +9,6 @@
         public int HaarFaces { get; set; }
         public int? StatusId { get; set; }
         public Status Status { get; set; }
-        public int? FileId { get; set; }
-        public File File { get; set; }
+        public IEnumerable<File> Files { get; set; }
     }
 }

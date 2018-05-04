@@ -10,5 +10,7 @@
         public File FileSource { get; set; }
         public int? PersonId { get; set; }
         public Person Person { get; set; }
+        public int? FileDetectionId { get; set; }
+        public FaceDetection FaceDetection { get; set; }
     }
 }

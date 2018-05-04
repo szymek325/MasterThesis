@@ -52,12 +52,7 @@ namespace Domain.FaceDetection
             var newDetection = new DataLayer.Entities.FaceDetection
             {
                 Name = request.Name,
-                StatusId = 1,
-                File = new File
-                {
-                    Name = attachment.FileName,
-                    FileSourceId = 2
-                }
+                StatusId = 1
             };
             detectionRepository.Add(newDetection);
             detectionRepository.Save();
