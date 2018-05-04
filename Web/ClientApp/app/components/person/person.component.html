@@ -1,21 +1,39 @@
-            <table class="table" *ngIf="person.fileLinks">
-    <thead>
-    <tr>
-        <th>Filename</th>
-        <th>Preview</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let file of previewFiles">
-        <td>{{file.file.name}}</td>
-        <td>
-            <div class="slider">
-                <div class="slide">
-                    <img src="{{file.url}}"/>
-                </div>
-            </div>
-                        
-        </td>
-    </tr>
-    </tbody>
-</table>
+<h1>Person</h1>
+
+<p *ngIf="!person">
+    <em>Loading person data...</em>
+</p>
+<div *ngIf="person">
+    <div>
+        <label for="name">Id</label>
+        <div id="id">{{person.id}}</div>
+    </div>
+    <div>
+        <label for="name">Name</label>
+        <div id="name">{{person.name}}</div>
+    </div>
+
+    <div>
+        <table class="table" *ngIf="person.fileLinks">
+            <thead>
+            <tr>
+                <th>Filename</th>
+                <th>Preview</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let file of person.fileLinks">
+                <td>{{file.fileName}}</td>
+                <td>
+                    <div class="slider">
+                        <div class="slide">
+                            <img src="{{file.url}}"/>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
