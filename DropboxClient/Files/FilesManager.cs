@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Dropbox.Api;
 using Dropbox.Api.Files;
@@ -30,9 +32,24 @@ namespace DropboxIntegration.Files
 
         public async Task<string> DownloadThumbnail(string folder, string file)
         {
-            var response = await dbxClient.Files.GetThumbnailAsync(folder + "/" + file);
-            var fileMetadata = await response.GetContentAsStringAsync();
-            return fileMetadata;
+            string a = "";
+            var argsss = new List<ThumbnailArg>
+            {
+                new ThumbnailArg(folder + "/" + file)
+            };
+            var args = new GetThumbnailBatchArg(argsss);
+            try
+            {
+                var response = await dbxClient.Files.GetThumbnailBatchAsync(args);
+                var re = response.Entries[0].AsSuccess;
+                var c = re.Value;
+                a = c.Thumbnail;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return a;
         }
 
         public async Task<string> DownloadAsString(string folder, string file)
