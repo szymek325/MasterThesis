@@ -15,7 +15,7 @@ namespace DataLayer.Repositories.Implementation
 
         public IEnumerable<Person> GetAllPeople()
         {
-            return GetAll().Include(x => x.Files).AsEnumerable();
+            return GetAll().Include(x => x.Files);
         }
     }
 }

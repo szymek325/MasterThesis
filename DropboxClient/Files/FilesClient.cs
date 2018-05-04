@@ -31,24 +31,22 @@ namespace DropboxIntegration.Files
 
         public async Task<string> DownloadThumbnail(string folder, string file)
         {
-            var a = "";
-            var argsss = new List<ThumbnailArg>
+            var thumbnail = "";
+            var requestArguments = new GetThumbnailBatchArg(new List<ThumbnailArg>
             {
                 new ThumbnailArg(folder + "/" + file)
-            };
-            var args = new GetThumbnailBatchArg(argsss);
+            });
             try
             {
-                var response = await dbxClient.Files.GetThumbnailBatchAsync(args);
-                var re = response.Entries[0].AsSuccess;
-                var c = re.Value;
-                a = c.Thumbnail;
+                var response = await dbxClient.Files.GetThumbnailBatchAsync(requestArguments);
+                thumbnail = response.Entries[0].AsSuccess.Value.Thumbnail;
             }
             catch (Exception ex)
             {
+                logger.LogError("Exception when retrieving thumbnail");
             }
 
-            return a;
+            return thumbnail;
         }
 
         public async Task<string> DownloadAsString(string folder, string file)

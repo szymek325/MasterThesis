@@ -6,6 +6,7 @@ namespace DataLayer.Entities
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public string ThumbFile { get; set; }
         public IEnumerable<File> Files { get; set; }
     }
 }
