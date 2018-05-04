@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using DataLayer.Entities;
 using DataLayer.Repositories.Interface;
 using Domain.FaceDetection.DTO;
 using Domain.Files;
@@ -51,11 +52,15 @@ namespace Domain.FaceDetection
             var newDetection = new DataLayer.Entities.FaceDetection
             {
                 Name = request.Name,
-                StatusId = 1
+                StatusId = 1,
+                File = new File
+                {
+                    Name = attachment.FileName,
+                    FileSourceId = 2
+                }
             };
             detectionRepository.Add(newDetection);
             detectionRepository.Save();
-            var fileToUpload = request.Files.FirstOrDefault();
             attachment.FileName = "input." + attachment.FileName.Split('.').Last();
             await filesService.Upload(request.Files, $"/faceDetection/{newDetection.Id}");
 

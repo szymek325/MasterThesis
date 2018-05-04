@@ -8,6 +8,6 @@
         public int? StatusId { get; set; }
         public Status Status { get; set; }
         public int? FileId { get; set; }
-        public Status File { get; set; }
+        public File File { get; set; }
     }
 }
