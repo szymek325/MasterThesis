@@ -3,6 +3,7 @@ import cv2
 from configuration_global.config_reader import ConfigReader
 from configuration_global.logger_factory import LoggerFactory
 from dataLayer.repositories.face_detection_repository import FaceDetectionRepository
+from dataLayer.repositories.file_repository import FileRepository
 from domain.directory_manager import DirectoryManager
 from domain.face_detectors_manager import FaceDetectorsManager
 from dropbox_integration.dropbox_client import DropboxClient
@@ -16,7 +17,7 @@ class FaceDetectionRequestsManager():
         self.logger = LoggerFactory()
         self.directory = DirectoryManager()
         self.faceDetectionRepository = FaceDetectionRepository()
-
+        self.files_repository = FileRepository()
         self.requests_path = self.config.face_detection_requests_path
         self.haar_file_name = "haar.jpg"
         self.dnn_file_name = "dnn.jpg"
@@ -51,8 +52,10 @@ class FaceDetectionRequestsManager():
                 cv2.rectangle(new_image, (startX, startY), (endX, endY), (0, 255, 0), 2)  # green
         return new_image
 
-    def __upload_results__(self, path_to_files, id):
+    def __upload_results__(self, path_to_files, fd_id):
         haar_file = open(f"{path_to_files}/{self.haar_file_name}", 'rb')
         dnn_file = open(f"{path_to_files}/{self.dnn_file_name}", 'rb')
-        self.dbxClient.upload_file(haar_file.read(), id, self.haar_file_name)
-        self.dbxClient.upload_file(dnn_file.read(), id, self.dnn_file_name)
+        self.dbxClient.upload_file(haar_file.read(), fd_id, self.haar_file_name)
+        self.dbxClient.upload_file(dnn_file.read(), fd_id, self.dnn_file_name)
+        self.files_repository.add_file(self.haar_file_name, fd_id, f"/faceDetection/{fd_id}")
+        self.files_repository.add_file(self.dnn_file_name, fd_id, f"/faceDetection/{fd_id}")
