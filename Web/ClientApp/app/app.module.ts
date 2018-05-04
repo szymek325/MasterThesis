@@ -24,6 +24,7 @@ import { NewFaceDetectionComponent } from "./components/face-detections/new-face
 import {FaceDetectionRequestComponent} from "./components/face-detections/face-detection-request.component";
 import { SensorReadingsComponent } from "./components/sensor-readings/sensor-readings.component";
 import { ReadingsProviderService } from "./services/readings-provider.service";
+import { PeopleComponent } from './components/people/people.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { ReadingsProviderService } from "./services/readings-provider.service";
         FaceDetectionsComponent,
         NewFaceDetectionComponent,
         FaceDetectionRequestComponent,
-        SensorReadingsComponent
+        SensorReadingsComponent,
+        PeopleComponent
     ],
     imports: [
         ReactiveFormsModule,

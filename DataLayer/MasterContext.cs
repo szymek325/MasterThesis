@@ -15,6 +15,8 @@ namespace DataLayer
         public DbSet<SensorsReading> SensorsReadings { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<FaceDetection> FaceDetections { get; set; }
+        public DbSet<File> Files { get; set; }
+        public DbSet<Person> People { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,6 +36,8 @@ namespace DataLayer
             modelBuilder.Entity<SensorsReading>().ToTable(nameof(SensorsReading));
             modelBuilder.Entity<Status>().ToTable(nameof(Status));
             modelBuilder.Entity<FaceDetection>().ToTable(nameof(FaceDetection));
+            modelBuilder.Entity<File>().ToTable(nameof(File));
+            modelBuilder.Entity<Person>().ToTable(nameof(Person));
         }
     }
 
