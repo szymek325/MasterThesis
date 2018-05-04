@@ -34,5 +34,11 @@ namespace Web.Controllers
             });
             return Ok(new { person_id = response });
         }
+
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<PersonOutput>> GetAll()
+        {
+            return await peopleService.GetAllPeople();
+        }
     }
 }

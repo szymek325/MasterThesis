@@ -28,6 +28,13 @@ namespace DropboxIntegration.Files
             Console.WriteLine($"Saved {folder}/{file} rev {updated.Rev}");
         }
 
+        public async Task<string> DownloadThumbnail(string folder, string file)
+        {
+            var response = await dbxClient.Files.GetThumbnailAsync(folder + "/" + file);
+            var fileMetadata = await response.GetContentAsStringAsync();
+            return fileMetadata;
+        }
+
         public async Task<string> DownloadAsString(string folder, string file)
         {
             var response = await dbxClient.Files.DownloadAsync(folder + "/" + file);

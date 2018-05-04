@@ -1,6 +1,9 @@
-﻿using DataLayer.Entities;
+﻿using System.Collections.Generic;
+using System.Linq;
+using DataLayer.Entities;
 using DataLayer.Repositories.Base;
 using DataLayer.Repositories.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Repositories.Implementation
 {
@@ -8,6 +11,11 @@ namespace DataLayer.Repositories.Implementation
     {
         public PersonRepository(MasterContext context) : base(context)
         {
+        }
+
+        public IEnumerable<Person> GetAllPeople()
+        {
+            return GetAll().Include(x => x.Files).AsEnumerable();
         }
     }
 }
