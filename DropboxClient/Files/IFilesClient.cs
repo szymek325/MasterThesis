@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace DropboxIntegration.Files
 {
-    public interface IFilesManager
+    public interface IFilesClient
     {
         Task Upload(string folder, string file, Stream content);
         Task<string> DownloadAsString(string folder, string file);

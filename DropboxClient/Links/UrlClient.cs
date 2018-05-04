@@ -7,12 +7,12 @@ using Microsoft.Extensions.Logging;
 
 namespace DropboxIntegration.Links
 {
-    public class UrlManager : IUrlManager
+    public class UrlClient : IUrlClient
     {
         private readonly DropboxClient dbxClient;
-        private readonly ILogger<UrlManager> logger;
+        private readonly ILogger<UrlClient> logger;
 
-        public UrlManager( ILogger<UrlManager> logger)
+        public UrlClient( ILogger<UrlClient> logger)
         {
             dbxClient = DropboxClientFactory.GetDropboxClient();
             this.logger = logger;

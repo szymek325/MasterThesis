@@ -6,14 +6,9 @@ import { RouterModule } from "@angular/router";
 
 import { AppComponent } from "./components/app/app.component";
 import { NavMenuComponent } from "./components/navmenu/navmenu.component";
-import { AttachmentListComponent } from "./components/attachment-list/attachment-list.component";
-import { FileUploaderService } from "./services/file-uploader.service";
-import { FileDownloaderService } from "./services/file-downloader.service";
 import {HomeComponent} from "./components/home/home.component";
 import { AlertComponent } from "./components/alert/alert.component";
 import { AlertService } from "./services/alert.service";
-import { DropboxPicturesExampleComponent } from
-    "./components/dropbox-pictures-example/dropbox-pictures-example.component";
 import { FaceDetectionsComponent } from "./components/face-detections/face-detections.component";
 import { FaceDetectionService } from "./services/face-detection.service";
 import { NewFaceDetectionComponent } from "./components/face-detections/new-face-detection.component";
@@ -22,17 +17,15 @@ import { SensorReadingsComponent } from "./components/sensor-readings/sensor-rea
 import { ReadingsProviderService } from "./services/readings-provider.service";
 import { PeopleComponent } from "./components/people/people.component";
 import { NewPersonComponent } from "./components/new-person/new-person.component";
-import { PeopleService } from './services/people.service';
+import { PeopleService } from "./services/people.service";
 
 
 @NgModule({
     declarations: [
         AppComponent,
         NavMenuComponent,
-        AttachmentListComponent,
         HomeComponent,
         AlertComponent,
-        DropboxPicturesExampleComponent,
         FaceDetectionsComponent,
         NewFaceDetectionComponent,
         FaceDetectionRequestComponent,
@@ -48,8 +41,6 @@ import { PeopleService } from './services/people.service';
         RouterModule.forRoot([
             { path: "", redirectTo: "home", pathMatch: "full" },
             { path: "home", component: HomeComponent },
-            { path: "attachments", component: AttachmentListComponent },
-            { path: "dropboxpictures", component: DropboxPicturesExampleComponent },
             { path: "face-detection", component: FaceDetectionsComponent },
             { path: "new-face-detection", component: NewFaceDetectionComponent },
             { path: "face-detection-request/:id", component: FaceDetectionRequestComponent },
@@ -59,7 +50,7 @@ import { PeopleService } from './services/people.service';
         ])
     ],
     providers: [
-        FileUploaderService, FileDownloaderService, AlertService, FaceDetectionService, ReadingsProviderService, PeopleService
+        AlertService, FaceDetectionService, ReadingsProviderService, PeopleService
     ],
 })
 export class AppModuleShared {

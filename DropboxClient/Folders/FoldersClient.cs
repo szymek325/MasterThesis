@@ -6,12 +6,12 @@ using Microsoft.Extensions.Logging;
 
 namespace DropboxIntegration.Folders
 {
-    public class FoldersManager : IFoldersManager
+    public class FoldersClient : IFoldersClient
     {
         private readonly DropboxClient dbxClient;
-        private readonly ILogger<FoldersManager> logger;
+        private readonly ILogger<FoldersClient> logger;
 
-        public FoldersManager(ILogger<FoldersManager> logger)
+        public FoldersClient(ILogger<FoldersClient> logger)
         {
             dbxClient = DropboxClientFactory.GetDropboxClient();
             this.logger = logger;

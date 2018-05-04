@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Dropbox.Api;
 using Dropbox.Api.Files;
@@ -10,12 +9,12 @@ using Microsoft.Extensions.Logging;
 
 namespace DropboxIntegration.Files
 {
-    public class FilesManager : IFilesManager
+    public class FilesClient : IFilesClient
     {
         private readonly DropboxClient dbxClient;
-        private readonly ILogger<FilesManager> logger;
+        private readonly ILogger<FilesClient> logger;
 
-        public FilesManager(ILogger<FilesManager> logger)
+        public FilesClient(ILogger<FilesClient> logger)
         {
             this.logger = logger;
             dbxClient = DropboxClientFactory.GetDropboxClient();
@@ -32,7 +31,7 @@ namespace DropboxIntegration.Files
 
         public async Task<string> DownloadThumbnail(string folder, string file)
         {
-            string a = "";
+            var a = "";
             var argsss = new List<ThumbnailArg>
             {
                 new ThumbnailArg(folder + "/" + file)
@@ -47,8 +46,8 @@ namespace DropboxIntegration.Files
             }
             catch (Exception ex)
             {
-
             }
+
             return a;
         }
 

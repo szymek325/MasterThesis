@@ -14,13 +14,13 @@ namespace Domain.People
     public class PeopleDomainService : IPeopleDomainService
     {
         private readonly IFilesDomainService filesService;
-        private readonly IFilesManager filesManager;
+        private readonly IFilesClient filesClient;
         private readonly IPersonRepository peopleRepo;
 
-        public PeopleDomainService(IFilesDomainService filesService, IFilesManager filesManager, IPersonRepository peopleRepo)
+        public PeopleDomainService(IFilesDomainService filesService, IFilesClient filesClient, IPersonRepository peopleRepo)
         {
             this.filesService = filesService;
-            this.filesManager = filesManager;
+            this.filesClient = filesClient;
             this.peopleRepo = peopleRepo;
         }
 
@@ -59,7 +59,7 @@ namespace Domain.People
                 var people = peopleRepo.GetAllPeople();
                 foreach (var person in people)
                 {
-                    var thumb = await filesManager.DownloadThumbnail(person.Files.FirstOrDefault()?.Path,
+                    var thumb = await filesClient.DownloadThumbnail(person.Files.FirstOrDefault()?.Path,
                         person.Files.FirstOrDefault()?.Name);
                     output.Add(new PersonOutput
                     {

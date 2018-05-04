@@ -14,55 +14,26 @@ namespace Domain.Files
 {
     public class FilesDomainService : IFilesDomainService
     {
-        private readonly IFilesManager filesManager;
-        private readonly IFoldersManager foldersManager;
+        private readonly IFilesClient filesClient;
+        private readonly IFoldersClient foldersClient;
         private readonly ILogger<FilesDomainService> logger;
         private readonly IMapper mapper;
-        private readonly IUrlManager urlManager;
+        private readonly IUrlClient urlClient;
 
-        public FilesDomainService(IFilesManager filesManager, IFoldersManager foldersManager, IUrlManager urlManager,
+        public FilesDomainService(IFilesClient filesClient, IFoldersClient foldersClient, IUrlClient urlClient,
             ILogger<FilesDomainService> logger, IMapper mapper)
         {
-            this.filesManager = filesManager;
-            this.foldersManager = foldersManager;
-            this.urlManager = urlManager;
+            this.filesClient = filesClient;
+            this.foldersClient = foldersClient;
+            this.urlClient = urlClient;
             this.logger = logger;
             this.mapper = mapper;
         }
 
-        public async Task Upload(IEnumerable<FileToUpload> files, string location = "/reco")
+        public async Task Upload(IEnumerable<FileToUpload> files, string location)
         {
             foreach (var fileToUpload in files)
-                await filesManager.Upload(location, fileToUpload.FileName, fileToUpload.FileStream);
-        }
-
-        public async Task<FileToUpload> Download(string path, string fileName)
-        {
-            var file = await filesManager.DownloadAsStream(path, fileName);
-            var fileToDownload = new FileToUpload
-            {
-                FileStream = file,
-                FileName = fileName
-            };
-            return fileToDownload;
-        }
-
-        public async Task<string> GetLinkToFile(string path, string fileName)
-        {
-            var link = "";
-            try
-            {
-                var pathToFile = $"{path}/{fileName}";
-                link = await urlManager.CreateLinkToFile(pathToFile);
-            }
-            catch (DropboxException ex)
-            {
-                logger.LogError($"{ex.Message}");
-                link = await GetExistingLink(fileName);
-            }
-
-            link = TurnIntoSourceLink(link);
-            return link;
+                await filesClient.Upload(location, fileToUpload.FileName, fileToUpload.FileStream);
         }
 
         public async Task<IEnumerable<FileLink>> GetLinksToFilesInFolder(string folderPath)
@@ -71,9 +42,9 @@ namespace Domain.Files
 
             try
             {
-                var files = await foldersManager.GetFolderContent(folderPath);
+                var files = await foldersClient.GetFolderContent(folderPath);
 
-                var retrievedLinks = await urlManager.GetAllLinks();
+                var retrievedLinks = await urlClient.GetAllLinks();
                 var sharedLinkMetadatas = retrievedLinks.ToList();
                 foreach (var file in files.Entries)
                 {
@@ -85,7 +56,7 @@ namespace Domain.Files
                     link.Url = TurnIntoSourceLink(
                         existingSharedFile != null
                             ? existingSharedFile.Url
-                            : await urlManager.CreateLinkToFile(file.PathLower));
+                            : await urlClient.CreateLinkToFile(file.PathLower));
                     links.Add(link);
                 }
             }
@@ -94,13 +65,6 @@ namespace Domain.Files
             }
 
             return links;
-        }
-
-        private async Task<string> GetExistingLink(string fileName)
-        {
-            var links = await urlManager.GetAllLinks();
-            var link = links.FirstOrDefault(x => x.Name == fileName)?.Url;
-            return link;
         }
 
         private string TurnIntoSourceLink(string url)

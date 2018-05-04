@@ -6,12 +6,12 @@ using Microsoft.Extensions.Logging;
 
 namespace DropboxIntegration.User
 {
-    public class AccountManager : IAccountManager
+    public class AccountClient : IAccountClient
     {
         private readonly DropboxClient dbClient;
-        private readonly ILogger<AccountManager> logger;
+        private readonly ILogger<AccountClient> logger;
 
-        public AccountManager(ILogger<AccountManager> logger)
+        public AccountClient(ILogger<AccountClient> logger)
         {
             this.logger = logger;
             dbClient = DropboxClientFactory.GetDropboxClient();

@@ -10,10 +10,10 @@ namespace DropboxIntegration
     {
         public static IServiceCollection AddDropboxConnector(this IServiceCollection services)
         {
-            services.AddTransient<IFilesManager, FilesManager>();
-            services.AddTransient<IFoldersManager, FoldersManager>();
-            services.AddTransient<IAccountManager, AccountManager>();
-            services.AddTransient<IUrlManager, UrlManager>();
+            services.AddTransient<IFilesClient, FilesClient>();
+            services.AddTransient<IFoldersClient, FoldersClient>();
+            services.AddTransient<IAccountClient, AccountClient>();
+            services.AddTransient<IUrlClient, UrlClient>();
             return services;
         }
     }

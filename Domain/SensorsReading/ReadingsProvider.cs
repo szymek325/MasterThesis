@@ -9,7 +9,7 @@ namespace Domain.SensorsReading
 {
     public class ReadingsProvider : IReadingsProvider
     {
-        private ILogger<ReadingsProvider> logger;
+        private readonly ILogger<ReadingsProvider> logger;
         private readonly IMapper mapper;
         private readonly ISensorsReadingRepository readingsRepo;
 

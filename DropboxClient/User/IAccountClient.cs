@@ -3,7 +3,7 @@ using Dropbox.Api.Users;
 
 namespace DropboxIntegration.User
 {
-    public interface IAccountManager
+    public interface IAccountClient
     {
         Task<FullAccount> GetAccountDataAsync();
     }

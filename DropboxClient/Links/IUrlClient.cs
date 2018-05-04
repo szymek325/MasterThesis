@@ -4,7 +4,7 @@ using Dropbox.Api.Sharing;
 
 namespace DropboxIntegration.Links
 {
-    public interface IUrlManager
+    public interface IUrlClient
     {
         Task<string> CreateLinkToFile(string pathToFile);
         Task<IEnumerable<SharedLinkMetadata>> GetAllLinks();
