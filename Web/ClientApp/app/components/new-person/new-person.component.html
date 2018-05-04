@@ -10,8 +10,9 @@
 
         <div class="form-group">
             <label for="file">Files</label>
+            <alert></alert>
             <label class="btn btn-primary">
-                add files <input type="file" class="form-control" multiple hidden [ngModelOptions]="{standalone: true}" (change)="validateFile($event)" id="file" accept=".jpeg, .bmp, .png, .jpg" ngModel #FaceImage>
+                add files <input type="file" class="form-control" multiple hidden [ngModelOptions]="{standalone: true}" (change)="validateFile($event)" id="file" accept=".jpeg, .png, .jpg" ngModel #FaceImage>
             </label>
             <table class="table" *ngIf="previewFiles">
                 <thead>
@@ -39,7 +40,7 @@
 
 
 
-        <div class="alert alert-danger" *ngIf="!isFileValid">File must be of type .jpeg, .jpg, or .png</div>
+        <div class="alert alert-danger" *ngIf="previewFiles?.length==0">At least one file required</div>
 
         <div>
             <button type="submit" [disabled]="!(personForm.valid && isFileValid)" class="btn btn-success">Submit</button>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import {Router} from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AlertService } from "../../services/alert.service";
 
 @Component({
     selector: "app-new-person",
@@ -13,9 +14,10 @@ export class NewPersonComponent implements OnInit {
     previewFiles: IPreviewFile[]=[];
     isFileValid: boolean;
 
-    constructor(private router: Router, private formBuilder: FormBuilder) {}
+    constructor(private router: Router, private formBuilder: FormBuilder, private alertService: AlertService) {}
 
     validateFile(fileInput: any) {
+        this.alertService.clear();
         const input = fileInput.target.files;
         for (let file of input)
             if (file != null) {
@@ -33,10 +35,10 @@ export class NewPersonComponent implements OnInit {
                         };
                         reader.readAsDataURL(file);
                     } else {
-                        alert(file.name + " is already on the list");
+                        this.alertService.error(file.name + " is already on the list");
                     }
                 } else {
-                    alert(file.name + " has invalid type");
+                    this.alertService.error(file.name + " has invalid type. File must be of type .jpeg, .jpg or .png");
                 }
             }
     }

@@ -1125,3 +1125,14 @@
 2018-05-04 14:06:05.1839 Info Adding target File Target[ownFile-web]
 2018-05-04 14:06:05.1922 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Debug\netcoreapp2.0\nlog.config...
 2018-05-04 14:06:05.1922 Info Found 42 configuration items
+2018-05-04 15:24:26.9054 Info Message Template Auto Format enabled
+2018-05-04 15:24:26.9660 Info Adding target File Target[allfile]
+2018-05-04 15:24:26.9916 Error Error parsing layout aspnet-request-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-request-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-05-04 15:24:26.9916 Error Error parsing layout aspnet-mvc-action will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-mvc-action'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-05-04 15:24:26.9916 Info Adding target File Target[ownFile-web]
+2018-05-04 15:24:26.9916 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Debug\netcoreapp2.0\nlog.config...
+2018-05-04 15:24:27.0108 Info Found 42 configuration items
