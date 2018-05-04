@@ -1,0 +1,21 @@
+            <table class="table" *ngIf="person.fileLinks">
+    <thead>
+    <tr>
+        <th>Filename</th>
+        <th>Preview</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let file of previewFiles">
+        <td>{{file.file.name}}</td>
+        <td>
+            <div class="slider">
+                <div class="slide">
+                    <img src="{{file.url}}"/>
+                </div>
+            </div>
+                        
+        </td>
+    </tr>
+    </tbody>
+</table>

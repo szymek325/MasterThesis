@@ -18,6 +18,7 @@ import { ReadingsProviderService } from "./services/readings-provider.service";
 import { PeopleComponent } from "./components/people/people.component";
 import { NewPersonComponent } from "./components/new-person/new-person.component";
 import { PeopleService } from "./services/people.service";
+import { PersonComponent } from "./components/person/person.component";
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { PeopleService } from "./services/people.service";
         FaceDetectionRequestComponent,
         SensorReadingsComponent,
         PeopleComponent,
-        NewPersonComponent
+        NewPersonComponent,
+        PersonComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -46,7 +48,8 @@ import { PeopleService } from "./services/people.service";
             { path: "face-detection-request/:id", component: FaceDetectionRequestComponent },
             { path: "sensor-readings", component: SensorReadingsComponent },
             { path: "people", component: PeopleComponent },
-            { path: "new-person", component: NewPersonComponent }
+            { path: "new-person", component: NewPersonComponent },
+            { path: "person/:id", component: PersonComponent }
         ])
     ],
     providers: [

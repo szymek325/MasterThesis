@@ -17,6 +17,10 @@ export class PeopleComponent implements OnInit {
         this.router.navigateByUrl("/new-person");
     }
 
+    showPerson(id) {
+        this.router.navigateByUrl(`/person/${id}`);
+    }
+
     ngOnInit() {
         this.peopleService.getAllPeople()
             .subscribe(result => {

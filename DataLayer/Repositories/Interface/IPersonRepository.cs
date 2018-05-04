@@ -7,5 +7,6 @@ namespace DataLayer.Repositories.Interface
     public interface IPersonRepository : IGenericRepository<Person>
     {
         IEnumerable<Person> GetAllPeople();
+        Person GetPersonById(int id);
     }
 }

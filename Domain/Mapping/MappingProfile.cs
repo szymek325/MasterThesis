@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DataLayer.Entities;
 using Domain.FaceDetection.DTO;
+using Domain.Files.DTO;
 using Domain.People.DTO;
 using Domain.SensorsReading.DTO;
 
@@ -18,10 +19,14 @@ namespace Domain.Mapping
                 .ForMember(dest => dest.HaarFaces, opts => opts.MapFrom(src => src.HaarFaces))
                 .ForMember(dest => dest.CreationTime, opts => opts.MapFrom(src => src.CreationTime));
             CreateMap<DataLayer.Entities.SensorsReading, Reading>().ReverseMap();
+            CreateMap<File, FileLink>()
+                .ForMember(dest => dest.FileName, opts => opts.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Url, opts => opts.MapFrom(src => src.Url));
             CreateMap<Person, PersonOutput>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Thumbnail, opts => opts.MapFrom(src => src.ThumbFile))
+                .ForMember(dest => dest.FileLinks, opts => opts.MapFrom(src => src.Files))
                 .ReverseMap();
         }
     }

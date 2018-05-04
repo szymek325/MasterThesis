@@ -17,7 +17,7 @@
         <td>{{ person.id }}</td>
         <td>{{ person.name }}</td>
         <td><img src="data:image/jpeg;base64,{{person.thumbnail}}"/></td>
-            <td class="btn btn-success" (click)="showRequest(face.id)">Show</td>
+            <td class="btn btn-success" (click)="showPerson(person.id)">Show</td>
     </tr>
     </tbody>
 </table>

@@ -15,7 +15,12 @@ namespace DataLayer.Repositories.Implementation
 
         public IEnumerable<Person> GetAllPeople()
         {
-            return GetAll().Include(x => x.Files);
+            return GetAll().Include(x => x.Files).AsEnumerable();
+        }
+
+        public Person GetPersonById(int id)
+        {
+            return GetAll().Include(x => x.Files).FirstOrDefault(x => x.Id == id);
         }
     }
 }

@@ -15,7 +15,7 @@ export class PeopleService {
         return this.httpClient.get(this.baseUrl + "api/People/GetAll");
     };
 
-    getRequest(id: string): Observable<Object> {
+    getPerson(id: string): Observable<Object> {
         const params = new HttpParams().set("id", id);
         return this.httpClient.get(this.baseUrl + "api/People/GetPerson", { params });
     };

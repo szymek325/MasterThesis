@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AlertService } from "../../services/alert.service";
 import {PeopleService} from "../../services/people.service";
@@ -10,12 +10,14 @@ import {PeopleService} from "../../services/people.service";
     styleUrls: ["./new-person.component.css"]
 })
 export class NewPersonComponent implements OnInit {
+    id:any;
     formData: any;
     personForm: FormGroup;
     previewFiles: IPreviewFile[]=[];
     isFileValid: boolean;
+    private sub: any;
 
-    constructor(private peopleService:PeopleService,private router: Router, private formBuilder: FormBuilder, private alertService: AlertService) {}
+    constructor(private route: ActivatedRoute, private peopleService:PeopleService,private router: Router, private formBuilder: FormBuilder, private alertService: AlertService) {}
 
     validateFile(fileInput: any) {
         this.alertService.clear();
@@ -68,6 +70,24 @@ export class NewPersonComponent implements OnInit {
 
 
     ngOnInit() {
+        this.sub = this.route.params.subscribe(params => {
+            this.id = +params["id"]; // (+) converts string 'id' to a number
+
+            // In a real app: dispatch action to load the details here.
+        });
+        if (this.id !== 0) {
+            this.peopleService.getPerson(this.id.toString())
+                .subscribe(result => {
+                        if (result === 0) {
+                            alert("Exception occured during request creation");
+                        }
+                        this.router.navigateByUrl("people");
+                    },
+                    error => {
+                        console.log(error.message);
+                        this.alertService.error(error.message);
+                    });
+        }
         this.isFileValid = false;
         this.personForm = this.formBuilder.group({
             name: ["name", [Validators.required, Validators.minLength(3)]],

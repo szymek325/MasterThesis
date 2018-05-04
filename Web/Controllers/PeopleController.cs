@@ -40,5 +40,13 @@ namespace Web.Controllers
         {
             return await peopleService.GetAllPeople();
         }
+
+        [HttpGet("[action]")]
+        public async Task<PersonOutput> GetPerson(int id)
+        {
+
+            var request = await peopleService.GetPersonById(id);
+            return request;
+        }
     }
 }
