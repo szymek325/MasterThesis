@@ -6,10 +6,6 @@ import { RouterModule } from "@angular/router";
 
 import { AppComponent } from "./components/app/app.component";
 import { NavMenuComponent } from "./components/navmenu/navmenu.component";
-import { FetchDataComponent } from "./components/fetchdata/fetchdata.component";
-import { SensorTableComponent } from "./components/readings/sensorstable.component";
-import { SensorDataComponent } from "./components/readings/sensordata.component";
-import { CounterComponent } from "./components/counter/counter.component";
 import { AttachmentListComponent } from "./components/attachment-list/attachment-list.component";
 import { FileUploaderService } from "./services/file-uploader.service";
 import { FileDownloaderService } from "./services/file-downloader.service";
@@ -24,17 +20,14 @@ import { NewFaceDetectionComponent } from "./components/face-detections/new-face
 import {FaceDetectionRequestComponent} from "./components/face-detections/face-detection-request.component";
 import { SensorReadingsComponent } from "./components/sensor-readings/sensor-readings.component";
 import { ReadingsProviderService } from "./services/readings-provider.service";
-import { PeopleComponent } from './components/people/people.component';
+import { PeopleComponent } from "./components/people/people.component";
+import { NewPersonComponent } from "./components/new-person/new-person.component";
 
 
 @NgModule({
     declarations: [
         AppComponent,
         NavMenuComponent,
-        CounterComponent,
-        FetchDataComponent,
-        SensorTableComponent,
-        SensorDataComponent,
         AttachmentListComponent,
         HomeComponent,
         AlertComponent,
@@ -43,7 +36,8 @@ import { PeopleComponent } from './components/people/people.component';
         NewFaceDetectionComponent,
         FaceDetectionRequestComponent,
         SensorReadingsComponent,
-        PeopleComponent
+        PeopleComponent,
+        NewPersonComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -53,15 +47,14 @@ import { PeopleComponent } from './components/people/people.component';
         RouterModule.forRoot([
             { path: "", redirectTo: "home", pathMatch: "full" },
             { path: "home", component: HomeComponent },
-            { path: "counter", component: CounterComponent },
-            { path: "fetch-data", component: FetchDataComponent },
-            { path: "sensordata", component: SensorDataComponent },
             { path: "attachments", component: AttachmentListComponent },
             { path: "dropboxpictures", component: DropboxPicturesExampleComponent },
             { path: "face-detection", component: FaceDetectionsComponent },
             { path: "new-face-detection", component: NewFaceDetectionComponent },
             { path: "face-detection-request/:id", component: FaceDetectionRequestComponent },
-            { path: "sensor-readings", component: SensorReadingsComponent }
+            { path: "sensor-readings", component: SensorReadingsComponent },
+            { path: "people", component: PeopleComponent },
+            { path: "new-person", component: NewPersonComponent }
         ])
     ],
     providers: [

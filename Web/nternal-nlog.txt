@@ -1092,3 +1092,14 @@
 2018-05-04 13:00:34.9451 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.3.7533. Product version: 4.5.3.
 2018-05-04 13:00:39.3656 Info Shutting down logging...
 2018-05-04 13:00:39.3810 Info Logger has been shut down.
+2018-05-04 13:06:00.8050 Info Message Template Auto Format enabled
+2018-05-04 13:06:00.8665 Info Adding target File Target[allfile]
+2018-05-04 13:06:00.9013 Error Error parsing layout aspnet-request-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-request-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-05-04 13:06:00.9013 Error Error parsing layout aspnet-mvc-action will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-mvc-action'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-05-04 13:06:00.9013 Info Adding target File Target[ownFile-web]
+2018-05-04 13:06:00.9130 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Debug\netcoreapp2.0\nlog.config...
+2018-05-04 13:06:00.9130 Info Found 42 configuration items
