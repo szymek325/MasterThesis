@@ -7,6 +7,8 @@
         public string Batch { get; set; }
         public string Url { get; set; }
         public int? FileSourceId { get; set; }
-        public virtual File FileSource { get; set; }
+        public File FileSource { get; set; }
+        public int? PersonId { get; set; }
+        public Person Person { get; set; }
     }
 }
