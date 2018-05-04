@@ -13,7 +13,7 @@
             <label class="btn btn-primary">
                 add files <input type="file" class="form-control" multiple hidden [ngModelOptions]="{standalone: true}" (change)="validateFile($event)" id="file" accept=".jpeg, .bmp, .png, .jpg" ngModel #FaceImage>
             </label>
-            <table class="table" *ngIf="files">
+            <table class="table" *ngIf="previewFiles">
                 <thead>
                     <tr>
                         <th>Filename</th>
@@ -21,10 +21,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let file of files">
-                    <td>{{file.name}}</td>
+                <tr *ngFor="let file of previewFiles">
+                    <td>{{file.file.name}}</td>
                     <td>
-                        <img src="{{url}}"/>
+                        <div class="slider">
+                            <div class="slide">
+                                <img src="{{file.url}}"/>
+                            </div>
+                        </div>
+                        
                     </td>
                 </tr>
                 </tbody>

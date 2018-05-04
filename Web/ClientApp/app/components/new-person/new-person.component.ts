@@ -10,10 +10,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 export class NewPersonComponent implements OnInit {
     formData: any;
     personForm: FormGroup;
-    files: File[] = [];
     previewFiles: IPreviewFile[]=[];
     isFileValid: boolean;
-    url:any;
 
     constructor(private router: Router, private formBuilder: FormBuilder) {}
 
@@ -23,14 +21,20 @@ export class NewPersonComponent implements OnInit {
             if (file != null) {
                 this.isFileValid = this.checkExtension(file.name);
                 if (this.isFileValid) {
-                    this.files.push(file);
-                    var reader = new FileReader();
-                    reader.onload = (fileInput:any)=> {
-                        this.url = fileInput.target.result;
-                        console.log(this.url);
+                    if (!this.previewFiles.some(x => x.file.name === file.name)) {
+                        const reader = new FileReader();
+                        reader.onload = (fileInput: any) => {
+                            var previewFile: IPreviewFile = {
+                                url: fileInput.target.result,
+                                file: file
+                            };
+                            this.previewFiles.push(previewFile);
+                            console.log(this.previewFiles);
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        alert(file.name + " is already on the list");
                     }
-                    reader.readAsDataURL(file);
-                    console.log(this.url);
                 } else {
                     alert(file.name + " has invalid type");
                 }
@@ -54,7 +58,7 @@ export class NewPersonComponent implements OnInit {
 
 }
 
-interface IPreviewFile {
-    fileName: string;
-    url:string;
+export interface IPreviewFile {
+    url: string;
+    file: File;
 };

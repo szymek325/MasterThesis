@@ -1,3 +1,12 @@
-[hidden] {
-    display: none !important;
+[hidden] { display: none !important; }
+
+
+.slider {
+     display: flex;
+    
 }
+
+    .slider .slide img {
+        
+        height: 100px;
+    }
