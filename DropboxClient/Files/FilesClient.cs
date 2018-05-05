@@ -20,6 +20,16 @@ namespace DropboxIntegration.Files
             dbxClient = DropboxClientFactory.GetDropboxClient();
         }
 
+        public async Task Delete(string folder, string file=null)
+        {
+            var result = await dbxClient.Files.DeleteV2Async(folder);
+            if (result.Metadata.IsDeleted)
+            {
+                logger.LogError("Files were not deleted from {folder}/{file}");
+                throw  new Exception("Files were not deleted.");
+            }
+        }
+
         public async Task Upload(string folder, string file, Stream content)
         {
             var updated = await dbxClient.Files.UploadAsync(
@@ -47,20 +57,6 @@ namespace DropboxIntegration.Files
             }
 
             return thumbnail;
-        }
-
-        public async Task<string> DownloadAsString(string folder, string file)
-        {
-            var response = await dbxClient.Files.DownloadAsync(folder + "/" + file);
-            var fileMetadata = await response.GetContentAsStringAsync();
-            return fileMetadata;
-        }
-
-        public async Task<Stream> DownloadAsStream(string folder, string file)
-        {
-            var response = await dbxClient.Files.DownloadAsync(folder + "/" + file);
-            var fileMetadata = await response.GetContentAsStreamAsync();
-            return fileMetadata;
         }
     }
 }

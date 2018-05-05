@@ -70,24 +70,6 @@ export class NewPersonComponent implements OnInit {
 
 
     ngOnInit() {
-        this.sub = this.route.params.subscribe(params => {
-            this.id = +params["id"]; // (+) converts string 'id' to a number
-
-            // In a real app: dispatch action to load the details here.
-        });
-        if (this.id !== 0) {
-            this.peopleService.getPerson(this.id.toString())
-                .subscribe(result => {
-                        if (result === 0) {
-                            alert("Exception occured during request creation");
-                        }
-                        this.router.navigateByUrl("people");
-                    },
-                    error => {
-                        console.log(error.message);
-                        this.alertService.error(error.message);
-                    });
-        }
         this.isFileValid = false;
         this.personForm = this.formBuilder.group({
             name: ["name", [Validators.required, Validators.minLength(3)]],

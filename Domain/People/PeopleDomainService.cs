@@ -15,14 +15,15 @@ namespace Domain.People
     public class PeopleDomainService : IPeopleDomainService
     {
         private readonly IFilesClient filesClient;
+        private readonly IFileRepository filesRepository;
         private readonly IFilesDomainService filesService;
         private readonly ILogger<PeopleDomainService> logger;
         private readonly IMapper mapper;
         private readonly IPersonRepository peopleRepo;
-        private readonly IFileRepository filesRepository;
 
         public PeopleDomainService(IFilesClient filesClient, IFilesDomainService filesService,
-            ILogger<PeopleDomainService> logger, IMapper mapper, IPersonRepository peopleRepo, IFileRepository filesRepository)
+            ILogger<PeopleDomainService> logger, IMapper mapper, IPersonRepository peopleRepo,
+            IFileRepository filesRepository)
         {
             this.filesClient = filesClient;
             this.filesService = filesService;
@@ -105,7 +106,7 @@ namespace Domain.People
                 var respone = mapper.Map<PersonOutput>(person);
                 return respone;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.LogError("Exception when retrieving person");
                 throw;
@@ -117,20 +118,13 @@ namespace Domain.People
             try
             {
                 var person = peopleRepo.GetPersonById(id);
-                var files = person.Files;
                 peopleRepo.Delete(person.Id);
                 peopleRepo.Save();
-                foreach (var file in files)
-                {
-                    filesRepository.Delete(file.Id);
-                }
-                filesRepository.Save();
-
-
+                await filesService.Delete(person.Files);
             }
             catch (Exception ex)
             {
-                logger.LogError("Exception when retrieving person");
+                logger.LogError("Exception when retrieving person", ex);
                 throw;
             }
         }

@@ -13,11 +13,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let person of people">
-        <td>{{ person.id }}</td>
-        <td>{{ person.name }}</td>
-        <td><img src="data:image/jpeg;base64,{{person.thumbnail}}"/></td>
+        <tr *ngFor="let person of people">
+            <td>{{ person.id }}</td>
+            <td>{{ person.name }}</td>
+            <td><img src="data:image/jpeg;base64,{{person.thumbnail}}" /></td>
             <td class="btn btn-success" (click)="showPerson(person.id)">Show</td>
-    </tr>
+            <td class="btn btn-danger" (click)="deletePerson(person.id)">Delete</td>
+        </tr>
     </tbody>
 </table>

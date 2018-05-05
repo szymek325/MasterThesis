@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using DataLayer.Entities;
+using DataLayer.Repositories.Interface;
 using Domain.Files.DTO;
-using Dropbox.Api;
 using DropboxIntegration.Files;
 using DropboxIntegration.Folders;
 using DropboxIntegration.Links;
@@ -15,19 +16,21 @@ namespace Domain.Files
     public class FilesDomainService : IFilesDomainService
     {
         private readonly IFilesClient filesClient;
+        private readonly IFileRepository filesRepository;
         private readonly IFoldersClient foldersClient;
         private readonly ILogger<FilesDomainService> logger;
         private readonly IMapper mapper;
         private readonly IUrlClient urlClient;
 
-        public FilesDomainService(IFilesClient filesClient, IFoldersClient foldersClient, IUrlClient urlClient,
-            ILogger<FilesDomainService> logger, IMapper mapper)
+        public FilesDomainService(IFilesClient filesClient, IFoldersClient foldersClient,
+            ILogger<FilesDomainService> logger, IMapper mapper, IUrlClient urlClient, IFileRepository filesRepository)
         {
             this.filesClient = filesClient;
             this.foldersClient = foldersClient;
-            this.urlClient = urlClient;
             this.logger = logger;
             this.mapper = mapper;
+            this.urlClient = urlClient;
+            this.filesRepository = filesRepository;
         }
 
         public async Task Upload(IEnumerable<FileToUpload> files, string location)
@@ -62,9 +65,28 @@ namespace Domain.Files
             }
             catch (Exception ex)
             {
+                logger.LogError("exception when retrieving links", ex);
             }
 
             return links;
+        }
+
+        public async Task Delete(IEnumerable<File> files)
+        {
+            try
+            {
+                foreach (var filetoDelete in files)
+                {
+                    await filesClient.Delete(filetoDelete.Path+"/"+filetoDelete.Name);
+                    filesRepository.Delete(filetoDelete.Id);
+                }
+
+                filesRepository.Save();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Exception when deleting files.", ex);
+            }
         }
 
         private string TurnIntoSourceLink(string url)
