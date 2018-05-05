@@ -11,9 +11,10 @@ using System;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(MasterContext))]
-    partial class MasterContextModelSnapshot : ModelSnapshot
+    [Migration("20180504134244_FileSource")]
+    partial class FileSource
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,15 +74,9 @@ namespace DataLayer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Batch");
-
                     b.Property<DateTime>("CreationTime")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasDefaultValueSql("getutcdate()");
-
-                    b.Property<int?>("FaceDetectionId");
-
-                    b.Property<int?>("FileDetectionId");
 
                     b.Property<int?>("FileSourceId");
 
@@ -89,15 +84,11 @@ namespace DataLayer.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("Path");
-
                     b.Property<int?>("PersonId");
 
                     b.Property<string>("Url");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FaceDetectionId");
 
                     b.HasIndex("FileSourceId");
 
@@ -138,8 +129,6 @@ namespace DataLayer.Migrations
                     b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<string>("Name");
-
-                    b.Property<string>("ThumbFile");
 
                     b.HasKey("Id");
 
@@ -193,15 +182,11 @@ namespace DataLayer.Migrations
 
             modelBuilder.Entity("DataLayer.Entities.File", b =>
                 {
-                    b.HasOne("DataLayer.Entities.FaceDetection", "FaceDetection")
-                        .WithMany("Files")
-                        .HasForeignKey("FaceDetectionId");
-
                     b.HasOne("DataLayer.Entities.File", "FileSource")
                         .WithMany()
                         .HasForeignKey("FileSourceId");
 
-                    b.HasOne("DataLayer.Entities.Person", "Person")
+                    b.HasOne("DataLayer.Entities.Person")
                         .WithMany("Files")
                         .HasForeignKey("PersonId");
                 });

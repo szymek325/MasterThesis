@@ -11,9 +11,10 @@ using System;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(MasterContext))]
-    partial class MasterContextModelSnapshot : ModelSnapshot
+    [Migration("20180504153311_FileMoreInfo")]
+    partial class FileMoreInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,10 +80,6 @@ namespace DataLayer.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasDefaultValueSql("getutcdate()");
 
-                    b.Property<int?>("FaceDetectionId");
-
-                    b.Property<int?>("FileDetectionId");
-
                     b.Property<int?>("FileSourceId");
 
                     b.Property<DateTime?>("ModifiedDate");
@@ -96,8 +93,6 @@ namespace DataLayer.Migrations
                     b.Property<string>("Url");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FaceDetectionId");
 
                     b.HasIndex("FileSourceId");
 
@@ -138,8 +133,6 @@ namespace DataLayer.Migrations
                     b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<string>("Name");
-
-                    b.Property<string>("ThumbFile");
 
                     b.HasKey("Id");
 
@@ -193,15 +186,11 @@ namespace DataLayer.Migrations
 
             modelBuilder.Entity("DataLayer.Entities.File", b =>
                 {
-                    b.HasOne("DataLayer.Entities.FaceDetection", "FaceDetection")
-                        .WithMany("Files")
-                        .HasForeignKey("FaceDetectionId");
-
                     b.HasOne("DataLayer.Entities.File", "FileSource")
                         .WithMany()
                         .HasForeignKey("FileSourceId");
 
-                    b.HasOne("DataLayer.Entities.Person", "Person")
+                    b.HasOne("DataLayer.Entities.Person")
                         .WithMany("Files")
                         .HasForeignKey("PersonId");
                 });

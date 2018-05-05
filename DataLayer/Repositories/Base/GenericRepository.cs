@@ -44,7 +44,7 @@ namespace DataLayer.Repositories.Base
         public void Update(T entity)
         {
             context.Entry(entity).State = EntityState.Modified;
-            context.Set<T>().Attach(entity);
+            context.Set<T>().Update(entity);
         }
 
         public void Save()
