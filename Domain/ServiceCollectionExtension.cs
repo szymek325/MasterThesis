@@ -19,7 +19,7 @@ namespace Domain
             services.AddTransient<IFilesDomainService, FilesDomainService>();
             services.AddTransient<IFaceDetectionService, FaceDetectionService>();
             services.AddTransient<IReadingsProvider, ReadingsProvider>();
-            services.AddTransient<IPeopleDomainService, PeopleDomainService>();
+            services.AddTransient<IPeopleService, PeopleService>();
             services.AddTransient<IGuidProvider, GuidProvider>();
 
             return services;

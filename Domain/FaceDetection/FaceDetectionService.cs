@@ -94,6 +94,7 @@ namespace Domain.FaceDetection
 
                 filesRepository.Save();
             }
+
             var request = mapper.Map<FaceDetectionRequest>(detectionJob);
             return request;
         }
