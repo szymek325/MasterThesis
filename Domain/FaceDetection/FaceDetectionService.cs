@@ -16,23 +16,24 @@ namespace Domain.FaceDetection
     {
         private readonly IFaceDetectionRepository detectionRepository;
         private readonly IFilesDomainService filesService;
-        private readonly IMapper mapper;
         private readonly IGuidProvider guid;
         private readonly ILogger<FaceDetectionService> logger;
+        private readonly IMapper mapper;
+        private readonly IFileRepository filesRepository;
 
-        public FaceDetectionService(IFaceDetectionRepository detectionRepository, IFilesDomainService filesService, IMapper mapper,
-            IGuidProvider guid, ILogger<FaceDetectionService> logger)
+        public FaceDetectionService(IFaceDetectionRepository detectionRepository, IFilesDomainService filesService, IGuidProvider guid,
+            ILogger<FaceDetectionService> logger, IMapper mapper, IFileRepository filesRepository)
         {
             this.detectionRepository = detectionRepository;
             this.filesService = filesService;
-            this.mapper = mapper;
             this.guid = guid;
             this.logger = logger;
+            this.mapper = mapper;
+            this.filesRepository = filesRepository;
         }
 
         public async Task<int> CreateRequest(NewRequest request)
         {
-
             try
             {
                 var detectionGuid = guid.NewGuidAsString;
@@ -45,7 +46,7 @@ namespace Domain.FaceDetection
                     Guid = detectionGuid,
                     Files = request.Files.Select(x => new File
                     {
-                        Name = x.FileName,
+                        Name = x.FileName
                     }).ToList()
                 };
                 detectionRepository.Add(newDetection);
@@ -55,7 +56,7 @@ namespace Domain.FaceDetection
             }
             catch (Exception ex)
             {
-                logger.LogError("Exception when creating face deteciton request ",ex);
+                logger.LogError("Exception when creating face deteciton request ", ex);
                 throw;
             }
         }
@@ -66,13 +67,12 @@ namespace Domain.FaceDetection
             try
             {
                 foreach (var faceDetection in faceDetections)
-                    if (faceDetection.Files.Any()&&string.IsNullOrWhiteSpace(faceDetection.Files.First().Thumbnail))
-                    {
+                    if (faceDetection.Files.Any() && string.IsNullOrWhiteSpace(faceDetection.Files.First().Thumbnail))
                         await filesService.GetThumbnail(faceDetection.Files.First());
-                    }
             }
             catch (Exception ex)
             {
+                logger.LogError("Exception when trying to obtain thumbnails of FD Requests", ex);
             }
 
             var requests = mapper.Map<IEnumerable<FaceDetectionRequest>>(faceDetections);
@@ -82,9 +82,19 @@ namespace Domain.FaceDetection
         public async Task<FaceDetectionRequest> GetRequestData(int id)
         {
             var detectionJob = detectionRepository.GetRequestById(id);
-            var links = await filesService.GetLinksToFilesInFolder($"/faceDetection/{id}");
+            var filesWithoutUrl = detectionJob.Files.Where(x => x.Url == null).ToList();
+            if (filesWithoutUrl.Any())
+            {
+                var links = await filesService.GetLinksToFilesInFolder($"/{detectionJob.Guid}");
+                foreach (var file in filesWithoutUrl)
+                {
+                    file.Url = links.FirstOrDefault(x => x.FileName == file.Name)?.Url;
+                    filesRepository.Update(file);
+                }
+
+                filesRepository.Save();
+            }
             var request = mapper.Map<FaceDetectionRequest>(detectionJob);
-            request.FileLinks = links;
             return request;
         }
     }

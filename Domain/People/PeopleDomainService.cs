@@ -100,8 +100,6 @@ namespace Domain.People
 
                     filesRepository.Save();
                 }
-
-
                 var respone = mapper.Map<PersonOutput>(person);
                 return respone;
             }
