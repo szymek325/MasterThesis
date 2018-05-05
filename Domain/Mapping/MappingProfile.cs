@@ -18,7 +18,9 @@ namespace Domain.Mapping
                 .ForMember(dest => dest.Status, opts => opts.MapFrom(src => src.Status.Name))
                 .ForMember(dest => dest.DnnFaces, opts => opts.MapFrom(src => src.DnnFaces))
                 .ForMember(dest => dest.HaarFaces, opts => opts.MapFrom(src => src.HaarFaces))
-                .ForMember(dest => dest.CreationTime, opts => opts.MapFrom(src => src.CreationTime));
+                .ForMember(dest => dest.CreationTime, opts => opts.MapFrom(src => src.CreationTime))
+                .ForMember(dest => dest.Thumbnail, opts => opts.MapFrom(src => src.Files.FirstOrDefault(x => x.Thumbnail != null).Thumbnail))
+                .ForMember(dest => dest.FileLinks, opts => opts.MapFrom(src => src.Files));
             CreateMap<DataLayer.Entities.SensorsReading, Reading>().ReverseMap();
             CreateMap<File, FileLink>()
                 .ForMember(dest => dest.FileName, opts => opts.MapFrom(src => src.Name))

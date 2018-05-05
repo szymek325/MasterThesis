@@ -53,25 +53,22 @@ namespace Domain.FaceDetection
 
                 return newDetection.Id;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.LogError("Exception when creating face deteciton request ",e);
+                logger.LogError("Exception when creating face deteciton request ",ex);
                 throw;
             }
         }
 
         public async Task<IEnumerable<FaceDetectionRequest>> GetAllFaceDetectionsAsync()
         {
-            var faceDetections = detectionRepository.GetAllFaces();
+            var faceDetections = detectionRepository.GetAllFaces().ToList();
             try
             {
                 foreach (var faceDetection in faceDetections)
-                    if (faceDetection.Files.Any())
+                    if (faceDetection.Files.Any()&&string.IsNullOrWhiteSpace(faceDetection.Files.First().Thumbnail))
                     {
-                        if (faceDetection.Files.Any(x => x.Thumbnail != null)) continue;
-
-                        var firstImage = faceDetection.Files.FirstOrDefault();
-                        if (firstImage != null) await filesService.GetThumbnail(firstImage);
+                        await filesService.GetThumbnail(faceDetection.Files.First());
                     }
             }
             catch (Exception ex)

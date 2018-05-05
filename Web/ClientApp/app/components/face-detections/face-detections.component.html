@@ -16,14 +16,15 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let face of requests">
-        <td>{{ face.id }}</td>
-        <td>{{ face.name }}</td>
-        <td>{{ face.dnnFaces }}</td>
-        <td>{{ face.haarFaces }}</td>
-        <td>{{ face.status }}</td>
-        <td>{{ face.creationTime }}</td>
-        <td class="btn btn-success" (click)="showRequest(face.id)">Show</td>
-    </tr>
+        <tr *ngFor="let face of requests">
+            <td>{{ face.id }}</td>
+            <td>{{ face.name }}</td>
+            <td>{{ face.dnnFaces }}</td>
+            <td>{{ face.haarFaces }}</td>
+            <td>{{ face.status }}</td>
+            <td>{{ face.creationTime }}</td>
+            <td><img src="data:image/jpeg;base64,{{face.thumbnail}}" /></td>
+            <td class="btn btn-success" (click)="showRequest(face.id)">Show</td>
+        </tr>
     </tbody>
 </table>

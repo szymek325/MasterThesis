@@ -93,7 +93,7 @@ namespace Domain.Files
         {
             try
             {
-                file.Thumbnail = await filesClient.DownloadThumbnail(file.Path,file.Name);
+                file.Thumbnail = await filesClient.DownloadThumbnail($"/{file.FaceDetectionGuid ?? file.PersonGuid}", file.Name);
                 filesRepository.Update(file);
                 filesRepository.Save();
             }
