@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using DataLayer.Entities;
+using DataLayer.Repositories.Interface;
 using Domain.Files.DTO;
-using Dropbox.Api;
 using DropboxIntegration.Files;
 using DropboxIntegration.Folders;
 using DropboxIntegration.Links;
@@ -15,19 +16,21 @@ namespace Domain.Files
     public class FilesDomainService : IFilesDomainService
     {
         private readonly IFilesClient filesClient;
+        private readonly IFileRepository filesRepository;
         private readonly IFoldersClient foldersClient;
         private readonly ILogger<FilesDomainService> logger;
         private readonly IMapper mapper;
         private readonly IUrlClient urlClient;
 
-        public FilesDomainService(IFilesClient filesClient, IFoldersClient foldersClient, IUrlClient urlClient,
-            ILogger<FilesDomainService> logger, IMapper mapper)
+        public FilesDomainService(IFilesClient filesClient, IFoldersClient foldersClient,
+            ILogger<FilesDomainService> logger, IMapper mapper, IUrlClient urlClient, IFileRepository filesRepository)
         {
             this.filesClient = filesClient;
             this.foldersClient = foldersClient;
-            this.urlClient = urlClient;
             this.logger = logger;
             this.mapper = mapper;
+            this.urlClient = urlClient;
+            this.filesRepository = filesRepository;
         }
 
         public async Task Upload(IEnumerable<FileToUpload> files, string location)
@@ -62,9 +65,55 @@ namespace Domain.Files
             }
             catch (Exception ex)
             {
+                logger.LogError("exception when retrieving links", ex);
             }
 
             return links;
+        }
+
+
+        public async Task GetThumbnail(File file)
+        {
+            try
+            {
+                file.Thumbnail =
+                    await filesClient.DownloadThumbnail($"/{file.FaceDetectionGuid ?? file.PersonGuid}", file.Name);
+                filesRepository.Update(file);
+                filesRepository.Save();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Exception when creating thumbnail", ex);
+            }
+        }
+
+        public async Task DeleteSingleFile(File file)
+        {
+            try
+            {
+                await filesClient.Delete($"/{file.FaceDetectionGuid ?? file.PersonGuid}/{file.Name}");
+                filesRepository.Delete(file.Id);
+                filesRepository.Save();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(
+                    $"Exception when deleting file /{file.FaceDetectionGuid ?? file.PersonGuid}/{file.Name}", ex);
+            }
+        }
+
+        public async Task DeleteFiles(IEnumerable<File> files)
+        {
+            files = files.ToList();
+            if (files.Any())
+            {
+                await filesClient.Delete($"/{files.First().FaceDetectionGuid ?? files.First().PersonGuid}");
+                foreach (var file in files)
+                {
+                    filesRepository.Delete(file.Id);
+                }
+                filesRepository.Save();
+            }
         }
 
         private string TurnIntoSourceLink(string url)

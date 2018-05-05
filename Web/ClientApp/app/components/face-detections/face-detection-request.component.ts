@@ -29,7 +29,7 @@ export class FaceDetectionRequestComponent implements OnInit, OnDestroy {
                     this.request = result as IFaceDetectionRequest;
                     this.dnnLink = this.request.fileLinks.filter(x => x.fileName.split(".")[0] === "dnn")[0];
                     this.haarLink = this.request.fileLinks.filter(x => x.fileName.split(".")[0] === "haar")[0];
-                    this.inputLink = this.request.fileLinks.filter(x => x.fileName.split(".")[0] === "input")[0];
+                this.inputLink = this.request.fileLinks.filter(x => x.fileName.split(".")[0] !== "dnn" && x.fileName.split(".")[0] !== "haar")[0];
                     console.log(this.request);
                 },
                 error => { console.log(error) });

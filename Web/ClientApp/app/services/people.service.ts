@@ -19,4 +19,9 @@ export class PeopleService {
         const params = new HttpParams().set("id", id);
         return this.httpClient.get(this.baseUrl + "api/People/GetPerson", { params });
     };
+
+    deletePerson(id: string): Observable<Object> {
+        const params = new HttpParams().set("id", id);
+        return this.httpClient.delete(this.baseUrl + "api/People/DeletePerson", { params });
+    };
 }

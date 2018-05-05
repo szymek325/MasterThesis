@@ -20,9 +20,9 @@ namespace DataLayer.Repositories.Base
             context.Set<T>().Add(entity);
         }
 
-        public void Delete(T entity)
+        public void Delete(int id)
         {
-            var existing = context.Set<T>().Find(entity);
+            var existing = context.Set<T>().Find(id);
             if (existing != null) context.Set<T>().Remove(existing);
         }
 

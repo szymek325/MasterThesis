@@ -13,9 +13,9 @@ namespace Web.Controllers
     public class PeopleController : Controller
     {
         private readonly IMapper mapper;
-        private readonly IPeopleDomainService peopleService;
+        private readonly IPeopleService peopleService;
 
-        public PeopleController(IMapper mapper, IPeopleDomainService peopleService)
+        public PeopleController(IMapper mapper, IPeopleService peopleService)
         {
             this.mapper = mapper;
             this.peopleService = peopleService;
@@ -27,12 +27,12 @@ namespace Web.Controllers
             var files = mapper.Map<IEnumerable<FileToUpload>>(collections.Files);
             collections.TryGetValue("name", out var requestName);
 
-            var response=await peopleService.CreateNew(new PersonInput
+            var response = await peopleService.CreateNew(new PersonInput
             {
                 Name = requestName,
                 Files = files
             });
-            return Ok(new { person_id = response });
+            return Ok(new {person_id = response});
         }
 
         [HttpGet("[action]")]
@@ -44,9 +44,15 @@ namespace Web.Controllers
         [HttpGet("[action]")]
         public async Task<PersonOutput> GetPerson(int id)
         {
-
             var request = await peopleService.GetPersonById(id);
             return request;
+        }
+
+        [HttpDelete("[action]")]
+        public async Task<IActionResult> DeletePerson(int id)
+        {
+            await peopleService.DeletePersonById(id);
+            return Ok(new {deteled_id = id});
         }
     }
 }

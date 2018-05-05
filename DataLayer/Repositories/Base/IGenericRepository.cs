@@ -10,7 +10,7 @@ namespace DataLayer.Repositories.Base
         IEnumerable<T> Get();
         IEnumerable<T> Get(Expression<Func<T, bool>> predicate);
         void Add(T entity);
-        void Delete(T entity);
+        void Delete(int id);
         void Update(T entity);
         IQueryable<T> GetAll();
         void Save();

@@ -11,8 +11,8 @@ using System;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(MasterContext))]
-    [Migration("20180504134244_FileSource")]
-    partial class FileSource
+    [Migration("20180505124045_InitDb")]
+    partial class InitDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,6 +32,9 @@ namespace DataLayer.Migrations
 
                     b.Property<int>("DnnFaces");
 
+                    b.Property<string>("Guid")
+                        .IsRequired();
+
                     b.Property<int>("HaarFaces");
 
                     b.Property<DateTime?>("ModifiedDate");
@@ -47,28 +50,6 @@ namespace DataLayer.Migrations
                     b.ToTable("FaceDetection");
                 });
 
-            modelBuilder.Entity("DataLayer.Entities.FaceRecognitionJob", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreationTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasDefaultValueSql("getutcdate()");
-
-                    b.Property<string>("Description");
-
-                    b.Property<DateTime?>("ModifiedDate");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int>("Type");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FaceRecognitionJob");
-                });
-
             modelBuilder.Entity("DataLayer.Entities.File", b =>
                 {
                     b.Property<int>("Id")
@@ -78,41 +59,27 @@ namespace DataLayer.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasDefaultValueSql("getutcdate()");
 
-                    b.Property<int?>("FileSourceId");
+                    b.Property<string>("FaceDetectionGuid");
 
                     b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("PersonId");
+                    b.Property<string>("Path");
+
+                    b.Property<string>("PersonGuid");
+
+                    b.Property<string>("Thumbnail");
 
                     b.Property<string>("Url");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FileSourceId");
+                    b.HasIndex("FaceDetectionGuid");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("PersonGuid");
 
                     b.ToTable("File");
-                });
-
-            modelBuilder.Entity("DataLayer.Entities.FileSource", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreationTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasDefaultValueSql("getutcdate()");
-
-                    b.Property<DateTime?>("ModifiedDate");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FileSource");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.Person", b =>
@@ -125,6 +92,9 @@ namespace DataLayer.Migrations
                         .HasDefaultValueSql("getutcdate()");
 
                     b.Property<string>("Description");
+
+                    b.Property<string>("Guid")
+                        .IsRequired();
 
                     b.Property<DateTime?>("ModifiedDate");
 
@@ -182,13 +152,15 @@ namespace DataLayer.Migrations
 
             modelBuilder.Entity("DataLayer.Entities.File", b =>
                 {
-                    b.HasOne("DataLayer.Entities.File", "FileSource")
-                        .WithMany()
-                        .HasForeignKey("FileSourceId");
-
-                    b.HasOne("DataLayer.Entities.Person")
+                    b.HasOne("DataLayer.Entities.FaceDetection", "FaceDetection")
                         .WithMany("Files")
-                        .HasForeignKey("PersonId");
+                        .HasForeignKey("FaceDetectionGuid")
+                        .HasPrincipalKey("Guid");
+
+                    b.HasOne("DataLayer.Entities.Person", "Person")
+                        .WithMany("Files")
+                        .HasForeignKey("PersonGuid")
+                        .HasPrincipalKey("Guid");
                 });
 #pragma warning restore 612, 618
         }
