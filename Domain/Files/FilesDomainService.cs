@@ -71,21 +71,48 @@ namespace Domain.Files
             return links;
         }
 
-        public async Task Delete(IEnumerable<File> files)
+
+        public async Task GetThumbnail(File file)
         {
             try
             {
-                foreach (var filetoDelete in files)
-                {
-                    await filesClient.Delete(filetoDelete.Path+"/"+filetoDelete.Name);
-                    filesRepository.Delete(filetoDelete.Id);
-                }
-
+                file.Thumbnail =
+                    await filesClient.DownloadThumbnail($"/{file.FaceDetectionGuid ?? file.PersonGuid}", file.Name);
+                filesRepository.Update(file);
                 filesRepository.Save();
             }
             catch (Exception ex)
             {
-                logger.LogError("Exception when deleting files.", ex);
+                logger.LogError("Exception when creating thumbnail", ex);
+            }
+        }
+
+        public async Task DeleteSingleFile(File file)
+        {
+            try
+            {
+                await filesClient.Delete($"/{file.FaceDetectionGuid ?? file.PersonGuid}/{file.Name}");
+                filesRepository.Delete(file.Id);
+                filesRepository.Save();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(
+                    $"Exception when deleting file /{file.FaceDetectionGuid ?? file.PersonGuid}/{file.Name}", ex);
+            }
+        }
+
+        public async Task DeleteFiles(IEnumerable<File> files)
+        {
+            files = files.ToList();
+            if (files.Any())
+            {
+                await filesClient.Delete($"/{files.First().FaceDetectionGuid ?? files.First().PersonGuid}");
+                foreach (var file in files)
+                {
+                    filesRepository.Delete(file.Id);
+                }
+                filesRepository.Save();
             }
         }
 

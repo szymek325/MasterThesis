@@ -13,9 +13,9 @@ namespace Web.Controllers
     public class PeopleController : Controller
     {
         private readonly IMapper mapper;
-        private readonly IPeopleDomainService peopleService;
+        private readonly IPeopleService peopleService;
 
-        public PeopleController(IMapper mapper, IPeopleDomainService peopleService)
+        public PeopleController(IMapper mapper, IPeopleService peopleService)
         {
             this.mapper = mapper;
             this.peopleService = peopleService;

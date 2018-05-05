@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DataLayer.Entities;
 using DataLayer.Repositories.Interface;
+using Domain.Configuration;
 using Domain.Files;
 using Domain.People.DTO;
 using DropboxIntegration.Files;
@@ -12,52 +13,56 @@ using Microsoft.Extensions.Logging;
 
 namespace Domain.People
 {
-    public class PeopleDomainService : IPeopleDomainService
+    public class PeopleService : IPeopleService
     {
         private readonly IFilesClient filesClient;
         private readonly IFileRepository filesRepository;
         private readonly IFilesDomainService filesService;
-        private readonly ILogger<PeopleDomainService> logger;
+        private readonly IGuidProvider guid;
+        private readonly ILogger<PeopleService> logger;
         private readonly IMapper mapper;
         private readonly IPersonRepository peopleRepo;
 
-        public PeopleDomainService(IFilesClient filesClient, IFilesDomainService filesService,
-            ILogger<PeopleDomainService> logger, IMapper mapper, IPersonRepository peopleRepo,
-            IFileRepository filesRepository)
+        public PeopleService(IFilesClient filesClient, IFileRepository filesRepository,
+            IFilesDomainService filesService,
+            ILogger<PeopleService> logger, IMapper mapper, IPersonRepository peopleRepo, IGuidProvider guid)
         {
             this.filesClient = filesClient;
+            this.filesRepository = filesRepository;
             this.filesService = filesService;
             this.logger = logger;
             this.mapper = mapper;
             this.peopleRepo = peopleRepo;
-            this.filesRepository = filesRepository;
+            this.guid = guid;
         }
 
         public async Task<int> CreateNew(PersonInput input)
         {
-            await filesService.Upload(input.Files, $"/people/{input.Name}");
-            var person = new Person
-            {
-                Name = input.Name,
-                Files = input.Files.Select(x => new File
-                {
-                    Name = x.FileName,
-                    Path = $"/people/{input.Name}",
-                    FileSourceId = 1
-                }).ToList()
-            };
             try
             {
+                var personGuid = guid.NewGuidAsString;
+                await filesService.Upload(input.Files, $"/{personGuid}");
+
+                var person = new Person
+                {
+                    Name = input.Name,
+                    Guid = personGuid,
+                    Files = input.Files.Select(x => new File
+                    {
+                        Name = x.FileName,
+                        Path = $"/people/{input.Name}"
+                    }).ToList()
+                };
                 peopleRepo.Add(person);
                 peopleRepo.Save();
+
+                return person.Id;
             }
             catch (Exception ex)
             {
                 logger.LogError("exception when saving new Person", ex);
                 throw;
             }
-
-            return person.Id;
         }
 
         public async Task<IEnumerable<PersonOutput>> GetAllPeople()
@@ -66,18 +71,12 @@ namespace Domain.People
             try
             {
                 foreach (var person in people)
-                {
-                    if (person.ThumbFile != null) continue;
-                    person.ThumbFile = await filesClient.DownloadThumbnail(person.Files.FirstOrDefault()?.Path,
-                        person.Files.FirstOrDefault()?.Name);
-                    peopleRepo.Update(person);
-                    peopleRepo.Save();
-                }
+                    if (person.Files.Any() && string.IsNullOrWhiteSpace(person.Files.First().Thumbnail))
+                        await filesService.GetThumbnail(person.Files.First());
             }
             catch (Exception ex)
             {
                 logger.LogError("exception when downloading all People", ex);
-                throw;
             }
 
             var respone = mapper.Map<IEnumerable<PersonOutput>>(people);
@@ -86,31 +85,22 @@ namespace Domain.People
 
         public async Task<PersonOutput> GetPersonById(int id)
         {
-            try
+            var person = peopleRepo.GetPersonById(id);
+            var filesWithoutUrl = person.Files.Where(x => x.Url == null).ToList();
+            if (filesWithoutUrl.Any())
             {
-                var person = peopleRepo.GetPersonById(id);
-                var filesWithoutUrl = person.Files.Where(x => x.Url == null).ToList();
-                if (filesWithoutUrl.Any())
+                var links = await filesService.GetLinksToFilesInFolder($"/{person.Guid}");
+                foreach (var file in filesWithoutUrl)
                 {
-                    var links = await filesService.GetLinksToFilesInFolder($"/people/{person.Name}");
-                    foreach (var file in filesWithoutUrl)
-                    {
-                        file.Url = links.FirstOrDefault(x => x.FileName == file.Name)?.Url;
-                        filesRepository.Update(file);
-                    }
-
-                    filesRepository.Save();
+                    file.Url = links.FirstOrDefault(x => x.FileName == file.Name)?.Url;
+                    filesRepository.Update(file);
                 }
 
+                filesRepository.Save();
+            }
 
-                var respone = mapper.Map<PersonOutput>(person);
-                return respone;
-            }
-            catch (Exception ex)
-            {
-                logger.LogError("Exception when retrieving person");
-                throw;
-            }
+            var respone = mapper.Map<PersonOutput>(person);
+            return respone;
         }
 
         public async Task DeletePersonById(int id)
@@ -118,9 +108,9 @@ namespace Domain.People
             try
             {
                 var person = peopleRepo.GetPersonById(id);
+                await filesService.DeleteFiles(person.Files);
                 peopleRepo.Delete(person.Id);
                 peopleRepo.Save();
-                await filesService.Delete(person.Files);
             }
             catch (Exception ex)
             {

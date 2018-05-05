@@ -4,7 +4,7 @@ using Domain.People.DTO;
 
 namespace Domain.People
 {
-    public interface IPeopleDomainService
+    public interface IPeopleService
     {
         Task<int> CreateNew(PersonInput input);
         Task<IEnumerable<PersonOutput>> GetAllPeople();
