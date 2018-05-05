@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DataLayer.Entities;
 using DataLayer.Repositories.Interface;
+using Domain.Configuration;
 using Domain.FaceDetection.DTO;
 using Domain.Files;
-using Domain.Files.DTO;
-using DropboxIntegration.Files;
+using Microsoft.Extensions.Logging;
 
 namespace Domain.FaceDetection
 {
@@ -16,15 +16,48 @@ namespace Domain.FaceDetection
     {
         private readonly IFaceDetectionRepository detectionRepository;
         private readonly IFilesDomainService filesService;
-        private readonly IFilesClient filesClient;
         private readonly IMapper mapper;
+        private readonly IGuidProvider guid;
+        private readonly ILogger<FaceDetectionService> logger;
 
-        public FaceDetectionService(IFaceDetectionRepository detectionRepository, IFilesDomainService filesService, IFilesClient filesClient, IMapper mapper)
+        public FaceDetectionService(IFaceDetectionRepository detectionRepository, IFilesDomainService filesService, IMapper mapper,
+            IGuidProvider guid, ILogger<FaceDetectionService> logger)
         {
             this.detectionRepository = detectionRepository;
             this.filesService = filesService;
-            this.filesClient = filesClient;
             this.mapper = mapper;
+            this.guid = guid;
+            this.logger = logger;
+        }
+
+        public async Task<int> CreateRequest(NewRequest request)
+        {
+
+            try
+            {
+                var detectionGuid = guid.NewGuidAsString;
+                await filesService.Upload(request.Files, $"/{detectionGuid}");
+
+                var newDetection = new DataLayer.Entities.FaceDetection
+                {
+                    Name = request.Name,
+                    StatusId = 1,
+                    Guid = detectionGuid,
+                    Files = request.Files.Select(x => new File
+                    {
+                        Name = x.FileName,
+                    }).ToList()
+                };
+                detectionRepository.Add(newDetection);
+                detectionRepository.Save();
+
+                return newDetection.Id;
+            }
+            catch (Exception e)
+            {
+                logger.LogError("Exception when creating face deteciton request ",e);
+                throw;
+            }
         }
 
         public async Task<IEnumerable<FaceDetectionRequest>> GetAllFaceDetectionsAsync()
@@ -33,23 +66,18 @@ namespace Domain.FaceDetection
             try
             {
                 foreach (var faceDetection in faceDetections)
-                {
                     if (faceDetection.Files.Any())
                     {
                         if (faceDetection.Files.Any(x => x.Thumbnail != null)) continue;
 
                         var firstImage = faceDetection.Files.FirstOrDefault();
-                        if (firstImage != null)
-                        {
-                            await filesService.GetThumbnail(firstImage);
-                        }
+                        if (firstImage != null) await filesService.GetThumbnail(firstImage);
                     }
-                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-
             }
+
             var requests = mapper.Map<IEnumerable<FaceDetectionRequest>>(faceDetections);
             return requests;
         }
@@ -61,32 +89,6 @@ namespace Domain.FaceDetection
             var request = mapper.Map<FaceDetectionRequest>(detectionJob);
             request.FileLinks = links;
             return request;
-        }
-
-        public async Task<int> CreateRequest(NewRequest request)
-        {
-            try
-            {
-                var guid = Guid.NewGuid();
-                await filesService.Upload(request.Files, $"/faceDetection/{guid}");
-
-                var newDetection = new DataLayer.Entities.FaceDetection
-                {
-                    Name = request.Name,
-                    StatusId = 1,
-                    Guid = guid.ToString()
-                };
-                detectionRepository.Add(newDetection);
-                detectionRepository.Save();
-
-                return newDetection.Id;
-            }
-            catch(Exception exception)
-            {
-
-            }
-
-            return 2;
         }
     }
 }

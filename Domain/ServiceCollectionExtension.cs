@@ -1,4 +1,5 @@
 ﻿using DataLayer;
+using Domain.Configuration;
 using Domain.FaceDetection;
 using Domain.Files;
 using Domain.People;
@@ -19,6 +20,7 @@ namespace Domain
             services.AddTransient<IFaceDetectionService, FaceDetectionService>();
             services.AddTransient<IReadingsProvider, ReadingsProvider>();
             services.AddTransient<IPeopleDomainService, PeopleDomainService>();
+            services.AddTransient<IGuidProvider, GuidProvider>();
 
             return services;
         }
