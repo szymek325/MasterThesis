@@ -2,6 +2,7 @@ import cv2
 
 from configuration_global.config_reader import ConfigReader
 from configuration_global.logger_factory import LoggerFactory
+from dataLayer.entities.face_detection import FaceDetection
 from dataLayer.repositories.face_detection_repository import FaceDetectionRepository
 from dataLayer.repositories.file_repository import FileRepository
 from domain.directory_manager import DirectoryManager
@@ -22,20 +23,20 @@ class FaceDetectionRequestsManager():
         self.haar_file_name = "haar.jpg"
         self.dnn_file_name = "dnn.jpg"
 
-    def process_request(self, request_id):
-        self.logger.info(f"Working on Face Detection Request id: {request_id} started")
+    def process_request(self, request: FaceDetection):
+        self.logger.info(f"Working on Face Detection Request id: {request.id} started")
         try:
-            input_file = self.dbxClient.download_face_detection_input(request_id, self.requests_path)
-            image = cv2.imread(f'{self.requests_path}{request_id}/{input_file}')
+            input_file = self.dbxClient.download_face_detection_input(request.guid, self.requests_path)
+            image = cv2.imread(f'{self.requests_path}{request.guid}/{input_file}')
             faces_detected_by_haar, faces_detected_by_dnn = self.faceDetectorsManager.get_faces_on_image(image)
-            save_path = f"{self.requests_path}{request_id}"
+            save_path = f"{self.requests_path}{request.guid}"
             self.__prepare_results__(save_path, faces_detected_by_dnn, faces_detected_by_haar, image)
-            self.__upload_results__(save_path, request_id)
-            self.faceDetectionRepository.complete_request(request_id, len(faces_detected_by_haar),
+            self.__upload_results__(save_path, request.guid)
+            self.faceDetectionRepository.complete_request(request.id, len(faces_detected_by_haar),
                                                           len(faces_detected_by_dnn))
         except:
-            self.logger.error(f"Exception occurred during face detection request {request_id} ")
-        self.logger.info(f"Finished Face Detection Request id: {request_id} ")
+            self.logger.error(f"Exception occurred during face detection request {request.id} ")
+        self.logger.info(f"Finished Face Detection Request id: {request.id} ")
 
     def __prepare_results__(self, save_path, faces_detected_by_dnn, faces_detected_by_haar, image):
         haar_file = self.__draw_faces__(image, faces_detected_by_haar)
@@ -52,10 +53,10 @@ class FaceDetectionRequestsManager():
                 cv2.rectangle(new_image, (startX, startY), (endX, endY), (0, 255, 0), 2)  # green
         return new_image
 
-    def __upload_results__(self, path_to_files, fd_id):
+    def __upload_results__(self, path_to_files, request_guid):
         haar_file = open(f"{path_to_files}/{self.haar_file_name}", 'rb')
         dnn_file = open(f"{path_to_files}/{self.dnn_file_name}", 'rb')
-        self.dbxClient.upload_file(haar_file.read(), fd_id, self.haar_file_name)
-        self.dbxClient.upload_file(dnn_file.read(), fd_id, self.dnn_file_name)
-        self.files_repository.add_file(self.haar_file_name, fd_id, f"/faceDetection/{fd_id}")
-        self.files_repository.add_file(self.dnn_file_name, fd_id, f"/faceDetection/{fd_id}")
+        self.dbxClient.upload_file(haar_file.read(), request_guid, self.haar_file_name)
+        self.dbxClient.upload_file(dnn_file.read(), request_guid, self.dnn_file_name)
+        self.files_repository.add_file(self.haar_file_name, request_guid)
+        self.files_repository.add_file(self.dnn_file_name, request_guid)

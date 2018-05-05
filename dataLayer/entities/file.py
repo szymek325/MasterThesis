@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, Date
+from sqlalchemy import Column, String, Integer, Date, ForeignKey
 
 from dataLayer.database_connection import Base
 
@@ -8,10 +8,11 @@ class File(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column('Name', String)
-    file_detection_id = Column('FileDetectionId', Integer)
+    path = Column("Path", String)
+    thumbnail = Column("Thumbnail", String)
+    face_detection_guid = Column("FaceDetectionGuid", String,ForeignKey("FaceDetection.Guid"))
     path = Column("Path", String)
 
-    def __init__(self, name, file_detection_id, path):
+    def __init__(self, name, face_detection_guid):
         self.name = name
-        self.file_detection_id = file_detection_id
-        self.path = path
+        self.face_detection_guid = face_detection_guid

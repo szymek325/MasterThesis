@@ -13,18 +13,18 @@ class DropboxClient:
         self.client = dropbox.Dropbox(self.config.dropbox_access_token)
 
     @exception
-    def download_face_detection_input(self, request_id, save_location):
-        folder_path = f"{self.config.face_detection_jobs_path}/{request_id}"
+    def download_face_detection_input(self, guid, save_location):
+        folder_path = f"/{guid}"
         files = self.client.files_list_folder(folder_path)
         if not files.entries.count == 0:
             file = files.entries[0]
-            save_path = f"{save_location}{request_id}"
+            save_path = f"{save_location}{guid}"
             self.directory.create_directory_if_doesnt_exist(save_path)
             self.client.files_download_to_file(f"{save_path}/{file.name}", file.path_lower)
             return file.name
 
-    def upload_file(self, file, request_id, file_name):
-        self.client.files_upload(file, f"{self.config.face_detection_jobs_path}/{request_id}/{file_name}")
+    def upload_file(self, file, guid, file_name):
+        self.client.files_upload(file, f"/{guid}/{file_name}")
 
 
 if __name__ == "__main__":
