@@ -65,19 +65,28 @@ namespace Domain.FaceDetection
 
         public async Task<int> CreateRequest(NewRequest request)
         {
-            var guid= new Guid();
-
-            var newDetection = new DataLayer.Entities.FaceDetection
+            try
             {
-                Name = request.Name,
-                StatusId = 1
-            };
-            detectionRepository.Add(newDetection);
-            detectionRepository.Save();
-            request.Files.FirstOrDefault().FileName = "input." + request.Files.FirstOrDefault().FileName.Split('.').Last();
-            await filesService.Upload(request.Files, $"/faceDetection/{newDetection.Id}");
+                var guid = Guid.NewGuid();
+                await filesService.Upload(request.Files, $"/faceDetection/{guid}");
 
-            return newDetection.Id ;
+                var newDetection = new DataLayer.Entities.FaceDetection
+                {
+                    Name = request.Name,
+                    StatusId = 1,
+                    Guid = guid.ToString()
+                };
+                detectionRepository.Add(newDetection);
+                detectionRepository.Save();
+
+                return newDetection.Id;
+            }
+            catch(Exception exception)
+            {
+
+            }
+
+            return 2;
         }
     }
 }

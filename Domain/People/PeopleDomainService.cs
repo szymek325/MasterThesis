@@ -43,7 +43,6 @@ namespace Domain.People
                 {
                     Name = x.FileName,
                     Path = $"/people/{input.Name}",
-                    FileSourceId = 1
                 }).ToList()
             };
             try

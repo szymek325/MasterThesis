@@ -10,20 +10,21 @@ namespace DataLayer.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "FaceRecognitionJob",
+                name: "Person",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
                     Description = table.Column<string>(nullable: true),
+                    Guid = table.Column<string>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Type = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FaceRecognitionJob", x => x.Id);
+                    table.PrimaryKey("PK_Person", x => x.Id);
+                    table.UniqueConstraint("AK_Person_Guid", x => x.Guid);
                 });
 
             migrationBuilder.CreateTable(
@@ -65,6 +66,7 @@ namespace DataLayer.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
                     DnnFaces = table.Column<int>(nullable: false),
+                    Guid = table.Column<string>(nullable: false),
                     HaarFaces = table.Column<int>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
@@ -73,6 +75,7 @@ namespace DataLayer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FaceDetection", x => x.Id);
+                    table.UniqueConstraint("AK_FaceDetection_Guid", x => x.Guid);
                     table.ForeignKey(
                         name: "FK_FaceDetection_Status_StatusId",
                         column: x => x.StatusId,
@@ -81,22 +84,67 @@ namespace DataLayer.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "File",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
+                    FaceDetectionGuid = table.Column<string>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Path = table.Column<string>(nullable: true),
+                    PersonGuid = table.Column<string>(nullable: true),
+                    Thumbnail = table.Column<string>(nullable: true),
+                    Url = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_File", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_File_FaceDetection_FaceDetectionGuid",
+                        column: x => x.FaceDetectionGuid,
+                        principalTable: "FaceDetection",
+                        principalColumn: "Guid",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_File_Person_PersonGuid",
+                        column: x => x.PersonGuid,
+                        principalTable: "Person",
+                        principalColumn: "Guid",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_FaceDetection_StatusId",
                 table: "FaceDetection",
                 column: "StatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_File_FaceDetectionGuid",
+                table: "File",
+                column: "FaceDetectionGuid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_File_PersonGuid",
+                table: "File",
+                column: "PersonGuid");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FaceDetection");
-
-            migrationBuilder.DropTable(
-                name: "FaceRecognitionJob");
+                name: "File");
 
             migrationBuilder.DropTable(
                 name: "SensorsReading");
+
+            migrationBuilder.DropTable(
+                name: "FaceDetection");
+
+            migrationBuilder.DropTable(
+                name: "Person");
 
             migrationBuilder.DropTable(
                 name: "Status");
