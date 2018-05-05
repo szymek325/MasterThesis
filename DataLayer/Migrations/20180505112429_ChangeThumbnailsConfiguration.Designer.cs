@@ -11,9 +11,10 @@ using System;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(MasterContext))]
-    partial class MasterContextModelSnapshot : ModelSnapshot
+    [Migration("20180505112429_ChangeThumbnailsConfiguration")]
+    partial class ChangeThumbnailsConfiguration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,8 +31,6 @@ namespace DataLayer.Migrations
                         .HasDefaultValueSql("getutcdate()");
 
                     b.Property<int>("DnnFaces");
-
-                    b.Property<Guid>("Guid");
 
                     b.Property<int>("HaarFaces");
 
@@ -136,8 +135,6 @@ namespace DataLayer.Migrations
                         .HasDefaultValueSql("getutcdate()");
 
                     b.Property<string>("Description");
-
-                    b.Property<Guid>("Guid");
 
                     b.Property<DateTime?>("ModifiedDate");
 

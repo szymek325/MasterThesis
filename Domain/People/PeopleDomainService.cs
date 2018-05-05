@@ -67,8 +67,8 @@ namespace Domain.People
             {
                 foreach (var person in people)
                 {
-                    if (person.ThumbFile != null) continue;
-                    person.ThumbFile = await filesClient.DownloadThumbnail(person.Files.FirstOrDefault()?.Path,
+                    if (person.Files.FirstOrDefault()?.Thumbnail != null) continue;
+                    person.Files.FirstOrDefault().Thumbnail = await filesClient.DownloadThumbnail(person.Files.FirstOrDefault()?.Path,
                         person.Files.FirstOrDefault()?.Name);
                     peopleRepo.Update(person);
                     peopleRepo.Save();

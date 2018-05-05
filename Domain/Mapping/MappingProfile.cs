@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using DataLayer.Entities;
 using Domain.FaceDetection.DTO;
 using Domain.Files.DTO;
@@ -25,7 +26,7 @@ namespace Domain.Mapping
             CreateMap<Person, PersonOutput>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Thumbnail, opts => opts.MapFrom(src => src.ThumbFile))
+                .ForMember(dest => dest.Thumbnail, opts => opts.MapFrom(src => src.Files.FirstOrDefault(x=>x.Thumbnail!=null).Thumbnail))
                 .ForMember(dest => dest.FileLinks, opts => opts.MapFrom(src => src.Files))
                 .ReverseMap();
         }

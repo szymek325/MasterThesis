@@ -8,6 +8,7 @@ using DataLayer.Repositories.Interface;
 using Domain.FaceDetection.DTO;
 using Domain.Files;
 using Domain.Files.DTO;
+using DropboxIntegration.Files;
 
 namespace Domain.FaceDetection
 {
@@ -15,19 +16,40 @@ namespace Domain.FaceDetection
     {
         private readonly IFaceDetectionRepository detectionRepository;
         private readonly IFilesDomainService filesService;
+        private readonly IFilesClient filesClient;
         private readonly IMapper mapper;
 
-        public FaceDetectionService(IFaceDetectionRepository detectionRepository, IFilesDomainService filesService,
-            IMapper mapper)
+        public FaceDetectionService(IFaceDetectionRepository detectionRepository, IFilesDomainService filesService, IFilesClient filesClient, IMapper mapper)
         {
             this.detectionRepository = detectionRepository;
             this.filesService = filesService;
+            this.filesClient = filesClient;
             this.mapper = mapper;
         }
 
-        public IEnumerable<FaceDetectionRequest> GetAllFaceDetections()
+        public async Task<IEnumerable<FaceDetectionRequest>> GetAllFaceDetectionsAsync()
         {
             var faceDetections = detectionRepository.GetAllFaces();
+            try
+            {
+                foreach (var faceDetection in faceDetections)
+                {
+                    if (faceDetection.Files.Any())
+                    {
+                        if (faceDetection.Files.Any(x => x.Thumbnail != null)) continue;
+
+                        var firstImage = faceDetection.Files.FirstOrDefault();
+                        if (firstImage != null)
+                        {
+                            await filesService.GetThumbnail(firstImage);
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
             var requests = mapper.Map<IEnumerable<FaceDetectionRequest>>(faceDetections);
             return requests;
         }
@@ -43,11 +65,7 @@ namespace Domain.FaceDetection
 
         public async Task<int> CreateRequest(NewRequest request)
         {
-            var attachment = request.Files.FirstOrDefault();
-            if (attachment == null)
-            {
-                return 0;
-            }
+            var guid= new Guid();
 
             var newDetection = new DataLayer.Entities.FaceDetection
             {
@@ -56,7 +74,7 @@ namespace Domain.FaceDetection
             };
             detectionRepository.Add(newDetection);
             detectionRepository.Save();
-            attachment.FileName = "input." + attachment.FileName.Split('.').Last();
+            request.Files.FirstOrDefault().FileName = "input." + request.Files.FirstOrDefault().FileName.Split('.').Last();
             await filesService.Upload(request.Files, $"/faceDetection/{newDetection.Id}");
 
             return newDetection.Id ;

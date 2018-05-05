@@ -2,7 +2,6 @@
 using Domain.FaceDetection;
 using Domain.Files;
 using Domain.People;
-using Domain.Providers;
 using Domain.SensorsReading;
 using DropboxIntegration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +15,6 @@ namespace Domain
             services.AddDropboxConnector();
             services.AddDataLayerModule();
 
-            services.AddTransient<IFaceRecognitionJobProvider, FaceRecognitionJobProvider>();
             services.AddTransient<IFilesDomainService, FilesDomainService>();
             services.AddTransient<IFaceDetectionService, FaceDetectionService>();
             services.AddTransient<IReadingsProvider, ReadingsProvider>();

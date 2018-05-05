@@ -4,7 +4,7 @@
     {
         public string Name { get; set; }
         public string Path { get; set; }
-        public string Batch { get; set; }
+        public string Thumbnail { get; set; }
         public string Url { get; set; }
         public int? FileSourceId { get; set; }
         public File FileSource { get; set; }

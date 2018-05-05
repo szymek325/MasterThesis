@@ -23,9 +23,9 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<FaceDetectionRequest> GetAll()
+        public async Task<IEnumerable<FaceDetectionRequest>> GetAll()
         {
-            return faceDetectionService.GetAllFaceDetections();
+            return await faceDetectionService.GetAllFaceDetectionsAsync();
         }
 
         [HttpGet("[action]")]

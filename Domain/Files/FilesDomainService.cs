@@ -77,7 +77,7 @@ namespace Domain.Files
             {
                 foreach (var filetoDelete in files)
                 {
-                    await filesClient.Delete(filetoDelete.Path+"/"+filetoDelete.Name);
+                    await filesClient.Delete(filetoDelete.Path + "/" + filetoDelete.Name);
                     filesRepository.Delete(filetoDelete.Id);
                 }
 
@@ -86,6 +86,20 @@ namespace Domain.Files
             catch (Exception ex)
             {
                 logger.LogError("Exception when deleting files.", ex);
+            }
+        }
+
+        public async Task GetThumbnail(File file)
+        {
+            try
+            {
+                file.Thumbnail = await filesClient.DownloadThumbnail(file.Path,file.Name);
+                filesRepository.Update(file);
+                filesRepository.Save();
+            }
+            catch(Exception ex)
+            {
+                logger.LogError("Exception when creating thumbnail",ex);
             }
         }
 

@@ -10,5 +10,6 @@ namespace Domain.Files
         Task Upload(IEnumerable<FileToUpload> files, string location);
         Task<IEnumerable<FileLink>> GetLinksToFilesInFolder(string folderPath);
         Task Delete(IEnumerable<File> files);
+        Task GetThumbnail(File file);
     }
 }
