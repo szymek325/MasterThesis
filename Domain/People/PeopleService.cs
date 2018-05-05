@@ -108,9 +108,9 @@ namespace Domain.People
             try
             {
                 var person = peopleRepo.GetPersonById(id);
+                await filesService.DeleteFiles(person.Files);
                 peopleRepo.Delete(person.Id);
                 peopleRepo.Save();
-                await filesService.Delete(person.Files);
             }
             catch (Exception ex)
             {
