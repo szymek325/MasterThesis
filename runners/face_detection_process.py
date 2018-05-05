@@ -23,7 +23,7 @@ class FaceDetectionProcess():
         requests = self.faceDetectionRepository.get_all_not_completed()
         if not requests == null:
             for request in requests:
-                self.request_manager.process_request(request.id)
+                self.request_manager.process_request(request)
             self.directory.clean_face_detection_requests()
             self.logger.info("Processing done")
 
