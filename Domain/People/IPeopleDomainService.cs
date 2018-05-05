@@ -9,5 +9,6 @@ namespace Domain.People
         Task<int> CreateNew(PersonInput input);
         Task<IEnumerable<PersonOutput>> GetAllPeople();
         Task<PersonOutput> GetPersonById(int id);
+        Task DeletePersonById(int id);
     }
 }

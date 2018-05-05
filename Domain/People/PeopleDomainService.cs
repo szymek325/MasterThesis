@@ -111,5 +111,28 @@ namespace Domain.People
                 throw;
             }
         }
+
+        public async Task DeletePersonById(int id)
+        {
+            try
+            {
+                var person = peopleRepo.GetPersonById(id);
+                var files = person.Files;
+                peopleRepo.Delete(person.Id);
+                peopleRepo.Save();
+                foreach (var file in files)
+                {
+                    filesRepository.Delete(file.Id);
+                }
+                filesRepository.Save();
+
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Exception when retrieving person");
+                throw;
+            }
+        }
     }
 }

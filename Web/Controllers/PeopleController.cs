@@ -48,5 +48,13 @@ namespace Web.Controllers
             var request = await peopleService.GetPersonById(id);
             return request;
         }
+
+        [HttpDelete("[action]")]
+        public async Task<OkResult> DeletePerson(int id)
+        {
+
+            await peopleService.DeletePersonById(id);
+            return Ok();
+        }
     }
 }
