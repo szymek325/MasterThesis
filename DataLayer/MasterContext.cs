@@ -31,17 +31,17 @@ namespace DataLayer
                 .HasForeignKey(fk => fk.FaceDetectionGuid)
                 .HasPrincipalKey(pk => pk.Guid);
 
-            modelBuilder.Entity<NeuralNetworkRequestPerson>()
-                .HasKey(bc => new { bc.PersonId, bc.NeuralNetworkRequestId });
+            modelBuilder.Entity<NeuralNetworkPerson>()
+                .HasKey(bc => new { bc.PersonId, NeuralNetworkRequestId = bc.NeuralNetworkId });
 
-            modelBuilder.Entity<NeuralNetworkRequestPerson>()
-                .HasOne(bc => bc.NeuralNetworkRequest)
+            modelBuilder.Entity<NeuralNetworkPerson>()
+                .HasOne(bc => bc.NeuralNetwork)
                 .WithMany(b => b.NeuralNetworkRequestPeople)
-                .HasForeignKey(bc => bc.NeuralNetworkRequestId);
+                .HasForeignKey(bc => bc.NeuralNetworkId);
 
-            modelBuilder.Entity<NeuralNetworkRequestPerson>()
+            modelBuilder.Entity<NeuralNetworkPerson>()
                 .HasOne(bc => bc.Person)
-                .WithMany(c => c.NeuralNetworkRequestPeople)
+                .WithMany(c => c.NeuralNetworkPeople)
                 .HasForeignKey(bc => bc.PersonId);
 
             //less important stuff

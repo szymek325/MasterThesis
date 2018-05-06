@@ -12,6 +12,6 @@ namespace DataLayer.Entities
         public string Guid { get; set; }
 
         public IEnumerable<File> Files { get; set; }
-        public IEnumerable<NeuralNetworkRequestPerson> NeuralNetworkRequestPeople { get; set; }
+        public IEnumerable<NeuralNetworkPerson> NeuralNetworkPeople { get; set; }
     }
 }
