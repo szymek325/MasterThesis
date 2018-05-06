@@ -23,6 +23,8 @@ import { FaceDetectionRequestComponent } from
     "./components/face-detections/face-detection-request/face-detection-request.component";
 import { NewFaceDetectionComponent } from
     "./components/face-detections/new-face-detection/new-face-detection.component";
+import { NewNeuralNetworkComponent } from './components/neural-networks/new-neural-network/new-neural-network.component';
+import { NeuralNetworkComponent } from './components/neural-networks/neural-network/neural-network.component';
 
 
 @NgModule({
@@ -38,7 +40,9 @@ import { NewFaceDetectionComponent } from
         PeopleComponent,
         NewPersonComponent,
         PersonComponent,
-        NeuralNetworksComponent
+        NeuralNetworksComponent,
+        NewNeuralNetworkComponent,
+        NeuralNetworkComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -48,14 +52,16 @@ import { NewFaceDetectionComponent } from
         RouterModule.forRoot([
             { path: "", redirectTo: "home", pathMatch: "full" },
             { path: "home", component: HomeComponent },
+            { path: "people", component: PeopleComponent },
             { path: "face-detection", component: FaceDetectionsComponent },
             { path: "new-face-detection", component: NewFaceDetectionComponent },
             { path: "face-detection-request/:id", component: FaceDetectionRequestComponent },
             { path: "sensor-readings", component: SensorReadingsComponent },
-            { path: "people", component: PeopleComponent },
             { path: "new-person", component: NewPersonComponent },
             { path: "person/:id", component: PersonComponent },
-            { path: "neural-networks", component: NeuralNetworksComponent }
+            { path: "neural-networks", component: NeuralNetworksComponent },
+            { path: "new-neural-network", component: NewNeuralNetworkComponent },
+            { path: "neural-network/:id", component: NeuralNetworkComponent }
         ])
     ],
     providers: [
