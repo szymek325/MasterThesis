@@ -36,13 +36,11 @@ namespace DataLayer
 
             modelBuilder.Entity<NeuralNetworkPerson>()
                 .HasOne(bc => bc.NeuralNetwork)
-                .WithMany(b => b.NeuralNetworkRequestPeople)
-                .HasForeignKey(bc => bc.NeuralNetworkId);
+                .WithMany("NeuralNetworkPeople");
 
             modelBuilder.Entity<NeuralNetworkPerson>()
                 .HasOne(bc => bc.Person)
-                .WithMany(c => c.NeuralNetworkPeople)
-                .HasForeignKey(bc => bc.PersonId);
+                .WithMany("NeuralNetworkPeople");
 
             //less important stuff
             foreach (var entityType in modelBuilder.Model.GetEntityTypes()

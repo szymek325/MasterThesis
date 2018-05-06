@@ -196,7 +196,7 @@ namespace DataLayer.Migrations
             modelBuilder.Entity("DataLayer.Entities.NeuralNetworkPerson", b =>
                 {
                     b.HasOne("DataLayer.Entities.NeuralNetwork", "NeuralNetwork")
-                        .WithMany("NeuralNetworkRequestPeople")
+                        .WithMany("NeuralNetworkPeople")
                         .HasForeignKey("NeuralNetworkId")
                         .OnDelete(DeleteBehavior.Cascade);
 
