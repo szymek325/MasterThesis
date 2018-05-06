@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Web.Controllers
 {
+    [Route("api/[controller]")]
     public class NeuralNetworkController : Controller
     {
         private readonly INeuralNetworkService neuralNetworkService;
@@ -28,14 +29,14 @@ namespace Web.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Create(IFormCollection collections)
         {
-            neuralNetworkService.Create();
+            await neuralNetworkService.Create();
             return Ok(new { task_Id = 1 });
         }
 
-        [HttpPost("[action]")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> GetAll()
         {
-            neuralNetworkService.GetAll();
+            await neuralNetworkService.GetAll();
             return Ok(new { task_Id = 1 });
         }
     }

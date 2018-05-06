@@ -26,9 +26,12 @@ namespace Domain.NeuralNetwork
                 var people = personRepo.GetAllPeople().ToList();
                 var neural = new DataLayer.Entities.NeuralNetwork
                 {
-                    Name = "test1",
+                    Name = "test2",
                 };
-                neural.People.CopyTo(people.ToArray(), 0);
+                foreach (var person in people)
+                {
+                    neural.People.Add(person);
+                }
                 nnRepo.Add(neural);
                 nnRepo.Save();
             }
@@ -42,7 +45,8 @@ namespace Domain.NeuralNetwork
 
         public Task GetAll()
         {
-            throw new System.NotImplementedException();
+            var neuralNetworks = nnRepo.GetAllNeuralNetworks();
+            return Task.CompletedTask;
         }
     }
 }
