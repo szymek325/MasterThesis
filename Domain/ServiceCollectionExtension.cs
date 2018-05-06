@@ -2,6 +2,7 @@
 using Domain.Configuration;
 using Domain.FaceDetection;
 using Domain.Files;
+using Domain.NeuralNetwork;
 using Domain.People;
 using Domain.SensorsReading;
 using DropboxIntegration;
@@ -21,6 +22,7 @@ namespace Domain
             services.AddTransient<IReadingsProvider, ReadingsProvider>();
             services.AddTransient<IPeopleService, PeopleService>();
             services.AddTransient<IGuidProvider, GuidProvider>();
+            services.AddTransient<INeuralNetworkService, NeuralNetworkService>();
 
             return services;
         }

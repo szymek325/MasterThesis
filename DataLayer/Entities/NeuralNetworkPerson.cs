@@ -4,8 +4,6 @@ namespace DataLayer.Entities
 {
     public class NeuralNetworkPerson : IJoinEntity<NeuralNetwork>, IJoinEntity<Person>
     {
-        private NeuralNetwork navigation;
-        private Person navigation1;
         public int NeuralNetworkId { get; set; }
         public int PersonId { get; set; }
         public NeuralNetwork NeuralNetwork { get; set; }
@@ -13,14 +11,14 @@ namespace DataLayer.Entities
 
         NeuralNetwork IJoinEntity<NeuralNetwork>.Navigation
         {
-            get => navigation;
-            set => navigation = value;
+            get => NeuralNetwork;
+            set => NeuralNetwork = value;
         }
 
         Person IJoinEntity<Person>.Navigation
         {
-            get => navigation1;
-            set => navigation1 = value;
+            get => Person;
+            set => Person = value;
         }
     }
 }

@@ -16,6 +16,6 @@ namespace DataLayer.Entities
         private ICollection<NeuralNetworkPerson> NeuralNetworkPeople { get; }= new List<NeuralNetworkPerson>();
 
         [NotMapped]
-        public IEnumerable<Person> People { get; }
+        public ICollection<Person> People { get; }
     }
 }

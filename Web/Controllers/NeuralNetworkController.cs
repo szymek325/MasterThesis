@@ -31,5 +31,12 @@ namespace Web.Controllers
             neuralNetworkService.Create();
             return Ok(new { task_Id = 1 });
         }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> GetAll()
+        {
+            neuralNetworkService.GetAll();
+            return Ok(new { task_Id = 1 });
+        }
     }
 }
