@@ -11,16 +11,18 @@ import { AlertComponent } from "./components/alert/alert.component";
 import { AlertService } from "./services/alert.service";
 import { FaceDetectionsComponent } from "./components/face-detections/face-detections.component";
 import { FaceDetectionService } from "./services/face-detection.service";
-import { NewFaceDetectionComponent } from "./components/face-detections/new-face-detection.component";
-import {FaceDetectionRequestComponent} from "./components/face-detections/face-detection-request.component";
 import { SensorReadingsComponent } from "./components/sensor-readings/sensor-readings.component";
 import { ReadingsProviderService } from "./services/readings-provider.service";
 import { PeopleComponent } from "./components/people/people.component";
-import { NewPersonComponent } from "./components/new-person/new-person.component";
 import { PeopleService } from "./services/people.service";
-import { PersonComponent } from "./components/person/person.component";
-import { NeuralNetworksComponent } from './components/neural-networks/neural-networks.component';
-import { NeuralNetworksService } from './services/neural-networks.service';
+import { NeuralNetworksComponent } from "./components/neural-networks/neural-networks.component";
+import { NeuralNetworksService } from "./services/neural-networks.service";
+import { NewPersonComponent } from "./components/people/new-person/new-person.component";
+import { PersonComponent } from "./components/people/person/person.component";
+import { FaceDetectionRequestComponent } from
+    "./components/face-detections/face-detection-request/face-detection-request.component";
+import { NewFaceDetectionComponent } from
+    "./components/face-detections/new-face-detection/new-face-detection.component";
 
 
 @NgModule({

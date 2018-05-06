@@ -21,7 +21,7 @@ namespace DataLayer.Repositories.Implementation
 
         public NeuralNetwork GetById(int id)
         {
-            throw new System.NotImplementedException();
+            return GetAll().Include("NeuralNetworkPeople.Person").FirstOrDefault(x => x.Id == id);
         }
     }
 }

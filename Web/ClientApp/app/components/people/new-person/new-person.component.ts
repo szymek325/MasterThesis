@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { AlertService } from "../../services/alert.service";
-import {PeopleService} from "../../services/people.service";
+import { AlertService } from "../../../services/alert.service";
+import { PeopleService } from "../../../services/people.service";
 
 @Component({
     selector: "app-new-person",

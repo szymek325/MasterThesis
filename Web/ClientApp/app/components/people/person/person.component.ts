@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { PeopleService } from "../../services/people.service";
-import {IPerson} from "../../interfaces/person";
+import { PeopleService } from "../../../services/people.service";
+import { IPerson } from "../../../interfaces/person";
 
 @Component({
     selector: "app-person",

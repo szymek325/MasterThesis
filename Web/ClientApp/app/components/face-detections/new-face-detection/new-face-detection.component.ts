@@ -1,21 +1,25 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import {FaceDetectionService} from "../../services/face-detection.service";
-import {AlertService} from "../../services/alert.service";
+import { Component, OnInit } from "@angular/core";
+import { FaceDetectionService } from "../../../services/face-detection.service";
+import { AlertService } from "../../../services/alert.service";
 import { Router } from "@angular/router";
-import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
+import { FormGroup, Validators, FormBuilder } from "@angular/forms";
 
 @Component({
     selector: "new-face-detection",
     templateUrl: "./new-face-detection.component.html",
-    styleUrls: ["./face-detection.components.css"],
+    styleUrls: ["./new-face-detection.components.css"],
 })
 export class NewFaceDetectionComponent implements OnInit {
     formData: any;
     detectionForm: FormGroup;
     file: any;
-    isFileValid:boolean;
+    isFileValid: boolean;
 
-    constructor(private requestDownloader: FaceDetectionService, private alertService: AlertService, private router: Router, private formBuilder: FormBuilder) {}
+    constructor(private requestDownloader: FaceDetectionService,
+        private alertService: AlertService,
+        private router: Router,
+        private formBuilder: FormBuilder) {
+    }
 
 
     onClickSubmit(data) {
@@ -27,10 +31,10 @@ export class NewFaceDetectionComponent implements OnInit {
 
         this.requestDownloader.createNewRequest(this.formData)
             .subscribe(result => {
-                if (result === 0) {
-                    this.alertService.error("Exception occured during request creation");
-                    alert("Exception occured during request creation");
-                }
+                    if (result === 0) {
+                        this.alertService.error("Exception occured during request creation");
+                        alert("Exception occured during request creation");
+                    }
                     this.router.navigateByUrl("face-detection");
                 },
                 error => {
@@ -51,16 +55,16 @@ export class NewFaceDetectionComponent implements OnInit {
     ngOnInit() {
         this.isFileValid = false;
         this.detectionForm = this.formBuilder.group({
-            name: ['name', [Validators.required, Validators.minLength(3)]],
+            name: ["name", [Validators.required, Validators.minLength(3)]],
         });
     }
 
-    private checkExtension(name:string) {
-        let valToLower = name.toLowerCase();
-        let regex = new RegExp("(.*?)\.(jpg|png|jpeg)$");
-        let regexTest = regex.test(valToLower);
+    private checkExtension(name: string) {
+        const valToLower = name.toLowerCase();
+        const regex = new RegExp("(.*?)\.(jpg|png|jpeg)$");
+        const regexTest = regex.test(valToLower);
         //return !regexTest ? { "notSupportedFileType": true } : null;
-        return regexTest ;
+        return regexTest;
     }
 
 
