@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain.FaceDetection;
@@ -31,8 +30,7 @@ namespace Web.Controllers
         [HttpGet("[action]")]
         public async Task<FaceDetectionRequest> GetRequest(int id)
         {
-
-            var request=await faceDetectionService.GetRequestData(id);
+            var request = await faceDetectionService.GetRequestData(id);
             return request;
         }
 
@@ -42,12 +40,12 @@ namespace Web.Controllers
             var files = mapper.Map<IEnumerable<FileToUpload>>(collections.Files);
             collections.TryGetValue("name", out var requestName);
 
-            var response=await faceDetectionService.CreateRequest(new NewRequest
+            var response = await faceDetectionService.CreateRequest(new NewRequest
             {
                 Name = requestName,
                 Files = files
             });
-            return Ok(new {task_Id = response });
+            return Ok(new {task_Id = response});
         }
     }
 }

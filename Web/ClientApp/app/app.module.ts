@@ -19,6 +19,8 @@ import { PeopleComponent } from "./components/people/people.component";
 import { NewPersonComponent } from "./components/new-person/new-person.component";
 import { PeopleService } from "./services/people.service";
 import { PersonComponent } from "./components/person/person.component";
+import { NeuralNetworksComponent } from './components/neural-networks/neural-networks.component';
+import { NeuralNetworksService } from './services/neural-networks.service';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { PersonComponent } from "./components/person/person.component";
         SensorReadingsComponent,
         PeopleComponent,
         NewPersonComponent,
-        PersonComponent
+        PersonComponent,
+        NeuralNetworksComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -49,11 +52,12 @@ import { PersonComponent } from "./components/person/person.component";
             { path: "sensor-readings", component: SensorReadingsComponent },
             { path: "people", component: PeopleComponent },
             { path: "new-person", component: NewPersonComponent },
-            { path: "person/:id", component: PersonComponent }
+            { path: "person/:id", component: PersonComponent },
+            { path: "neural-networks", component: NeuralNetworksComponent }
         ])
     ],
     providers: [
-        AlertService, FaceDetectionService, ReadingsProviderService, PeopleService
+        AlertService, FaceDetectionService, ReadingsProviderService, PeopleService, NeuralNetworksService
     ],
 })
 export class AppModuleShared {
