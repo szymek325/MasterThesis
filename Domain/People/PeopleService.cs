@@ -50,7 +50,6 @@ namespace Domain.People
                     Files = input.Files.Select(x => new File
                     {
                         Name = x.FileName,
-                        Path = $"/people/{input.Name}"
                     }).ToList()
                 };
                 peopleRepo.Add(person);

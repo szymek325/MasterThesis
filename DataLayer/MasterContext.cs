@@ -31,6 +31,18 @@ namespace DataLayer
                 .HasForeignKey(fk => fk.FaceDetectionGuid)
                 .HasPrincipalKey(pk => pk.Guid);
 
+            modelBuilder.Entity<NeuralNetworkRequestPerson>()
+                .HasKey(bc => new { bc.PersonId, bc.NeuralNetworkRequestId });
+
+            modelBuilder.Entity<NeuralNetworkRequestPerson>()
+                .HasOne(bc => bc.NeuralNetworkRequest)
+                .WithMany(b => b.NeuralNetworkRequestPeople)
+                .HasForeignKey(bc => bc.NeuralNetworkRequestId);
+
+            modelBuilder.Entity<NeuralNetworkRequestPerson>()
+                .HasOne(bc => bc.Person)
+                .WithMany(c => c.NeuralNetworkRequestPeople)
+                .HasForeignKey(bc => bc.PersonId);
 
             //less important stuff
             foreach (var entityType in modelBuilder.Model.GetEntityTypes()
