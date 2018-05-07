@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace DataLayer.Entities
+﻿namespace DataLayer.Entities
 {
     public class File : EntityBase
     {
