@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Domain.NeuralNetwork.DTO;
 
 namespace Domain.NeuralNetwork
 {
     public interface INeuralNetworkService
     {
-        Task GetAll();
+        IEnumerable<NeuralNetworkOutput> GetAll();
         int Create(string neuralNetworkName, string peopleIds);
     }
 }

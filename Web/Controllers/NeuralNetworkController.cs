@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using Domain.NeuralNetwork;
+using Domain.NeuralNetwork.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -32,10 +34,10 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetAll()
+        public IEnumerable<NeuralNetworkOutput> GetAll()
         {
-            await neuralNetworkService.GetAll();
-            return Ok(new {neuralNetworks = "all"});
+            var response = neuralNetworkService.GetAll();
+            return response;
         }
     }
 }

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using DataLayer.Entities;
 using DataLayer.Repositories.Interface;
+using Domain.NeuralNetwork.DTO;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
 
@@ -14,12 +16,15 @@ namespace Domain.NeuralNetwork
         private readonly INeuralNetworkRepository nnRepo;
         private readonly IPersonRepository personRepo;
         private readonly ILogger<NeuralNetworkService> logger;
+        private readonly IMapper mapper;
 
-        public NeuralNetworkService(INeuralNetworkRepository nnRepo, IPersonRepository personRepo, ILogger<NeuralNetworkService> logger)
+        public NeuralNetworkService(INeuralNetworkRepository nnRepo, IPersonRepository personRepo,
+            ILogger<NeuralNetworkService> logger, IMapper mapper)
         {
             this.nnRepo = nnRepo;
             this.personRepo = personRepo;
             this.logger = logger;
+            this.mapper = mapper;
         }
 
         public int Create(string neuralNetworkName, string peopleIds)
@@ -48,10 +53,11 @@ namespace Domain.NeuralNetwork
             }
         }
 
-        public Task GetAll()
+        public IEnumerable<NeuralNetworkOutput> GetAll()
         {
-            var neuralNetworks = nnRepo.GetAllNeuralNetworks();
-            return Task.CompletedTask;
+            var neuralNetworks = nnRepo.GetAllNeuralNetworks().ToList();
+            var output = mapper.Map<IEnumerable<NeuralNetworkOutput>>(neuralNetworks);
+            return output;
         }
     }
 }
