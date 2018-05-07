@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {Router, ActivatedRoute} from "@angular/router";
+import {Router} from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AlertService } from "../../../services/alert.service";
 import { PeopleService } from "../../../services/people.service";
@@ -17,7 +17,7 @@ export class NewPersonComponent implements OnInit {
     isFileValid: boolean;
     private sub: any;
 
-    constructor(private route: ActivatedRoute, private peopleService:PeopleService,private router: Router, private formBuilder: FormBuilder, private alertService: AlertService) {}
+    constructor(private peopleService:PeopleService,private router: Router, private formBuilder: FormBuilder, private alertService: AlertService) {}
 
     validateFile(fileInput: any) {
         this.alertService.clear();

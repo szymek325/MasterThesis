@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataLayer.Entities;
 using DataLayer.Repositories.Interface;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 
 namespace Domain.NeuralNetwork
 {
@@ -19,28 +22,30 @@ namespace Domain.NeuralNetwork
             this.logger = logger;
         }
 
-        public Task Create()
+        public int Create(string neuralNetworkName, string peopleIds)
         {
             try
             {
-                var people = personRepo.GetAllPeople().ToList();
-                var neural = new DataLayer.Entities.NeuralNetwork
+                var neuralNetwork = new DataLayer.Entities.NeuralNetwork
                 {
-                    Name = "test2",
+                    Name = neuralNetworkName,
+                    StatusId = 1
                 };
-                foreach (var person in people)
+                foreach (var personId in peopleIds.Split(','))
                 {
-                    neural.People.Add(person);
+                    var person=personRepo.GetPersonById(int.Parse(personId));
+                    neuralNetwork.People.Add(person);
                 }
-                nnRepo.Add(neural);
+
+                nnRepo.Add(neuralNetwork);
                 nnRepo.Save();
+                return neuralNetwork.Id;
             }
             catch(Exception exception)
             {
                 logger.LogError("exception on",exception);
+                throw;
             }
-
-            return Task.CompletedTask;
         }
 
         public Task GetAll()

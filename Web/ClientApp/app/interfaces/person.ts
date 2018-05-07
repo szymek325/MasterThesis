@@ -5,5 +5,4 @@ export interface IPerson {
     name: string;
     thumbnail: string;
     fileLinks: IFileLink[];
-    checked: false;
 }

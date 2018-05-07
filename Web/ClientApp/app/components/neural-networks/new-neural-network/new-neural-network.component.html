@@ -1,7 +1,7 @@
 <div class="container">
     <h1>New neural network</h1>
     <form [formGroup]="neuralNetworkForm" (ngSubmit)="onClickSubmit(neuralNetworkForm.value)">
-
+        <alert></alert>
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" formControlName="name" id="name" ngModel>
@@ -15,8 +15,9 @@
                            name="people"
                            value="{{person.id}}"
                            [(ngModel)]="person.checked"
-                           formControlName="people"/>
+                           formControlName="people" />
                     {{person.name}}
+                    <img src="data:image/jpeg;base64,{{person.thumbnail}}" />
                 </label>
             </div>
         </div>

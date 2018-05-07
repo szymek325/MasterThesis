@@ -4,7 +4,7 @@ namespace Domain.NeuralNetwork
 {
     public interface INeuralNetworkService
     {
-        Task Create();
         Task GetAll();
+        int Create(string neuralNetworkName, string peopleIds);
     }
 }

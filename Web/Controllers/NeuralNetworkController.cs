@@ -25,15 +25,17 @@ namespace Web.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Create(IFormCollection collections)
         {
-            await neuralNetworkService.Create();
-            return Ok(new {task_Id = 1});
+            collections.TryGetValue("name", out var neuralNetworkName);
+            collections.TryGetValue("people", out var peopleIds);
+            var nnId= neuralNetworkService.Create(neuralNetworkName, peopleIds);
+            return Ok(new {neuralNetworkId = nnId });
         }
 
         [HttpGet("[action]")]
         public async Task<IActionResult> GetAll()
         {
             await neuralNetworkService.GetAll();
-            return Ok(new {task_Id = 1});
+            return Ok(new {neuralNetworks = "all"});
         }
     }
 }
