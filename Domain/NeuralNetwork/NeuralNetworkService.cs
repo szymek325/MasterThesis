@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using DataLayer.Entities;
 using DataLayer.Repositories.Interface;
 using Domain.NeuralNetwork.DTO;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Primitives;
 
 namespace Domain.NeuralNetwork
 {
     public class NeuralNetworkService : INeuralNetworkService
     {
-        private readonly INeuralNetworkRepository nnRepo;
-        private readonly IPersonRepository personRepo;
         private readonly ILogger<NeuralNetworkService> logger;
         private readonly IMapper mapper;
+        private readonly INeuralNetworkRepository nnRepo;
+        private readonly IPersonRepository personRepo;
 
         public NeuralNetworkService(INeuralNetworkRepository nnRepo, IPersonRepository personRepo,
             ILogger<NeuralNetworkService> logger, IMapper mapper)
@@ -38,7 +36,7 @@ namespace Domain.NeuralNetwork
                 };
                 foreach (var personId in peopleIds.Split(','))
                 {
-                    var person=personRepo.GetPersonById(int.Parse(personId));
+                    var person = personRepo.GetPersonById(int.Parse(personId));
                     neuralNetwork.People.Add(person);
                 }
 
@@ -46,11 +44,18 @@ namespace Domain.NeuralNetwork
                 nnRepo.Save();
                 return neuralNetwork.Id;
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
-                logger.LogError("exception on",exception);
+                logger.LogError("exception on", exception);
                 throw;
             }
+        }
+
+        public NeuralNetworkOutput GetById(int id)
+        {
+            var neuralNetwork = nnRepo.GetById(id);
+            var output = mapper.Map<NeuralNetworkOutput>(neuralNetwork);
+            return output;
         }
 
         public IEnumerable<NeuralNetworkOutput> GetAll()

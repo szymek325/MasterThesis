@@ -8,5 +8,6 @@ namespace Domain.NeuralNetwork
     {
         IEnumerable<NeuralNetworkOutput> GetAll();
         int Create(string neuralNetworkName, string peopleIds);
+        NeuralNetworkOutput GetById(int id);
     }
 }

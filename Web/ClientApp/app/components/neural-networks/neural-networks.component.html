@@ -10,6 +10,7 @@
             <th>Id</th>
             <th>Name</th>
             <th>Trained people count</th>
+            <th>Status</th>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +18,7 @@
             <td>{{ network.id }}</td>
             <td>{{ network.name }}</td>
             <td>{{ network.people.length  }}</td>
+            <td>{{ network.status }}</td>
             <td class="btn btn-success" (click)="showNetwork(network.id)">Show</td>
             <td class="btn btn-danger" (click)="deleteNetwork(network.id)">Delete</td>
         </tr>

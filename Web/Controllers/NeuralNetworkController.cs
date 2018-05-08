@@ -39,5 +39,12 @@ namespace Web.Controllers
             var response = neuralNetworkService.GetAll();
             return response;
         }
+
+        [HttpGet("[action]")]
+        public NeuralNetworkOutput Get(int id)
+        {
+            var response = neuralNetworkService.GetById(id);
+            return response;
+        }
     }
 }
