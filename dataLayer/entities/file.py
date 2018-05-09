@@ -8,7 +8,6 @@ class File(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column('Name', String)
-    path = Column("Path", String)
     thumbnail = Column("Thumbnail", String)
     face_detection_guid = Column("FaceDetectionGuid", String,ForeignKey("FaceDetection.Guid"))
     path = Column("Path", String)
