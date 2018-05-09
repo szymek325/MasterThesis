@@ -10,7 +10,6 @@ class File(Base):
     name = Column('Name', String)
     thumbnail = Column("Thumbnail", String)
     face_detection_guid = Column("FaceDetectionGuid", String,ForeignKey("FaceDetection.Guid"))
-    path = Column("Path", String)
 
     def __init__(self, name, face_detection_guid):
         self.name = name
