@@ -16,6 +16,8 @@ namespace DataLayer
         public DbSet<FaceDetection> FaceDetections { get; set; }
         public DbSet<File> Files { get; set; }
         public DbSet<Person> People { get; set; }
+        public DbSet<NeuralNetwork> NeuralNetworks { get; set; }
+        public DbSet<FaceRecognition> FaceRecognitions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
