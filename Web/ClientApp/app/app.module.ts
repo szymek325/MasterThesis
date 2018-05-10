@@ -25,6 +25,9 @@ import { NewFaceDetectionComponent } from
     "./components/face-detections/new-face-detection/new-face-detection.component";
 import { NewNeuralNetworkComponent } from './components/neural-networks/new-neural-network/new-neural-network.component';
 import { NeuralNetworkComponent } from './components/neural-networks/neural-network/neural-network.component';
+import { FaceRecognitionsComponent } from './components/face-recognitions/face-recognitions.component';
+import { NewFaceRecognitionComponent } from './components/face-recognitions/new-face-recognition/new-face-recognition.component';
+import { FaceRecognitionComponent } from './components/face-recognitions/face-recognition/face-recognition.component';
 
 
 @NgModule({
@@ -42,7 +45,10 @@ import { NeuralNetworkComponent } from './components/neural-networks/neural-netw
         PersonComponent,
         NeuralNetworksComponent,
         NewNeuralNetworkComponent,
-        NeuralNetworkComponent
+        NeuralNetworkComponent,
+        FaceRecognitionsComponent,
+        NewFaceRecognitionComponent,
+        FaceRecognitionComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -61,7 +67,10 @@ import { NeuralNetworkComponent } from './components/neural-networks/neural-netw
             { path: "person/:id", component: PersonComponent },
             { path: "neural-networks", component: NeuralNetworksComponent },
             { path: "new-neural-network", component: NewNeuralNetworkComponent },
-            { path: "neural-network/:id", component: NeuralNetworkComponent }
+            { path: "neural-network/:id", component: NeuralNetworkComponent },
+            { path: "face-recognitions", component: FaceRecognitionsComponent },
+            { path: "new-face-recognition", component: NewFaceRecognitionComponent },
+            { path: "face-recognition/:id", component: FaceRecognitionComponent }
         ])
     ],
     providers: [
