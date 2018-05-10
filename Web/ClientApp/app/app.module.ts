@@ -28,6 +28,7 @@ import { NeuralNetworkComponent } from './components/neural-networks/neural-netw
 import { FaceRecognitionsComponent } from './components/face-recognitions/face-recognitions.component';
 import { NewFaceRecognitionComponent } from './components/face-recognitions/new-face-recognition/new-face-recognition.component';
 import { FaceRecognitionComponent } from './components/face-recognitions/face-recognition/face-recognition.component';
+import { FaceRecognitionService } from './services/face-recognition.service';
 
 
 @NgModule({
@@ -74,7 +75,7 @@ import { FaceRecognitionComponent } from './components/face-recognitions/face-re
         ])
     ],
     providers: [
-        AlertService, FaceDetectionService, ReadingsProviderService, PeopleService, NeuralNetworksService
+        AlertService, FaceDetectionService, ReadingsProviderService, PeopleService, NeuralNetworksService, FaceRecognitionService
     ],
 })
 export class AppModuleShared {
