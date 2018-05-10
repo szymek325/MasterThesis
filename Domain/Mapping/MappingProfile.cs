@@ -39,6 +39,7 @@ namespace Domain.Mapping
             CreateMap<DataLayer.Entities.NeuralNetwork, NeuralNetworkOutput>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Status, opts => opts.MapFrom(src => src.Status.Name))
                 .ForMember(dest => dest.People, opts => opts.MapFrom(src => src.People))
                 .ReverseMap();
         }

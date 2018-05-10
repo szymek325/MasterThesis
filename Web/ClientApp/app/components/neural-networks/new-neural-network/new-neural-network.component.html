@@ -1,6 +1,10 @@
 <div class="container">
     <h1>New neural network</h1>
-    <form [formGroup]="neuralNetworkForm" (ngSubmit)="onClickSubmit(neuralNetworkForm.value)">
+    <p *ngIf="!people">
+        <em>Loading...</em>
+    </p>
+
+    <form [formGroup]="neuralNetworkForm" (ngSubmit)="onClickSubmit(neuralNetworkForm.value)" *ngIf="people">
         <alert></alert>
         <div class="form-group">
             <label for="name">Name</label>
