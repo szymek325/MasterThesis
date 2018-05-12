@@ -1,6 +1,7 @@
 ﻿using DataLayer;
 using Domain.Configuration;
 using Domain.FaceDetection;
+using Domain.FaceRecognition;
 using Domain.Files;
 using Domain.NeuralNetwork;
 using Domain.People;
@@ -23,6 +24,7 @@ namespace Domain
             services.AddTransient<IPeopleService, PeopleService>();
             services.AddTransient<IGuidProvider, GuidProvider>();
             services.AddTransient<INeuralNetworkService, NeuralNetworkService>();
+            services.AddTransient<IFaceRecognitionService,FaceRecognitionService>();
 
             return services;
         }

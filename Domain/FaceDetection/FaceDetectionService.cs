@@ -37,7 +37,7 @@ namespace Domain.FaceDetection
             try
             {
                 var detectionGuid = guid.NewGuidAsString;
-                await filesService.Upload(request.Files, $"/{detectionGuid}");
+                await filesService.Upload(request.Files, $"{detectionGuid}");
 
                 var newDetection = new DataLayer.Entities.FaceDetection
                 {
@@ -46,7 +46,8 @@ namespace Domain.FaceDetection
                     Guid = detectionGuid,
                     Files = request.Files.Select(x => new File
                     {
-                        Name = x.FileName
+                        Name = x.FileName,
+                        ParentGuid = detectionGuid
                     }).ToList()
                 };
                 detectionRepository.Add(newDetection);

@@ -77,7 +77,7 @@ namespace Domain.Files
             try
             {
                 file.Thumbnail =
-                    await filesClient.DownloadThumbnail($"/{file.FaceDetectionGuid ?? file.PersonGuid}", file.Name);
+                    await filesClient.DownloadThumbnail($"/{file.ParentGuid}", file.Name);
                 filesRepository.Update(file);
                 filesRepository.Save();
             }
@@ -91,14 +91,14 @@ namespace Domain.Files
         {
             try
             {
-                await filesClient.Delete($"/{file.FaceDetectionGuid ?? file.PersonGuid}/{file.Name}");
+                await filesClient.Delete($"/{file.ParentGuid}/{file.Name}");
                 filesRepository.Delete(file.Id);
                 filesRepository.Save();
             }
             catch (Exception ex)
             {
                 logger.LogError(
-                    $"Exception when deleting file /{file.FaceDetectionGuid ?? file.PersonGuid}/{file.Name}", ex);
+                    $"Exception when deleting file /{file.ParentGuid}/{file.Name}", ex);
             }
         }
 
@@ -107,7 +107,7 @@ namespace Domain.Files
             files = files.ToList();
             if (files.Any())
             {
-                await filesClient.Delete($"/{files.First().FaceDetectionGuid ?? files.First().PersonGuid}");
+                await filesClient.Delete($"/{files.First().ParentGuid}");
                 foreach (var file in files)
                 {
                     filesRepository.Delete(file.Id);

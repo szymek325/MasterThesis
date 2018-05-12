@@ -2,6 +2,7 @@
 using AutoMapper;
 using DataLayer.Entities;
 using Domain.FaceDetection.DTO;
+using Domain.FaceRecognition.DTO;
 using Domain.Files.DTO;
 using Domain.NeuralNetwork.DTO;
 using Domain.People.DTO;
@@ -19,6 +20,14 @@ namespace Domain.Mapping
                 .ForMember(dest => dest.Status, opts => opts.MapFrom(src => src.Status.Name))
                 .ForMember(dest => dest.DnnFaces, opts => opts.MapFrom(src => src.DnnFaces))
                 .ForMember(dest => dest.HaarFaces, opts => opts.MapFrom(src => src.HaarFaces))
+                .ForMember(dest => dest.CreationTime, opts => opts.MapFrom(src => src.CreationTime))
+                .ForMember(dest => dest.Thumbnail, opts => opts.MapFrom(src => src.Files.FirstOrDefault(x => x.Thumbnail != null).Thumbnail))
+                .ForMember(dest => dest.FileLinks, opts => opts.MapFrom(src => src.Files));
+
+            CreateMap<DataLayer.Entities.FaceRecognition, FaceRecoRequest>()
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Status, opts => opts.MapFrom(src => src.Status.Name))
                 .ForMember(dest => dest.CreationTime, opts => opts.MapFrom(src => src.CreationTime))
                 .ForMember(dest => dest.Thumbnail, opts => opts.MapFrom(src => src.Files.FirstOrDefault(x => x.Thumbnail != null).Thumbnail))
                 .ForMember(dest => dest.FileLinks, opts => opts.MapFrom(src => src.Files));

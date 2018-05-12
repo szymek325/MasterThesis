@@ -16,20 +16,11 @@ namespace DataLayer
         public DbSet<FaceDetection> FaceDetections { get; set; }
         public DbSet<File> Files { get; set; }
         public DbSet<Person> People { get; set; }
+        public DbSet<NeuralNetwork> NeuralNetworks { get; set; }
+        public DbSet<FaceRecognition> FaceRecognitions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<File>()
-                .HasOne(x => x.Person)
-                .WithMany(f => f.Files)
-                .HasForeignKey(fk => fk.PersonGuid)
-                .HasPrincipalKey(pk => pk.Guid);
-
-            modelBuilder.Entity<File>()
-                .HasOne(x => x.FaceDetection)
-                .WithMany(f => f.Files)
-                .HasForeignKey(fk => fk.FaceDetectionGuid)
-                .HasPrincipalKey(pk => pk.Guid);
 
             modelBuilder.Entity<NeuralNetworkPerson>()
                 .HasKey(bc => new { bc.PersonId, NeuralNetworkRequestId = bc.NeuralNetworkId });
@@ -60,6 +51,7 @@ namespace DataLayer
             modelBuilder.Entity<FaceDetection>().ToTable(nameof(FaceDetection));
             modelBuilder.Entity<File>().ToTable(nameof(File));
             modelBuilder.Entity<Person>().ToTable(nameof(Person));
+
         }
     }
 

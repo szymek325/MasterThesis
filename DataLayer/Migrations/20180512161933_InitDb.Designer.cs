@@ -11,8 +11,8 @@ using System;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(MasterContext))]
-    [Migration("20180506104127_NeuralNetworkRequest")]
-    partial class NeuralNetworkRequest
+    [Migration("20180512161933_InitDb")]
+    partial class InitDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,6 +50,37 @@ namespace DataLayer.Migrations
                     b.ToTable("FaceDetection");
                 });
 
+            modelBuilder.Entity("DataLayer.Entities.FaceRecognition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationTime")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasDefaultValueSql("getutcdate()");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Guid")
+                        .IsRequired();
+
+                    b.Property<DateTime?>("ModifiedDate");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("NeuralNetworkId");
+
+                    b.Property<int?>("StatusId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NeuralNetworkId");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("FaceRecognitions");
+                });
+
             modelBuilder.Entity("DataLayer.Entities.File", b =>
                 {
                     b.Property<int>("Id")
@@ -59,13 +90,17 @@ namespace DataLayer.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasDefaultValueSql("getutcdate()");
 
-                    b.Property<string>("FaceDetectionGuid");
+                    b.Property<int?>("FaceDetectionId");
+
+                    b.Property<int?>("FaceRecognitionId");
 
                     b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("PersonGuid");
+                    b.Property<string>("ParentGuid");
+
+                    b.Property<int?>("PersonId");
 
                     b.Property<string>("Thumbnail");
 
@@ -73,14 +108,16 @@ namespace DataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FaceDetectionGuid");
+                    b.HasIndex("FaceDetectionId");
 
-                    b.HasIndex("PersonGuid");
+                    b.HasIndex("FaceRecognitionId");
+
+                    b.HasIndex("PersonId");
 
                     b.ToTable("File");
                 });
 
-            modelBuilder.Entity("DataLayer.Entities.NeuralNetworkRequest", b =>
+            modelBuilder.Entity("DataLayer.Entities.NeuralNetwork", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -95,22 +132,26 @@ namespace DataLayer.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int?>("StatusId");
+
                     b.HasKey("Id");
 
-                    b.ToTable("NeuralNetworkRequest");
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("NeuralNetworks");
                 });
 
-            modelBuilder.Entity("DataLayer.Entities.NeuralNetworkRequestPerson", b =>
+            modelBuilder.Entity("DataLayer.Entities.NeuralNetworkPerson", b =>
                 {
                     b.Property<int>("PersonId");
 
-                    b.Property<int>("NeuralNetworkRequestId");
+                    b.Property<int>("NeuralNetworkId");
 
-                    b.HasKey("PersonId", "NeuralNetworkRequestId");
+                    b.HasKey("PersonId", "NeuralNetworkId");
 
-                    b.HasIndex("NeuralNetworkRequestId");
+                    b.HasIndex("NeuralNetworkId");
 
-                    b.ToTable("NeuralNetworkRequestPerson");
+                    b.ToTable("NeuralNetworkPerson");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.Person", b =>
@@ -181,28 +222,48 @@ namespace DataLayer.Migrations
                         .HasForeignKey("StatusId");
                 });
 
+            modelBuilder.Entity("DataLayer.Entities.FaceRecognition", b =>
+                {
+                    b.HasOne("DataLayer.Entities.NeuralNetwork", "NeuralNetwork")
+                        .WithMany()
+                        .HasForeignKey("NeuralNetworkId");
+
+                    b.HasOne("DataLayer.Entities.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId");
+                });
+
             modelBuilder.Entity("DataLayer.Entities.File", b =>
                 {
                     b.HasOne("DataLayer.Entities.FaceDetection", "FaceDetection")
                         .WithMany("Files")
-                        .HasForeignKey("FaceDetectionGuid")
-                        .HasPrincipalKey("Guid");
+                        .HasForeignKey("FaceDetectionId");
+
+                    b.HasOne("DataLayer.Entities.FaceRecognition", "FaceRecognition")
+                        .WithMany("Files")
+                        .HasForeignKey("FaceRecognitionId");
 
                     b.HasOne("DataLayer.Entities.Person", "Person")
                         .WithMany("Files")
-                        .HasForeignKey("PersonGuid")
-                        .HasPrincipalKey("Guid");
+                        .HasForeignKey("PersonId");
                 });
 
-            modelBuilder.Entity("DataLayer.Entities.NeuralNetworkRequestPerson", b =>
+            modelBuilder.Entity("DataLayer.Entities.NeuralNetwork", b =>
                 {
-                    b.HasOne("DataLayer.Entities.NeuralNetworkRequest", "NeuralNetworkRequest")
-                        .WithMany("NeuralNetworkRequestPeople")
-                        .HasForeignKey("NeuralNetworkRequestId")
+                    b.HasOne("DataLayer.Entities.Status", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId");
+                });
+
+            modelBuilder.Entity("DataLayer.Entities.NeuralNetworkPerson", b =>
+                {
+                    b.HasOne("DataLayer.Entities.NeuralNetwork", "NeuralNetwork")
+                        .WithMany("NeuralNetworkPeople")
+                        .HasForeignKey("NeuralNetworkId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DataLayer.Entities.Person", "Person")
-                        .WithMany("NeuralNetworkRequestPeople")
+                        .WithMany("NeuralNetworkPeople")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
