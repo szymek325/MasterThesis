@@ -1,4 +1,5 @@
 using AutoMapper;
+using Common;
 using Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,6 +24,8 @@ namespace Web
             services.AddMvc();
             services.AddDomainModule();
             services.AddAutoMapper();
+            services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+            services.Configure<DropboxConfiguration>(Configuration.GetSection("DropboxConfiguration"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

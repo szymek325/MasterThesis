@@ -38,7 +38,7 @@ namespace Domain.People
             try
             {
                 var personGuid = guid.NewGuidAsString;
-                await filesService.Upload(input.Files, $"/{personGuid}");
+                await filesService.Upload(input.Files, $"{personGuid}");
 
                 var person = new Person
                 {

@@ -55,7 +55,7 @@ namespace Domain.FaceRecognition
             try
             {
                 var faceRecognitionGuid = guid.NewGuidAsString;
-                await filesService.Upload(request.Files, $"/{faceRecognitionGuid}");
+                await filesService.Upload(request.Files, $"{faceRecognitionGuid}");
 
                 var newRecognition = new DataLayer.Entities.FaceRecognition()
                 {
