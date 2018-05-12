@@ -22,10 +22,10 @@ namespace Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDomainModule();
             services.AddAutoMapper();
             services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
             services.Configure<DropboxConfiguration>(Configuration.GetSection("DropboxConfiguration"));
+            services.AddDomainModule();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
