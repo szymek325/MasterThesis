@@ -33,6 +33,12 @@ namespace DataLayer
                 .HasForeignKey(fk => fk.FaceDetectionGuid)
                 .HasPrincipalKey(pk => pk.Guid);
 
+            modelBuilder.Entity<File>()
+                .HasOne(x => x.FaceRecognition)
+                .WithMany(f => f.Files)
+                .HasForeignKey(fk => fk.FaceRecognitionGuid)
+                .HasPrincipalKey(pk => pk.Guid);
+
             modelBuilder.Entity<NeuralNetworkPerson>()
                 .HasKey(bc => new { bc.PersonId, NeuralNetworkRequestId = bc.NeuralNetworkId });
 

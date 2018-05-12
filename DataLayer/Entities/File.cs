@@ -9,7 +9,7 @@
         public Person Person { get; set; }
         public string FaceDetectionGuid { get; set; }
         public FaceDetection FaceDetection { get; set; }
-        public string FaceRecognitionId { get; set; }
+        public string FaceRecognitionGuid { get; set; }
         public FaceRecognition FaceRecognition { get; set; }
     }
 }

@@ -11,7 +11,7 @@ using NewRequest = Domain.FaceDetection.DTO.NewRequest;
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
-    public class FaceRecognitionController
+    public class FaceRecognitionController:Controller
     {
         private readonly IFaceRecognitionService faceDetectionService;
         private readonly IMapper mapper;
@@ -28,19 +28,20 @@ namespace Web.Controllers
             return await faceDetectionService.GetAllFaceRecognitions();
         }
 
-        //[HttpPost("[action]")]
-        //public async Task<IActionResult> Create(IFormCollection collections)
-        //{
-        //    var files = mapper.Map<IEnumerable<FileToUpload>>(collections.Files);
-        //    collections.TryGetValue("name", out var requestName);
-        //    collections.TryGetValue("name", out var requestName);
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Create(IFormCollection collections)
+        {
+            var files = mapper.Map<IEnumerable<FileToUpload>>(collections.Files);
+            collections.TryGetValue("name", out var requestName);
+            collections.TryGetValue("neuralNetworkId", out var neuralNetworkId);
 
-        //    var response = await faceDetectionService.CreateRequest(new Domain.FaceRecognition.DTO.NewRequest
-        //    {
-        //        Name = requestName,
-        //        Files = files
-        //    });
-        //    return Ok(new { task_Id = response });
-        //}
+            var response = await faceDetectionService.CreateRequest(new Domain.FaceRecognition.DTO.NewRequest
+            {
+                Name = requestName,
+                NeuralNetworkId = int.Parse(neuralNetworkId),
+                Files = files
+            });
+            return Ok(new { faceRecognitionId = response });
+        }
     }
 }

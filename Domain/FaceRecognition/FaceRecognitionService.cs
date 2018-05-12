@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using DataLayer.Entities;
 using DataLayer.Repositories.Interface;
 using Domain.Configuration;
 using Domain.FaceDetection.DTO;
@@ -49,9 +50,34 @@ namespace Domain.FaceRecognition
             return requests;
         }
 
-        public Task<int> CreateRequest(NewRequest request)
+        public async Task<int> CreateRequest(NewRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var faceRecognitionGuid = guid.NewGuidAsString;
+                await filesService.Upload(request.Files, $"/{faceRecognitionGuid}");
+
+                var newRecognition = new DataLayer.Entities.FaceRecognition()
+                {
+                    Name = request.Name,
+                    StatusId = 1,
+                    NeuralNetworkId = request.NeuralNetworkId,
+                    Guid = faceRecognitionGuid,
+                    Files = request.Files.Select(x => new File
+                    {
+                        Name = x.FileName
+                    }).ToList()
+                };
+                faceRecoRepo.Add(newRecognition);
+                faceRecoRepo.Save();
+
+                return newRecognition.Id;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Exception when creating face recognition request ", ex);
+                throw;
+            }
         }
 
         public Task<FaceRecoRequest> GetRequestData(int id)

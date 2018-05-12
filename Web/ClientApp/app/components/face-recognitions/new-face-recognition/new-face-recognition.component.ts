@@ -30,20 +30,22 @@ export class NewFaceRecognitionComponent implements OnInit {
         console.log(this.recognitionForm.controls["neuralOption"].value);
         this.formData = new FormData();
         this.formData.set("name", data.name);
+        this.formData.set("neuralNetworkId", data.neuralOption);
+        this.formData.set(this.file.name, this.file);
         console.log(this.formData);
 
-        //this.requestDownloader.createRequest(this.formData)
-        //    .subscribe(result => {
-        //            if (result === 0) {
-        //                alert("Exception occured during request creation");
-        //            }
-        //            console.log(result);
-        //            this.router.navigateByUrl("neural-networks");
-        //        },
-        //        error => {
-        //            console.log(error.message);
-        //            this.alertService.error(error.message);
-        //        });
+        this.requestDownloader.createRequest(this.formData)
+            .subscribe(result => {
+                    if (result === 0) {
+                        alert("Exception occured during request creation");
+                    }
+                    console.log(result);
+                    this.router.navigateByUrl("face-recognitions");
+                },
+                error => {
+                    console.log(error.message);
+                    this.alertService.error(error.message);
+                });
     }
 
     validateFile(fileInput: any) {
@@ -59,7 +61,7 @@ export class NewFaceRecognitionComponent implements OnInit {
         this.isFileValid = false;
         this.recognitionForm = this.formBuilder.group({
             name: ["name", [Validators.required, Validators.minLength(3)]],
-            neuralOption: ["neuralOption"],
+            neuralOption: ["", [Validators.required]],
         });
         this.nnService.getAllNeuralNetworks()
             .subscribe(result => {

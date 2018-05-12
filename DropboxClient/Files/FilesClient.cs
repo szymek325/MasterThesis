@@ -36,7 +36,7 @@ namespace DropboxIntegration.Files
                 folder + "/" + file,
                 WriteMode.Overwrite.Instance,
                 body: content);
-            Console.WriteLine($"Saved {folder}/{file} rev {updated.Rev}");
+            logger.LogInformation($"Saved {folder}/{file} rev {updated.Rev}");
         }
 
         public async Task<string> DownloadThumbnail(string folder, string file)
