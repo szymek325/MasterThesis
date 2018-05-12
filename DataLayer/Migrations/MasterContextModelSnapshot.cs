@@ -89,9 +89,9 @@ namespace DataLayer.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasDefaultValueSql("getutcdate()");
 
-                    b.Property<int>("FaceDetectionId");
+                    b.Property<int?>("FaceDetectionId");
 
-                    b.Property<int>("FaceRecognitionId");
+                    b.Property<int?>("FaceRecognitionId");
 
                     b.Property<DateTime?>("ModifiedDate");
 
@@ -99,7 +99,7 @@ namespace DataLayer.Migrations
 
                     b.Property<string>("ParentGuid");
 
-                    b.Property<int>("PersonId");
+                    b.Property<int?>("PersonId");
 
                     b.Property<string>("Thumbnail");
 
@@ -236,18 +236,15 @@ namespace DataLayer.Migrations
                 {
                     b.HasOne("DataLayer.Entities.FaceDetection", "FaceDetection")
                         .WithMany("Files")
-                        .HasForeignKey("FaceDetectionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("FaceDetectionId");
 
                     b.HasOne("DataLayer.Entities.FaceRecognition", "FaceRecognition")
                         .WithMany("Files")
-                        .HasForeignKey("FaceRecognitionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("FaceRecognitionId");
 
                     b.HasOne("DataLayer.Entities.Person", "Person")
                         .WithMany("Files")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PersonId");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.NeuralNetwork", b =>

@@ -3104,3 +3104,43 @@
 2018-05-12 18:07:15.1762 Info Adding target File Target[ownFile-web]
 2018-05-12 18:07:15.1762 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Debug\netcoreapp2.0\nlog.config...
 2018-05-12 18:07:15.1911 Info Found 42 configuration items
+2018-05-12 18:13:19.1359 Info Message Template Auto Format enabled
+2018-05-12 18:13:19.2159 Info Adding target File Target[allfile]
+2018-05-12 18:13:19.2456 Error Error parsing layout aspnet-request-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-request-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-05-12 18:13:19.2456 Error Error parsing layout aspnet-mvc-action will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-mvc-action'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-05-12 18:13:19.2456 Info Adding target File Target[ownFile-web]
+2018-05-12 18:13:19.2548 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Debug\netcoreapp2.0\nlog.config...
+2018-05-12 18:13:19.2548 Info Found 42 configuration items
+2018-05-12 18:19:20.3226 Info Message Template Auto Format enabled
+2018-05-12 18:19:20.3740 Info Adding target File Target[allfile]
+2018-05-12 18:19:20.3740 Info Adding target File Target[ownFile-web]
+2018-05-12 18:19:20.3807 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Debug\netcoreapp2.0\NLog.config...
+2018-05-12 18:19:20.3807 Info Found 45 configuration items
+2018-05-12 18:19:20.4029 Info Configuration initialized.
+2018-05-12 18:19:20.4029 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.3.7533. Product version: 4.5.3.
+2018-05-12 18:19:33.0907 Info Shutting down logging...
+2018-05-12 18:19:33.1072 Info Logger has been shut down.
+2018-05-12 18:19:49.8997 Info Message Template Auto Format enabled
+2018-05-12 18:19:49.9510 Info Adding target File Target[allfile]
+2018-05-12 18:19:49.9510 Info Adding target File Target[ownFile-web]
+2018-05-12 18:19:49.9598 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Debug\netcoreapp2.0\NLog.config...
+2018-05-12 18:19:49.9598 Info Found 45 configuration items
+2018-05-12 18:19:49.9860 Info Configuration initialized.
+2018-05-12 18:19:49.9889 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.3.7533. Product version: 4.5.3.
+2018-05-12 18:20:02.9104 Info Shutting down logging...
+2018-05-12 18:20:02.9359 Info Logger has been shut down.
+2018-05-12 18:20:21.5748 Info Message Template Auto Format enabled
+2018-05-12 18:20:21.6336 Info Adding target File Target[allfile]
+2018-05-12 18:20:21.6617 Error Error parsing layout aspnet-request-url will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-request-url'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-05-12 18:20:21.6617 Error Error parsing layout aspnet-mvc-action will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'aspnet-mvc-action'. Is NLog.Web not included?
+   at NLog.Config.Factory`2.CreateInstance(String name)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name)
+2018-05-12 18:20:21.6617 Info Adding target File Target[ownFile-web]
+2018-05-12 18:20:21.6617 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Debug\netcoreapp2.0\nlog.config...
+2018-05-12 18:20:21.6794 Info Found 42 configuration items

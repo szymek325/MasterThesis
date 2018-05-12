@@ -6,6 +6,7 @@
     <TypeScriptStrictNullChecks>False</TypeScriptStrictNullChecks>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
+    <Configurations>Debug;Release;Azure</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

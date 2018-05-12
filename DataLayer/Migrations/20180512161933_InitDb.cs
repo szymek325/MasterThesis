@@ -167,12 +167,12 @@ namespace DataLayer.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
-                    FaceDetectionId = table.Column<int>(nullable: false),
-                    FaceRecognitionId = table.Column<int>(nullable: false),
+                    FaceDetectionId = table.Column<int>(nullable: true),
+                    FaceRecognitionId = table.Column<int>(nullable: true),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     ParentGuid = table.Column<string>(nullable: true),
-                    PersonId = table.Column<int>(nullable: false),
+                    PersonId = table.Column<int>(nullable: true),
                     Thumbnail = table.Column<string>(nullable: true),
                     Url = table.Column<string>(nullable: true)
                 },
@@ -184,19 +184,19 @@ namespace DataLayer.Migrations
                         column: x => x.FaceDetectionId,
                         principalTable: "FaceDetection",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_File_FaceRecognitions_FaceRecognitionId",
                         column: x => x.FaceRecognitionId,
                         principalTable: "FaceRecognitions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_File_Person_PersonId",
                         column: x => x.PersonId,
                         principalTable: "Person",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
