@@ -89,15 +89,17 @@ namespace DataLayer.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasDefaultValueSql("getutcdate()");
 
-                    b.Property<string>("FaceDetectionGuid");
+                    b.Property<int>("FaceDetectionId");
 
-                    b.Property<string>("FaceRecognitionGuid");
+                    b.Property<int>("FaceRecognitionId");
 
                     b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("PersonGuid");
+                    b.Property<string>("ParentGuid");
+
+                    b.Property<int>("PersonId");
 
                     b.Property<string>("Thumbnail");
 
@@ -105,11 +107,11 @@ namespace DataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FaceDetectionGuid");
+                    b.HasIndex("FaceDetectionId");
 
-                    b.HasIndex("FaceRecognitionGuid");
+                    b.HasIndex("FaceRecognitionId");
 
-                    b.HasIndex("PersonGuid");
+                    b.HasIndex("PersonId");
 
                     b.ToTable("File");
                 });
@@ -234,18 +236,18 @@ namespace DataLayer.Migrations
                 {
                     b.HasOne("DataLayer.Entities.FaceDetection", "FaceDetection")
                         .WithMany("Files")
-                        .HasForeignKey("FaceDetectionGuid")
-                        .HasPrincipalKey("Guid");
+                        .HasForeignKey("FaceDetectionId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DataLayer.Entities.FaceRecognition", "FaceRecognition")
                         .WithMany("Files")
-                        .HasForeignKey("FaceRecognitionGuid")
-                        .HasPrincipalKey("Guid");
+                        .HasForeignKey("FaceRecognitionId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DataLayer.Entities.Person", "Person")
                         .WithMany("Files")
-                        .HasForeignKey("PersonGuid")
-                        .HasPrincipalKey("Guid");
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DataLayer.Entities.NeuralNetwork", b =>

@@ -65,7 +65,8 @@ namespace Domain.FaceRecognition
                     Guid = faceRecognitionGuid,
                     Files = request.Files.Select(x => new File
                     {
-                        Name = x.FileName
+                        Name = x.FileName,
+                        ParentGuid = faceRecognitionGuid
                     }).ToList()
                 };
                 faceRecoRepo.Add(newRecognition);

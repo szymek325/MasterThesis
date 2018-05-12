@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using DataLayer.Repositories.Implementation;
 using DataLayer.Repositories.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +27,24 @@ namespace DataLayer
             services.AddTransient<IFaceDetectionRepository, FaceDetectionRepository>();
             services.AddTransient<IFaceRecognitionRepository, FaceRecognitionRepository>();
 
+            SeedDb(services);
+
             return services;
+        }
+
+        private static void SeedDb(IServiceCollection services)
+        {
+            try
+            {
+                var aserviceProvider = services.BuildServiceProvider();
+                var context = aserviceProvider.GetService<MasterContext>();
+                DbInitializer.Seed(context);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
         }
     }
 }

@@ -15,7 +15,6 @@ namespace Domain.People
 {
     public class PeopleService : IPeopleService
     {
-        private readonly IFilesClient filesClient;
         private readonly IFileRepository filesRepository;
         private readonly IFilesDomainService filesService;
         private readonly IGuidProvider guid;
@@ -23,17 +22,15 @@ namespace Domain.People
         private readonly IMapper mapper;
         private readonly IPersonRepository peopleRepo;
 
-        public PeopleService(IFilesClient filesClient, IFileRepository filesRepository,
-            IFilesDomainService filesService,
-            ILogger<PeopleService> logger, IMapper mapper, IPersonRepository peopleRepo, IGuidProvider guid)
+        public PeopleService(IFileRepository filesRepository, IFilesDomainService filesService, IGuidProvider guid,
+            ILogger<PeopleService> logger, IMapper mapper, IPersonRepository peopleRepo)
         {
-            this.filesClient = filesClient;
             this.filesRepository = filesRepository;
             this.filesService = filesService;
+            this.guid = guid;
             this.logger = logger;
             this.mapper = mapper;
             this.peopleRepo = peopleRepo;
-            this.guid = guid;
         }
 
         public async Task<int> CreateNew(PersonInput input)
@@ -50,6 +47,7 @@ namespace Domain.People
                     Files = input.Files.Select(x => new File
                     {
                         Name = x.FileName,
+                        ParentGuid = personGuid
                     }).ToList()
                 };
                 peopleRepo.Add(person);

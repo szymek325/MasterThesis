@@ -46,7 +46,8 @@ namespace Domain.FaceDetection
                     Guid = detectionGuid,
                     Files = request.Files.Select(x => new File
                     {
-                        Name = x.FileName
+                        Name = x.FileName,
+                        ParentGuid = detectionGuid
                     }).ToList()
                 };
                 detectionRepository.Add(newDetection);
