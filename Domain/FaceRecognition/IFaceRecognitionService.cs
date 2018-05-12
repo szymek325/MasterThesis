@@ -6,7 +6,7 @@ namespace Domain.FaceRecognition
 {
     public interface IFaceRecognitionService
     {
-        Task<IEnumerable<FaceRecoRequest>> GetAllFaceDetectionsAsync();
+        Task<IEnumerable<FaceRecoRequest>> GetAllFaceRecognitions();
         Task<int> CreateRequest(NewRequest request);
         Task<FaceRecoRequest> GetRequestData(int id);
     }

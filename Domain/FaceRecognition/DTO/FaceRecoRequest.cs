@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Domain.Files.DTO;
 using Domain.NeuralNetwork.DTO;
 
@@ -12,6 +13,6 @@ namespace Domain.FaceRecognition.DTO
         public string Thumbnail { get; set; }
         public NeuralNetworkOutput NeuralNetwork { get; set; }
         public DateTime CreationTime { get; set; }
-        public FileLink FileLink { get; set; }
+        public IEnumerable<FileLink> FileLinks { get; set; }
     }
 }
