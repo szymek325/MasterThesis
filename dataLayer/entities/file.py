@@ -9,8 +9,8 @@ class File(Base):
     id = Column(Integer, primary_key=True)
     name = Column('Name', String)
     thumbnail = Column("Thumbnail", String)
-    face_detection_guid = Column("FaceDetectionGuid", String,ForeignKey("FaceDetection.Guid"))
+    face_detection_id = Column("FaceDetectionId", Integer,ForeignKey("FaceDetection.Id"))
 
-    def __init__(self, name, face_detection_guid):
+    def __init__(self, name, face_detection_id):
         self.name = name
-        self.face_detection_guid = face_detection_guid
+        self.face_detection_id = face_detection_id

@@ -31,7 +31,7 @@ class FaceDetectionRequestsManager():
             faces_detected_by_haar, faces_detected_by_dnn = self.faceDetectorsManager.get_faces_on_image(image)
             save_path = f"{self.requests_path}{request.guid}"
             self.__prepare_results__(save_path, faces_detected_by_dnn, faces_detected_by_haar, image)
-            self.__upload_results__(save_path, request.guid)
+            self.__upload_results__(save_path, request.guid,request.id)
             self.faceDetectionRepository.complete_request(request.id, len(faces_detected_by_haar),
                                                           len(faces_detected_by_dnn))
         except:
@@ -53,10 +53,10 @@ class FaceDetectionRequestsManager():
                 cv2.rectangle(new_image, (startX, startY), (endX, endY), (0, 255, 0), 2)  # green
         return new_image
 
-    def __upload_results__(self, path_to_files, request_guid):
+    def __upload_results__(self, path_to_files, request_guid, request_id):
         haar_file = open(f"{path_to_files}/{self.haar_file_name}", 'rb')
         dnn_file = open(f"{path_to_files}/{self.dnn_file_name}", 'rb')
         self.dbxClient.upload_file(haar_file.read(), request_guid, self.haar_file_name)
         self.dbxClient.upload_file(dnn_file.read(), request_guid, self.dnn_file_name)
-        self.files_repository.add_file(self.haar_file_name, request_guid)
-        self.files_repository.add_file(self.dnn_file_name, request_guid)
+        self.files_repository.add_file(self.haar_file_name, request_id)
+        self.files_repository.add_file(self.dnn_file_name, request_id)

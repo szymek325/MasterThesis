@@ -14,7 +14,7 @@ class DropboxClient:
 
     @exception
     def download_face_detection_input(self, guid, save_location):
-        folder_path = f"/{guid}"
+        folder_path = f"{self.config.base_path}/{guid}"
         files = self.client.files_list_folder(folder_path)
         if not files.entries.count == 0:
             file = files.entries[0]
@@ -24,7 +24,7 @@ class DropboxClient:
             return file.name
 
     def upload_file(self, file, guid, file_name):
-        self.client.files_upload(file, f"/{guid}/{file_name}")
+        self.client.files_upload(file, f"{self.config.base_path}/{guid}/{file_name}")
 
 
 if __name__ == "__main__":
