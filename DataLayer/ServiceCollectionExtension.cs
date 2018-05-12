@@ -28,22 +28,8 @@ namespace DataLayer
             services.AddTransient<IFaceDetectionRepository, FaceDetectionRepository>();
             services.AddTransient<IFaceRecognitionRepository, FaceRecognitionRepository>();
 
-            SeedDb(services);
-
             return services;
         }
 
-        private static void SeedDb(IServiceCollection services)
-        {
-            try
-            {
-                var aserviceProvider = services.BuildServiceProvider();
-                var context = aserviceProvider.GetService<MasterContext>();
-                DbInitializer.Seed(context);
-            }
-            catch (Exception ex)
-            {
-            }
-        }
     }
 }

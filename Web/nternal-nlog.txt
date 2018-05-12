@@ -3144,3 +3144,21 @@
 2018-05-12 18:20:21.6617 Info Adding target File Target[ownFile-web]
 2018-05-12 18:20:21.6617 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Debug\netcoreapp2.0\nlog.config...
 2018-05-12 18:20:21.6794 Info Found 42 configuration items
+2018-05-12 20:54:39.7237 Info Message Template Auto Format enabled
+2018-05-12 20:54:39.7671 Info Adding target File Target[allfile]
+2018-05-12 20:54:39.7694 Info Adding target File Target[ownFile-web]
+2018-05-12 20:54:39.7694 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Azure\netcoreapp2.0\NLog.config...
+2018-05-12 20:54:39.7694 Info Found 45 configuration items
+2018-05-12 20:54:39.7960 Info Configuration initialized.
+2018-05-12 20:54:39.7960 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.3.7533. Product version: 4.5.3.
+2018-05-12 20:54:42.0312 Info Shutting down logging...
+2018-05-12 20:54:42.0498 Info Logger has been shut down.
+2018-05-12 20:57:05.6266 Info Message Template Auto Format enabled
+2018-05-12 20:57:05.6676 Info Adding target File Target[allfile]
+2018-05-12 20:57:05.6676 Info Adding target File Target[ownFile-web]
+2018-05-12 20:57:05.6676 Info Configured from an XML element in C:\Users\Mateusz\Source\Repos\MasterThesis.Website\Web\bin\Azure\netcoreapp2.0\NLog.config...
+2018-05-12 20:57:05.6825 Info Found 45 configuration items
+2018-05-12 20:57:05.6961 Info Configuration initialized.
+2018-05-12 20:57:05.6961 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.3.7533. Product version: 4.5.3.
+2018-05-12 20:57:12.8097 Info Shutting down logging...
+2018-05-12 20:57:12.8270 Info Logger has been shut down.
