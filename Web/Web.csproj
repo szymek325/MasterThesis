@@ -42,6 +42,13 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ClientApp\app\interfaces\detection\" />
+    <Folder Include="ClientApp\app\interfaces\neuralNetwork\" />
+    <Folder Include="ClientApp\app\interfaces\people\" />
+    <Folder Include="ClientApp\app\interfaces\recognition\" />
+  </ItemGroup>
+
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

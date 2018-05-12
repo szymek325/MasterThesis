@@ -3,7 +3,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Domain.FaceRecognition;
 using Domain.FaceRecognition.DTO;
+using Domain.Files.DTO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NewRequest = Domain.FaceDetection.DTO.NewRequest;
 
 namespace Web.Controllers
 {
@@ -24,5 +27,20 @@ namespace Web.Controllers
         {
             return await faceDetectionService.GetAllFaceRecognitions();
         }
+
+        //[HttpPost("[action]")]
+        //public async Task<IActionResult> Create(IFormCollection collections)
+        //{
+        //    var files = mapper.Map<IEnumerable<FileToUpload>>(collections.Files);
+        //    collections.TryGetValue("name", out var requestName);
+        //    collections.TryGetValue("name", out var requestName);
+
+        //    var response = await faceDetectionService.CreateRequest(new Domain.FaceRecognition.DTO.NewRequest
+        //    {
+        //        Name = requestName,
+        //        Files = files
+        //    });
+        //    return Ok(new { task_Id = response });
+        //}
     }
 }
