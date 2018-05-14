@@ -7,5 +7,6 @@ namespace Domain.SensorsReading
     {
         IEnumerable<Reading> GetAllReadings();
         IEnumerable<DateOutput> GetDistinctDates();
+        IEnumerable<Reading> GetReadingsFromDay();
     }
 }

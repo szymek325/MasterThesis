@@ -38,5 +38,13 @@ namespace Domain.SensorsReading
             ).Distinct().ToList();
             return distinctDates;
         }
+
+        public IEnumerable<Reading> GetReadingsFromDay(string day)
+        {
+            var dateTimeDay = DateTime.Parse(day);
+            var sensorReadings = readingsRepo.GetByDay(dateTimeDay);
+            var readings = mapper.Map<IEnumerable<Reading>>(sensorReadings);
+            return readings;
+        }
     }
 }
