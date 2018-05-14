@@ -23,5 +23,11 @@ namespace Web.Controllers
         {
             return readingsProvider.GetAllReadings();
         }
+
+        [HttpGet("[action]")]
+        public IEnumerable<DateOutput> GetAllDates()
+        {
+            return readingsProvider.GetDistinctDates();
+        }
     }
 }

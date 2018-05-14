@@ -6,5 +6,6 @@ namespace Domain.SensorsReading
     public interface IReadingsProvider
     {
         IEnumerable<Reading> GetAllReadings();
+        IEnumerable<DateOutput> GetDistinctDates();
     }
 }
