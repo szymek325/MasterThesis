@@ -30,7 +30,8 @@ namespace Domain.Mapping
                 .ForMember(dest => dest.Status, opts => opts.MapFrom(src => src.Status.Name))
                 .ForMember(dest => dest.CreationTime, opts => opts.MapFrom(src => src.CreationTime))
                 .ForMember(dest => dest.Thumbnail, opts => opts.MapFrom(src => src.Files.FirstOrDefault(x => x.Thumbnail != null).Thumbnail))
-                .ForMember(dest => dest.FileLinks, opts => opts.MapFrom(src => src.Files));
+                .ForMember(dest => dest.FileLinks, opts => opts.MapFrom(src => src.Files))
+                .ForMember(dest => dest.NeuralNetwork, opts => opts.MapFrom(src => src.NeuralNetwork));
 
             CreateMap<DataLayer.Entities.SensorsReading, Reading>().ReverseMap();
 
