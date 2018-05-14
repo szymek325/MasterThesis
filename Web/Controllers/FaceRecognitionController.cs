@@ -6,16 +6,15 @@ using Domain.FaceRecognition.DTO;
 using Domain.Files.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NewRequest = Domain.FaceDetection.DTO.NewRequest;
 
 namespace Web.Controllers
 {
     [Route("api/[controller]")]
-    public class FaceRecognitionController:Controller
+    public class FaceRecognitionController : Controller
     {
         private readonly IFaceRecognitionService faceRecognitionService;
         private readonly IMapper mapper;
-        ;
+
         public FaceRecognitionController(IFaceRecognitionService faceRecognitionService, IMapper mapper)
         {
             this.faceRecognitionService = faceRecognitionService;
@@ -35,13 +34,13 @@ namespace Web.Controllers
             collections.TryGetValue("name", out var requestName);
             collections.TryGetValue("neuralNetworkId", out var neuralNetworkId);
 
-            var response = await faceRecognitionService.CreateRequest(new Domain.FaceRecognition.DTO.NewRequest
+            var response = await faceRecognitionService.CreateRequest(new NewRequest
             {
                 Name = requestName,
                 NeuralNetworkId = int.Parse(neuralNetworkId),
                 Files = files
             });
-            return Ok(new { faceRecognitionId = response });
+            return Ok(new {faceRecognitionId = response});
         }
 
         [HttpGet("[action]")]
