@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using DataLayer.Repositories.Interface;
@@ -27,6 +28,22 @@ namespace Domain.SensorsReading
             var sensorsReadings = readingsRepo.GetAll().ToList();
             logger.LogInformation($"{sensorsReadings.Count} retrieved from db");
             var readings = mapper.Map<IEnumerable<Reading>>(sensorsReadings);
+            return readings;
+        }
+
+        public IEnumerable<DateOutput> GetDistinctDates()
+        {
+            var distinctDates = readingsRepo.GetAll().Select(x =>new DateOutput{
+                Date = x.CreationTime.Date}
+            ).Distinct().ToList();
+            return distinctDates;
+        }
+
+        public IEnumerable<Reading> GetReadingsFromDay(string day)
+        {
+            var dateTimeDay = DateTime.Parse(day);
+            var sensorReadings = readingsRepo.GetByDay(dateTimeDay);
+            var readings = mapper.Map<IEnumerable<Reading>>(sensorReadings);
             return readings;
         }
     }

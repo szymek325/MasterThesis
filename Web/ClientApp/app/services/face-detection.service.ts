@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class FaceDetectionService {
 
-    constructor(private httpClient: HttpClient, @Inject("BASE_URL") private baseUrl: string) { }
+    constructor(private httpClient: HttpClient, @Inject("BASE_URL") private baseUrl: string) {}
 
     getAllFaceDetectionRequests(): Observable<Object> {
         return this.httpClient.get(this.baseUrl + "api/FaceDetection/GetAll");
@@ -13,7 +13,7 @@ export class FaceDetectionService {
 
     getRequest(id: string): Observable<Object> {
         const params = new HttpParams().set("id", id);
-        return this.httpClient.get(this.baseUrl + "api/FaceDetection/GetRequest", {params});
+        return this.httpClient.get(this.baseUrl + "api/FaceDetection/GetRequest", { params });
     };
 
     createNewRequest(formData: string): Observable<Object> {

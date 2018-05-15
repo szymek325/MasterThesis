@@ -21,15 +21,17 @@ namespace Domain.FaceRecognition
         private readonly IMapper mapper;
         private readonly IGuidProvider guid;
         private readonly ILogger<FaceRecognitionService> logger;
+        private readonly IFileRepository filesRepository;
 
-        public FaceRecognitionService(IFaceRecognitionRepository faceRecoRepo, IFilesDomainService filesService,
-            IMapper mapper, IGuidProvider guid, ILogger<FaceRecognitionService> logger)
+        public FaceRecognitionService(IFaceRecognitionRepository faceRecoRepo, IFilesDomainService filesService, IMapper mapper,
+            IGuidProvider guid, ILogger<FaceRecognitionService> logger, IFileRepository filesRepository)
         {
             this.faceRecoRepo = faceRecoRepo;
             this.filesService = filesService;
             this.mapper = mapper;
             this.guid = guid;
             this.logger = logger;
+            this.filesRepository = filesRepository;
         }
 
         public async Task<IEnumerable<FaceRecoRequest>> GetAllFaceRecognitions()
@@ -81,9 +83,24 @@ namespace Domain.FaceRecognition
             }
         }
 
-        public Task<FaceRecoRequest> GetRequestData(int id)
+        public async Task<FaceRecoRequest> GetRequestDataAsync(int id)
         {
-            throw new NotImplementedException();
+            var recognitionJob = faceRecoRepo.GetRequestById(id);
+            var filesWithoutUrl = recognitionJob.Files.Where(x => x.Url == null).ToList();
+            if (filesWithoutUrl.Any())
+            {
+                var links = await filesService.GetLinksToFilesInFolder($"/{recognitionJob.Guid}");
+                foreach (var file in filesWithoutUrl)
+                {
+                    file.Url = links.FirstOrDefault(x => x.FileName == file.Name)?.Url;
+                    filesRepository.Update(file);
+                }
+
+                filesRepository.Save();
+            }
+
+            var request = mapper.Map<FaceRecoRequest>(recognitionJob);
+            return request;
         }
     }
 }
