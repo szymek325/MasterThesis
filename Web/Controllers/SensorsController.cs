@@ -31,9 +31,9 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<Reading> GetDataPerDay()
+        public IEnumerable<Reading> GetDataPerDay(string day)
         {
-            return readingsProvider.GetReadingsFromDay();
+            return readingsProvider.GetReadingsFromDay(day);
         }
     }
 }

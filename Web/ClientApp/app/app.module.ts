@@ -29,6 +29,7 @@ import { FaceRecognitionsComponent } from './components/face-recognitions/face-r
 import { NewFaceRecognitionComponent } from './components/face-recognitions/new-face-recognition/new-face-recognition.component';
 import { FaceRecognitionComponent } from './components/face-recognitions/face-recognition/face-recognition.component';
 import { FaceRecognitionService } from './services/face-recognition.service';
+import { ReadingsDatesComponent } from './components/readings-dates/readings-dates.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { FaceRecognitionService } from './services/face-recognition.service';
         NeuralNetworkComponent,
         FaceRecognitionsComponent,
         NewFaceRecognitionComponent,
-        FaceRecognitionComponent
+        FaceRecognitionComponent,
+        ReadingsDatesComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -63,7 +65,6 @@ import { FaceRecognitionService } from './services/face-recognition.service';
             { path: "face-detection", component: FaceDetectionsComponent },
             { path: "new-face-detection", component: NewFaceDetectionComponent },
             { path: "face-detection-request/:id", component: FaceDetectionRequestComponent },
-            { path: "sensor-readings", component: SensorReadingsComponent },
             { path: "new-person", component: NewPersonComponent },
             { path: "person/:id", component: PersonComponent },
             { path: "neural-networks", component: NeuralNetworksComponent },
@@ -71,7 +72,9 @@ import { FaceRecognitionService } from './services/face-recognition.service';
             { path: "neural-network/:id", component: NeuralNetworkComponent },
             { path: "face-recognitions", component: FaceRecognitionsComponent },
             { path: "new-face-recognition", component: NewFaceRecognitionComponent },
-            { path: "face-recognition/:id", component: FaceRecognitionComponent }
+            { path: "face-recognition/:id", component: FaceRecognitionComponent },
+            { path: "readings-dates", component: ReadingsDatesComponent },
+            { path: "sensor-readings/:day", component: SensorReadingsComponent }
         ])
     ],
     providers: [
