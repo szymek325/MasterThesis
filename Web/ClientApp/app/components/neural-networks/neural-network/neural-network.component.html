@@ -1,0 +1,30 @@
+<h1>NeuralNetwork</h1>
+
+<p *ngIf="!neuralNetwork">
+    <em>Loading neural network...</em>
+</p>
+<div *ngIf="neuralNetwork">
+    <div>
+        <label for="name">Id</label>
+        <div id="id">{{neuralNetwork.id}}</div>
+    </div>
+    <div>
+        <label for="name">Name</label>
+        <div id="name">{{neuralNetwork.name}}</div>
+    </div>
+
+    <div>
+        <table class="table" *ngIf="neuralNetwork.people">
+            <thead>
+            <tr>
+                <th>Person Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let person of neuralNetwork.people">
+                <td>{{person.name}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

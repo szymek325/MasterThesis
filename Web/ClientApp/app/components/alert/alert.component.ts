@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 import {Alert} from "../../interfaces/alert";
 import {AlertService} from "../../services/alert.service";
 import {AlertType} from "../../interfaces/alert-type.enum";
 
 @Component({
-    selector: 'alert',
-    templateUrl: 'alert.component.html'
+    selector: "alert",
+    templateUrl: "alert.component.html"
 })
-
-export class AlertComponent {
+export class AlertComponent implements OnInit {
     alerts: Alert[] = [];
 
-    constructor(private alertService: AlertService) { }
+    constructor(private alertService: AlertService) {}
 
     ngOnInit() {
         this.alertService.getAlert().subscribe((alert: Alert) => {
@@ -39,13 +38,13 @@ export class AlertComponent {
         // return css class based on alert type
         switch (alert.type) {
         case AlertType.Success:
-            return 'alert alert-success';
+            return "alert alert-success";
         case AlertType.Error:
-            return 'alert alert-danger';
+            return "alert alert-danger";
         case AlertType.Info:
-            return 'alert alert-info';
+            return "alert alert-info";
         case AlertType.Warning:
-            return 'alert alert-warning';
+            return "alert alert-warning";
         }
     }
 }

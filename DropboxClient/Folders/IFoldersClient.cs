@@ -5,6 +5,6 @@ namespace DropboxIntegration.Folders
 {
     public interface IFoldersClient
     {
-        Task<ListFolderResult> GetFolderContent(string path);
+        Task<ListFolderResult> GetFolderContent(string folderPath);
     }
 }
