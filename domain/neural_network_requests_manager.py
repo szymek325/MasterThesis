@@ -6,6 +6,7 @@ from dataLayer.entities.neural_network import NeuralNetwork
 from dataLayer.repositories.neural_network_person_repository import NeuralnetworkPersonRepository
 from dataLayer.repositories.person_repository import PersonRepository
 from domain.directory_manager import DirectoryManager
+from domain.people_manager import PeopleManager
 from dropbox_integration.dropbox_client import DropboxClient
 
 
@@ -17,6 +18,7 @@ class NeuralNetworkRequestsManager():
         self.logger = LoggerFactory()
         self.nnpRepo = NeuralnetworkPersonRepository()
         self.peopleRepo = PersonRepository()
+        self.peopleManager = PeopleManager()
 
     def process_request(self, request: NeuralNetwork):
         self.logger.info(f"Getting all people added to request id : {request.id}")
@@ -26,6 +28,7 @@ class NeuralNetworkRequestsManager():
             person = self.peopleRepo.get_by_id(connection.person_id)
             if person is not null:
                 self.logger.info(f"Person Id : {person.__dict__}")
-                #check if folder exists and all files are present
+                # check if folder exists and all files are present
                 peoplesId.append(person.id)
         self.logger.info(peoplesId)
+        self.peopleManager.check_if_people_exists_locally(peoplesId)

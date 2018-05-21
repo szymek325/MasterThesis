@@ -18,3 +18,15 @@ class FaceDetectorsManager():
                          f"\n   Haar: {faces_detected_by_haar}"
                          f"\n   DNN: {faces_detected_by_dnn}")
         return faces_detected_by_haar, faces_detected_by_dnn
+
+    def get_face_by_haar(self, image):
+        faces_detected_by_haar = self.haarDetector.run_detector(image)
+        self.logger.info(f"Faces detected by "
+                         f"\n   Haar: {faces_detected_by_haar}")
+        return faces_detected_by_haar
+
+    def get_face_by_dnn(self, image):
+        faces_detected_by_dnn = self.dnnDetector.run_detector(image)
+        self.logger.info(f"Faces detected by "
+                         f"\n   DNN: {faces_detected_by_dnn}")
+        return faces_detected_by_dnn
