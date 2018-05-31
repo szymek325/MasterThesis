@@ -4,6 +4,7 @@
   "training_data": "temp/trainingFaces/",
   "face_detection_requests_path": "temp/faceDetectionRequests/",
   "logs_path": "temp/logs",
+  "local_people_path":"temp/people",
   "face_recognition_interval": 60
 }
 

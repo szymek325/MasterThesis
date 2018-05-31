@@ -17,7 +17,6 @@ class NeuralNetworkRequestsManager():
         self.directory = DirectoryManager()
         self.logger = LoggerFactory()
         self.nnpRepo = NeuralnetworkPersonRepository()
-        self.peopleRepo = PersonRepository()
         self.peopleManager = PeopleManager()
 
     def process_request(self, request: NeuralNetwork):
@@ -25,10 +24,9 @@ class NeuralNetworkRequestsManager():
         connections = self.nnpRepo.get_all_connected_to_request(request.id)
         peoplesId = []
         for connection in connections:
-            person = self.peopleRepo.get_by_id(connection.person_id)
-            if person is not null:
-                self.logger.info(f"Person Id : {person.__dict__}")
-                # check if folder exists and all files are present
-                peoplesId.append(person.id)
-        self.logger.info(peoplesId)
+            peoplesId.append(connection.person_id)
+            self.logger.info(connection)
+
         self.peopleManager.check_if_people_exists_locally(peoplesId)
+
+        self.logger.info(peoplesId)

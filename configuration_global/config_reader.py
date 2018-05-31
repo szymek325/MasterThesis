@@ -26,6 +26,10 @@ class ConfigReader:
         return os.path.join(self.project_directory, self.configuration["logs_path"])
 
     @property
+    def local_people_path(self):
+        return os.path.join(self.project_directory, self.configuration["local_people_path"])
+
+    @property
     def face_recognition_interval(self):
         return self.configuration["face_recognition_interval"]
 
