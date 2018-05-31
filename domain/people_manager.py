@@ -18,7 +18,7 @@ class PeopleManager():
         self.peoplePath = self.config.local_people_path
         self.dropboxClient = DropboxClient()
 
-    def check_if_people_exists_locally(self, ids: [int]):
+    def download_people_to_local_directory(self, ids: [int]):
         for person_id in ids:
             path = os.path.join(self.peoplePath, f"{person_id}")
             if not os.path.exists(path):
@@ -27,5 +27,9 @@ class PeopleManager():
                     self.logger.info("need to download person")
                     self.dropboxClient.download_folder(person.guid, path)
 
-    def download_person(self):
-        self.logger.info("download_person")
+    def download_person(self, person_id):
+        path = os.path.join(self.peoplePath, f"{person_id}")
+        if not os.path.exists(path):
+            person = self.peopleRepo.get_by_id(person_id)
+            if person is not null:
+                self.dropboxClient.download_folder(person.guid, path)

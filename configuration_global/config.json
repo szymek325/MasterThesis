@@ -5,6 +5,7 @@
   "face_detection_requests_path": "temp/faceDetectionRequests/",
   "logs_path": "temp/logs",
   "local_people_path":"temp/people",
+  "neural_networks_path":"temp/trainedNetworks",
   "face_recognition_interval": 60
 }
 
