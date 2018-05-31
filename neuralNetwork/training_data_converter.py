@@ -21,6 +21,7 @@ class TrainingDataConverter():
         :rtype: array of face samples, samples people id
         """
         self.logger.info("preparing training data")
+        width_d, height_d = 280, 280  # Declare your own width and height
         face_samples = []
         ids = []
         for person_id in people_ids:
@@ -33,7 +34,7 @@ class TrainingDataConverter():
                 if len(faces) is not 0:
                     image_np = np.array(pil_image.convert('L'), 'uint8')
                     for (startX, startY, endX, endY) in faces:
-                        face_samples.append(image_np[startY:endY, startX:endX])
+                        face_samples.append(cv2.resize(image_np[startY:endY, startX:endX], (width_d, height_d)))
                         ids.append(person_id)
                         self.logger.info('adding sample to learning array')
         return face_samples, np.array(ids)

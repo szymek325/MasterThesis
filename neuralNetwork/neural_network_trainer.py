@@ -1,5 +1,5 @@
 import cv2
-
+import numpy
 from configuration_global.config_reader import ConfigReader
 from configuration_global.logger_factory import LoggerFactory
 from domain.directory_manager import DirectoryManager
@@ -33,4 +33,5 @@ class NeuralNetworkTrainer():
         self.directoryManager.create_directory_if_doesnt_exist(self.requestPath)
         self.create_lbph_face_recognizer(request_id, face_samples, people_ids)
         self.create_eigen_face_recognizer(request_id, face_samples, people_ids)
-        self.create_fisher_face_recognizer(request_id, face_samples, people_ids)
+        if len(numpy.unique(people_ids)) > 1:
+            self.create_fisher_face_recognizer(request_id, face_samples, people_ids)
