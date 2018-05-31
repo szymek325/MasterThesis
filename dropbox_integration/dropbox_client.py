@@ -27,7 +27,9 @@ class DropboxClient:
     def download_folder(self, guid, save_location):
         folder_path = f"{self.config.base_path}/{guid}"
         files = self.client.files_list_folder(folder_path)
-
+        for file in files.entries:
+            self.directory.create_directory_if_doesnt_exist(save_location)
+            self.client.files_download_to_file(f"{save_location}/{file.name}", file.path_lower)
         # if not files.entries.count == 0:
         #     file = files.entries[0]
         #     save_path = f"{save_location}{guid}"
