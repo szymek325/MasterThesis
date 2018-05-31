@@ -10,23 +10,27 @@ class NeuralNetworkTrainer():
         self.logger = LoggerFactory()
         self.config = ConfigReader()
         self.directoryManager = DirectoryManager()
+        self.requestPath = "path"
 
     def create_lbph_face_recognizer(self, request_id, face_samples, people_ids: [int]):
         recognizer = cv2.face.LBPHFaceRecognizer_create()
         recognizer.train(face_samples, people_ids)
-        self.recognizer.write(f'{self.config.openCv_files_path}/{request_id}/{request_id}_LBPH.yml')
+
+        recognizer.write(f'{self.requestPath}/{request_id}_LBPH.yml')
 
     def create_eigen_face_recognizer(self, request_id, face_samples, people_ids: [int]):
         recognizer = cv2.face.EigenFaceRecognizer_create()
         recognizer.train(face_samples, people_ids)
-        self.recognizer.write(f'{self.config.openCv_files_path}/{request_id}/{request_id}_Eigen.yml')
+        recognizer.write(f'{self.requestPath}/{request_id}_Eigen.yml')
 
     def create_fisher_face_recognizer(self, request_id, face_samples, people_ids: [int]):
         recognizer = cv2.face.FisherFaceRecognizer_create()
         recognizer.train(face_samples, people_ids)
-        self.recognizer.write(f'{self.config.openCv_files_path}/{request_id}/{request_id}_Fisher.yml')
+        recognizer.write(f'{self.requestPath}/{request_id}_Fisher.yml')
 
     def create_all_face_recognizers(self, request_id, face_samples, people_ids: [int]):
+        self.requestPath = f'{self.config.neural_networks_path}/{request_id}'
+        self.directoryManager.create_directory_if_doesnt_exist(self.requestPath)
         self.create_lbph_face_recognizer(request_id, face_samples, people_ids)
         self.create_eigen_face_recognizer(request_id, face_samples, people_ids)
         self.create_fisher_face_recognizer(request_id, face_samples, people_ids)

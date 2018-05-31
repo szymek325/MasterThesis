@@ -3,6 +3,7 @@ import os
 import numpy as np
 from PIL import Image
 
+from configuration_global.config_reader import ConfigReader
 from configuration_global.logger_factory import LoggerFactory
 from faceDetection.haar_face_detector import HaarFaceDetector
 
@@ -10,6 +11,7 @@ from faceDetection.haar_face_detector import HaarFaceDetector
 class TrainingDataConverter():
     def __init__(self):
         self.logger = LoggerFactory()
+        self.config = ConfigReader()
         self.peoplePath = self.config.local_people_path
         self.faceDetector = HaarFaceDetector()
 
@@ -34,4 +36,4 @@ class TrainingDataConverter():
                         face_samples.append(image_np[startY:endY, startX:endX])
                         ids.append(person_id)
                         self.logger.info('adding sample to learning array')
-        return face_samples, ids
+        return face_samples, np.array(ids)

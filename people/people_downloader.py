@@ -19,6 +19,10 @@ class PeopleDownloader():
         self.peoplePath = self.config.local_people_path
 
     def get_all_required_people_to_local(self, request_id):
+        """
+
+        :rtype: [int] - ids of all required people
+        """
         connections = self.nnpRepo.get_all_connected_to_request(request_id)
         people_ids = []
         for connection in connections:
@@ -29,6 +33,7 @@ class PeopleDownloader():
         for person_id in people_ids:
             files = os.listdir(os.path.join(self.peoplePath, f"{person_id}"))
             self.logger.info(files)
+        return people_ids
 
     def __download_people_to_local_directory__(self, ids: [int]):
         for person_id in ids:
