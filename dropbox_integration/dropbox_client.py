@@ -13,7 +13,7 @@ class DropboxClient:
         self.client = dropbox.Dropbox(self.config.dropbox_access_token)
 
     @exception
-    def download_face_detection_input(self, guid, save_location):
+    def download_single_file_from_folder(self, guid, save_location):
         folder_path = f"{self.config.base_path}/{guid}"
         files = self.client.files_list_folder(folder_path)
         if not files.entries.count == 0:
@@ -43,4 +43,4 @@ class DropboxClient:
 
 if __name__ == "__main__":
     drop = DropboxClient()
-    drop.download_face_detection_input(3)
+    drop.download_single_file_from_folder(3)

@@ -3,6 +3,7 @@
   "detectedFaceSavePath": "temp/detectedFace/",
   "training_data": "temp/trainingFaces/",
   "face_detection_requests_path": "temp/faceDetectionRequests/",
+  "face_recognition_requests_path":"temp/faceRecognitionRequests/",
   "logs_path": "temp/logs",
   "local_people_path":"temp/people",
   "neural_networks_path":"temp/trainedNetworks",
