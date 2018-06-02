@@ -10,3 +10,4 @@ class FaceRecognitionRequestManager():
 
     def process_request(self, request: FaceRecognition):
         self.logger.info(f"Working on face recognition request {request.id} id")
+        self.logger.info(request.neural_network.name)

@@ -11,6 +11,7 @@ class File(Base):
     thumbnail = Column("Thumbnail", String)
     face_detection_id = Column("FaceDetectionId", Integer, ForeignKey("FaceDetection.Id"))
     person_id = Column("PersonId", Integer, ForeignKey("Person.Id"))
+    face_recognition_id = Column("FaceRecognitionId", Integer, ForeignKey("FaceRecognitions.Id"))
 
     def __init__(self, name, face_detection_id):
         self.name = name
