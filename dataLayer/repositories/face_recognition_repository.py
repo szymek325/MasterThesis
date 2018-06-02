@@ -1,6 +1,5 @@
 from configuration_global.exception_handler import exception
 from dataLayer.database_connection import Base, engine, Session
-from dataLayer.entities.face_detection import FaceDetection
 from dataLayer.entities.face_recognition import FaceRecognition
 
 
