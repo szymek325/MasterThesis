@@ -19,6 +19,7 @@ class NeuralNetworkRequestsManager():
         self.neuralNetworkUploader = NeuralNetworkUploader()
 
     def process_request(self, request: NeuralNetwork):
+        self.logger.info(f"Working on creating neural network for request with {request.id} id")
         people_ids = self.peopleDownloader.get_all_required_people_to_local(request.id)
         face_samples, ids = self.trainingDataConverter.get_training_data(people_ids)
         self.logger.info(face_samples)
