@@ -1,9 +1,9 @@
 import cv2
-
-from faceDetection.configuration.config_reader import ConfigReader
 from configuration_global.exception_handler import exception
 from domain.files_manager import FilesManager
 import os
+
+from opencv_client.face_detection.configuration.config_reader import ConfigReader
 
 
 class HaarFaceDetector:
@@ -20,7 +20,7 @@ class HaarFaceDetector:
         :return: list of  startX, startY, endX, endY
         """
 
-        imageInGray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        faces = self.faceCascade.detectMultiScale(imageInGray, scaleFactor=1.2, minNeighbors=1)
-        newFaces = [(x, y, x + w, y + h) for x, y, w, h in faces]
-        return newFaces
+        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        faces = self.faceCascade.detectMultiScale(gray_image, scaleFactor=1.2, minNeighbors=1)
+        faces_in_required_return_format = [(x, y, x + w, y + h) for x, y, w, h in faces]
+        return faces_in_required_return_format
