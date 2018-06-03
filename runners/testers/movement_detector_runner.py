@@ -4,8 +4,8 @@ from datetime import datetime
 from configuration_global.exception_handler import exception
 from domain.files_manager import FilesManager
 from configuration_global.logger_factory import LoggerFactory
-from motionDetection.configuration.config_reader import ConfigReader
-from motionDetection.movement_detector import MovementDetector
+from opencv_client.motion_detection.configuration import ConfigReader
+from opencv_client.motion_detection.movement_detector import MovementDetector
 
 
 class MovementDetectorRunner:
