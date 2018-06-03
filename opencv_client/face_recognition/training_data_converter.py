@@ -2,6 +2,7 @@ import cv2
 import os
 import numpy as np
 
+from configuration_global.config_reader import ConfigReader
 from configuration_global.logger_factory import LoggerFactory
 from opencv_client.face_detection.haar_face_detector import HaarFaceDetector
 from opencv_client.image_converters.image_converter import ImageConverter
@@ -10,6 +11,7 @@ from opencv_client.image_converters.image_converter import ImageConverter
 class TrainingDataConverter():
     def __init__(self):
         self.logger = LoggerFactory()
+        self.config = ConfigReader()
         self.peoplePath = self.config.local_people_path
         self.faceDetector = HaarFaceDetector()
         self.imageConverter = ImageConverter()

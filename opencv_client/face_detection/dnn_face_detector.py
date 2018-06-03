@@ -4,7 +4,7 @@ import numpy
 from configuration_global.exception_handler import exception
 import os
 
-from opencv_client.face_detection.configuration.config_reader import ConfigReader
+from opencv_client.configuration.config_reader import ConfigReader
 
 
 class DnnFaceDetector:

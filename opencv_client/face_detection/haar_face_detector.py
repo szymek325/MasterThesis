@@ -3,7 +3,7 @@ from configuration_global.exception_handler import exception
 from domain.files_manager import FilesManager
 import os
 
-from opencv_client.face_detection.configuration.config_reader import ConfigReader
+from opencv_client.configuration.config_reader import ConfigReader
 
 
 class HaarFaceDetector:

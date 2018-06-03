@@ -33,7 +33,7 @@ class FaceRecognizer():
         for file in files:
             self.recognizer = self.neuralNetworkCreator.create_neural_network(file)
             for (startX, startY, endX, endY) in detected_faces:
-                predict_image = self.imageConverter.convert_to_pil_image(image[startY:endY, startX:endX])
+                predict_image = self.imageConverter.convert_to_np_array(image[startY:endY, startX:endX])
                 nbr_predicted, confidence = self.recognizer.predict(predict_image)
                 result.append((file, nbr_predicted, confidence, [startX, startY, endX, endY]))
         return result
