@@ -17,5 +17,5 @@ class ImageConverter():
         face = cv2.resize(image, (width_d, height_d))
         pil_image = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
         pil_image = Image.fromarray(pil_image).convert('L')
-        predict_image = np.array(pil_image, 'uint8')
-        return predict_image
+        numpy_array = np.array(pil_image, 'uint8')
+        return numpy_array

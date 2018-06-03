@@ -1,57 +1,39 @@
-from faceDetection.dnn_face_detector import DnnFaceDetector
-from faceDetection.haar_face_detector import HaarFaceDetector
-from faceRecognition.configuration.config_reader import ConfigReader
+from os import path, listdir
+
+from configuration_global.config_reader import ConfigReader
 from configuration_global.exception_handler import exception
-from domain.files_manager import FilesManager
 from configuration_global.logger_factory import LoggerFactory
-from PIL import Image
-import cv2
-import numpy as np
+from opencv_client.face_detection.haar_face_detector import HaarFaceDetector
+from opencv_client.image_converters.image_converter import ImageConverter
+from opencv_client.face_recognition.neural_network_creator import NeuralNetworkCreator
 
 
-class FaceRecognizer:
+class FaceRecognizer():
     def __init__(self):
-        self.config = ConfigReader()
-        self.filesManager = FilesManager()
         self.logger = LoggerFactory()
-        self.faceDetector = DnnFaceDetector()
-        self.recognizer = cv2.face.LBPHFaceRecognizer_create()
-        self.recognizer.read(f"{self.config.openCv_files_path}/faceRecognizer.yml")
+        self.globalConfig = ConfigReader()
+        self.faceDetector = HaarFaceDetector()
+        self.neuralNetworkCreator = NeuralNetworkCreator()
+        self.neuralNetworksPath = self.globalConfig.neural_networks_path
+        self.imageConverter = ImageConverter()
+        self.recognizer = "empty"
 
     @exception
-    def recognize_faces_on_image(self, image):
+    def recognize_face_on_image(self, image, neural_network_id):
         """
+        :param neural_network_id: id of nn
         :param image: OPENCV IMAGE!!!
-        :return: list of [recognizedID,confidencem,face location]
+        :return: recognizedId
         """
-        pilImage = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        pilImage = Image.fromarray(pilImage).convert('L')
-        predict_image = np.array(pilImage, 'uint8')
-        faces = self.faceDetector.run_detector(image)
-        print(f"number of faces detected : {len(faces)}")
+        base_path = path.join(self.neuralNetworksPath, f"{neural_network_id}")
+        files = [path.join(base_path, f) for f in listdir(base_path)]
+        detected_faces = self.faceDetector.run_detector(image)
+        print(f"number of faces detected : {len(detected_faces)}")
         result = []
-        for (startX, startY, endX, endY) in faces:
-            nbr_predicted, conf = self.recognizer.predict(predict_image[startY:endY, startX:endX])
-            result.append((nbr_predicted, conf, [startX, startY, endX, endY]))
-
-    @exception
-    def recognize_face_and_print_result(self, image, nbr_actual):
-        """
-        :param image: openCvImage
-        :param nbr_actual: int
-        :return: None
-        """
-        pilImage = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        pilImage = Image.fromarray(pilImage).convert('L')
-        predict_image = np.array(pilImage, 'uint8')
-        faces = self.faceDetector.run_detector(image)
-        print(f"number of faces detected : {len(faces)}")
-        for (startX, startY, endX, endY) in faces:
-            nbr_predicted, conf = self.recognizer.predict(predict_image[startY:endY, startX:endX])
-            if nbr_actual == nbr_predicted:
-                print("{} is Correctly Recognized with confidence {}".format(nbr_actual, conf))
-            else:
-                print("{} is Incorrectly Recognized as {}".format(nbr_actual, nbr_predicted))
-            cv2.imshow("Recognizing Face", image[startY:endY, startX:endX])
-            cv2.waitKey(5000)
-            cv2.destroyAllWindows()
+        for file in files:
+            self.recognizer = self.neuralNetworkCreator.create_neural_network(file)
+            for (startX, startY, endX, endY) in detected_faces:
+                predict_image = self.imageConverter.convert_to_pil_image(image[startY:endY, startX:endX])
+                nbr_predicted, confidence = self.recognizer.predict(predict_image)
+                result.append((file, nbr_predicted, confidence, [startX, startY, endX, endY]))
+        return result

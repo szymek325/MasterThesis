@@ -5,7 +5,8 @@ from PIL import Image
 
 from configuration_global.config_reader import ConfigReader
 from configuration_global.logger_factory import LoggerFactory
-from faceDetection.haar_face_detector import HaarFaceDetector
+from opencv_client.face_detection.haar_face_detector import HaarFaceDetector
+from opencv_client.image_converters.image_converter import ImageConverter
 
 
 class TrainingDataConverter():
@@ -14,6 +15,7 @@ class TrainingDataConverter():
         self.config = ConfigReader()
         self.peoplePath = self.config.local_people_path
         self.faceDetector = HaarFaceDetector()
+        self.imageConverter = ImageConverter()
 
     def get_training_data(self, people_ids):
         """
@@ -21,20 +23,18 @@ class TrainingDataConverter():
         :rtype: array of face samples, samples people id
         """
         self.logger.info("preparing training data")
-        width_d, height_d = 280, 280  # Declare your own width and height
         face_samples = []
         ids = []
         for person_id in people_ids:
             person_path = os.path.join(self.peoplePath, f"{person_id}")
             image_paths = [os.path.join(person_path, f) for f in os.listdir(person_path)]
             for imagePath in image_paths:
-                pil_image = Image.open(imagePath).convert("RGB")
-                opencv_image = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)
-                faces = self.faceDetector.run_detector(opencv_image)
+                open_cv_image = cv2.imread(imagePath)
+                faces = self.faceDetector.run_detector(open_cv_image)
                 if len(faces) is not 0:
-                    image_np = np.array(pil_image.convert('L'), 'uint8')
                     for (startX, startY, endX, endY) in faces:
-                        face_samples.append(cv2.resize(image_np[startY:endY, startX:endX], (width_d, height_d)))
+                        np_image = self.imageConverter.convert_to_np_array(open_cv_image[startY:endY, startX:endX])
+                        face_samples.append(np_image)
                         ids.append(person_id)
                         self.logger.info('adding sample to learning array')
         return face_samples, np.array(ids)
