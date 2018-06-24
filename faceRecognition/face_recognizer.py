@@ -1,7 +1,8 @@
 from faceDetection.dnn_face_detector import DnnFaceDetector
+from faceDetection.haar_face_detector import HaarFaceDetector
 from faceRecognition.configuration.config_reader import ConfigReader
 from configuration_global.exception_handler import exception
-from configuration_global.files_manager import FilesManager
+from domain.files_manager import FilesManager
 from configuration_global.logger_factory import LoggerFactory
 from PIL import Image
 import cv2
@@ -16,7 +17,7 @@ class FaceRecognizer:
         self.logger = LoggerFactory()
         self.faceDetector = DnnFaceDetector()
         self.recognizer = cv2.face.LBPHFaceRecognizer_create()
-        self.recognizer.read(f"{self.config.openCv_files_path}faceRecognizer.yml")
+        self.recognizer.read(f"{self.config.openCv_files_path}/faceRecognizer.yml")
 
     @exception
     def recognize_faces_on_image(self, image):

@@ -1,7 +1,7 @@
 from faceDetection.dnn_face_detector import DnnFaceDetector
 from faceRecognition.configuration.config_reader import ConfigReader
 from configuration_global.exception_handler import exception
-from configuration_global.files_manager import FilesManager
+from domain.files_manager import FilesManager
 from configuration_global.logger_factory import LoggerFactory
 from PIL import Image
 import numpy as np
@@ -34,7 +34,7 @@ class FaceRecognitionTrainer:
                     ids.append(faceId)
                     self.logger.info('adding sample to learning array')
         self.recognizer.train(faceSamples, np.array(ids))
-        self.recognizer.write(f'{self.config.openCv_files_path}faceRecognizer.yml')
+        self.recognizer.write(f'{self.config.openCv_files_path}/faceRecognizer.yml')
 
 
 

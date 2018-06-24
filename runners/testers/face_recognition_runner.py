@@ -1,6 +1,6 @@
 from faceRecognition.face_recognizer import FaceRecognizer
 from configuration_global.exception_handler import exception
-from configuration_global.files_manager import FilesManager
+from domain.files_manager import FilesManager
 from configuration_global.logger_factory import LoggerFactory
 from PIL import Image
 import numpy as np

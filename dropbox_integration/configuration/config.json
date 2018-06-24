@@ -1,5 +1,6 @@
 {
   "dropbox_access_token": "bJ90jq_k1TAAAAAAAAAABiHGq8c16qGnRew7tKYN1yJdChP3CRiPIpOG30ExjVkZ",
-  "face_detection_jobs_path": "/faceDetection"
+  "face_detection_jobs_path": "/faceDetection",
+  "base_path":"/Azure"
 }
 
