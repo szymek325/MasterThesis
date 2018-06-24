@@ -12,15 +12,16 @@ namespace DropboxIntegration.Folders
     {
         private readonly string basePath;
         private readonly DropboxClient dbxClient;
-        private readonly IOptions<DropboxConfiguration> dropboxConfiguration;
+        private readonly IDropboxClientFactory dropboxClientFactory;
         private readonly ILogger<FoldersClient> logger;
 
-        public FoldersClient(ILogger<FoldersClient> logger, IOptions<DropboxConfiguration> dropboxConfiguration)
+
+        public FoldersClient(ILogger<FoldersClient> logger, IDropboxClientFactory dropboxClientFactory)
         {
-            dbxClient = DropboxClientFactory.GetDropboxClient();
             this.logger = logger;
-            this.dropboxConfiguration = dropboxConfiguration;
-            basePath = dropboxConfiguration.Value.Path;
+            this.dropboxClientFactory = dropboxClientFactory;
+            basePath = this.dropboxClientFactory.GetBasePath();
+            dbxClient = this.dropboxClientFactory.GetDropboxClient();
         }
 
         public async Task<ListFolderResult> GetFolderContent(string folderPath)

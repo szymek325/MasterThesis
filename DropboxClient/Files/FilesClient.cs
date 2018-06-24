@@ -13,17 +13,17 @@ namespace DropboxIntegration.Files
 {
     public class FilesClient : IFilesClient
     {
-        private readonly DropboxClient dbxClient;
         private readonly ILogger<FilesClient> logger;
-        private readonly IOptions<DropboxConfiguration> dropboxConfiguration;
+        private readonly IDropboxClientFactory dropboxClientFactory;
         private readonly string basePath;
+        private readonly DropboxClient dbxClient;
 
-        public FilesClient(ILogger<FilesClient> logger, IOptions<DropboxConfiguration> dropboxConfiguration)
+        public FilesClient(ILogger<FilesClient> logger, IDropboxClientFactory dropboxClientFactory)
         {
-            dbxClient = DropboxClientFactory.GetDropboxClient();
             this.logger = logger;
-            this.dropboxConfiguration = dropboxConfiguration;
-            basePath = dropboxConfiguration.Value.Path;
+            this.dropboxClientFactory = dropboxClientFactory;
+            basePath = this.dropboxClientFactory.GetBasePath();
+            dbxClient = this.dropboxClientFactory.GetDropboxClient();
         }
 
         public async Task Delete(string folder, string file=null)

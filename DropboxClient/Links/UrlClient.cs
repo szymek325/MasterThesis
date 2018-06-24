@@ -10,12 +10,14 @@ namespace DropboxIntegration.Links
     public class UrlClient : IUrlClient
     {
         private readonly DropboxClient dbxClient;
+        private readonly IDropboxClientFactory dropboxClientFactory;
         private readonly ILogger<UrlClient> logger;
 
-        public UrlClient( ILogger<UrlClient> logger)
+        public UrlClient( ILogger<UrlClient> logger, IDropboxClientFactory dropboxClientFactory)
         {
-            dbxClient = DropboxClientFactory.GetDropboxClient();
             this.logger = logger;
+            this.dropboxClientFactory = dropboxClientFactory;
+            dbxClient = this.dropboxClientFactory.GetDropboxClient();
         }
 
         public async Task<string> CreateLinkToFile(string pathToFile)

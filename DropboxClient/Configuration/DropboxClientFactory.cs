@@ -1,19 +1,28 @@
-﻿using Dropbox.Api;
+﻿using Common;
+using Dropbox.Api;
+using Microsoft.Extensions.Options;
 
 namespace DropboxIntegration.Configuration
 {
-    public static class DropboxClientFactory
+    public class DropboxClientFactory:IDropboxClientFactory
     {
-        private static readonly DropboxClient client;
+        private readonly DropboxClient client;
+        private readonly string basePath;
 
-        static DropboxClientFactory()
+        public DropboxClientFactory(IOptions<DropboxConfiguration> dropboxConfiguration)
         {
-            client = new DropboxClient("bJ90jq_k1TAAAAAAAAAABiHGq8c16qGnRew7tKYN1yJdChP3CRiPIpOG30ExjVkZ");
+            client = new DropboxClient(dropboxConfiguration.Value.ConnectionKey);
+            basePath = dropboxConfiguration.Value.Path;
         }
 
-        public static DropboxClient GetDropboxClient()
+        public DropboxClient GetDropboxClient()
         {
             return client;
+        }
+
+        public string GetBasePath()
+        {
+            return basePath;
         }
     }
 }

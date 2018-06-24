@@ -8,18 +8,20 @@ namespace DropboxIntegration.User
 {
     public class AccountClient : IAccountClient
     {
-        private readonly DropboxClient dbClient;
+        private readonly DropboxClient dbxClient;
         private readonly ILogger<AccountClient> logger;
+        private readonly IDropboxClientFactory dropboxClientFactory;
 
-        public AccountClient(ILogger<AccountClient> logger)
+        public AccountClient(ILogger<AccountClient> logger, IDropboxClientFactory dropboxClientFactory)
         {
             this.logger = logger;
-            dbClient = DropboxClientFactory.GetDropboxClient();
+            this.dropboxClientFactory = dropboxClientFactory;
+            dbxClient = this.dropboxClientFactory.GetDropboxClient();
         }
 
         public async Task<FullAccount> GetAccountDataAsync()
         {
-            var fullAccountInfo = await dbClient.Users.GetCurrentAccountAsync();
+            var fullAccountInfo = await dbxClient.Users.GetCurrentAccountAsync();
             logger.LogInformation($"Logges as user {fullAccountInfo.Name}");
             return fullAccountInfo;
         }
