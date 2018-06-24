@@ -14,14 +14,15 @@ namespace Domain.FaceDetection
 {
     public class FaceDetectionService : IFaceDetectionService
     {
+        private readonly IDetectionImageRepository detectionImagesRepository;
         private readonly IDetectionRepository detectionRepository;
         private readonly IFilesDomainService filesService;
         private readonly IGuidProvider guid;
         private readonly ILogger<FaceDetectionService> logger;
         private readonly IMapper mapper;
-        private readonly IDetectionImageRepository detectionImagesRepository;
 
-        public FaceDetectionService(IDetectionRepository detectionRepository, IFilesDomainService filesService, IGuidProvider guid,
+        public FaceDetectionService(IDetectionRepository detectionRepository, IFilesDomainService filesService,
+            IGuidProvider guid,
             ILogger<FaceDetectionService> logger, IMapper mapper, IDetectionImageRepository detectionImagesRepository)
         {
             this.detectionRepository = detectionRepository;
@@ -36,22 +37,19 @@ namespace Domain.FaceDetection
         {
             try
             {
-
-                var newDetection = new DataLayer.Entities.Detection
+                var newDetection = new Detection
                 {
                     Name = request.Name,
                     StatusId = 1,
                     Images = request.Files.Select(x => new DetectionImage
                     {
-                        Name = x.FileName,
+                        Name = x.FileName
                     }).ToList()
                 };
                 detectionRepository.Add(newDetection);
                 detectionRepository.Save();
 
-                //TODO
-                var deteIm = new DetectionImage();
-                await filesService.Upload(request.Files, $"{deteIm.GetType().ToString().ToLower()}/{newDetection.Id}");
+                await filesService.Upload(request.Files, $"{nameof(DetectionImage)}/{newDetection.Id}");
 
                 return newDetection.Id;
             }
@@ -86,9 +84,7 @@ namespace Domain.FaceDetection
             var filesWithoutUrl = detectionJob.Images.Where(x => x.Url == null).ToList();
             if (filesWithoutUrl.Any())
             {
-                //TODO
-                var deteIm = new DetectionImage();
-                var links = await filesService.GetLinksToFilesInFolder($"{deteIm.GetType().ToString().ToLower()}/{detectionJob.Id}");
+                var links = await filesService.GetLinksToFilesInFolder($"{nameof(DetectionImage)}/{detectionJob.Id}");
 
                 foreach (var file in filesWithoutUrl)
                 {

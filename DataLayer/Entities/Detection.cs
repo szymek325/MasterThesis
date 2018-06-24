@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using DataLayer.Entities.Common;
 
 namespace DataLayer.Entities
 {

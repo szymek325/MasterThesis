@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using DataLayer.Entities;
+using DataLayer.Entities.Common;
 using DataLayer.Repositories.Interface;
 using Domain.Files.DTO;
 using Dropbox.Client.Files;
@@ -15,8 +15,8 @@ namespace Domain.Files
 {
     public class FilesDomainService : IFilesDomainService
     {
-        private readonly IFilesClient filesClient;
         private readonly IFileRepository fileRepository;
+        private readonly IFilesClient filesClient;
         private readonly IFoldersClient foldersClient;
         private readonly ILogger<FilesDomainService> logger;
         private readonly IMapper mapper;

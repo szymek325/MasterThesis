@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DataLayer.Entities.Common;
+using DataLayer.Entities.ManyToManyHelper;
 using DataLayer.Extensions;
 
 namespace DataLayer.Entities
@@ -20,7 +21,6 @@ namespace DataLayer.Entities
 
         private ICollection<NeuralNetworkPerson> NeuralNetworkPeople { get; } = new List<NeuralNetworkPerson>();
 
-        [NotMapped]
-        public IEnumerable<NeuralNetwork> NeuralNetworks { get; }
+        [NotMapped] public IEnumerable<NeuralNetwork> NeuralNetworks { get; }
     }
 }

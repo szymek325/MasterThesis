@@ -1,4 +1,4 @@
-﻿namespace DataLayer.Entities
+﻿namespace DataLayer.Entities.Common
 {
     public interface IImage
     {

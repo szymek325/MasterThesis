@@ -17,12 +17,18 @@ namespace DataLayer
             SeedDb(services);
 
             services.AddTransient<IDetectionRepository, Repositories.Implementation.DetectionRepository>();
-            services.AddTransient<ISensorsReadingRepository, SensorsReadingRepository>();
             services.AddTransient<IDetectionImageRepository, DetectionImageRepository>();
+
             services.AddTransient<IPersonRepository, PersonRepository>();
-            services.AddTransient<INeuralNetworkRepository, NeuralNetworkRepository>();
-            services.AddTransient<IDetectionRepository, Repositories.Implementation.DetectionRepository>();
+            services.AddTransient<IPersonImageRepository, PersonImageRepository>();
+
             services.AddTransient<IRecognitionRepository, RecognitionRepository>();
+            services.AddTransient<IRecognitionImageRepository, RecognitionImageRepository>();
+
+            services.AddTransient<IFileRepository, FileRepository>();
+
+            services.AddTransient<ISensorsReadingRepository, SensorsReadingRepository>();
+            services.AddTransient<INeuralNetworkRepository, NeuralNetworkRepository>();
 
             return services;
         }

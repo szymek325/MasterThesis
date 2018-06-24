@@ -6,25 +6,23 @@ using AutoMapper;
 using DataLayer.Entities;
 using DataLayer.Repositories.Interface;
 using Domain.Configuration;
-using Domain.FaceDetection.DTO;
 using Domain.FaceRecognition.DTO;
 using Domain.Files;
-using Domain.Files.DTO;
 using Microsoft.Extensions.Logging;
-using NewRequest = Domain.FaceRecognition.DTO.NewRequest;
 
 namespace Domain.FaceRecognition
 {
     public class FaceRecognitionService : IFaceRecognitionService
     {
-        private readonly IRecognitionRepository recoRepo;
         private readonly IFilesDomainService filesService;
-        private readonly IMapper mapper;
         private readonly IGuidProvider guid;
         private readonly ILogger<FaceRecognitionService> logger;
+        private readonly IMapper mapper;
         private readonly IRecognitionImageRepository recognitionImagesRepository;
+        private readonly IRecognitionRepository recoRepo;
 
-        public FaceRecognitionService(IRecognitionRepository recoRepo, IFilesDomainService filesService, IMapper mapper, IGuidProvider guid,
+        public FaceRecognitionService(IRecognitionRepository recoRepo, IFilesDomainService filesService, IMapper mapper,
+            IGuidProvider guid,
             ILogger<FaceRecognitionService> logger, IRecognitionImageRepository recognitionImagesRepository)
         {
             this.recoRepo = recoRepo;
@@ -57,23 +55,20 @@ namespace Domain.FaceRecognition
         {
             try
             {
-
-                var newRecognition = new DataLayer.Entities.Recognition()
+                var newRecognition = new Recognition
                 {
                     Name = request.Name,
                     StatusId = 1,
                     NeuralNetworkId = request.NeuralNetworkId,
-                    Images = request.Files.Select(x => new RecognitionImage()
+                    Images = request.Files.Select(x => new RecognitionImage
                     {
-                        Name = x.FileName,
+                        Name = x.FileName
                     }).ToList()
                 };
                 recoRepo.Add(newRecognition);
                 recoRepo.Save();
 
-                //TODO
-                var recoIm=new RecognitionImage();
-                await filesService.Upload(request.Files, $"{recoIm.GetType().ToString().ToLower()}/{newRecognition.Id}");
+                await filesService.Upload(request.Files, $"{nameof(RecognitionImage)}/{newRecognition.Id}");
 
                 return newRecognition.Id;
             }
@@ -90,9 +85,8 @@ namespace Domain.FaceRecognition
             var filesWithoutUrl = recognitionJob.Images.Where(x => x.Url == null).ToList();
             if (filesWithoutUrl.Any())
             {
-                //TODO
-                var recoIm = new RecognitionImage();
-                var links = await filesService.GetLinksToFilesInFolder($"{recoIm.GetType().ToString().ToLower()}/{recognitionJob.Id}");
+                var links = await filesService.GetLinksToFilesInFolder(
+                    $"{nameof(RecognitionImage)}/{recognitionJob.Id}");
 
                 foreach (var file in filesWithoutUrl)
                 {

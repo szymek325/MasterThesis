@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using AutoMapper;
 using DataLayer.Entities;
+using DataLayer.Entities.Common;
 using Domain.FaceDetection.DTO;
 using Domain.FaceRecognition.DTO;
 using Domain.Files.DTO;

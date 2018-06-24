@@ -1,6 +1,6 @@
 ﻿using DataLayer.Extensions;
 
-namespace DataLayer.Entities
+namespace DataLayer.Entities.ManyToManyHelper
 {
     public class NeuralNetworkPerson : IJoinEntity<NeuralNetwork>, IJoinEntity<Person>
     {

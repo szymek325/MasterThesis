@@ -36,8 +36,6 @@ namespace Domain.People
         {
             try
             {
-                var personGuid = guid.NewGuidAsString;
-                await filesService.Upload(input.Files, $"{personGuid}");
 
                 var person = new Person
                 {
@@ -49,6 +47,8 @@ namespace Domain.People
                 };
                 peopleRepo.Add(person);
                 peopleRepo.Save();
+
+                await filesService.Upload(input.Files, $"{nameof(RecognitionImage)}/{person.Id}");
 
                 return person.Id;
             }
@@ -83,9 +83,7 @@ namespace Domain.People
             var filesWithoutUrl = person.Images.Where(x => x.Url == null).ToList();
             if (filesWithoutUrl.Any())
             {
-                //TODO
-                var personIm = new PersonImage();
-                var links = await filesService.GetLinksToFilesInFolder($"{personIm.GetType().ToString().ToLower()}/{person.Id}");
+                var links = await filesService.GetLinksToFilesInFolder($"{nameof(PersonImage)}/{person.Id}");
 
                 foreach (var file in filesWithoutUrl)
                 {

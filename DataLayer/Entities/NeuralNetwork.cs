@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using DataLayer.Entities.Common;
+using DataLayer.Entities.ManyToManyHelper;
 using DataLayer.Extensions;
 
 namespace DataLayer.Entities

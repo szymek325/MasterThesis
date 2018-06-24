@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using DataLayer.Entities;
+using DataLayer.Entities.Common;
+using DataLayer.Entities.ManyToManyHelper;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer
