@@ -3,7 +3,7 @@ using DataLayer.Repositories.Base;
 
 namespace DataLayer.Repositories.Interface
 {
-    public interface IFileRepository : IGenericRepository<File>
+    public interface IPersonImageRepository : IGenericRepository<PersonImage>
     {
     }
 }

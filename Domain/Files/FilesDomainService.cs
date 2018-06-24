@@ -16,21 +16,21 @@ namespace Domain.Files
     public class FilesDomainService : IFilesDomainService
     {
         private readonly IFilesClient filesClient;
-        private readonly IFileRepository filesRepository;
+        private readonly IDetectionImageRepository detectionImagesRepository;
         private readonly IFoldersClient foldersClient;
         private readonly ILogger<FilesDomainService> logger;
         private readonly IMapper mapper;
         private readonly IUrlClient urlClient;
 
         public FilesDomainService(IFilesClient filesClient, IFoldersClient foldersClient,
-            ILogger<FilesDomainService> logger, IMapper mapper, IUrlClient urlClient, IFileRepository filesRepository)
+            ILogger<FilesDomainService> logger, IMapper mapper, IUrlClient urlClient, IDetectionImageRepository detectionImagesRepository)
         {
             this.filesClient = filesClient;
             this.foldersClient = foldersClient;
             this.logger = logger;
             this.mapper = mapper;
             this.urlClient = urlClient;
-            this.filesRepository = filesRepository;
+            this.detectionImagesRepository = detectionImagesRepository;
         }
 
         public async Task Upload(IEnumerable<FileToUpload> files, string location)
@@ -78,8 +78,8 @@ namespace Domain.Files
             {
                 file.Thumbnail =
                     await filesClient.DownloadThumbnail($"/{file.ParentGuid}", file.Name);
-                filesRepository.Update(file);
-                filesRepository.Save();
+                detectionImagesRepository.Update(file);
+                detectionImagesRepository.Save();
             }
             catch (Exception ex)
             {
@@ -92,8 +92,8 @@ namespace Domain.Files
             try
             {
                 await filesClient.Delete($"/{file.ParentGuid}/{file.Name}");
-                filesRepository.Delete(file.Id);
-                filesRepository.Save();
+                detectionImagesRepository.Delete(file.Id);
+                detectionImagesRepository.Save();
             }
             catch (Exception ex)
             {
@@ -108,8 +108,8 @@ namespace Domain.Files
             if (files.Any())
             {
                 await filesClient.Delete($"/{files.First().ParentGuid}");
-                foreach (var file in files) filesRepository.Delete(file.Id);
-                filesRepository.Save();
+                foreach (var file in files) detectionImagesRepository.Delete(file.Id);
+                detectionImagesRepository.Save();
             }
         }
 

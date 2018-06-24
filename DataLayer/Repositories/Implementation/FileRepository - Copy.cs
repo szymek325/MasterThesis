@@ -4,9 +4,9 @@ using DataLayer.Repositories.Interface;
 
 namespace DataLayer.Repositories.Implementation
 {
-    public  class FileRepository : GenericRepository<File>, IFileRepository
+    public  class PersonImageRepository : GenericRepository<PersonImage>, IPersonImageRepository
     {
-        public FileRepository(MasterContext context) : base(context)
+        public PersonImageRepository(MasterContext context) : base(context)
         {
         }
     }

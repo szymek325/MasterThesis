@@ -14,17 +14,17 @@ namespace Domain.People
 {
     public class PeopleService : IPeopleService
     {
-        private readonly IFileRepository filesRepository;
+        private readonly IDetectionImageRepository detectionImagesRepository;
         private readonly IFilesDomainService filesService;
         private readonly IGuidProvider guid;
         private readonly ILogger<PeopleService> logger;
         private readonly IMapper mapper;
         private readonly IPersonRepository peopleRepo;
 
-        public PeopleService(IFileRepository filesRepository, IFilesDomainService filesService, IGuidProvider guid,
+        public PeopleService(IDetectionImageRepository detectionImagesRepository, IFilesDomainService filesService, IGuidProvider guid,
             ILogger<PeopleService> logger, IMapper mapper, IPersonRepository peopleRepo)
         {
-            this.filesRepository = filesRepository;
+            this.detectionImagesRepository = detectionImagesRepository;
             this.filesService = filesService;
             this.guid = guid;
             this.logger = logger;
@@ -43,7 +43,7 @@ namespace Domain.People
                 {
                     Name = input.Name,
                     Guid = personGuid,
-                    Files = input.Files.Select(x => new File
+                    Images = input.Files.Select(x => new File
                     {
                         Name = x.FileName,
                         ParentGuid = personGuid
@@ -67,8 +67,8 @@ namespace Domain.People
             try
             {
                 foreach (var person in people)
-                    if (person.Files.Any() && string.IsNullOrWhiteSpace(person.Files.First().Thumbnail))
-                        await filesService.GetThumbnail(person.Files.First());
+                    if (person.Images.Any() && string.IsNullOrWhiteSpace(person.Images.First().Thumbnail))
+                        await filesService.GetThumbnail(person.Images.First());
             }
             catch (Exception ex)
             {
@@ -82,17 +82,17 @@ namespace Domain.People
         public async Task<PersonOutput> GetPersonById(int id)
         {
             var person = peopleRepo.GetPersonById(id);
-            var filesWithoutUrl = person.Files.Where(x => x.Url == null).ToList();
+            var filesWithoutUrl = person.Images.Where(x => x.Url == null).ToList();
             if (filesWithoutUrl.Any())
             {
                 var links = await filesService.GetLinksToFilesInFolder($"/{person.Guid}");
                 foreach (var file in filesWithoutUrl)
                 {
                     file.Url = links.FirstOrDefault(x => x.FileName == file.Name)?.Url;
-                    filesRepository.Update(file);
+                    detectionImagesRepository.Update(file);
                 }
 
-                filesRepository.Save();
+                detectionImagesRepository.Save();
             }
 
             var respone = mapper.Map<PersonOutput>(person);
@@ -104,7 +104,7 @@ namespace Domain.People
             try
             {
                 var person = peopleRepo.GetPersonById(id);
-                await filesService.DeleteFiles(person.Files);
+                await filesService.DeleteFiles(person.Images);
                 peopleRepo.Delete(person.Id);
                 peopleRepo.Save();
             }

@@ -16,10 +16,7 @@ namespace DataLayer.Entities
         public string Name { get; set; }
         public string Description { get; set; }
 
-        [Required]
-        public string Guid { get; set; }
-
-        public IEnumerable<File> Files { get; set; }
+        public IEnumerable<PersonImage> Images { get; set; }
 
         private ICollection<NeuralNetworkPerson> NeuralNetworkPeople { get; } = new List<NeuralNetworkPerson>();
 

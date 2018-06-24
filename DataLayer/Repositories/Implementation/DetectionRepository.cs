@@ -1,0 +1,26 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using DataLayer.Entities;
+using DataLayer.Repositories.Base;
+using DataLayer.Repositories.Interface;
+using Microsoft.EntityFrameworkCore;
+
+namespace DataLayer.Repositories.Implementation
+{
+    public class DetectionRepository : GenericRepository<Detection>, IDetectionRepository
+    {
+        public DetectionRepository(MasterContext context) : base(context)
+        {
+        }
+
+        public IEnumerable<Detection> GetAllFaces()
+        {
+            return GetAll().Include(x => x.Status).Include(x=>x.Images).AsEnumerable();
+        }
+
+        public Detection GetRequestById(int id)
+        {
+            return GetAll().Include(x => x.Status).Include(x => x.Images).FirstOrDefault(x => x.Id == id);
+        }
+    }
+}
