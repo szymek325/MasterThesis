@@ -1,6 +1,6 @@
 from configuration_global.exception_handler import exception
 from dataLayer.database_connection import Base, engine, Session
-from dataLayer.entities.face_recognition import FaceRecognition
+from dataLayer.entities.recognition import Recognition
 
 
 class FaceRecognitionRepository():
@@ -9,7 +9,7 @@ class FaceRecognitionRepository():
     def get_all_not_completed(self):
         Base.metadata.create_all(engine)
         session = Session()
-        requests = session.query(FaceRecognition).filter_by(statusId=1)
+        requests = session.query(Recognition).filter_by(statusId=1)
         session.close()
         return requests
 
@@ -17,7 +17,7 @@ class FaceRecognitionRepository():
     def complete_request(self, request_id):
         Base.metadata.create_all(engine)
         session = Session()
-        requests = session.query(FaceRecognition).filter_by(id=request_id)
+        requests = session.query(Recognition).filter_by(id=request_id)
         for req in requests:
             req.statusId = 3
         session.commit()

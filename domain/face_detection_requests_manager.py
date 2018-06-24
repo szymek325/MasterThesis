@@ -1,8 +1,9 @@
 import cv2
 
 from configuration_global.config_reader import ConfigReader
+from configuration_global.exception_handler import exception
 from configuration_global.logger_factory import LoggerFactory
-from dataLayer.entities.face_detection import FaceDetection
+from dataLayer.entities.detection import Detection
 from dataLayer.repositories.face_detection_repository import FaceDetectionRepository
 from dataLayer.repositories.file_repository import FileRepository
 from domain.directory_manager import DirectoryManager
@@ -22,20 +23,19 @@ class FaceDetectionRequestsManager():
         self.requests_path = self.config.face_detection_requests_path
         self.haar_file_name = "haar.jpg"
         self.dnn_file_name = "dnn.jpg"
+        self.dropbox_base_path = "DetectionImage"
 
-    def process_request(self, request: FaceDetection):
+    @exception
+    def process_request(self, request: Detection):
         self.logger.info(f"Working on Face Detection Request id: {request.id} started")
-        try:
-            input_file = self.dbxClient.download_single_file_from_folder(request.guid, self.requests_path)
-            image = cv2.imread(f'{self.requests_path}{request.guid}/{input_file}')
-            faces_detected_by_haar, faces_detected_by_dnn = self.faceDetectorsManager.get_faces_on_image(image)
-            save_path = f"{self.requests_path}{request.guid}"
-            self.__prepare_results__(save_path, faces_detected_by_dnn, faces_detected_by_haar, image)
-            self.__upload_results__(save_path, request.guid,request.id)
-            self.faceDetectionRepository.complete_request(request.id, len(faces_detected_by_haar),
+        input_file = self.dbxClient.download_single_file_from_folder(f"{self.dropbox_base_path}/{request.id}", self.requests_path)
+        image = cv2.imread(f'{self.requests_path}{self.dropbox_base_path}/{request.id}/{input_file}')
+        faces_detected_by_haar, faces_detected_by_dnn = self.faceDetectorsManager.get_faces_on_image(image)
+        save_path = f"{self.requests_path}{self.dropbox_base_path}/{request.id}"
+        self.__prepare_results__(save_path, faces_detected_by_dnn, faces_detected_by_haar, image)
+        self.__upload_results__(save_path, f"{self.dropbox_base_path}/{request.id}", request.id)
+        self.faceDetectionRepository.complete_request(request.id, len(faces_detected_by_haar),
                                                           len(faces_detected_by_dnn))
-        except:
-            self.logger.error(f"Exception occurred during face detection request {request.id} ")
         self.logger.info(f"Finished Face Detection Request id: {request.id} ")
 
     def __prepare_results__(self, save_path, faces_detected_by_dnn, faces_detected_by_haar, image):
@@ -58,5 +58,5 @@ class FaceDetectionRequestsManager():
         dnn_file = open(f"{path_to_files}/{self.dnn_file_name}", 'rb')
         self.dbxClient.upload_file(haar_file.read(), request_guid, self.haar_file_name)
         self.dbxClient.upload_file(dnn_file.read(), request_guid, self.dnn_file_name)
-        self.files_repository.add_file(self.haar_file_name, request_id)
-        self.files_repository.add_file(self.dnn_file_name, request_id)
+        self.files_repository.add_detection_file(self.haar_file_name, request_id)
+        self.files_repository.add_detection_file(self.dnn_file_name, request_id)

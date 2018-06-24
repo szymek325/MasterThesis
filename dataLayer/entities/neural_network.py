@@ -5,7 +5,7 @@ from dataLayer.database_connection import Base
 
 
 class NeuralNetwork(Base):
-    __tablename__ = 'NeuralNetworks'
+    __tablename__ = 'NeuralNetwork'
 
     id = Column('Id', Integer, primary_key=True)
     name = Column('Name', String)
