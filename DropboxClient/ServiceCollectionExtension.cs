@@ -1,4 +1,5 @@
-﻿using DropboxIntegration.Files;
+﻿using DropboxIntegration.Configuration;
+using DropboxIntegration.Files;
 using DropboxIntegration.Folders;
 using DropboxIntegration.Links;
 using DropboxIntegration.User;
@@ -10,6 +11,7 @@ namespace DropboxIntegration
     {
         public static IServiceCollection AddDropboxConnector(this IServiceCollection services)
         {
+            services.AddTransient<IDropboxClientFactory, DropboxClientFactory>();
             services.AddTransient<IFilesClient, FilesClient>();
             services.AddTransient<IFoldersClient, FoldersClient>();
             services.AddTransient<IAccountClient, AccountClient>();
