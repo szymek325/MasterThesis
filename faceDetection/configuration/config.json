@@ -1,7 +1,0 @@
-{
-  "face_cascade_path": "lbpcascade_frontalface_improved.xml",
-  "proto_txt": "deploy.prototxt.txt",
-  "dnn_model": "res10_300x300_ssd_iter_140000.caffemodel",
-  "required_face_confidence": 0.5
-}
-

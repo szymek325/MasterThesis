@@ -26,7 +26,7 @@ class FaceDetectionRequestsManager():
     def process_request(self, request: FaceDetection):
         self.logger.info(f"Working on Face Detection Request id: {request.id} started")
         try:
-            input_file = self.dbxClient.download_face_detection_input(request.guid, self.requests_path)
+            input_file = self.dbxClient.download_single_file_from_folder(request.guid, self.requests_path)
             image = cv2.imread(f'{self.requests_path}{request.guid}/{input_file}')
             faces_detected_by_haar, faces_detected_by_dnn = self.faceDetectorsManager.get_faces_on_image(image)
             save_path = f"{self.requests_path}{request.guid}"

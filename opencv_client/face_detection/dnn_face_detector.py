@@ -1,9 +1,10 @@
 import cv2
 import numpy
 
-from faceDetection.configuration.config_reader import ConfigReader
 from configuration_global.exception_handler import exception
 import os
+
+from opencv_client.configuration.config_reader import ConfigReader
 
 
 class DnnFaceDetector:

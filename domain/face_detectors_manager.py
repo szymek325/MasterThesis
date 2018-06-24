@@ -1,7 +1,7 @@
 from configuration_global.config_reader import ConfigReader
 from configuration_global.logger_factory import LoggerFactory
-from faceDetection.dnn_face_detector import DnnFaceDetector
-from faceDetection.haar_face_detector import HaarFaceDetector
+from opencv_client.face_detection.dnn_face_detector import DnnFaceDetector
+from opencv_client.face_detection.haar_face_detector import HaarFaceDetector
 
 
 class FaceDetectorsManager():
@@ -18,3 +18,15 @@ class FaceDetectorsManager():
                          f"\n   Haar: {faces_detected_by_haar}"
                          f"\n   DNN: {faces_detected_by_dnn}")
         return faces_detected_by_haar, faces_detected_by_dnn
+
+    def get_face_by_haar(self, image):
+        faces_detected_by_haar = self.haarDetector.run_detector(image)
+        self.logger.info(f"Faces detected by "
+                         f"\n   Haar: {faces_detected_by_haar}")
+        return faces_detected_by_haar
+
+    def get_face_by_dnn(self, image):
+        faces_detected_by_dnn = self.dnnDetector.run_detector(image)
+        self.logger.info(f"Faces detected by "
+                         f"\n   DNN: {faces_detected_by_dnn}")
+        return faces_detected_by_dnn

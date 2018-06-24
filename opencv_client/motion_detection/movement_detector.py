@@ -2,7 +2,7 @@ import cv2
 import imutils
 from configuration_global.exception_handler import exception
 from configuration_global.logger_factory import LoggerFactory
-from motionDetection.configuration.config_reader import ConfigReader
+from opencv_client.motion_detection.configuration.config_reader import ConfigReader
 
 
 class MovementDetector:
