@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace DropboxIntegration.Files
+namespace Dropbox.Client.Files
 {
     public interface IFilesClient
     {

@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Dropbox.Api;
 using Dropbox.Api.Users;
-using DropboxIntegration.Configuration;
+using Dropbox.Client.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace DropboxIntegration.User
+namespace Dropbox.Client.User
 {
     public class AccountClient : IAccountClient
     {

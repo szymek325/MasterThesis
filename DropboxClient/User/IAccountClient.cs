@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Dropbox.Api.Users;
 
-namespace DropboxIntegration.User
+namespace Dropbox.Client.User
 {
     public interface IAccountClient
     {

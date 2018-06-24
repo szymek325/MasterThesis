@@ -1,6 +1,7 @@
 using AutoMapper;
-using Common;
+using DataLayer.Configuration;
 using Domain;
+using Dropbox.Client.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;

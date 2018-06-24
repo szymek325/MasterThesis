@@ -6,9 +6,9 @@ using AutoMapper;
 using DataLayer.Entities;
 using DataLayer.Repositories.Interface;
 using Domain.Files.DTO;
-using DropboxIntegration.Files;
-using DropboxIntegration.Folders;
-using DropboxIntegration.Links;
+using Dropbox.Client.Files;
+using Dropbox.Client.Folders;
+using Dropbox.Client.Links;
 using Microsoft.Extensions.Logging;
 
 namespace Domain.Files
@@ -108,10 +108,7 @@ namespace Domain.Files
             if (files.Any())
             {
                 await filesClient.Delete($"/{files.First().ParentGuid}");
-                foreach (var file in files)
-                {
-                    filesRepository.Delete(file.Id);
-                }
+                foreach (var file in files) filesRepository.Delete(file.Id);
                 filesRepository.Save();
             }
         }

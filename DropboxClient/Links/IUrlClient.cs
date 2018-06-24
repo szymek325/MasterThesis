@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Dropbox.Api.Sharing;
 
-namespace DropboxIntegration.Links
+namespace Dropbox.Client.Links
 {
     public interface IUrlClient
     {

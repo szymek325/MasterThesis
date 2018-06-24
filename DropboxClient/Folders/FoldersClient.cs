@@ -1,12 +1,10 @@
 ﻿using System.Threading.Tasks;
-using Common;
 using Dropbox.Api;
 using Dropbox.Api.Files;
-using DropboxIntegration.Configuration;
+using Dropbox.Client.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
-namespace DropboxIntegration.Folders
+namespace Dropbox.Client.Folders
 {
     public class FoldersClient : IFoldersClient
     {

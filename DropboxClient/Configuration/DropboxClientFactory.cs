@@ -1,8 +1,7 @@
-﻿using Common;
-using Dropbox.Api;
+﻿using Dropbox.Api;
 using Microsoft.Extensions.Options;
 
-namespace DropboxIntegration.Configuration
+namespace Dropbox.Client.Configuration
 {
     public class DropboxClientFactory:IDropboxClientFactory
     {

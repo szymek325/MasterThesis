@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using Common;
+using DataLayer.Configuration;
 using DataLayer.Repositories.Implementation;
 using DataLayer.Repositories.Interface;
 using Microsoft.EntityFrameworkCore;

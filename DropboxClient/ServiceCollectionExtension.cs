@@ -1,11 +1,11 @@
-﻿using DropboxIntegration.Configuration;
-using DropboxIntegration.Files;
-using DropboxIntegration.Folders;
-using DropboxIntegration.Links;
-using DropboxIntegration.User;
+﻿using Dropbox.Client.Configuration;
+using Dropbox.Client.Files;
+using Dropbox.Client.Folders;
+using Dropbox.Client.Links;
+using Dropbox.Client.User;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DropboxIntegration
+namespace Dropbox.Client
 {
     public static class ServiceCollectionExtension
     {

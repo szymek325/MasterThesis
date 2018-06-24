@@ -1,4 +1,4 @@
-﻿namespace Common
+﻿namespace Dropbox.Client.Configuration
 {
     public class DropboxConfiguration
     {

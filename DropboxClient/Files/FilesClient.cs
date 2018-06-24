@@ -2,21 +2,19 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Common;
 using Dropbox.Api;
 using Dropbox.Api.Files;
-using DropboxIntegration.Configuration;
+using Dropbox.Client.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
-namespace DropboxIntegration.Files
+namespace Dropbox.Client.Files
 {
     public class FilesClient : IFilesClient
     {
-        private readonly ILogger<FilesClient> logger;
-        private readonly IDropboxClientFactory dropboxClientFactory;
         private readonly string basePath;
         private readonly DropboxClient dbxClient;
+        private readonly IDropboxClientFactory dropboxClientFactory;
+        private readonly ILogger<FilesClient> logger;
 
         public FilesClient(ILogger<FilesClient> logger, IDropboxClientFactory dropboxClientFactory)
         {
@@ -26,14 +24,14 @@ namespace DropboxIntegration.Files
             dbxClient = this.dropboxClientFactory.GetDropboxClient();
         }
 
-        public async Task Delete(string folder, string file=null)
+        public async Task Delete(string folder, string file = null)
         {
             var path = $"{basePath}/{folder}/{file}";
             var result = await dbxClient.Files.DeleteV2Async(path);
             if (result.Metadata.IsDeleted)
             {
                 logger.LogError($"Files were not deleted from {path}");
-                throw  new Exception("Files were not deleted.");
+                throw new Exception("Files were not deleted.");
             }
         }
 
@@ -62,7 +60,7 @@ namespace DropboxIntegration.Files
             }
             catch (Exception ex)
             {
-                logger.LogError($"Exception when retrieving thumbnail from path {path}");
+                logger.LogError($"Exception when retrieving thumbnail from path {path}",ex);
             }
 
             return thumbnail;

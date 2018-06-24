@@ -1,6 +1,6 @@
 ﻿using Dropbox.Api;
 
-namespace DropboxIntegration.Configuration
+namespace Dropbox.Client.Configuration
 {
     public interface IDropboxClientFactory
     {

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Dropbox.Api.Files;
 
-namespace DropboxIntegration.Folders
+namespace Dropbox.Client.Folders
 {
     public interface IFoldersClient
     {

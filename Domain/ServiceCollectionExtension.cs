@@ -6,7 +6,7 @@ using Domain.Files;
 using Domain.NeuralNetwork;
 using Domain.People;
 using Domain.SensorsReading;
-using DropboxIntegration;
+using Dropbox.Client;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Domain
@@ -24,7 +24,7 @@ namespace Domain
             services.AddTransient<IPeopleService, PeopleService>();
             services.AddTransient<IGuidProvider, GuidProvider>();
             services.AddTransient<INeuralNetworkService, NeuralNetworkService>();
-            services.AddTransient<IFaceRecognitionService,FaceRecognitionService>();
+            services.AddTransient<IFaceRecognitionService, FaceRecognitionService>();
 
             return services;
         }

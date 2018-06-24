@@ -8,7 +8,6 @@ using DataLayer.Repositories.Interface;
 using Domain.Configuration;
 using Domain.Files;
 using Domain.People.DTO;
-using DropboxIntegration.Files;
 using Microsoft.Extensions.Logging;
 
 namespace Domain.People

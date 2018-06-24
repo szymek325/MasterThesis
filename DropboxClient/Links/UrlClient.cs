@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using Dropbox.Api;
 using Dropbox.Api.Sharing;
-using DropboxIntegration.Configuration;
+using Dropbox.Client.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace DropboxIntegration.Links
+namespace Dropbox.Client.Links
 {
     public class UrlClient : IUrlClient
     {

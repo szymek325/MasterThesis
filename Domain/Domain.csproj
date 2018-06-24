@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
-    <ProjectReference Include="..\DropboxClient\DropboxIntegration.csproj" />
+    <ProjectReference Include="..\DropboxClient\Dropbox.Client.csproj" />
   </ItemGroup>
 
 </Project>
