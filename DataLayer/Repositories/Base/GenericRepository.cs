@@ -20,9 +20,9 @@ namespace DataLayer.Repositories.Base
             context.Set<T>().Add(entity);
         }
 
-        public void Delete(T entity)
+        public void Delete(int id)
         {
-            var existing = context.Set<T>().Find(entity);
+            var existing = context.Set<T>().Find(id);
             if (existing != null) context.Set<T>().Remove(existing);
         }
 
@@ -36,10 +36,20 @@ namespace DataLayer.Repositories.Base
             return context.Set<T>().Where(predicate).AsEnumerable();
         }
 
+        public IQueryable<T> GetAll()
+        {
+            return context.Set<T>();
+        }
+
         public void Update(T entity)
         {
             context.Entry(entity).State = EntityState.Modified;
-            context.Set<T>().Attach(entity);
+            context.Set<T>().Update(entity);
+        }
+
+        public void Save()
+        {
+            context.SaveChanges();
         }
     }
 }

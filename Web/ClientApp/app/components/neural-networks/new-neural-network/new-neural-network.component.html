@@ -1,0 +1,33 @@
+<div class="container">
+    <h1>New neural network</h1>
+    <p *ngIf="!people">
+        <em>Loading...</em>
+    </p>
+
+    <form [formGroup]="neuralNetworkForm" (ngSubmit)="onClickSubmit(neuralNetworkForm.value)" *ngIf="people">
+        <alert></alert>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" formControlName="name" id="name" ngModel>
+        </div>
+
+        <div class="form-group">
+            <label for="people">People:</label>
+            <div *ngFor="let person of people">
+                <label>
+                    <input type="checkbox"
+                           name="people"
+                           value="{{person.id}}"
+                           [(ngModel)]="person.checked"
+                           formControlName="people" />
+                    {{person.name}}
+                    <img src="data:image/jpeg;base64,{{person.thumbnail}}" />
+                </label>
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" [disabled]="!(neuralNetworkForm.valid)" class="btn btn-success">Submit</button>
+        </div>
+    </form>
+</div>

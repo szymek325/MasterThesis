@@ -3,37 +3,45 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{5C3BD191-33E3-42A2-8774-0F51C52D5F2F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer", "DataLayer\DataLayer.csproj", "{0D1A7399-9DA2-462A-AFB5-6ED47ECAE3D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{59A4835B-972C-4558-A1FA-67287A9C1B63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{59A4835B-972C-4558-A1FA-67287A9C1B63}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dropbox.Client", "DropboxClient\Dropbox.Client.csproj", "{5992707F-A1EE-4543-B78C-EFB1D76B60DE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{57356DF6-EF05-4793-8E1C-1261630D90A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Azure|Any CPU = Azure|Any CPU
 		Debug|Any CPU = Debug|Any CPU
-		gearHost|Any CPU = gearHost|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5C3BD191-33E3-42A2-8774-0F51C52D5F2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C3BD191-33E3-42A2-8774-0F51C52D5F2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C3BD191-33E3-42A2-8774-0F51C52D5F2F}.gearHost|Any CPU.ActiveCfg = gearHost|Any CPU
-		{5C3BD191-33E3-42A2-8774-0F51C52D5F2F}.gearHost|Any CPU.Build.0 = gearHost|Any CPU
-		{5C3BD191-33E3-42A2-8774-0F51C52D5F2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C3BD191-33E3-42A2-8774-0F51C52D5F2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D1A7399-9DA2-462A-AFB5-6ED47ECAE3D9}.Azure|Any CPU.ActiveCfg = Azure|Any CPU
+		{0D1A7399-9DA2-462A-AFB5-6ED47ECAE3D9}.Azure|Any CPU.Build.0 = Azure|Any CPU
 		{0D1A7399-9DA2-462A-AFB5-6ED47ECAE3D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0D1A7399-9DA2-462A-AFB5-6ED47ECAE3D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D1A7399-9DA2-462A-AFB5-6ED47ECAE3D9}.gearHost|Any CPU.ActiveCfg = gearHost|Any CPU
-		{0D1A7399-9DA2-462A-AFB5-6ED47ECAE3D9}.gearHost|Any CPU.Build.0 = gearHost|Any CPU
 		{0D1A7399-9DA2-462A-AFB5-6ED47ECAE3D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D1A7399-9DA2-462A-AFB5-6ED47ECAE3D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59A4835B-972C-4558-A1FA-67287A9C1B63}.Azure|Any CPU.ActiveCfg = Azure|Any CPU
+		{59A4835B-972C-4558-A1FA-67287A9C1B63}.Azure|Any CPU.Build.0 = Azure|Any CPU
 		{59A4835B-972C-4558-A1FA-67287A9C1B63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{59A4835B-972C-4558-A1FA-67287A9C1B63}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59A4835B-972C-4558-A1FA-67287A9C1B63}.gearHost|Any CPU.ActiveCfg = Debug|Any CPU
-		{59A4835B-972C-4558-A1FA-67287A9C1B63}.gearHost|Any CPU.Build.0 = Debug|Any CPU
 		{59A4835B-972C-4558-A1FA-67287A9C1B63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59A4835B-972C-4558-A1FA-67287A9C1B63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5992707F-A1EE-4543-B78C-EFB1D76B60DE}.Azure|Any CPU.ActiveCfg = Azure|Any CPU
+		{5992707F-A1EE-4543-B78C-EFB1D76B60DE}.Azure|Any CPU.Build.0 = Azure|Any CPU
+		{5992707F-A1EE-4543-B78C-EFB1D76B60DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5992707F-A1EE-4543-B78C-EFB1D76B60DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5992707F-A1EE-4543-B78C-EFB1D76B60DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5992707F-A1EE-4543-B78C-EFB1D76B60DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57356DF6-EF05-4793-8E1C-1261630D90A6}.Azure|Any CPU.ActiveCfg = Azure|Any CPU
+		{57356DF6-EF05-4793-8E1C-1261630D90A6}.Azure|Any CPU.Build.0 = Azure|Any CPU
+		{57356DF6-EF05-4793-8E1C-1261630D90A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57356DF6-EF05-4793-8E1C-1261630D90A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57356DF6-EF05-4793-8E1C-1261630D90A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57356DF6-EF05-4793-8E1C-1261630D90A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

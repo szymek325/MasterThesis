@@ -1,0 +1,24 @@
+<button type="button" class="btn btn-default" (click)="newPerson()">Create new Known person</button>
+
+<p *ngIf="!people">
+    <em>Loading...</em>
+</p>
+
+<table class="table" *ngIf="people">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Photo</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let person of people">
+            <td>{{ person.id }}</td>
+            <td>{{ person.name }}</td>
+            <td><img src="data:image/jpeg;base64,{{person.thumbnail}}" /></td>
+            <td class="btn btn-success" (click)="showPerson(person.id)">Show</td>
+            <td class="btn btn-danger" (click)="deletePerson(person.id)">Delete</td>
+        </tr>
+    </tbody>
+</table>

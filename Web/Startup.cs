@@ -1,8 +1,10 @@
-using DataLayer;
+using AutoMapper;
+using DataLayer.Configuration;
+using Domain;
+using Dropbox.Client.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,12 +15,6 @@ namespace Web
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            //var builder = new ConfigurationBuilder()
-            //    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            //    .AddJsonFile($"appsettings.gearHost.json", optional: true)
-            //    .AddJsonFile($"appsettings.Development.json", optional: true)
-            //    .AddEnvironmentVariables();
-            //Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -27,9 +23,10 @@ namespace Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDbContext<MasterContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                    x => x.MigrationsAssembly("DataLayer")));
+            services.AddAutoMapper();
+            services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+            services.Configure<DropboxConfiguration>(Configuration.GetSection("DropboxConfiguration"));
+            services.AddDomainModule();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
