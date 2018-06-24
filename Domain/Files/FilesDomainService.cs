@@ -16,21 +16,21 @@ namespace Domain.Files
     public class FilesDomainService : IFilesDomainService
     {
         private readonly IFilesClient filesClient;
-        private readonly IDetectionImageRepository detectionImagesRepository;
+        private readonly IFileRepository fileRepository;
         private readonly IFoldersClient foldersClient;
         private readonly ILogger<FilesDomainService> logger;
         private readonly IMapper mapper;
         private readonly IUrlClient urlClient;
 
         public FilesDomainService(IFilesClient filesClient, IFoldersClient foldersClient,
-            ILogger<FilesDomainService> logger, IMapper mapper, IUrlClient urlClient, IDetectionImageRepository detectionImagesRepository)
+            ILogger<FilesDomainService> logger, IMapper mapper, IUrlClient urlClient, IFileRepository fileRepository)
         {
             this.filesClient = filesClient;
             this.foldersClient = foldersClient;
             this.logger = logger;
             this.mapper = mapper;
             this.urlClient = urlClient;
-            this.detectionImagesRepository = detectionImagesRepository;
+            this.fileRepository = fileRepository;
         }
 
         public async Task Upload(IEnumerable<FileToUpload> files, string location)
@@ -72,14 +72,14 @@ namespace Domain.Files
         }
 
 
-        public async Task GetThumbnail(File file)
+        public async Task GetThumbnail(IImage file)
         {
             try
             {
                 file.Thumbnail =
-                    await filesClient.DownloadThumbnail($"/{file.ParentGuid}", file.Name);
-                detectionImagesRepository.Update(file);
-                detectionImagesRepository.Save();
+                    await filesClient.DownloadThumbnail($"/{file.GetType().ToString().ToLower()}/{file.Id}", file.Name);
+                fileRepository.Update(file);
+                fileRepository.Save();
             }
             catch (Exception ex)
             {
@@ -87,29 +87,30 @@ namespace Domain.Files
             }
         }
 
-        public async Task DeleteSingleFile(File file)
+        public async Task DeleteSingleFile(IImage file)
         {
             try
             {
-                await filesClient.Delete($"/{file.ParentGuid}/{file.Name}");
-                detectionImagesRepository.Delete(file.Id);
-                detectionImagesRepository.Save();
+                await filesClient.Delete($"/{file.GetType().ToString().ToLower()}/{file.Id}/{file.Name}");
+                fileRepository.Delete(file.Id);
+                fileRepository.Save();
             }
             catch (Exception ex)
             {
                 logger.LogError(
-                    $"Exception when deleting file /{file.ParentGuid}/{file.Name}", ex);
+                    $"Exception when deleting file /{file.GetType().ToString().ToLower()}/{file.Id}/{file.Name}", ex);
             }
         }
 
-        public async Task DeleteFiles(IEnumerable<File> files)
+        public async Task DeleteFiles(IEnumerable<IImage> files)
         {
             files = files.ToList();
             if (files.Any())
             {
-                await filesClient.Delete($"/{files.First().ParentGuid}");
-                foreach (var file in files) detectionImagesRepository.Delete(file.Id);
-                detectionImagesRepository.Save();
+                var firstFile = files.First();
+                await filesClient.Delete($"/{firstFile.GetType().ToString().ToLower()}/{firstFile.Id}");
+                foreach (var file in files) fileRepository.Delete(file.Id);
+                fileRepository.Save();
             }
         }
 

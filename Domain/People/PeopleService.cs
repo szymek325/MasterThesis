@@ -14,17 +14,17 @@ namespace Domain.People
 {
     public class PeopleService : IPeopleService
     {
-        private readonly IDetectionImageRepository detectionImagesRepository;
+        private readonly IPersonImageRepository personImagesRepository;
         private readonly IFilesDomainService filesService;
         private readonly IGuidProvider guid;
         private readonly ILogger<PeopleService> logger;
         private readonly IMapper mapper;
         private readonly IPersonRepository peopleRepo;
 
-        public PeopleService(IDetectionImageRepository detectionImagesRepository, IFilesDomainService filesService, IGuidProvider guid,
+        public PeopleService(IPersonImageRepository personImagesRepository, IFilesDomainService filesService, IGuidProvider guid,
             ILogger<PeopleService> logger, IMapper mapper, IPersonRepository peopleRepo)
         {
-            this.detectionImagesRepository = detectionImagesRepository;
+            this.personImagesRepository = personImagesRepository;
             this.filesService = filesService;
             this.guid = guid;
             this.logger = logger;
@@ -42,11 +42,9 @@ namespace Domain.People
                 var person = new Person
                 {
                     Name = input.Name,
-                    Guid = personGuid,
-                    Images = input.Files.Select(x => new File
+                    Images = input.Files.Select(x => new PersonImage()
                     {
                         Name = x.FileName,
-                        ParentGuid = personGuid
                     }).ToList()
                 };
                 peopleRepo.Add(person);
@@ -85,14 +83,17 @@ namespace Domain.People
             var filesWithoutUrl = person.Images.Where(x => x.Url == null).ToList();
             if (filesWithoutUrl.Any())
             {
-                var links = await filesService.GetLinksToFilesInFolder($"/{person.Guid}");
+                //TODO
+                var personIm = new PersonImage();
+                var links = await filesService.GetLinksToFilesInFolder($"{personIm.GetType().ToString().ToLower()}/{person.Id}");
+
                 foreach (var file in filesWithoutUrl)
                 {
                     file.Url = links.FirstOrDefault(x => x.FileName == file.Name)?.Url;
-                    detectionImagesRepository.Update(file);
+                    personImagesRepository.Update(file);
                 }
 
-                detectionImagesRepository.Save();
+                personImagesRepository.Save();
             }
 
             var respone = mapper.Map<PersonOutput>(person);
