@@ -6,5 +6,6 @@
         string Name { get; set; }
         string Thumbnail { get; set; }
         string Url { get; set; }
+        string GetPath();
     }
 }

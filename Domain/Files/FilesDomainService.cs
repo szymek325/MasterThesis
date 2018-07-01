@@ -77,7 +77,7 @@ namespace Domain.Files
             try
             {
                 file.Thumbnail =
-                    await filesClient.DownloadThumbnail($"/{file.GetType().ToString().ToLower()}/{file.Id}", file.Name);
+                    await filesClient.DownloadThumbnail($"/{file.GetPath()}", file.Name);
                 fileRepository.Update(file);
                 fileRepository.Save();
             }
@@ -91,14 +91,14 @@ namespace Domain.Files
         {
             try
             {
-                await filesClient.Delete($"/{file.GetType().ToString().ToLower()}/{file.Id}/{file.Name}");
+                await filesClient.Delete($"/{file.GetPath()}/{file.Name}");
                 fileRepository.Delete(file.Id);
                 fileRepository.Save();
             }
             catch (Exception ex)
             {
                 logger.LogError(
-                    $"Exception when deleting file /{file.GetType().ToString().ToLower()}/{file.Id}/{file.Name}", ex);
+                    $"Exception when deleting file /{file.GetPath()}/{file.Name}", ex);
             }
         }
 
@@ -108,8 +108,9 @@ namespace Domain.Files
             if (files.Any())
             {
                 var firstFile = files.First();
-                await filesClient.Delete($"/{firstFile.GetType().ToString().ToLower()}/{firstFile.Id}");
-                foreach (var file in files) fileRepository.Delete(file.Id);
+                await filesClient.Delete($"/{firstFile.GetPath()}");
+                foreach (var file in files)
+                    fileRepository.Delete(file.Id);
                 fileRepository.Save();
             }
         }

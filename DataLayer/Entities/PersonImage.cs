@@ -1,4 +1,5 @@
-﻿using DataLayer.Entities.Common;
+﻿using System.IO;
+using DataLayer.Entities.Common;
 
 namespace DataLayer.Entities
 {
@@ -9,5 +10,9 @@ namespace DataLayer.Entities
         public string Name { get; set; }
         public string Thumbnail { get; set; }
         public string Url { get; set; }
+        public string GetPath()
+        {
+            return $"{nameof(PersonImage)}/{Id}";
+        }
     }
 }
