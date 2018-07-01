@@ -4,7 +4,7 @@ from configuration_global.logger_factory import LoggerFactory
 from sqlalchemy import null
 
 from dataLayer.repositories.neural_network_repository import NeuralNetworkRepository
-from domain.neural_network_requests_manager import NeuralNetworkRequestsManager
+from domain.neural_network.neural_network_requests_manager import NeuralNetworkRequestsManager
 
 
 class NeuralNetworkCreationProcess():

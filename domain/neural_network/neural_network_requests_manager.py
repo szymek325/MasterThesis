@@ -2,7 +2,7 @@ from configuration_global.config_reader import ConfigReader
 from configuration_global.logger_factory import LoggerFactory
 from dataLayer.entities.neural_network import NeuralNetwork
 from dataLayer.repositories.neural_network_repository import NeuralNetworkRepository
-from domain.neural_network_uploader import NeuralNetworkUploader
+from domain.neural_network.neural_network_uploader import NeuralNetworkUploader
 from opencv_client.face_recognition.neural_network_trainer import NeuralNetworkTrainer
 from opencv_client.face_recognition.training_data_converter import TrainingDataConverter
 from people.people_downloader import PeopleDownloader

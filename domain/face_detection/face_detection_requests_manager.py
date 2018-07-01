@@ -6,7 +6,7 @@ from configuration_global.logger_factory import LoggerFactory
 from dataLayer.entities.detection import Detection
 from dataLayer.repositories.face_detection_repository import FaceDetectionRepository
 from domain.face_detection.results_operator import ResultsOperator
-from domain.face_detectors_manager import FaceDetectorsManager
+from domain.face_detection.face_detectors_manager import FaceDetectorsManager
 from dropbox_integration.dropbox_client import DropboxClient
 
 
