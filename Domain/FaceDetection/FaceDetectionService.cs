@@ -49,7 +49,7 @@ namespace Domain.FaceDetection
                 detectionRepository.Add(newDetection);
                 detectionRepository.Save();
 
-                await filesService.Upload(request.Files, $"{nameof(DetectionImage)}/{newDetection.Id}");
+                await filesService.Upload(request.Files, $"{ImageTypes.DetectionImage}/{newDetection.Id}");
 
                 return newDetection.Id;
             }
@@ -84,7 +84,7 @@ namespace Domain.FaceDetection
             var filesWithoutUrl = detectionJob.Images.Where(x => x.Url == null).ToList();
             if (filesWithoutUrl.Any())
             {
-                var links = await filesService.GetLinksToFilesInFolder($"{nameof(DetectionImage)}/{detectionJob.Id}");
+                var links = await filesService.GetLinksToFilesInFolder($"{ImageTypes.DetectionImage}/{detectionJob.Id}");
 
                 foreach (var file in filesWithoutUrl)
                 {

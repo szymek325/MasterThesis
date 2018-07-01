@@ -21,4 +21,8 @@
     <ProjectReference Include="..\DropboxClient\Dropbox.Client.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
+
 </Project>
