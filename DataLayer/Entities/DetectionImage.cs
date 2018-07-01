@@ -13,7 +13,7 @@ namespace DataLayer.Entities
 
         public string GetPath()
         {
-            return $"{nameof(DetectionImage)}/{Id}";
+            return $"{nameof(DetectionImage)}/{DetectionId}";
         }
     }
 }

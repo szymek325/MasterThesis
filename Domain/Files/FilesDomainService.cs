@@ -77,7 +77,7 @@ namespace Domain.Files
             try
             {
                 file.Thumbnail =
-                    await filesClient.DownloadThumbnail($"/{file.GetPath()}", file.Name);
+                    await filesClient.DownloadThumbnail($"{file.GetPath()}", file.Name);
                 fileRepository.Update(file);
                 fileRepository.Save();
             }
@@ -91,7 +91,7 @@ namespace Domain.Files
         {
             try
             {
-                await filesClient.Delete($"/{file.GetPath()}/{file.Name}");
+                await filesClient.Delete(file.GetPath(), file.Name);
                 fileRepository.Delete(file.Id);
                 fileRepository.Save();
             }
@@ -104,14 +104,21 @@ namespace Domain.Files
 
         public async Task DeleteFiles(IEnumerable<IImage> files)
         {
-            files = files.ToList();
-            if (files.Any())
+            try
             {
-                var firstFile = files.First();
-                await filesClient.Delete($"/{firstFile.GetPath()}");
-                foreach (var file in files)
-                    fileRepository.Delete(file.Id);
-                fileRepository.Save();
+                files = files.ToList();
+                if (files.Any())
+                {
+                    var firstFile = files.First();
+                    await foldersClient.DeleteFolder($"{firstFile.GetPath()}");
+                    foreach (var file in files)
+                        fileRepository.Delete(file.Id);
+                    fileRepository.Save();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("exception when deleteing folder", ex);
             }
         }
 
