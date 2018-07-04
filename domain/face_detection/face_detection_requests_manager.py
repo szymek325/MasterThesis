@@ -7,7 +7,7 @@ from dataLayer.entities.detection import Detection
 from dataLayer.repositories.face_detection_repository import FaceDetectionRepository
 from domain.face_detection.results_operator import ResultsOperator
 from domain.face_detection.face_detectors_manager import FaceDetectorsManager
-from dropbox_integration.dropbox_client import DropboxClient
+from domain.files_manager.files_downloader import FilesDownloader
 
 
 class FaceDetectionRequestsManager():
@@ -17,21 +17,17 @@ class FaceDetectionRequestsManager():
         self.faceDetectionRepository = FaceDetectionRepository()
         self.faceDetectorsManager = FaceDetectorsManager()
         self.resultsOperator = ResultsOperator()
-
-        self.dbxClient = DropboxClient()
-        self.requests_path = self.config.face_detection_requests_path
-        self.dropbox_base_path = "DetectionImage"
+        self.filesDownloader=FilesDownloader()
 
     @exception
     def process_request(self, request: Detection):
         self.logger.info(f"Working on Face Detection Request id: {request.id} started")
-        input_file = self.dbxClient.download_single_file(f"{self.dropbox_base_path}/{request.id}",
-                                                         self.requests_path)
-        image = cv2.imread(f'{self.requests_path}{self.dropbox_base_path}/{request.id}/{input_file}')
+        input_file_path = self.filesDownloader.download_detection_input(request.id)
+        image = cv2.imread(input_file_path)
         faces_detected_by_haar, faces_detected_by_dnn = self.faceDetectorsManager.get_faces_on_image(image)
-        save_path = f"{self.requests_path}{self.dropbox_base_path}/{request.id}"
-        self.resultsOperator.prepare_results(save_path, faces_detected_by_dnn, faces_detected_by_haar, image)
-        self.resultsOperator.upload_results(save_path, f"{self.dropbox_base_path}/{request.id}", request.id)
+
+        self.resultsOperator.upload_results(request.id, faces_detected_by_dnn, faces_detected_by_haar, image)
+
         self.faceDetectionRepository.complete_request(request.id, len(faces_detected_by_haar),
                                                       len(faces_detected_by_dnn))
         self.logger.info(f"Finished Face Detection Request id: {request.id} ")
