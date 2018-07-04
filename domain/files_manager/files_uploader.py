@@ -11,4 +11,4 @@ class FilesUploader():
 
     def upload_detection_output(self, request_id: int, file, file_name):
         dropbox_save_location = os.path.join(self.pathsProvider.dropbox_detection_image_path(), str(request_id), file_name).replace("\\","/")
-        self.dropbox.download_single_file(dropbox_save_location, file)
+        self.dropbox.upload_file(dropbox_save_location, file)

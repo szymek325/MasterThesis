@@ -17,7 +17,7 @@ class FaceDetectionRequestsManager():
         self.faceDetectionRepository = FaceDetectionRepository()
         self.faceDetectorsManager = FaceDetectorsManager()
         self.resultsOperator = ResultsOperator()
-        self.filesDownloader=FilesDownloader()
+        self.filesDownloader = FilesDownloader()
 
     @exception
     def process_request(self, request: Detection):
