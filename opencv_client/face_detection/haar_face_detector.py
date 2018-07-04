@@ -2,7 +2,7 @@ import cv2
 from configuration_global.exception_handler import exception
 import os
 
-from opencv_client.configuration.config_reader import OpenCvConfigurationReader
+from opencv_client.configuration.opencv_configuration_reader import OpenCvConfigurationReader
 
 
 class HaarFaceDetector:

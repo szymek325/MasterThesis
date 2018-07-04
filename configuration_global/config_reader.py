@@ -18,7 +18,6 @@ class ConfigReader:
     def local_files_path(self):
         return os.path.join(self.project_directory, self.configuration["local_files_path"])
 
-    # te na pewno potrzebne
     @property
     def use_local_environment(self):
         if platform.system() == "Windows":

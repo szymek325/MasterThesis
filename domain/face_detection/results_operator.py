@@ -4,7 +4,7 @@ import cv2
 
 from configuration_global.paths_provider import PathsProvider
 from dataLayer.repositories.file_repository import FileRepository
-from domain.files_manager.files_uploader import FilesUploader
+from dropbox_integration.files_uploader import FilesUploader
 from opencv_client.image_editor import ImageEditor
 
 

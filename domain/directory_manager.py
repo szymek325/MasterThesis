@@ -1,7 +1,6 @@
 import os
 import shutil
 
-from configuration_global.config_reader import ConfigReader
 from configuration_global.exception_handler import exception
 from configuration_global.paths_provider import PathsProvider
 

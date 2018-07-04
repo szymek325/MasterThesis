@@ -7,7 +7,7 @@ from dataLayer.entities.detection import Detection
 from dataLayer.repositories.face_detection_repository import FaceDetectionRepository
 from domain.face_detection.results_operator import ResultsOperator
 from domain.face_detection.face_detectors_manager import FaceDetectorsManager
-from domain.files_manager.files_downloader import FilesDownloader
+from dropbox_integration.files_downloader import FilesDownloader
 
 
 class FaceDetectionRequestsManager():
