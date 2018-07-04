@@ -3,13 +3,13 @@ from configuration_global.exception_handler import exception
 from domain.files_manager import FilesManager
 import os
 
-from opencv_client.configuration.config_reader import ConfigReader
+from opencv_client.configuration.config_reader import OpenCvConfigurationReader
 
 
 class HaarFaceDetector:
 
     def __init__(self):
-        self.configReader = ConfigReader()
+        self.configReader = OpenCvConfigurationReader()
         self.filesManager = FilesManager()
         self.faceCascade = cv2.CascadeClassifier(os.path.abspath(self.configReader.face_cascade_path))
 

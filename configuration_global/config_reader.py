@@ -1,5 +1,6 @@
 import json
 import os
+import platform
 
 
 class ConfigReader:
@@ -10,44 +11,23 @@ class ConfigReader:
         self.configuration = json.load(open(f"{self.dir_path}/config.json"))
 
     @property
-    def detected_motion_path(self):
-        return os.path.join(self.project_directory, self.configuration["detectedMotionPath"])
-
-    @property
-    def detected_face_save_path(self):
-        return os.path.join(self.project_directory, self.configuration["detectedFaceSavePath"])
-
-    @property
-    def training_data(self):
-        return os.path.join(self.project_directory, self.configuration["training_data"])
-
-    @property
     def logs_path(self):
         return os.path.join(self.project_directory, self.configuration["logs_path"])
 
     @property
-    def local_people_path(self):
-        return os.path.join(self.project_directory, self.configuration["local_people_path"])
+    def local_files_path(self):
+        return os.path.join(self.project_directory, self.configuration["local_files_path"])
 
+    # te na pewno potrzebne
     @property
-    def face_recognition_interval(self):
-        return self.configuration["face_recognition_interval"]
+    def use_local_environment(self):
+        if platform.system() == "Windows":
+            return self.configuration["use_local_environment"]
+        else:
+            return False
 
-    @property
-    def neural_networks_path(self):
-        return os.path.join(self.project_directory, self.configuration["neural_networks_path"])
-
-    @property
-    def face_detection_requests_path(self):
-        return os.path.join(self.project_directory,
-                            self.configuration["face_detection_requests_path"])
-
-    @property
-    def face_recognition_requests_path(self):
-        return os.path.join(self.project_directory,
-                            self.configuration["face_recognition_requests_path"])
-
-    @property
-    def neural_networks_path(self):
-        return os.path.join(self.project_directory,
-                            self.configuration["neural_networks_path"])
+    def environment_name(self):
+        if self.use_local_environment:
+            return self.configuration['environments']["debug"]
+        else:
+            return self.configuration['environments']["azure"]
