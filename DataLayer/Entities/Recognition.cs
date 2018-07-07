@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DataLayer.Entities.Common;
 
 namespace DataLayer.Entities
@@ -12,6 +13,7 @@ namespace DataLayer.Entities
         public NeuralNetwork NeuralNetwork { get; set; }
         public int? StatusId { get; set; }
         public Status Status { get; set; }
+        public DateTime CompletionTime { get; set; }
         public IEnumerable<RecognitionImage> Images { get; set; }
     }
 }

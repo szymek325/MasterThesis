@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using DataLayer.Entities.Common;
 using DataLayer.Entities.ManyToManyHelper;
@@ -16,6 +17,7 @@ namespace DataLayer.Entities
 
         public string Name { get; set; }
         public string Description { get; set; }
+        public DateTime CompletionTime { get; set; }
 
         public IEnumerable<PersonImage> Images { get; set; }
 
