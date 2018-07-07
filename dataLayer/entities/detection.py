@@ -4,13 +4,13 @@ from sqlalchemy.orm import relationship
 from dataLayer.database_connection import Base
 
 
-class FaceDetection(Base):
-    __tablename__ = 'FaceDetection'
+class Detection(Base):
+    __tablename__ = 'Detection'
 
     id = Column('Id', Integer, primary_key=True)
     dnnFaces = Column('DnnFaces', Integer)
     haarFaces = Column('HaarFaces', Integer)
     name = Column('Name', String)
     statusId = Column('StatusId', Integer)
-    guid = Column('Guid', String)
-    files = relationship("File")
+    images = relationship("DetectionImage")
+    completionTime = Column('CompletionTime', Date)

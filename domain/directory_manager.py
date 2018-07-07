@@ -1,13 +1,13 @@
 import os
 import shutil
 
-from configuration_global.config_reader import ConfigReader
 from configuration_global.exception_handler import exception
+from configuration_global.paths_provider import PathsProvider
 
 
 class DirectoryManager:
     def __init__(self):
-        self.config = ConfigReader()
+        self.pathProvider= PathsProvider()
 
     @exception
     def create_directory_if_doesnt_exist(self, directory):
@@ -16,5 +16,5 @@ class DirectoryManager:
 
     @exception
     def clean_face_detection_requests(self):
-        if os.path.exists(self.config.face_detection_requests_path):
-            shutil.rmtree(self.config.face_detection_requests_path)
+        if os.path.exists(self.pathProvider.local_detection_image_path()):
+            shutil.rmtree(self.pathProvider.local_detection_image_path())

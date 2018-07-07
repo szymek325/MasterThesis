@@ -1,4 +1,10 @@
 {
+  "local_files_path":"temp",
+  "use_local_environment":true,
+  "environments":{
+    "debug":"Debug",
+    "azure":"Azure"
+  },
   "detectedMotionPath": "temp/detectedMotion/",
   "detectedFaceSavePath": "temp/detectedFace/",
   "training_data": "temp/trainingFaces/",

@@ -4,12 +4,12 @@ import numpy
 from configuration_global.exception_handler import exception
 import os
 
-from opencv_client.configuration.config_reader import ConfigReader
+from opencv_client.configuration.opencv_configuration_reader import OpenCvConfigurationReader
 
 
 class DnnFaceDetector:
     def __init__(self):
-        self.configReader = ConfigReader()
+        self.configReader = OpenCvConfigurationReader()
         self.net = cv2.dnn.readNetFromCaffe(os.path.abspath(self.configReader.proto_txt),
                                             os.path.abspath(self.configReader.dnn_model))
 

@@ -4,6 +4,7 @@ from sqlalchemy import null
 
 from configuration_global.config_reader import ConfigReader
 from configuration_global.logger_factory import LoggerFactory
+from configuration_global.paths_provider import PathsProvider
 from dataLayer.repositories.neural_network_person_repository import NeuralnetworkPersonRepository
 from dataLayer.repositories.person_repository import PersonRepository
 from dropbox_integration.dropbox_client import DropboxClient
@@ -16,7 +17,8 @@ class PeopleDownloader():
         self.dbxClient = DropboxClient()
         self.nnpRepo = NeuralnetworkPersonRepository()
         self.peopleRepo = PersonRepository()
-        self.peoplePath = self.config.local_people_path
+        self.pathsProvider = PathsProvider()
+        self.peoplePath = self.pathsProvider.local_person_image_path()
 
     def get_all_required_people_to_local(self, request_id):
         """

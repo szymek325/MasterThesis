@@ -2,12 +2,12 @@ import json
 import os
 
 
-class ConfigReader:
+class OpenCvConfigurationReader:
 
     def __init__(self):
         self.dir_path = os.path.dirname(os.path.realpath(__file__))
         self.module_directory = os.path.abspath(os.path.join(self.dir_path, ".."))
-        self.configuration = json.load(open(f"{self.dir_path}/config.json"))
+        self.configuration = json.load(open(f"{self.dir_path}/opencv_configuration.json"))
 
     @property
     def face_cascade_path(self):
