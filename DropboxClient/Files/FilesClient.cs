@@ -24,7 +24,7 @@ namespace Dropbox.Client.Files
             dbxClient = this.dropboxClientFactory.GetDropboxClient();
         }
 
-        public async Task Delete(string folder, string file = null)
+        public async Task Delete(string folder, string file)
         {
             var path = $"{basePath}/{folder}/{file}";
             var result = await dbxClient.Files.DeleteV2Async(path);

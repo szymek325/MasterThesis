@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using DataLayer.Entities;
+using DataLayer.Entities.Common;
+using DataLayer.Entities.ManyToManyHelper;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer
@@ -13,11 +15,14 @@ namespace DataLayer
 
         public DbSet<SensorsReading> SensorsReadings { get; set; }
         public DbSet<Status> Statuses { get; set; }
-        public DbSet<FaceDetection> FaceDetections { get; set; }
-        public DbSet<File> Files { get; set; }
+        public DbSet<Detection> Detections { get; set; }
+        public DbSet<DetectionImage> DetectionImages { get; set; }
         public DbSet<Person> People { get; set; }
+        public DbSet<PersonImage> PersonImages { get; set; }
+        public DbSet<Recognition> Recognitions { get; set; }
+        public DbSet<RecognitionImage> RecognitionImages { get; set; }
         public DbSet<NeuralNetwork> NeuralNetworks { get; set; }
-        public DbSet<FaceRecognition> FaceRecognitions { get; set; }
+        public DbSet<NeuralNetworkPerson> NeuralNetworkPeople { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -48,23 +53,13 @@ namespace DataLayer
 
             modelBuilder.Entity<SensorsReading>().ToTable(nameof(SensorsReading));
             modelBuilder.Entity<Status>().ToTable(nameof(Status));
-            modelBuilder.Entity<FaceDetection>().ToTable(nameof(FaceDetection));
-            modelBuilder.Entity<File>().ToTable(nameof(File));
+            modelBuilder.Entity<Detection>().ToTable(nameof(Detection));
+            modelBuilder.Entity<DetectionImage>().ToTable(nameof(DetectionImage));
             modelBuilder.Entity<Person>().ToTable(nameof(Person));
-
+            modelBuilder.Entity<PersonImage>().ToTable(nameof(PersonImage));
+            modelBuilder.Entity<Recognition>().ToTable(nameof(Recognition));
+            modelBuilder.Entity<RecognitionImage>().ToTable(nameof(RecognitionImage));
+            modelBuilder.Entity<NeuralNetwork>().ToTable(nameof(NeuralNetwork));
         }
     }
-
-    //public class TemporaryDbContextFactory : IDesignTimeDbContextFactory<MasterContext>
-    //{
-    //    MasterContext IDesignTimeDbContextFactory<MasterContext>.CreateDbContext(string[] args)
-    //    {
-    //        var builder = new DbContextOptionsBuilder<MasterContext>();
-    //        builder.UseSqlServer(
-    //            "Data Source=den1.mssql6.gear.host;Initial Catalog=masterthesisdb;Integrated Security=False;User ID=masterthesisdb;Password=Zp9P?Q!ezuXH;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
-    //            optionsBuilder =>
-    //                optionsBuilder.MigrationsAssembly(typeof(MasterContext).GetTypeInfo().Assembly.GetName().Name));
-    //        return new MasterContext(builder.Options);
-    //    }
-    //}
 }

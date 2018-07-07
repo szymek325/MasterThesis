@@ -6,8 +6,8 @@ namespace Domain.NeuralNetwork
 {
     public interface INeuralNetworkService
     {
-        IEnumerable<NeuralNetworkOutput> GetAll();
+        IEnumerable<NeuralNetworkRequest> GetAll();
         int Create(string neuralNetworkName, string peopleIds);
-        NeuralNetworkOutput GetById(int id);
+        NeuralNetworkRequest GetById(int id);
     }
 }

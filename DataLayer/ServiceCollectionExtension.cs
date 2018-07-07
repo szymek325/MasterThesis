@@ -16,13 +16,19 @@ namespace DataLayer
             CreateContext(services);
             SeedDb(services);
 
-            services.AddTransient<IFaceDetectionRepository, FaceDetectionRepository>();
-            services.AddTransient<ISensorsReadingRepository, SensorsReadingRepository>();
-            services.AddTransient<IFileRepository, FileRepository>();
+            services.AddTransient<IDetectionRepository, Repositories.Implementation.DetectionRepository>();
+            services.AddTransient<IDetectionImageRepository, DetectionImageRepository>();
+
             services.AddTransient<IPersonRepository, PersonRepository>();
+            services.AddTransient<IPersonImageRepository, PersonImageRepository>();
+
+            services.AddTransient<IRecognitionRepository, RecognitionRepository>();
+            services.AddTransient<IRecognitionImageRepository, RecognitionImageRepository>();
+
+            services.AddTransient<IFileRepository, FileRepository>();
+
+            services.AddTransient<ISensorsReadingRepository, SensorsReadingRepository>();
             services.AddTransient<INeuralNetworkRepository, NeuralNetworkRepository>();
-            services.AddTransient<IFaceDetectionRepository, FaceDetectionRepository>();
-            services.AddTransient<IFaceRecognitionRepository, FaceRecognitionRepository>();
 
             return services;
         }

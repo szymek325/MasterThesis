@@ -1,4 +1,6 @@
-﻿namespace DataLayer.Entities
+﻿using DataLayer.Entities.Common;
+
+namespace DataLayer.Entities
 {
     public class SensorsReading : EntityBase
     {

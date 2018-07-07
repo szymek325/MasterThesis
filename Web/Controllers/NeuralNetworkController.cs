@@ -34,14 +34,14 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<NeuralNetworkOutput> GetAll()
+        public IEnumerable<NeuralNetworkRequest> GetAll()
         {
             var response = neuralNetworkService.GetAll();
             return response;
         }
 
         [HttpGet("[action]")]
-        public NeuralNetworkOutput Get(int id)
+        public NeuralNetworkRequest Get(int id)
         {
             var response = neuralNetworkService.GetById(id);
             return response;

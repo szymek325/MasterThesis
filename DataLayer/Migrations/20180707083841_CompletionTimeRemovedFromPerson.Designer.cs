@@ -11,9 +11,10 @@ using System;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(MasterContext))]
-    partial class MasterContextModelSnapshot : ModelSnapshot
+    [Migration("20180707083841_CompletionTimeRemovedFromPerson")]
+    partial class CompletionTimeRemovedFromPerson
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,7 +26,7 @@ namespace DataLayer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("CompletionTime");
+                    b.Property<DateTime>("CompletionTime");
 
                     b.Property<DateTime>("CreationTime")
                         .ValueGeneratedOnAddOrUpdate()
@@ -92,7 +93,7 @@ namespace DataLayer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("CompletionTime");
+                    b.Property<DateTime>("CompletionTime");
 
                     b.Property<DateTime>("CreationTime")
                         .ValueGeneratedOnAddOrUpdate()
@@ -164,7 +165,7 @@ namespace DataLayer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("CompletionTime");
+                    b.Property<DateTime>("CompletionTime");
 
                     b.Property<DateTime>("CreationTime")
                         .ValueGeneratedOnAddOrUpdate()

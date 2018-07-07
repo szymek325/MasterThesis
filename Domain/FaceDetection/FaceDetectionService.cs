@@ -14,44 +14,42 @@ namespace Domain.FaceDetection
 {
     public class FaceDetectionService : IFaceDetectionService
     {
-        private readonly IFaceDetectionRepository detectionRepository;
+        private readonly IDetectionImageRepository detectionImagesRepository;
+        private readonly IDetectionRepository detectionRepository;
         private readonly IFilesDomainService filesService;
         private readonly IGuidProvider guid;
         private readonly ILogger<FaceDetectionService> logger;
         private readonly IMapper mapper;
-        private readonly IFileRepository filesRepository;
 
-        public FaceDetectionService(IFaceDetectionRepository detectionRepository, IFilesDomainService filesService, IGuidProvider guid,
-            ILogger<FaceDetectionService> logger, IMapper mapper, IFileRepository filesRepository)
+        public FaceDetectionService(IDetectionRepository detectionRepository, IFilesDomainService filesService,
+            IGuidProvider guid,
+            ILogger<FaceDetectionService> logger, IMapper mapper, IDetectionImageRepository detectionImagesRepository)
         {
             this.detectionRepository = detectionRepository;
             this.filesService = filesService;
             this.guid = guid;
             this.logger = logger;
             this.mapper = mapper;
-            this.filesRepository = filesRepository;
+            this.detectionImagesRepository = detectionImagesRepository;
         }
 
         public async Task<int> CreateRequest(NewRequest request)
         {
             try
             {
-                var detectionGuid = guid.NewGuidAsString;
-                await filesService.Upload(request.Files, $"{detectionGuid}");
-
-                var newDetection = new DataLayer.Entities.FaceDetection
+                var newDetection = new Detection
                 {
                     Name = request.Name,
                     StatusId = 1,
-                    Guid = detectionGuid,
-                    Files = request.Files.Select(x => new File
+                    Images = request.Files.Select(x => new DetectionImage
                     {
-                        Name = x.FileName,
-                        ParentGuid = detectionGuid
+                        Name = x.FileName
                     }).ToList()
                 };
                 detectionRepository.Add(newDetection);
                 detectionRepository.Save();
+
+                await filesService.Upload(request.Files, $"{ImageTypes.DetectionImage}/{newDetection.Id}");
 
                 return newDetection.Id;
             }
@@ -62,41 +60,42 @@ namespace Domain.FaceDetection
             }
         }
 
-        public async Task<IEnumerable<FaceDetectionRequest>> GetAllFaceDetectionsAsync()
+        public async Task<IEnumerable<DetectionRequest>> GetAllFaceDetectionsAsync()
         {
             var faceDetections = detectionRepository.GetAllFaces().ToList();
             try
             {
                 foreach (var faceDetection in faceDetections)
-                    if (faceDetection.Files.Any() && string.IsNullOrWhiteSpace(faceDetection.Files.First().Thumbnail))
-                        await filesService.GetThumbnail(faceDetection.Files.First());
+                    if (faceDetection.Images.Any() && string.IsNullOrWhiteSpace(faceDetection.Images.First().Thumbnail))
+                        await filesService.GetThumbnail(faceDetection.Images.First());
             }
             catch (Exception ex)
             {
                 logger.LogError("Exception when trying to obtain thumbnails of FD Requests", ex);
             }
 
-            var requests = mapper.Map<IEnumerable<FaceDetectionRequest>>(faceDetections);
+            var requests = mapper.Map<IEnumerable<DetectionRequest>>(faceDetections);
             return requests;
         }
 
-        public async Task<FaceDetectionRequest> GetRequestData(int id)
+        public async Task<DetectionRequest> GetRequestData(int id)
         {
             var detectionJob = detectionRepository.GetRequestById(id);
-            var filesWithoutUrl = detectionJob.Files.Where(x => x.Url == null).ToList();
+            var filesWithoutUrl = detectionJob.Images.Where(x => x.Url == null).ToList();
             if (filesWithoutUrl.Any())
             {
-                var links = await filesService.GetLinksToFilesInFolder($"/{detectionJob.Guid}");
+                var links = await filesService.GetLinksToFilesInFolder($"{ImageTypes.DetectionImage}/{detectionJob.Id}");
+
                 foreach (var file in filesWithoutUrl)
                 {
                     file.Url = links.FirstOrDefault(x => x.FileName == file.Name)?.Url;
-                    filesRepository.Update(file);
+                    detectionImagesRepository.Update(file);
                 }
 
-                filesRepository.Save();
+                detectionImagesRepository.Save();
             }
 
-            var request = mapper.Map<FaceDetectionRequest>(detectionJob);
+            var request = mapper.Map<DetectionRequest>(detectionJob);
             return request;
         }
     }

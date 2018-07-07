@@ -4,7 +4,7 @@ using Domain.Files.DTO;
 
 namespace Domain.FaceDetection.DTO
 {
-    public class FaceDetectionRequest
+    public class DetectionRequest
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -13,6 +13,7 @@ namespace Domain.FaceDetection.DTO
         public int HaarFaces { get; set; }
         public string Thumbnail { get; set; }
         public DateTime CreationTime { get; set; }
+        public DateTime? CompletionTime { get; set; }
         public IEnumerable<FileLink> FileLinks { get; set; }
     }
 }

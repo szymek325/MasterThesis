@@ -51,17 +51,17 @@ namespace Domain.NeuralNetwork
             }
         }
 
-        public NeuralNetworkOutput GetById(int id)
+        public NeuralNetworkRequest GetById(int id)
         {
             var neuralNetwork = nnRepo.GetById(id);
-            var output = mapper.Map<NeuralNetworkOutput>(neuralNetwork);
+            var output = mapper.Map<NeuralNetworkRequest>(neuralNetwork);
             return output;
         }
 
-        public IEnumerable<NeuralNetworkOutput> GetAll()
+        public IEnumerable<NeuralNetworkRequest> GetAll()
         {
             var neuralNetworks = nnRepo.GetAllNeuralNetworks().ToList();
-            var output = mapper.Map<IEnumerable<NeuralNetworkOutput>>(neuralNetworks);
+            var output = mapper.Map<IEnumerable<NeuralNetworkRequest>>(neuralNetworks);
             return output;
         }
     }

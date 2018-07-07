@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using DataLayer.Entities;
+using DataLayer.Entities.Common;
 using DataLayer.Repositories.Interface;
 using Domain.Files.DTO;
 using Dropbox.Client.Files;
@@ -15,22 +15,22 @@ namespace Domain.Files
 {
     public class FilesDomainService : IFilesDomainService
     {
+        private readonly IFileRepository fileRepository;
         private readonly IFilesClient filesClient;
-        private readonly IFileRepository filesRepository;
         private readonly IFoldersClient foldersClient;
         private readonly ILogger<FilesDomainService> logger;
         private readonly IMapper mapper;
         private readonly IUrlClient urlClient;
 
         public FilesDomainService(IFilesClient filesClient, IFoldersClient foldersClient,
-            ILogger<FilesDomainService> logger, IMapper mapper, IUrlClient urlClient, IFileRepository filesRepository)
+            ILogger<FilesDomainService> logger, IMapper mapper, IUrlClient urlClient, IFileRepository fileRepository)
         {
             this.filesClient = filesClient;
             this.foldersClient = foldersClient;
             this.logger = logger;
             this.mapper = mapper;
             this.urlClient = urlClient;
-            this.filesRepository = filesRepository;
+            this.fileRepository = fileRepository;
         }
 
         public async Task Upload(IEnumerable<FileToUpload> files, string location)
@@ -72,14 +72,14 @@ namespace Domain.Files
         }
 
 
-        public async Task GetThumbnail(File file)
+        public async Task GetThumbnail(IImage file)
         {
             try
             {
                 file.Thumbnail =
-                    await filesClient.DownloadThumbnail($"/{file.ParentGuid}", file.Name);
-                filesRepository.Update(file);
-                filesRepository.Save();
+                    await filesClient.DownloadThumbnail($"{file.GetPath()}", file.Name);
+                fileRepository.Update(file);
+                fileRepository.Save();
             }
             catch (Exception ex)
             {
@@ -87,29 +87,38 @@ namespace Domain.Files
             }
         }
 
-        public async Task DeleteSingleFile(File file)
+        public async Task DeleteSingleFile(IImage file)
         {
             try
             {
-                await filesClient.Delete($"/{file.ParentGuid}/{file.Name}");
-                filesRepository.Delete(file.Id);
-                filesRepository.Save();
+                await filesClient.Delete(file.GetPath(), file.Name);
+                fileRepository.Delete(file.Id);
+                fileRepository.Save();
             }
             catch (Exception ex)
             {
                 logger.LogError(
-                    $"Exception when deleting file /{file.ParentGuid}/{file.Name}", ex);
+                    $"Exception when deleting file /{file.GetPath()}/{file.Name}", ex);
             }
         }
 
-        public async Task DeleteFiles(IEnumerable<File> files)
+        public async Task DeleteFiles(IEnumerable<IImage> files)
         {
-            files = files.ToList();
-            if (files.Any())
+            try
             {
-                await filesClient.Delete($"/{files.First().ParentGuid}");
-                foreach (var file in files) filesRepository.Delete(file.Id);
-                filesRepository.Save();
+                files = files.ToList();
+                if (files.Any())
+                {
+                    var firstFile = files.First();
+                    await foldersClient.DeleteFolder($"{firstFile.GetPath()}");
+                    foreach (var file in files)
+                        fileRepository.Delete(file.Id);
+                    fileRepository.Save();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("exception when deleteing folder", ex);
             }
         }
 

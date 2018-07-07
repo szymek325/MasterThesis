@@ -8,5 +8,6 @@ export interface IFaceRecognition {
     thumbnail: string;
     status: string;
     creationTime: string;
+    completionTime: string;
     fileLinks: IFileLink[];
 }

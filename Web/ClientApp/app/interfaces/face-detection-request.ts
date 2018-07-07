@@ -8,5 +8,6 @@ export interface IFaceDetectionRequest{
     haar: number;
     thumbnail: string;
     fileLinks: IFileLink[];
-    creationTime:string;
+    creationTime: string;
+    completionTime:string;
 }
