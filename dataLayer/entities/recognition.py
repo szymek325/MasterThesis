@@ -15,3 +15,4 @@ class Recognition(Base):
     neural_network = relationship(NeuralNetwork)
     statusId = Column('StatusId', Integer, ForeignKey("Status.Id"))
     images = relationship(RecognitionImage)
+    completionTime = Column('CompletionTime', Date)

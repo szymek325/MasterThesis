@@ -1,3 +1,5 @@
+import datetime
+
 from configuration_global.exception_handler import exception
 from dataLayer.database_connection import Base, engine, Session
 from dataLayer.entities.detection import Detection
@@ -22,5 +24,6 @@ class FaceDetectionRepository():
             req.statusId = 3
             req.dnnFaces = dnn_len
             req.haarFaces = haar_len
+            req.completionTime= datetime.datetime.now()
         session.commit()
         session.close()

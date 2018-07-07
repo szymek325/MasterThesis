@@ -10,3 +10,4 @@ class NeuralNetwork(Base):
     id = Column('Id', Integer, primary_key=True)
     name = Column('Name', String)
     statusId = Column('StatusId', Integer)
+    completionTime = Column('CompletionTime', Date)

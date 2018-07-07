@@ -13,3 +13,4 @@ class Detection(Base):
     name = Column('Name', String)
     statusId = Column('StatusId', Integer)
     images = relationship("DetectionImage")
+    completionTime = Column('CompletionTime', Date)
