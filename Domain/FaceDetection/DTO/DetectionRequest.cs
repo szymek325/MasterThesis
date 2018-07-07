@@ -13,7 +13,7 @@ namespace Domain.FaceDetection.DTO
         public int HaarFaces { get; set; }
         public string Thumbnail { get; set; }
         public DateTime CreationTime { get; set; }
-        public DateTime CompletionTime { get; set; }
+        public DateTime? CompletionTime { get; set; }
         public IEnumerable<FileLink> FileLinks { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace DataLayer.Entities
         public string Description { get; set; }
         public int? StatusId { get; set; }
         public Status Status { get; set; }
-        public DateTime CompletionTime { get; set; }
+        public DateTime? CompletionTime { get; set; }
         private ICollection<NeuralNetworkPerson> NeuralNetworkPeople { get; }= new List<NeuralNetworkPerson>();
 
         [NotMapped]

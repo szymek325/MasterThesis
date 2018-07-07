@@ -52,7 +52,7 @@ namespace Domain.Mapping
                 .ForMember(dest => dest.FileLinks, opts => opts.MapFrom(src => src.Images))
                 .ReverseMap();
 
-            CreateMap<DataLayer.Entities.NeuralNetwork, NeuralNetworkOutput>()
+            CreateMap<DataLayer.Entities.NeuralNetwork, NeuralNetworkRequest>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Status, opts => opts.MapFrom(src => src.Status.Name))
