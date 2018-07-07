@@ -17,7 +17,6 @@ namespace DataLayer.Entities
 
         public string Name { get; set; }
         public string Description { get; set; }
-        public DateTime CompletionTime { get; set; }
 
         public IEnumerable<PersonImage> Images { get; set; }
 
