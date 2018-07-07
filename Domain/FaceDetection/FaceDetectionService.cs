@@ -60,7 +60,7 @@ namespace Domain.FaceDetection
             }
         }
 
-        public async Task<IEnumerable<FaceDetectionRequest>> GetAllFaceDetectionsAsync()
+        public async Task<IEnumerable<DetectionRequest>> GetAllFaceDetectionsAsync()
         {
             var faceDetections = detectionRepository.GetAllFaces().ToList();
             try
@@ -74,11 +74,11 @@ namespace Domain.FaceDetection
                 logger.LogError("Exception when trying to obtain thumbnails of FD Requests", ex);
             }
 
-            var requests = mapper.Map<IEnumerable<FaceDetectionRequest>>(faceDetections);
+            var requests = mapper.Map<IEnumerable<DetectionRequest>>(faceDetections);
             return requests;
         }
 
-        public async Task<FaceDetectionRequest> GetRequestData(int id)
+        public async Task<DetectionRequest> GetRequestData(int id)
         {
             var detectionJob = detectionRepository.GetRequestById(id);
             var filesWithoutUrl = detectionJob.Images.Where(x => x.Url == null).ToList();
@@ -95,7 +95,7 @@ namespace Domain.FaceDetection
                 detectionImagesRepository.Save();
             }
 
-            var request = mapper.Map<FaceDetectionRequest>(detectionJob);
+            var request = mapper.Map<DetectionRequest>(detectionJob);
             return request;
         }
     }

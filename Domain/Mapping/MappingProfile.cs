@@ -15,22 +15,26 @@ namespace Domain.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<DataLayer.Entities.Detection, FaceDetectionRequest>()
+            CreateMap<Detection, DetectionRequest>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Status, opts => opts.MapFrom(src => src.Status.Name))
                 .ForMember(dest => dest.DnnFaces, opts => opts.MapFrom(src => src.DnnFaces))
                 .ForMember(dest => dest.HaarFaces, opts => opts.MapFrom(src => src.HaarFaces))
                 .ForMember(dest => dest.CreationTime, opts => opts.MapFrom(src => src.CreationTime))
-                .ForMember(dest => dest.Thumbnail, opts => opts.MapFrom(src => src.Images.FirstOrDefault(x => x.Thumbnail != null).Thumbnail))
+                .ForMember(dest => dest.CompletionTime, opts => opts.MapFrom(src => src.CompletionTime))
+                .ForMember(dest => dest.Thumbnail,
+                    opts => opts.MapFrom(src => src.Images.FirstOrDefault(x => x.Thumbnail != null).Thumbnail))
                 .ForMember(dest => dest.FileLinks, opts => opts.MapFrom(src => src.Images));
 
-            CreateMap<DataLayer.Entities.Recognition, FaceRecoRequest>()
+            CreateMap<Recognition, RecognitionRequest>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Status, opts => opts.MapFrom(src => src.Status.Name))
                 .ForMember(dest => dest.CreationTime, opts => opts.MapFrom(src => src.CreationTime))
-                .ForMember(dest => dest.Thumbnail, opts => opts.MapFrom(src => src.Images.FirstOrDefault(x => x.Thumbnail != null).Thumbnail))
+                .ForMember(dest => dest.CompletionTime, opts => opts.MapFrom(src => src.CompletionTime))
+                .ForMember(dest => dest.Thumbnail,
+                    opts => opts.MapFrom(src => src.Images.FirstOrDefault(x => x.Thumbnail != null).Thumbnail))
                 .ForMember(dest => dest.FileLinks, opts => opts.MapFrom(src => src.Images))
                 .ForMember(dest => dest.NeuralNetwork, opts => opts.MapFrom(src => src.NeuralNetwork));
 
@@ -43,7 +47,8 @@ namespace Domain.Mapping
             CreateMap<Person, PersonOutput>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Thumbnail, opts => opts.MapFrom(src => src.Images.FirstOrDefault(x=>x.Thumbnail!=null).Thumbnail))
+                .ForMember(dest => dest.Thumbnail,
+                    opts => opts.MapFrom(src => src.Images.FirstOrDefault(x => x.Thumbnail != null).Thumbnail))
                 .ForMember(dest => dest.FileLinks, opts => opts.MapFrom(src => src.Images))
                 .ReverseMap();
 
@@ -52,6 +57,8 @@ namespace Domain.Mapping
                 .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Status, opts => opts.MapFrom(src => src.Status.Name))
                 .ForMember(dest => dest.People, opts => opts.MapFrom(src => src.People))
+                .ForMember(dest => dest.CreationTime, opts => opts.MapFrom(src => src.CreationTime))
+                .ForMember(dest => dest.CompletionTime, opts => opts.MapFrom(src => src.CompletionTime))
                 .ReverseMap();
         }
     }

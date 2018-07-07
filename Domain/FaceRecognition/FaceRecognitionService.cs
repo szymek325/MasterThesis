@@ -33,7 +33,7 @@ namespace Domain.FaceRecognition
             this.recognitionImagesRepository = recognitionImagesRepository;
         }
 
-        public async Task<IEnumerable<FaceRecoRequest>> GetAllFaceRecognitions()
+        public async Task<IEnumerable<RecognitionRequest>> GetAllFaceRecognitions()
         {
             var faceRecognitions = recoRepo.GetAllFaces().ToList();
             try
@@ -47,7 +47,7 @@ namespace Domain.FaceRecognition
                 logger.LogError("Exception when trying to obtain thumbnails of FR Requests", ex);
             }
 
-            var requests = mapper.Map<IEnumerable<FaceRecoRequest>>(faceRecognitions);
+            var requests = mapper.Map<IEnumerable<RecognitionRequest>>(faceRecognitions);
             return requests;
         }
 
@@ -79,7 +79,7 @@ namespace Domain.FaceRecognition
             }
         }
 
-        public async Task<FaceRecoRequest> GetRequestDataAsync(int id)
+        public async Task<RecognitionRequest> GetRequestDataAsync(int id)
         {
             var recognitionJob = recoRepo.GetRequestById(id);
             var filesWithoutUrl = recognitionJob.Images.Where(x => x.Url == null).ToList();
@@ -97,7 +97,7 @@ namespace Domain.FaceRecognition
                 recognitionImagesRepository.Save();
             }
 
-            var request = mapper.Map<FaceRecoRequest>(recognitionJob);
+            var request = mapper.Map<RecognitionRequest>(recognitionJob);
             return request;
         }
     }

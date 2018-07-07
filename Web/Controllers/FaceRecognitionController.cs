@@ -22,7 +22,7 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<FaceRecoRequest>> GetAll()
+        public async Task<IEnumerable<RecognitionRequest>> GetAll()
         {
             return await faceRecognitionService.GetAllFaceRecognitions();
         }
@@ -44,7 +44,7 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<FaceRecoRequest> GetRequest(int id)
+        public async Task<RecognitionRequest> GetRequest(int id)
         {
             var request = await faceRecognitionService.GetRequestDataAsync(id);
             return request;

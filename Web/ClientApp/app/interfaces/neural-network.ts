@@ -4,4 +4,6 @@ export interface INeuralNetwork {
     description: string;
     status: string;
     people: IPerson[];
+    creationTime: string;
+    completionTime: string;
 }
