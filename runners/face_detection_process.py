@@ -2,6 +2,7 @@ from sqlalchemy import null
 
 from configuration_global.config_reader import ConfigReader
 from configuration_global.logger_factory import LoggerFactory
+from configuration_global.paths_provider import PathsProvider
 from domain.directory_manager import DirectoryManager
 from dataLayer.repositories.face_detection_repository import FaceDetectionRepository
 from domain.face_detection.face_detection_requests_manager import FaceDetectionRequestsManager
@@ -15,6 +16,7 @@ class FaceDetectionProcess():
         self.request_manager = FaceDetectionRequestsManager()
         self.directory = DirectoryManager()
         self.faceDetectionRepository = FaceDetectionRepository()
+        self.pathsProvider=PathsProvider()
 
     @exception
     def run_face_detection(self):
@@ -23,7 +25,7 @@ class FaceDetectionProcess():
         if not requests == null:
             for request in requests:
                 self.request_manager.process_request(request)
-            self.directory.clean_face_detection_requests()
+            self.directory.clean_directory(self.pathsProvider.local_detection_image_path())
         self.logger.info("END FaceDetection")
 
 
