@@ -29,21 +29,21 @@ namespace Web.Controllers
         {
             collections.TryGetValue("name", out var neuralNetworkName);
             collections.TryGetValue("people", out var peopleIds);
-            var nnId= neuralNetworkService.Create(neuralNetworkName, peopleIds);
+            var nnId= await neuralNetworkService.Create(neuralNetworkName, peopleIds);
             return Ok(new {neuralNetworkId = nnId });
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<NeuralNetworkRequest> GetAll()
+        public async Task<IEnumerable<NeuralNetworkRequest>> GetAll()
         {
-            var response = neuralNetworkService.GetAll();
+            var response = await neuralNetworkService.GetAll();
             return response;
         }
 
         [HttpGet("[action]")]
-        public NeuralNetworkRequest Get(int id)
+        public async Task<NeuralNetworkRequest> Get(int id)
         {
-            var response = neuralNetworkService.GetById(id);
+            var response = await neuralNetworkService.GetById(id);
             return response;
         }
     }
