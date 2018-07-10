@@ -11,7 +11,13 @@ class TrainingDataExtractor():
         self.faceDetector = HaarFaceDetector()
         self.imageConverter = ImageConverter()
 
-    def extract_training_data_from_images(self, images_paths, person_id):
+    def __extract_training_data_from_images__(self, images_paths, person_id):
+        """
+        DO NOT USE, DOESNT WORK FOR NOW
+        :param images_paths:
+        :param person_id:
+        :return:
+        """
         face_samples = []
         ids = []
         for imagePath in images_paths:

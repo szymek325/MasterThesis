@@ -19,7 +19,6 @@ class NeuralNetworkTrainer():
     def create_lbph_face_recognizer(self, request_id, face_samples, people_ids: [int]):
         recognizer = cv2.face.LBPHFaceRecognizer_create()
         recognizer.train(face_samples, people_ids)
-
         recognizer.write(f'{self.requestPath}/{request_id}_LBPH.yml')
 
     def create_eigen_face_recognizer(self, request_id, face_samples, people_ids: [int]):
