@@ -1,11 +1,13 @@
 import cv2
 
+from configuration_global.logger_factory import LoggerFactory
 from opencv_client.face_detection.haar_face_detector import HaarFaceDetector
 from opencv_client.image_converters.image_converter import ImageConverter
 
 
 class TrainingDataExtractor():
     def __init__(self):
+        self.logger = LoggerFactory()
         self.faceDetector = HaarFaceDetector()
         self.imageConverter = ImageConverter()
 
@@ -13,6 +15,7 @@ class TrainingDataExtractor():
         face_samples = []
         ids = []
         for imagePath in images_paths:
+            self.logger.info(imagePath)
             open_cv_image = cv2.imread(imagePath)
             faces = self.faceDetector.run_detector(open_cv_image)
             if len(faces) is not 0:
