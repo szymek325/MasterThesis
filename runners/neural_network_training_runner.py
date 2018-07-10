@@ -8,7 +8,7 @@ class NeuralNetworkTrainingRunner():
         self.peopleManager = PeopleManager()
 
     def process(self):
-        self.peopleManager.download_people_if_some_missing()
+        self.peopleManager.download_people_to_local()
 
 
 if __name__ == "__main__":

@@ -22,15 +22,12 @@ class DirectoryManager:
                     result.append(os.path.join(path, name))
         return result
 
-    ##todo fix error, not finding coirrectly
-    def get_all_subdirectories(self, directory_path):
+    def get_subdirectories_with_files_count(self, directory_path):
         result = []
-        for path, subdirs, files in os.walk(directory_path):
-            for subdir in subdirs:
-                directory_files = 0
-                for file in files:
-                    directory_files=directory_files+1
-                result.append([subdir, directory_files])
+        folders = [[f, os.path.join(directory_path, f)] for f in os.listdir(directory_path)]
+        for folder in folders:
+            files = [os.path.join(folder[1], f) for f in os.listdir(folder[1])]
+            result.append([int(folder[0]), len(files)])
         return result
 
     def get_filenames_from_directory(self, directory):

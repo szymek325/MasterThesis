@@ -1,3 +1,6 @@
+import os
+
+from configuration_global.exception_handler import exception
 from configuration_global.logger_factory import LoggerFactory
 from configuration_global.paths_provider import PathsProvider
 from dataLayer.repositories.person_repository import PersonRepository
@@ -13,11 +16,14 @@ class PeopleManager():
         self.peopleRepo = PersonRepository()
         self.filesDownloader = FilesDownloader()
 
-    def download_people_if_some_missing(self):
+    @exception
+    def download_people_to_local(self):
         people_path = self.pathProvider.local_person_image_path()
-        directories = self.directoryManager.get_all_subdirectories(people_path)
-        print(directories)
+        directories = self.directoryManager.get_subdirectories_with_files_count(people_path)
         people = self.peopleRepo.get_people_ids_with_images_count()
-        print(people)
-        for p in people:
+        people_to_download = [x for x in people if x not in directories]
+        self.logger.info(f"directories {directories} "
+                         f"\npeople: {people}"
+                         f"\npeople_to_download: {people_to_download}")
+        for p in people_to_download:
             self.filesDownloader.download_person((p[0]))
