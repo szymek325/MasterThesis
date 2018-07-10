@@ -22,9 +22,9 @@ class DropboxClient:
 
     @exception
     def download_folder(self, source_path: str, save_path):
-        files = self.client.files_list_folder(f"\\{source_path}/")
+        files = self.client.files_list_folder(f"/{source_path}")
         for file in files.entries:
-            self.client.files_download_to_file(f"/{save_path}/{file.name}", file.path_lower)
+            self.client.files_download_to_file(f"{save_path}/{file.name}", file.path_lower)
 
     def upload_file(self, path_with_file_name, file):
         self.client.files_upload(file, f"/{path_with_file_name}")
