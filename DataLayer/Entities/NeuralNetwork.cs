@@ -11,7 +11,7 @@ namespace DataLayer.Entities
     {
         public NeuralNetwork()
         {
-            People = new JoinCollectionFacade<Person, NeuralNetwork, NeuralNetworkPerson>(this,NeuralNetworkPeople);
+            People = new JoinCollectionFacade<Person, NeuralNetwork, NeuralNetworkPerson>(this, NeuralNetworkPeople);
         }
 
         public string Name { get; set; }
@@ -19,7 +19,8 @@ namespace DataLayer.Entities
         public int? StatusId { get; set; }
         public Status Status { get; set; }
         public DateTime? CompletionTime { get; set; }
-        private ICollection<NeuralNetworkPerson> NeuralNetworkPeople { get; }= new List<NeuralNetworkPerson>();
+        public IEnumerable<NeuralNetworkFile> Files { get; set; }
+        private ICollection<NeuralNetworkPerson> NeuralNetworkPeople { get; } = new List<NeuralNetworkPerson>();
 
         [NotMapped]
         public ICollection<Person> People { get; }

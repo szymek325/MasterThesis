@@ -22,6 +22,8 @@ namespace DataLayer
         public DbSet<Recognition> Recognitions { get; set; }
         public DbSet<RecognitionImage> RecognitionImages { get; set; }
         public DbSet<NeuralNetwork> NeuralNetworks { get; set; }
+        public DbSet<NeuralNetworkFile> NeuralNetworkFiles { get; set; }
+        public DbSet<NeuralNetworkType> NeuralNetworkTypes { get; set; }
         public DbSet<NeuralNetworkPerson> NeuralNetworkPeople { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -60,6 +62,8 @@ namespace DataLayer
             modelBuilder.Entity<Recognition>().ToTable(nameof(Recognition));
             modelBuilder.Entity<RecognitionImage>().ToTable(nameof(RecognitionImage));
             modelBuilder.Entity<NeuralNetwork>().ToTable(nameof(NeuralNetwork));
+            modelBuilder.Entity<NeuralNetworkFile>().ToTable(nameof(NeuralNetworkFile));
+            modelBuilder.Entity<NeuralNetworkType>().ToTable(nameof(NeuralNetworkType));
         }
     }
 }
