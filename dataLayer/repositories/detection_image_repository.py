@@ -1,15 +1,14 @@
 from configuration_global.exception_handler import exception
 from dataLayer.database_connection import Base, engine, Session
 from dataLayer.entities.detection_image import DetectionImage
-from dataLayer.entities.person_image import PersonImage
 
 
-class FileRepository():
+class DetectionImageRepository():
     @exception
-    def add_detection_file(self, name, face_detection_guid):
+    def add_detection_file(self, name, detection_id):
         Base.metadata.create_all(engine)
         session = Session()
-        reading = DetectionImage(name, face_detection_guid)
+        reading = DetectionImage(name, detection_id)
         session.add(reading)
         session.commit()
         session.close()

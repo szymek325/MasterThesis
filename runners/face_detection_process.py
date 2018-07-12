@@ -16,7 +16,7 @@ class FaceDetectionProcess():
         self.request_manager = FaceDetectionRequestsManager()
         self.directory = DirectoryManager()
         self.faceDetectionRepository = FaceDetectionRepository()
-        self.pathsProvider=PathsProvider()
+        self.pathsProvider = PathsProvider()
 
     @exception
     def run_face_detection(self):

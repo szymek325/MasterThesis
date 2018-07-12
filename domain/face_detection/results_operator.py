@@ -3,7 +3,7 @@ import os
 import cv2
 
 from configuration_global.paths_provider import PathsProvider
-from dataLayer.repositories.file_repository import FileRepository
+from dataLayer.repositories.detection_image_repository import DetectionImageRepository
 from dropbox_integration.files_uploader import FilesUploader
 from opencv_client.image_editor import ImageEditor
 
@@ -12,7 +12,7 @@ class ResultsOperator:
     def __init__(self):
         self.imageEditor = ImageEditor()
         self.filesUploader = FilesUploader()
-        self.files_repository = FileRepository()
+        self.files_repository = DetectionImageRepository()
         self.pathsProvider = PathsProvider()
         self.haar_file_name = "haar.jpg"
         self.dnn_file_name = "dnn.jpg"

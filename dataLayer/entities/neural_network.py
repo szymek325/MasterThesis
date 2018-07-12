@@ -2,6 +2,7 @@ from sqlalchemy import Column, String, Integer, Date
 from sqlalchemy.orm import relationship
 
 from dataLayer.database_connection import Base
+from dataLayer.entities.neural_network_file import NeuralNetworkFile
 
 
 class NeuralNetwork(Base):
@@ -11,3 +12,4 @@ class NeuralNetwork(Base):
     name = Column('Name', String)
     statusId = Column('StatusId', Integer)
     completionTime = Column('CompletionTime', Date)
+    images = relationship(NeuralNetworkFile)
