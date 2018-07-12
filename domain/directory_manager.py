@@ -23,6 +23,7 @@ class DirectoryManager:
         return result
 
     def get_subdirectories_with_files_count(self, directory_path):
+        self.create_directory_if_doesnt_exist(directory_path)
         result = []
         folders = [[f, os.path.join(directory_path, f)] for f in os.listdir(directory_path)]
         for folder in folders:

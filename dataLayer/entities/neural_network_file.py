@@ -1,3 +1,5 @@
+import datetime
+
 from sqlalchemy import Column, String, Integer, Date, ForeignKey
 
 from dataLayer.database_connection import Base
@@ -8,7 +10,7 @@ class NeuralNetworkFile(Base):
 
     id = Column('Id', Integer, primary_key=True)
     name = Column('Name', String)
-    creationTime = Column('CompletionTime', Date)
+    creationTime = Column('CreationTime', Date)
     neuralNetworkId = Column("NeuralNetworkId", Integer, ForeignKey("NeuralNetwork.Id"))
     neuralNetworkTypeId = Column('NeuralNetworkTypeId', Integer)
 
@@ -16,3 +18,4 @@ class NeuralNetworkFile(Base):
         self.name = name
         self.neuralNetworkId = neural_network_id
         self.neuralNetworkTypeId = neural_network_type_id
+        self.creationTime = datetime.datetime.now()
