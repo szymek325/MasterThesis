@@ -14,6 +14,7 @@
     </div>
 
     <div>
+        <h3>People data used for training</h3>
         <table class="table" *ngIf="neuralNetwork.people">
             <thead>
             <tr>
@@ -23,6 +24,23 @@
             <tbody>
             <tr *ngFor="let person of neuralNetwork.people">
                 <td>{{person.name}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h3>Trained files</h3>
+        <table class="table" *ngIf="neuralNetwork.files">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let file of neuralNetwork.files">
+                <td>{{file.name}}</td>
+                <td>{{file.typeName}}</td>
             </tr>
             </tbody>
         </table>

@@ -61,9 +61,19 @@ namespace Domain.NeuralNetwork
 
         public Task<IEnumerable<NeuralNetworkRequest>> GetAll()
         {
-            var neuralNetworks = nnRepo.GetAllNeuralNetworks().ToList();
-            var output = mapper.Map<IEnumerable<NeuralNetworkRequest>>(neuralNetworks);
-            return Task.FromResult(output);
+            try
+            {
+                var neuralNetworks = nnRepo.GetAllNeuralNetworks().ToList();
+                var output = mapper.Map<IEnumerable<NeuralNetworkRequest>>(neuralNetworks);
+                return Task.FromResult(output);
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("ex",ex);
+            }
+
+            return Task.FromResult(new List<NeuralNetworkRequest>().AsEnumerable());
         }
     }
 }

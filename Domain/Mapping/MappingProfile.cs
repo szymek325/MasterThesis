@@ -52,6 +52,11 @@ namespace Domain.Mapping
                 .ForMember(dest => dest.FileLinks, opts => opts.MapFrom(src => src.Images))
                 .ReverseMap();
 
+            CreateMap<NeuralNetworkFile, NeuralNetworkFileOutput>()
+                .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
+                .ForMember(dest => dest.TypeName, opts => opts.MapFrom(src => src.NeuralNetworkType.Name))
+                .ReverseMap();
+
             CreateMap<DataLayer.Entities.NeuralNetwork, NeuralNetworkRequest>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
@@ -59,6 +64,7 @@ namespace Domain.Mapping
                 .ForMember(dest => dest.People, opts => opts.MapFrom(src => src.People))
                 .ForMember(dest => dest.CreationTime, opts => opts.MapFrom(src => src.CreationTime))
                 .ForMember(dest => dest.CompletionTime, opts => opts.MapFrom(src => src.CompletionTime))
+                .ForMember(dest => dest.Files, opts => opts.MapFrom(src => src.Files))
                 .ReverseMap();
         }
     }

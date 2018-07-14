@@ -6,4 +6,5 @@ export interface INeuralNetwork {
     people: IPerson[];
     creationTime: string;
     completionTime: string;
+    files: INeuralNetworkFile[];
 }

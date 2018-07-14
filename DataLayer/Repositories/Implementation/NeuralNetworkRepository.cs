@@ -16,12 +16,14 @@ namespace DataLayer.Repositories.Implementation
 
         public IEnumerable<NeuralNetwork> GetAllNeuralNetworks()
         {
-            return GetAll().Include("NeuralNetworkPeople.Person").Include(x=>x.Status).AsEnumerable();
+            return GetAll().Include("NeuralNetworkPeople.Person").Include(x => x.Status)
+                .Include(x => x.Files).ThenInclude(y => y.NeuralNetworkType);
         }
 
         public NeuralNetwork GetById(int id)
         {
-            return GetAll().Include("NeuralNetworkPeople.Person").Include(x => x.Status).FirstOrDefault(x => x.Id == id);
+            return GetAll().Include("NeuralNetworkPeople.Person").Include(x => x.Status).Include(x => x.Files)
+                .ThenInclude(y => y.NeuralNetworkType).FirstOrDefault(x => x.Id == id);
         }
     }
 }
