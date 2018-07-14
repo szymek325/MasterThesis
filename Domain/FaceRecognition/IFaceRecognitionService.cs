@@ -8,6 +8,6 @@ namespace Domain.FaceRecognition
     {
         Task<IEnumerable<RecognitionRequest>> GetAllFaceRecognitions();
         Task<int> CreateRequest(NewRequest request);
-        Task<RecognitionRequest> GetRequestDataAsync(int id);
+        Task<RecognitionRequest> GetRequestData(int id);
     }
 }

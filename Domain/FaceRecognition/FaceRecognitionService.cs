@@ -35,7 +35,7 @@ namespace Domain.FaceRecognition
 
         public async Task<IEnumerable<RecognitionRequest>> GetAllFaceRecognitions()
         {
-            var faceRecognitions = recoRepo.GetAllFaces().ToList();
+            var faceRecognitions = recoRepo.GetAllFacesWithFullNeuralNetwork().ToList();
             try
             {
                 foreach (var faceDetection in faceRecognitions)
@@ -79,7 +79,7 @@ namespace Domain.FaceRecognition
             }
         }
 
-        public async Task<RecognitionRequest> GetRequestDataAsync(int id)
+        public async Task<RecognitionRequest> GetRequestData(int id)
         {
             var recognitionJob = recoRepo.GetRequestById(id);
             var filesWithoutUrl = recognitionJob.Images.Where(x => x.Url == null).ToList();

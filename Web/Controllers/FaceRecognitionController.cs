@@ -29,7 +29,6 @@ namespace Web.Controllers
         [HttpGet("[action]")]
         public async Task<IEnumerable<RecognitionRequest>> GetAll()
         {
-            //TODO problem here becasue I have expanded definition of NeuralNetwork which requires repository to include NeuralNetworkFIles and NeuralNetworkFileTypes
             try
             {
                 var requests= await faceRecognitionService.GetAllFaceRecognitions();
@@ -61,8 +60,17 @@ namespace Web.Controllers
         [HttpGet("[action]")]
         public async Task<RecognitionRequest> GetRequest(int id)
         {
-            var request = await faceRecognitionService.GetRequestDataAsync(id);
-            return request;
+            try
+            {
+                var request = await faceRecognitionService.GetRequestData(id);
+                return request;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Exception when loading face recognition {id} ",ex);
+                throw;
+            }
+            
         }
     }
 }
