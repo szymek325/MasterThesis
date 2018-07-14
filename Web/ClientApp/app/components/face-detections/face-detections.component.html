@@ -25,8 +25,8 @@
             <td>{{ face.dnnFaces }}</td>
             <td>{{ face.haarFaces }}</td>
             <td>{{ face.status }}</td>
-            <td>{{ face.creationTime.replace("T"," ") }}</td>
-            <td>{{ face.completionTime.replace("T"," ") }}</td>
+            <td>{{ face.creationTime?.replace("T"," ") }}</td>
+            <td>{{ face.completionTime?.replace("T"," ") }}</td>
             <td class="btn btn-success" (click)="showRequest(face.id)">Show</td>
         </tr>
     </tbody>
