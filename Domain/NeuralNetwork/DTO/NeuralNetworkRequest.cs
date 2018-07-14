@@ -12,5 +12,6 @@ namespace Domain.NeuralNetwork.DTO
         public DateTime CreationTime { get; set; }
         public DateTime? CompletionTime { get; set; }
         public IEnumerable<PersonOutput> People { get; set; }
+        public IEnumerable<NeuralNetworkFileOutput> Files { get; set; }
     }
 }

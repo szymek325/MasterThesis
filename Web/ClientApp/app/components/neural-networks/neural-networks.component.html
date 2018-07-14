@@ -10,6 +10,7 @@
             <th>Id</th>
             <th>Name</th>
             <th>Trained people count</th>
+            <th>Number of files</th>
             <th>Status</th>
             <th>Creation Time</th>
             <th>Completion Time</th>
@@ -20,6 +21,7 @@
             <td>{{ network.id }}</td>
             <td>{{ network.name }}</td>
             <td>{{ network.people.length  }}</td>
+            <td>{{ network.files.length  }}</td>
             <td>{{ network.status }}</td>
             <td>{{ network.creationTime.replace("T"," ") }}</td>
             <td>{{ network.completionTime.replace("T"," ") }}</td>
