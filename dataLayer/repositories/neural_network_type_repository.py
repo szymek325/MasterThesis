@@ -10,3 +10,10 @@ class NeuralNetworkTypeRepository():
         files = session.query(NeuralNetworkType)
         session.close()
         return files
+
+    def get_id_by_name(self, type_name: str):
+        Base.metadata.create_all(engine)
+        session = Session()
+        type_id = session.query(NeuralNetworkType).filter_by(name=type_name).first()
+        session.close()
+        return type_id.id
