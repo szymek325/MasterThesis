@@ -1,5 +1,6 @@
 import datetime
 from sqlalchemy import Column, String, Integer, Date, ForeignKey
+from sqlalchemy.orm import relationship
 
 from dataLayer.database_connection import Base
 
@@ -10,3 +11,4 @@ class NeuralNetworkType(Base):
     id = Column('Id', Integer, primary_key=True)
     name = Column('Name', String)
     creationTime = Column('CreationTime', Date)
+    neuralNetworkFile = relationship("NeuralNetworkFile", back_populates="neuralNetworkType")
