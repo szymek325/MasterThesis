@@ -11,29 +11,27 @@ from opencv_client.neural_network.neural_network_provider import NeuralNetworkPr
 class FaceRecognizer():
     def __init__(self):
         self.logger = LoggerFactory()
-        self.globalConfig = ConfigReader()
         self.faceDetector = HaarFaceDetector()
-        self.neuralNetworkCreator = NeuralNetworkProvider()
-        self.neuralNetworksPath = self.globalConfig.neural_networks_path
         self.imageConverter = ImageConverter()
-        self.recognizer = "empty"
 
-    @exception
-    def recognize_face_on_image(self, image, neural_network_id):
-        """
-        :param neural_network_id: id of nn
-        :param image: OPENCV IMAGE!!!
-        :return: recognizedId
-        """
-        base_path = path.join(self.neuralNetworksPath, f"{neural_network_id}")
-        files = [path.join(base_path, f) for f in listdir(base_path)]
-        detected_faces = self.faceDetector.run_detector(image)
-        print(f"number of faces detected : {len(detected_faces)}")
-        result = []
-        for file in files:
-            self.recognizer = self.neuralNetworkCreator.create_neural_network(file)
-            for (startX, startY, endX, endY) in detected_faces:
-                predict_image = self.imageConverter.convert_to_np_array(image[startY:endY, startX:endX])
-                nbr_predicted, confidence = self.recognizer.predict(predict_image)
-                result.append((file, nbr_predicted, confidence, [startX, startY, endX, endY]))
-        return result
+    def recognize_face_from_image(self, request_id, recognizer, type):
+        self.logger("TODO")
+    # @exception
+    # def recognize_face_on_image(self, image, neural_network_id):
+    #     """
+    #     :param neural_network_id: id of nn
+    #     :param image: OPENCV IMAGE!!!
+    #     :return: recognizedId
+    #     """
+    #     base_path = path.join(self.neuralNetworksPath, f"{neural_network_id}")
+    #     files = [path.join(base_path, f) for f in listdir(base_path)]
+    #     detected_faces = self.faceDetector.run_detector(image)
+    #     print(f"number of faces detected : {len(detected_faces)}")
+    #     result = []
+    #     for file in files:
+    #         self.recognizer = self.neuralNetworkCreator.create_neural_network(file)
+    #         for (startX, startY, endX, endY) in detected_faces:
+    #             predict_image = self.imageConverter.convert_to_np_array(image[startY:endY, startX:endX])
+    #             nbr_predicted, confidence = self.recognizer.predict(predict_image)
+    #             result.append((file, nbr_predicted, confidence, [startX, startY, endX, endY]))
+    #     return result
