@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DataLayer.Entities;
 using DataLayer.Repositories.Interface;
-using Domain.Configuration;
 using Domain.FaceRecognition.DTO;
 using Domain.Files;
 using Microsoft.Extensions.Logging;
@@ -15,27 +14,28 @@ namespace Domain.FaceRecognition
     public class FaceRecognitionService : IFaceRecognitionService
     {
         private readonly IFilesDomainService filesService;
-        private readonly IGuidProvider guid;
         private readonly ILogger<FaceRecognitionService> logger;
         private readonly IMapper mapper;
         private readonly IRecognitionImageRepository recognitionImagesRepository;
+        private readonly IRecognitionResultRepository recognitionResultRepository;
         private readonly IRecognitionRepository recoRepo;
 
-        public FaceRecognitionService(IRecognitionRepository recoRepo, IFilesDomainService filesService, IMapper mapper,
-            IGuidProvider guid,
-            ILogger<FaceRecognitionService> logger, IRecognitionImageRepository recognitionImagesRepository)
+        public FaceRecognitionService(IFilesDomainService filesService, ILogger<FaceRecognitionService> logger,
+            IMapper mapper,
+            IRecognitionImageRepository recognitionImagesRepository, IRecognitionRepository recoRepo,
+            IRecognitionResultRepository recognitionResultRepository)
         {
-            this.recoRepo = recoRepo;
             this.filesService = filesService;
-            this.mapper = mapper;
-            this.guid = guid;
             this.logger = logger;
+            this.mapper = mapper;
             this.recognitionImagesRepository = recognitionImagesRepository;
+            this.recoRepo = recoRepo;
+            this.recognitionResultRepository = recognitionResultRepository;
         }
 
         public async Task<IEnumerable<RecognitionRequest>> GetAllFaceRecognitions()
         {
-            var faceRecognitions = recoRepo.GetAllFaces().ToList();
+            var faceRecognitions = recoRepo.GetAllFacesWithFullNeuralNetwork().ToList();
             try
             {
                 foreach (var faceDetection in faceRecognitions)
@@ -79,7 +79,7 @@ namespace Domain.FaceRecognition
             }
         }
 
-        public async Task<RecognitionRequest> GetRequestDataAsync(int id)
+        public async Task<RecognitionRequest> GetRequestData(int id)
         {
             var recognitionJob = recoRepo.GetRequestById(id);
             var filesWithoutUrl = recognitionJob.Images.Where(x => x.Url == null).ToList();
@@ -99,6 +99,13 @@ namespace Domain.FaceRecognition
 
             var request = mapper.Map<RecognitionRequest>(recognitionJob);
             return request;
+        }
+
+        public async Task<IEnumerable<RecognitionResultOutput>> GetResultsForRequest(int id)
+        {
+            var results = recognitionResultRepository.GetAllConnectedToRequestById(id);
+            var output = mapper.Map<IEnumerable<RecognitionResultOutput>>(results);
+            return await Task.FromResult(output);
         }
     }
 }

@@ -8,12 +8,12 @@ namespace DataLayer.Entities
     {
         public string Name { get; set; }
         public string Description { get; set; }
-
         public int? NeuralNetworkId { get; set; }
         public NeuralNetwork NeuralNetwork { get; set; }
         public int? StatusId { get; set; }
         public Status Status { get; set; }
         public DateTime? CompletionTime { get; set; }
         public IEnumerable<RecognitionImage> Images { get; set; }
+        public IEnumerable<RecognitionResult> RecognitionResults { get; set; }
     }
 }

@@ -11,9 +11,10 @@ using System;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(MasterContext))]
-    partial class MasterContextModelSnapshot : ModelSnapshot
+    [Migration("20180715042819_RecognitionResult")]
+    partial class RecognitionResult
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,7 +277,7 @@ namespace DataLayer.Migrations
 
                     b.Property<int>("NeuralNetworkFileId");
 
-                    b.Property<int>("RecognitionId");
+                    b.Property<int?>("RecognitionId");
 
                     b.HasKey("Id");
 
@@ -403,10 +404,9 @@ namespace DataLayer.Migrations
                         .HasForeignKey("NeuralNetworkFileId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("DataLayer.Entities.Recognition", "Recognition")
+                    b.HasOne("DataLayer.Entities.Recognition")
                         .WithMany("RecognitionResults")
-                        .HasForeignKey("RecognitionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RecognitionId");
                 });
 #pragma warning restore 612, 618
         }

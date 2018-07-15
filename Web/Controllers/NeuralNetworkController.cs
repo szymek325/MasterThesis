@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain.NeuralNetwork;
@@ -36,8 +37,16 @@ namespace Web.Controllers
         [HttpGet("[action]")]
         public async Task<IEnumerable<NeuralNetworkRequest>> GetAll()
         {
-            var response = await neuralNetworkService.GetAll();
-            return response;
+            try
+            {
+                var response = await neuralNetworkService.GetAll();
+                return response;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Exception when loading all neural networks",ex);
+                throw;
+            }
         }
 
         [HttpGet("[action]")]

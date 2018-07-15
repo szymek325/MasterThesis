@@ -6,7 +6,7 @@ namespace DataLayer.Repositories.Interface
 {
     public interface IRecognitionRepository : IGenericRepository<Recognition>
     {
-        IEnumerable<Recognition> GetAllFaces();
+        IEnumerable<Recognition> GetAllFacesWithFullNeuralNetwork();
         Recognition GetRequestById(int id);
     }
 }

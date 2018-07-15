@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain.FaceRecognition;
@@ -6,6 +7,7 @@ using Domain.FaceRecognition.DTO;
 using Domain.Files.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Web.Controllers
 {
@@ -14,17 +16,29 @@ namespace Web.Controllers
     {
         private readonly IFaceRecognitionService faceRecognitionService;
         private readonly IMapper mapper;
+        private readonly ILogger<FaceRecognitionController> logger;
 
-        public FaceRecognitionController(IFaceRecognitionService faceRecognitionService, IMapper mapper)
+        public FaceRecognitionController(IFaceRecognitionService faceRecognitionService, IMapper mapper,
+            ILogger<FaceRecognitionController> logger)
         {
             this.faceRecognitionService = faceRecognitionService;
             this.mapper = mapper;
+            this.logger = logger;
         }
 
         [HttpGet("[action]")]
         public async Task<IEnumerable<RecognitionRequest>> GetAll()
         {
-            return await faceRecognitionService.GetAllFaceRecognitions();
+            try
+            {
+                var requests= await faceRecognitionService.GetAllFaceRecognitions();
+                return requests;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Exception when loading all Recognition requests", ex);
+                throw;
+            }
         }
 
         [HttpPost("[action]")]
@@ -46,8 +60,33 @@ namespace Web.Controllers
         [HttpGet("[action]")]
         public async Task<RecognitionRequest> GetRequest(int id)
         {
-            var request = await faceRecognitionService.GetRequestDataAsync(id);
-            return request;
+            try
+            {
+                var request = await faceRecognitionService.GetRequestData(id);
+                return request;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Exception when loading face recognition {id} ",ex);
+                throw;
+            }
+            
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<RecognitionResultOutput>> GetResultsForRequest(int id)
+        {
+            try
+            {
+                var request = await faceRecognitionService.GetResultsForRequest(id);
+                return request;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Exception when loading face recognition results for {id} ", ex);
+                throw;
+            }
+
         }
     }
 }
