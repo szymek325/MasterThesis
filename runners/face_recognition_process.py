@@ -14,16 +14,17 @@ class FaceRecognitionProcess():
         self.config = ConfigReader()
         self.faceRecognitionManager = RecognitionRequestManager()
         self.faceRecognitionRepo = FaceRecognitionRepository()
-        self.neuralNetworksMannager = NeuralNetworksManager()
+        self.neuralNetworksManager = NeuralNetworksManager()
 
     @exception
     def run_face_recognition(self):
-        self.neuralNetworksMannager.download_neural_networks_to_local()
+        self.logger.info("START FaceRecognition")
+        self.neuralNetworksManager.download_neural_networks_to_local()
         requests = self.faceRecognitionRepo.get_all_not_completed()
         if not requests == null:
             for request in requests:
                 self.faceRecognitionManager.process_request(request)
-        self.logger.info("Processing done")
+        self.logger.info("END FaceRecognition")
 
 
 if __name__ == "__main__":

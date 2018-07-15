@@ -13,11 +13,11 @@ class FaceRecognizerProvider():
         self.neuralNetworkFilesRepo = NeuralNetworkFileRepository()
         self.nnTypesRepo = NeuralNetworkTypeRepository()
 
-    def create_face_recognizers_for_request(self, request_id, image):
+    def create_face_recognizers_for_request(self, request_id):
         nn_files = self.neuralNetworkFilesRepo.get_all_files_connected_to_neural_network_with_neural_types(request_id)
         face_recognizers = []
         for (file, file_type) in nn_files:
             nn_path = os.path.join(self.pathsProvider.local_neural_network_path(), str(file.neuralNetworkId), file.name)
             recognizer = self.neuralNetworkProvider.create_neural_network_by_type(nn_path, file.neuralNetworkType.name)
-            face_recognizers.append([recognizer, file.neuralNetworkType.name])
-        print(face_recognizers)
+            face_recognizers.append([recognizer, file.id])
+        return face_recognizers

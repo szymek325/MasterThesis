@@ -7,8 +7,8 @@ class RecognitionResult(Base):
     __tablename__ = 'RecognitionResult'
 
     id = Column(Integer, primary_key=True)
-    identified_person_id = Column('IdentifiedPersonId', int)
-    confidence = Column('Confidence', int)
+    identified_person_id = Column('IdentifiedPersonId', Integer)
+    confidence = Column('Confidence', Integer)
     neural_network_file_id = Column("NeuralNetworkFileId", Integer, ForeignKey("NeuralNetworkFile.Id"))
     recognition_id = Column("RecognitionId", Integer, ForeignKey("Recognition.Id"))
 
