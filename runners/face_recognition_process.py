@@ -4,7 +4,7 @@ from configuration_global.config_reader import ConfigReader
 from configuration_global.exception_handler import exception
 from configuration_global.logger_factory import LoggerFactory
 from dataLayer.repositories.face_recognition_repository import FaceRecognitionRepository
-from domain.face_recognition.face_recognition_requests_manager import FaceRecognitionRequestManager
+from domain.face_recognition.recognition_requests_manager import RecognitionRequestManager
 from domain.neural_network.neural_networks_manager import NeuralNetworksManager
 
 
@@ -12,7 +12,7 @@ class FaceRecognitionProcess():
     def __init__(self):
         self.logger = LoggerFactory()
         self.config = ConfigReader()
-        self.faceRecognitionManager = FaceRecognitionRequestManager()
+        self.faceRecognitionManager = RecognitionRequestManager()
         self.faceRecognitionRepo = FaceRecognitionRepository()
         self.neuralNetworksMannager = NeuralNetworksManager()
 

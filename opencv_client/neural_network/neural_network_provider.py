@@ -8,6 +8,16 @@ class NeuralNetworkProvider():
         self.logger = LoggerFactory()
         self.recognizer = "empty"
 
+    def create_neural_network(self, file_path: str, nn_type: str):
+        if nn_type.lower == 'eigen':
+            self.recognizer = cv2.face.EigenFaceRecognizer_create()
+        elif nn_type.lower == 'lbph':
+            self.recognizer = cv2.face.LBPHFaceRecognizer_create()
+        elif nn_type.lower == 'fisher':
+            self.recognizer = cv2.face.FisherFaceRecognizer_create()
+        self.recognizer.read(file_path)
+        return self.recognizer
+
     def create_neural_network(self, file_path):
         file_name = file_path.split('\\')[-1]
         nn_type = file_name.split('_')[1].split('.')[0].lower()

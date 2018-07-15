@@ -12,9 +12,9 @@ class FaceRecognizerManager():
         self.neuralNetworkFilesRepo = NeuralNetworkFileRepository()
 
     def recognize_face_on_image(self, request_id, image):
-        nn_files = self.neuralNetworkFilesRepo.get_all_files_connected_to_neural_network(request_id)
+        nn_files = self.neuralNetworkFilesRepo.get_all_files_connected_to_neural_network_with_neural_types(request_id)
         face_recognizers=[]
         for file in nn_files:
             nn_path=os.path.join(self.pathsProvider.local_neural_network_path(),str(file.neuralNetworkId),file.name)
             # TODO complete face recognizing
-            self.neuralNetworkProvider.create_neural_network()
+            self.neuralNetworkProvider.create_neural_network(nn_path,file.neuralNetworkType.name)

@@ -22,6 +22,6 @@ class NeuralNetworkUploader():
             opened_file = open(file, 'rb')
             file_name = file.split('\\')[-1]
             nn_type = self.typesProvider.get_file_type_id(file_name)
-            self.nnFilesRepo.add_detection_file(file_name, neural_network_id, nn_type)
+            self.nnFilesRepo.add_neural_network_file(file_name, neural_network_id, nn_type)
             self.filesUploader.upload_neural_network(neural_network_id, opened_file.read(), file_name)
             self.logger.info(f"Uploaded file: {file_name}")
