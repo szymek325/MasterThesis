@@ -1,3 +1,46 @@
-<p>
-  face-recognition works!
-</p>
+<div class="container">
+    <h1>Face Recognition Request : {{id}}</h1>
+
+    <p *ngIf="!recognitionRequest"><em>Loading request data...</em></p>
+    <div *ngIf="recognitionRequest">
+        <div>
+            <label for="name">Name</label>
+            <div id="name">{{recognitionRequest.name}}</div>
+        </div>
+        <div>
+            <label for="input">Input image</label>
+            <img id="input" />
+            <img src="{{recognitionRequest.fileLinks[0].url}}" />
+        </div>
+        <div>
+            <h3>Results</h3>
+            <table class="table" *ngIf="recognitionRequest.results">
+                <thead>
+                <tr>
+                    <th>Recognised Identity</th>
+                </tr>
+                <tr>
+                    <th>Confidence</th>
+                </tr>
+                <tr>
+                    <th>Neural Network Name</th>
+                </tr>
+                <tr>
+                    <th>Neural Network Type</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let result of recognitionRequest.results">
+                        <td>{{result.identity}}</td>
+                        <td>{{result.confidence}}</td>
+                        <td>{{result.neuralNetworkName}}</td>
+                        <td>{{result.neuralNetworkType}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<alert></alert>
