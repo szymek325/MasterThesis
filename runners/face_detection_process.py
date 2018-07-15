@@ -20,8 +20,8 @@ class FaceDetectionProcess():
 
     @exception
     def run_face_detection(self):
-        requests = self.faceDetectionRepository.get_all_not_completed()
         self.logger.info("START FaceDetection")
+        requests = self.faceDetectionRepository.get_all_not_completed()
         if not requests == null:
             for request in requests:
                 self.request_manager.process_request(request)

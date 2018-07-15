@@ -12,4 +12,4 @@ class NeuralNetwork(Base):
     name = Column('Name', String)
     statusId = Column('StatusId', Integer)
     completionTime = Column('CompletionTime', Date)
-    images = relationship(NeuralNetworkFile)
+    files = relationship(NeuralNetworkFile)

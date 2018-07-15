@@ -22,3 +22,13 @@ class NeuralNetworkRepository():
             req.completionTime = datetime.datetime.now()
         session.commit()
         session.close()
+
+    def get_neural_networks_ids_with_files_count(self):
+        result = []
+        Base.metadata.create_all(engine)
+        session = Session()
+        neural_networks = session.query(NeuralNetwork)
+        session.close()
+        for nn in neural_networks:
+            result.append([nn.id, len(nn.files)])
+        return result
