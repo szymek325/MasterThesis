@@ -5,7 +5,7 @@ from configuration_global.exception_handler import exception
 from configuration_global.logger_factory import LoggerFactory
 from opencv_client.face_detection.haar_face_detector import HaarFaceDetector
 from opencv_client.image_converters.image_converter import ImageConverter
-from opencv_client.neural_network.neural_network_creator import NeuralNetworkCreator
+from opencv_client.neural_network.neural_network_provider import NeuralNetworkProvider
 
 
 class FaceRecognizer():
@@ -13,7 +13,7 @@ class FaceRecognizer():
         self.logger = LoggerFactory()
         self.globalConfig = ConfigReader()
         self.faceDetector = HaarFaceDetector()
-        self.neuralNetworkCreator = NeuralNetworkCreator()
+        self.neuralNetworkCreator = NeuralNetworkProvider()
         self.neuralNetworksPath = self.globalConfig.neural_networks_path
         self.imageConverter = ImageConverter()
         self.recognizer = "empty"

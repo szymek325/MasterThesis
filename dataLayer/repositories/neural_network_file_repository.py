@@ -13,3 +13,11 @@ class NeuralNetworkFileRepository():
         session.add(neural_network_file)
         session.commit()
         session.close()
+
+    @exception
+    def get_all_files_connected_to_neural_network(self, nn_id):
+        Base.metadata.create_all(engine)
+        session = Session()
+        files = session.query(NeuralNetworkFile).filter_by(neuralNetworkId=nn_id)
+        session.close()
+        return files

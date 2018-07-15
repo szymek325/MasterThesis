@@ -3,7 +3,7 @@ import cv2
 from configuration_global.logger_factory import LoggerFactory
 
 
-class NeuralNetworkCreator():
+class NeuralNetworkProvider():
     def __init__(self):
         self.logger = LoggerFactory()
         self.recognizer = "empty"

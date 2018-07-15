@@ -11,7 +11,7 @@ class Recognition(Base):
 
     id = Column('Id', Integer, primary_key=True)
     name = Column('Name', String)
-    neural_network_id = Column("NeuralNetworkId", Integer, ForeignKey("NeuralNetworks.Id"))
+    neural_network_id = Column("NeuralNetworkId", Integer, ForeignKey("NeuralNetwork.Id"))
     neural_network = relationship(NeuralNetwork)
     statusId = Column('StatusId', Integer, ForeignKey("Status.Id"))
     images = relationship(RecognitionImage)
