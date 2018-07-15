@@ -72,5 +72,21 @@ namespace Web.Controllers
             }
             
         }
+
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<RecognitionResultOutput>> GetResultsForRequest(int id)
+        {
+            try
+            {
+                var request = await faceRecognitionService.GetResultsForRequest(id);
+                return request;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Exception when loading face recognition results for {id} ", ex);
+                throw;
+            }
+
+        }
     }
 }

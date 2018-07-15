@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { FaceRecognitionService} from "../../../services/face-recognition.service";
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { FaceRecognitionService } from "../../../services/face-recognition.service";
+import { ActivatedRoute } from "@angular/router";
 import { IFaceRecognition } from "../../../interfaces/face-recognition";
 
 @Component({
-  selector: 'app-face-recognition',
-  templateUrl: './face-recognition.component.html',
-  styleUrls: ['./face-recognition.component.css']
+    selector: "app-face-recognition",
+    templateUrl: "./face-recognition.component.html",
+    styleUrls: ["./face-recognition.component.css"]
 })
 export class FaceRecognitionComponent implements OnInit {
     recognitionRequest: any;
+    recognitionResults: any;
     id: number;
     private sub: any;
 
-    constructor(private route: ActivatedRoute, private faceRecognitionService: FaceRecognitionService) { }
+    constructor(private route: ActivatedRoute, private faceRecognitionService: FaceRecognitionService) {}
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
@@ -25,6 +26,12 @@ export class FaceRecognitionComponent implements OnInit {
             .subscribe(result => {
                     this.recognitionRequest = result as IFaceRecognition;
                     console.log(this.recognitionRequest);
+                },
+                error => { console.log(error) });
+        this.faceRecognitionService.getResultsForRecognition(this.id.toString())
+            .subscribe(result => {
+                    this.recognitionResults = result as IRecognitionResult;
+                    console.log(this.recognitionResults);
                 },
                 error => { console.log(error) });
     }

@@ -20,4 +20,9 @@ export class FaceRecognitionService {
         return this.httpClient.get(this.baseUrl + "api/FaceRecognition/GetRequest", { params });
     };
 
+    getResultsForRecognition(id: string): Observable<Object> {
+        const params = new HttpParams().set("id", id);
+        return this.httpClient.get(this.baseUrl + "api/FaceRecognition/GetResultsForRequest", { params });
+    };
+
 }

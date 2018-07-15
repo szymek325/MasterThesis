@@ -14,7 +14,7 @@
         </div>
         <div>
             <h3>Results</h3>
-            <table class="table" *ngIf="recognitionRequest.results">
+            <table class="table" *ngIf="recognitionResults">
                 <thead>
                 <tr>
                     <th>Recognised Identity</th>
@@ -30,11 +30,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let result of recognitionRequest.results">
-                        <td>{{result.identity}}</td>
+                    <tr *ngFor="let result of recognitionResults">
+                        <td>{{result.identifiedPersonId}}</td>
                         <td>{{result.confidence}}</td>
-                        <td>{{result.neuralNetworkName}}</td>
-                        <td>{{result.neuralNetworkType}}</td>
+                        <td>{{result.neuralNetworkFileName}}</td>
+                        <td>{{result.neuralNetworkTypeName}}</td>
                     </tr>
                 </tbody>
             </table>
