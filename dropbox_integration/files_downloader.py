@@ -36,3 +36,11 @@ class FilesDownloader():
         self.directory.create_directory_if_doesnt_exist(local_save_path)
         downloaded_file_name = self.dropbox.download_single_file(dropbox_request_path, local_save_path)
         return os.path.join(local_save_path, downloaded_file_name)
+
+    def download_neural_network(self, nn_id: int):
+        dropbox_person_path = os.path.join(self.pathsProvider.dropbox_neural_network_path(), str(nn_id)).replace("\\", "/")
+        local_save_path = os.path.join(self.pathsProvider.local_neural_network_path(), str(nn_id))
+        self.directory.clean_directory(local_save_path)
+        self.directory.create_directory_if_doesnt_exist(local_save_path)
+        self.dropbox.download_folder(dropbox_person_path, local_save_path)
+        self.logger.info(F"Finished downloading neural network with id :{nn_id}")

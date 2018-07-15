@@ -15,5 +15,6 @@ class FaceRecognizerManager():
         nn_files = self.neuralNetworkFilesRepo.get_all_files_connected_to_neural_network(request_id)
         face_recognizers=[]
         for file in nn_files:
-            nn_path=os.path.join(self.pathsProvider.local_neural_network_path(),file.neuralNetworkId,file.name)
+            nn_path=os.path.join(self.pathsProvider.local_neural_network_path(),str(file.neuralNetworkId),file.name)
+            # TODO complete face recognizing
             self.neuralNetworkProvider.create_neural_network()
