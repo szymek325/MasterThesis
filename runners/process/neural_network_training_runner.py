@@ -13,11 +13,11 @@ class NeuralNetworkTrainingRunner():
         self.nnManager = NeuralNetworkRequestsManager()
         self.nnRepo = NeuralNetworkRepository()
 
-    def process(self):
+    def run_training(self):
         self.logger.info("START NeuralNetworkTraining")
-        self.peopleManager.download_people_to_local()
         requests = self.nnRepo.get_all_not_completed()
-        if not requests == null:
+        if not requests == null and requests.count() is not 0:
+            self.peopleManager.download_people_to_local()
             for request in requests:
                 self.nnManager.process_request(request)
         self.logger.info("END NeuralNetworkTraining")
@@ -25,4 +25,4 @@ class NeuralNetworkTrainingRunner():
 
 if __name__ == "__main__":
     drop = NeuralNetworkTrainingRunner()
-    drop.process()
+    drop.run_training()
