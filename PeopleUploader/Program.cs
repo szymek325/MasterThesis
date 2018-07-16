@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using AutoMapper;
 using DataLayer.Configuration;
 using Domain;
 using Dropbox.Client.Configuration;
@@ -9,44 +10,52 @@ using Microsoft.Extensions.Logging;
 using NLog;
 using NLog.Extensions.Logging;
 using PeopleUploader.Configuration;
-using LogLevel = NLog.LogLevel;
 
 namespace PeopleUploader
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            //setup our DI
-            var logger = LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
+            var servicesProvider = BuildDi();
+            var runner = servicesProvider.GetRequiredService<IRunner>();
+            runner.DoAction("Action1");
+
+            Console.WriteLine("Press ANY key to exit");
+            Console.ReadLine();
+
+            // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
+            LogManager.Shutdown();
         }
 
         private static IServiceProvider BuildDi()
         {
             //Configuration
-            IConfigurationRoot config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile(path: "appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile(path: "appsettings.Azure.json", optional: false, reloadOnChange: true)
+            var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", false, true)
+                .AddJsonFile("appsettings.Azure.json", false, true)
                 .Build();
 
             //Runner is the custom class
             var services = new ServiceCollection();
-            services.Configure<ConnectionStrings>(config.GetSection("ConnectionStrings"));
-            services.Configure<DropboxConfiguration>(config.GetSection("DropboxConfiguration"));
+            services.AddAutoMapper();
+            services.Configure<ConnectionStrings>(options => config.GetSection("ConnectionStrings"));
+            services.Configure<DropboxConfiguration>(options => config.GetSection("DropboxConfiguration"));
             services.AddSingleton<ILoggerFactory, LoggerFactory>();
             services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
             services.AddTransient<IRunner, Runner>();
-            
             services.AddDomainModule();
 
             var serviceProvider = services.BuildServiceProvider();
 
-            var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
-
             //configure NLog
-            loggerFactory.AddNLog(new NLogProviderOptions { CaptureMessageTemplates = true, CaptureMessageProperties = true });
-            NLog.LogManager.LoadConfiguration("nlog.config");
+            var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+            loggerFactory.AddNLog(new NLogProviderOptions
+            {
+                CaptureMessageTemplates = true,
+                CaptureMessageProperties = true
+            });
+            LogManager.LoadConfiguration("nlog.config");
 
             return serviceProvider;
         }
