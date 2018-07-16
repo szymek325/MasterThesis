@@ -10,6 +10,21 @@ namespace DataLayer.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "NeuralNetworkType",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NeuralNetworkType", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Person",
                 columns: table => new
                 {
@@ -86,6 +101,7 @@ namespace DataLayer.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CompletionTime = table.Column<DateTime>(nullable: true),
                     CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
                     DnnFaces = table.Column<int>(nullable: false),
                     HaarFaces = table.Column<int>(nullable: false),
@@ -110,6 +126,7 @@ namespace DataLayer.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CompletionTime = table.Column<DateTime>(nullable: true),
                     CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
                     Description = table.Column<string>(nullable: true),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
@@ -152,6 +169,35 @@ namespace DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "NeuralNetworkFile",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    NeuralNetworkId = table.Column<int>(nullable: true),
+                    NeuralNetworkTypeId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NeuralNetworkFile", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_NeuralNetworkFile_NeuralNetwork_NeuralNetworkId",
+                        column: x => x.NeuralNetworkId,
+                        principalTable: "NeuralNetwork",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_NeuralNetworkFile_NeuralNetworkType_NeuralNetworkTypeId",
+                        column: x => x.NeuralNetworkTypeId,
+                        principalTable: "NeuralNetworkType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "NeuralNetworkPeople",
                 columns: table => new
                 {
@@ -181,6 +227,7 @@ namespace DataLayer.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CompletionTime = table.Column<DateTime>(nullable: true),
                     CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
                     Description = table.Column<string>(nullable: true),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
@@ -229,6 +276,36 @@ namespace DataLayer.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "RecognitionResult",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Confidence = table.Column<int>(nullable: false),
+                    CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
+                    IdentifiedPersonId = table.Column<int>(nullable: false),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    NeuralNetworkFileId = table.Column<int>(nullable: false),
+                    RecognitionId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RecognitionResult", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RecognitionResult_NeuralNetworkFile_NeuralNetworkFileId",
+                        column: x => x.NeuralNetworkFileId,
+                        principalTable: "NeuralNetworkFile",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RecognitionResult_Recognition_RecognitionId",
+                        column: x => x.RecognitionId,
+                        principalTable: "Recognition",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Detection_StatusId",
                 table: "Detection",
@@ -243,6 +320,16 @@ namespace DataLayer.Migrations
                 name: "IX_NeuralNetwork_StatusId",
                 table: "NeuralNetwork",
                 column: "StatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NeuralNetworkFile_NeuralNetworkId",
+                table: "NeuralNetworkFile",
+                column: "NeuralNetworkId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NeuralNetworkFile_NeuralNetworkTypeId",
+                table: "NeuralNetworkFile",
+                column: "NeuralNetworkTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NeuralNetworkPeople_NeuralNetworkId",
@@ -268,6 +355,16 @@ namespace DataLayer.Migrations
                 name: "IX_RecognitionImage_RecognitionId",
                 table: "RecognitionImage",
                 column: "RecognitionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RecognitionResult_NeuralNetworkFileId",
+                table: "RecognitionResult",
+                column: "NeuralNetworkFileId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RecognitionResult_RecognitionId",
+                table: "RecognitionResult",
+                column: "RecognitionId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -285,6 +382,9 @@ namespace DataLayer.Migrations
                 name: "RecognitionImage");
 
             migrationBuilder.DropTable(
+                name: "RecognitionResult");
+
+            migrationBuilder.DropTable(
                 name: "SensorsReading");
 
             migrationBuilder.DropTable(
@@ -294,7 +394,13 @@ namespace DataLayer.Migrations
                 name: "Person");
 
             migrationBuilder.DropTable(
+                name: "NeuralNetworkFile");
+
+            migrationBuilder.DropTable(
                 name: "Recognition");
+
+            migrationBuilder.DropTable(
+                name: "NeuralNetworkType");
 
             migrationBuilder.DropTable(
                 name: "NeuralNetwork");
