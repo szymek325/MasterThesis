@@ -20,13 +20,13 @@ class FaceDetectionProcess():
 
     @exception
     def run_face_detection(self):
-        self.logger.info("START FaceDetection")
+        self.logger.info("  START FaceDetection")
         requests = self.faceDetectionRepository.get_all_not_completed()
         if not requests == null:
             for request in requests:
                 self.request_manager.process_request(request)
             self.directory.clean_directory(self.pathsProvider.local_detection_image_path())
-        self.logger.info("END FaceDetection")
+        self.logger.info("  END FaceDetection")
 
 
 if __name__ == "__main__":
