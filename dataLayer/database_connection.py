@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from dataLayer.configuration.connection_string_provider import ConnectionStringProvider
+from dataLayer.connection_string_provider import ConnectionStringProvider
 
 # get connection string
 connection_string = ConnectionStringProvider().get_connection_string()
