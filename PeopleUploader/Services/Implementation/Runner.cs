@@ -1,8 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
-using DataLayer.Configuration;
-using Domain.People;
-using Microsoft.Extensions.Options;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using PeopleUploader.Services.Interfaces;
 
 namespace PeopleUploader.Services.Implementation
@@ -11,23 +9,23 @@ namespace PeopleUploader.Services.Implementation
     {
         private readonly ILogger<Runner> logger;
         private readonly IPeopleCreator peopleCreator;
-        
+
         public Runner(ILogger<Runner> logger, IPeopleCreator peopleCreator)
         {
             this.logger = logger;
             this.peopleCreator = peopleCreator;
         }
 
-        public void Start()
+        public async Task Start()
         {
             try
             {
-                peopleCreator.AddPeopleToSystem();
+                await peopleCreator.AddPeopleToSystem();
             }
             catch (Exception ex)
 
             {
-                logger.LogError("error",ex);
+                logger.LogError("error", ex);
             }
         }
     }

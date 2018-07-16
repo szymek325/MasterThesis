@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
+using Domain.Files.DTO;
 using Domain.People;
-using Microsoft.EntityFrameworkCore.Internal;
+using Domain.People.DTO;
 using Microsoft.Extensions.Logging;
 using PeopleUploader.Services.Interfaces;
 
@@ -11,10 +11,10 @@ namespace PeopleUploader.Services.Implementation
 {
     public class PeopleCreator : IPeopleCreator
     {
+        private readonly IFilesProvider filesProvider;
         private readonly ILogger<PeopleCreator> logger;
         private readonly IPeopleService peopleService;
-        private readonly IFilesProvider filesProvider;
-        
+
         public PeopleCreator(ILogger<PeopleCreator> logger, IPeopleService peopleService, IFilesProvider filesProvider)
         {
             this.logger = logger;
@@ -22,19 +22,32 @@ namespace PeopleUploader.Services.Implementation
             this.filesProvider = filesProvider;
         }
 
-        public void AddPeopleToSystem()
+        public async Task AddPeopleToSystem()
         {
-            var files = filesProvider.GetFiles();
-            var distinctPerson = files.Select(x => x.PersonName).Distinct().ToList();
-            Console.WriteLine($"Found {distinctPerson} distinct people");
-            foreach (var person in distinctPerson)
+            try
             {
-                //var 
+                var files = filesProvider.GetFiles();
+                var distinctPerson = files.Select(x => x.PersonName).Distinct().ToList();
+                Console.WriteLine($"Found {distinctPerson} distinct people");
+                foreach (var person in distinctPerson)
+                {
+                    var personFilesToUpload = files.Where(x => x.PersonName == person).Select(x => new FileToUpload
+                    {
+                        FileName = x.Name,
+                        FileStream = x.FileStream
+                    });
+                    var personInput = new PersonInput
+                    {
+                        Files = personFilesToUpload,
+                        Name = person
+                    };
+                    await peopleService.CreateNew(personInput);
+                }
             }
-            //todo
-            // 1. get people files
-            // 2. convert files to people objects
-            // 3. send to peopleservice
+            catch (Exception ex)
+            {
+                logger.LogError("Exception when adding people", ex);
+            }
         }
     }
 }

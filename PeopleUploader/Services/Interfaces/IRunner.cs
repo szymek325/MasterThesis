@@ -1,7 +1,9 @@
-﻿namespace PeopleUploader.Services.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace PeopleUploader.Services.Interfaces
 {
     public interface IRunner
     {
-        void Start();
+        Task Start();
     }
 }
