@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Dropbox.Api;
 using Dropbox.Api.Files;
 using Dropbox.Client.Configuration;
@@ -27,6 +28,17 @@ namespace Dropbox.Client.Folders
             var path = $"{basePath}/{folderPath}";
             var response = await dbxClient.Files.ListFolderAsync(path);
             return response;
+        }
+
+        public async Task DeleteFolder(string folder)
+        {
+            var path = $"{basePath}/{folder}";
+            var result = await dbxClient.Files.DeleteV2Async(path);
+            if (result.Metadata.IsDeleted)
+            {
+                logger.LogError($"Files were not deleted from {path}");
+                throw new Exception("Files were not deleted.");
+            }
         }
     }
 }

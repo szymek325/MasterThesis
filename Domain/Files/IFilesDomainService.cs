@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DataLayer.Entities;
+using DataLayer.Entities.Common;
 using Domain.Files.DTO;
 
 namespace Domain.Files
@@ -9,8 +9,8 @@ namespace Domain.Files
     {
         Task Upload(IEnumerable<FileToUpload> files, string location);
         Task<IEnumerable<FileLink>> GetLinksToFilesInFolder(string folderPath);
-        Task DeleteSingleFile(File file);
-        Task DeleteFiles(IEnumerable<File> files);
-        Task GetThumbnail(File file);
+        Task DeleteSingleFile(IImage file);
+        Task DeleteFiles(IEnumerable<IImage> files);
+        Task GetThumbnail(IImage file);
     }
 }

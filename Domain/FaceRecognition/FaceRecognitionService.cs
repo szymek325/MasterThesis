@@ -5,50 +5,49 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DataLayer.Entities;
 using DataLayer.Repositories.Interface;
-using Domain.Configuration;
-using Domain.FaceDetection.DTO;
 using Domain.FaceRecognition.DTO;
 using Domain.Files;
 using Microsoft.Extensions.Logging;
-using NewRequest = Domain.FaceRecognition.DTO.NewRequest;
 
 namespace Domain.FaceRecognition
 {
     public class FaceRecognitionService : IFaceRecognitionService
     {
-        private readonly IFaceRecognitionRepository faceRecoRepo;
         private readonly IFilesDomainService filesService;
-        private readonly IMapper mapper;
-        private readonly IGuidProvider guid;
         private readonly ILogger<FaceRecognitionService> logger;
-        private readonly IFileRepository filesRepository;
+        private readonly IMapper mapper;
+        private readonly IRecognitionImageRepository recognitionImagesRepository;
+        private readonly IRecognitionResultRepository recognitionResultRepository;
+        private readonly IRecognitionRepository recoRepo;
 
-        public FaceRecognitionService(IFaceRecognitionRepository faceRecoRepo, IFilesDomainService filesService, IMapper mapper,
-            IGuidProvider guid, ILogger<FaceRecognitionService> logger, IFileRepository filesRepository)
+        public FaceRecognitionService(IFilesDomainService filesService, ILogger<FaceRecognitionService> logger,
+            IMapper mapper,
+            IRecognitionImageRepository recognitionImagesRepository, IRecognitionRepository recoRepo,
+            IRecognitionResultRepository recognitionResultRepository)
         {
-            this.faceRecoRepo = faceRecoRepo;
             this.filesService = filesService;
-            this.mapper = mapper;
-            this.guid = guid;
             this.logger = logger;
-            this.filesRepository = filesRepository;
+            this.mapper = mapper;
+            this.recognitionImagesRepository = recognitionImagesRepository;
+            this.recoRepo = recoRepo;
+            this.recognitionResultRepository = recognitionResultRepository;
         }
 
-        public async Task<IEnumerable<FaceRecoRequest>> GetAllFaceRecognitions()
+        public async Task<IEnumerable<RecognitionRequest>> GetAllFaceRecognitions()
         {
-            var faceRecognitions = faceRecoRepo.GetAllFaces().ToList();
+            var faceRecognitions = recoRepo.GetAllFacesWithFullNeuralNetwork().ToList();
             try
             {
                 foreach (var faceDetection in faceRecognitions)
-                    if (faceDetection.Files.Any() && string.IsNullOrWhiteSpace(faceDetection.Files.First().Thumbnail))
-                        await filesService.GetThumbnail(faceDetection.Files.First());
+                    if (faceDetection.Images.Any() && string.IsNullOrWhiteSpace(faceDetection.Images.First().Thumbnail))
+                        await filesService.GetThumbnail(faceDetection.Images.First());
             }
             catch (Exception ex)
             {
                 logger.LogError("Exception when trying to obtain thumbnails of FR Requests", ex);
             }
 
-            var requests = mapper.Map<IEnumerable<FaceRecoRequest>>(faceRecognitions);
+            var requests = mapper.Map<IEnumerable<RecognitionRequest>>(faceRecognitions);
             return requests;
         }
 
@@ -56,23 +55,20 @@ namespace Domain.FaceRecognition
         {
             try
             {
-                var faceRecognitionGuid = guid.NewGuidAsString;
-                await filesService.Upload(request.Files, $"{faceRecognitionGuid}");
-
-                var newRecognition = new DataLayer.Entities.FaceRecognition()
+                var newRecognition = new Recognition
                 {
                     Name = request.Name,
                     StatusId = 1,
                     NeuralNetworkId = request.NeuralNetworkId,
-                    Guid = faceRecognitionGuid,
-                    Files = request.Files.Select(x => new File
+                    Images = request.Files.Select(x => new RecognitionImage
                     {
-                        Name = x.FileName,
-                        ParentGuid = faceRecognitionGuid
+                        Name = x.FileName
                     }).ToList()
                 };
-                faceRecoRepo.Add(newRecognition);
-                faceRecoRepo.Save();
+                recoRepo.Add(newRecognition);
+                recoRepo.Save();
+
+                await filesService.Upload(request.Files, $"{ImageTypes.RecognitionImage}/{newRecognition.Id}");
 
                 return newRecognition.Id;
             }
@@ -83,24 +79,33 @@ namespace Domain.FaceRecognition
             }
         }
 
-        public async Task<FaceRecoRequest> GetRequestDataAsync(int id)
+        public async Task<RecognitionRequest> GetRequestData(int id)
         {
-            var recognitionJob = faceRecoRepo.GetRequestById(id);
-            var filesWithoutUrl = recognitionJob.Files.Where(x => x.Url == null).ToList();
+            var recognitionJob = recoRepo.GetRequestById(id);
+            var filesWithoutUrl = recognitionJob.Images.Where(x => x.Url == null).ToList();
             if (filesWithoutUrl.Any())
             {
-                var links = await filesService.GetLinksToFilesInFolder($"/{recognitionJob.Guid}");
+                var links = await filesService.GetLinksToFilesInFolder(
+                    $"{ImageTypes.RecognitionImage}/{recognitionJob.Id}");
+
                 foreach (var file in filesWithoutUrl)
                 {
                     file.Url = links.FirstOrDefault(x => x.FileName == file.Name)?.Url;
-                    filesRepository.Update(file);
+                    recognitionImagesRepository.Update(file);
                 }
 
-                filesRepository.Save();
+                recognitionImagesRepository.Save();
             }
 
-            var request = mapper.Map<FaceRecoRequest>(recognitionJob);
+            var request = mapper.Map<RecognitionRequest>(recognitionJob);
             return request;
+        }
+
+        public async Task<IEnumerable<RecognitionResultOutput>> GetResultsForRequest(int id)
+        {
+            var results = recognitionResultRepository.GetAllConnectedToRequestById(id);
+            var output = mapper.Map<IEnumerable<RecognitionResultOutput>>(results);
+            return await Task.FromResult(output);
         }
     }
 }

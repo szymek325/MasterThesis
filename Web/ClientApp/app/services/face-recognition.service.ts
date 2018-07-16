@@ -17,7 +17,12 @@ export class FaceRecognitionService {
 
     getFaceRecognition(id: string): Observable<Object> {
         const params = new HttpParams().set("id", id);
-        return this.httpClient.get(this.baseUrl + "api/FaceRecognition/Get", { params });
+        return this.httpClient.get(this.baseUrl + "api/FaceRecognition/GetRequest", { params });
+    };
+
+    getResultsForRecognition(id: string): Observable<Object> {
+        const params = new HttpParams().set("id", id);
+        return this.httpClient.get(this.baseUrl + "api/FaceRecognition/GetResultsForRequest", { params });
     };
 
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
-using DataLayer.Entities;
 using DataLayer.Repositories.Interface;
 using Domain.NeuralNetwork.DTO;
 using Microsoft.Extensions.Logging;
@@ -25,7 +25,7 @@ namespace Domain.NeuralNetwork
             this.mapper = mapper;
         }
 
-        public int Create(string neuralNetworkName, string peopleIds)
+        public Task<int> Create(string neuralNetworkName, string peopleIds)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace Domain.NeuralNetwork
 
                 nnRepo.Add(neuralNetwork);
                 nnRepo.Save();
-                return neuralNetwork.Id;
+                return Task.FromResult(neuralNetwork.Id);
             }
             catch (Exception exception)
             {
@@ -51,18 +51,18 @@ namespace Domain.NeuralNetwork
             }
         }
 
-        public NeuralNetworkOutput GetById(int id)
+        public Task<NeuralNetworkRequest> GetById(int id)
         {
             var neuralNetwork = nnRepo.GetById(id);
-            var output = mapper.Map<NeuralNetworkOutput>(neuralNetwork);
-            return output;
+            var output = mapper.Map<NeuralNetworkRequest>(neuralNetwork);
+            return Task.FromResult(output);
         }
 
-        public IEnumerable<NeuralNetworkOutput> GetAll()
+        public Task<IEnumerable<NeuralNetworkRequest>> GetAll()
         {
             var neuralNetworks = nnRepo.GetAllNeuralNetworks().ToList();
-            var output = mapper.Map<IEnumerable<NeuralNetworkOutput>>(neuralNetworks);
-            return output;
+            var output = mapper.Map<IEnumerable<NeuralNetworkRequest>>(neuralNetworks);
+            return Task.FromResult(output);
         }
     }
 }

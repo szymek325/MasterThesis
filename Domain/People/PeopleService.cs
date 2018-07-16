@@ -14,17 +14,17 @@ namespace Domain.People
 {
     public class PeopleService : IPeopleService
     {
-        private readonly IFileRepository filesRepository;
+        private readonly IPersonImageRepository personImagesRepository;
         private readonly IFilesDomainService filesService;
         private readonly IGuidProvider guid;
         private readonly ILogger<PeopleService> logger;
         private readonly IMapper mapper;
         private readonly IPersonRepository peopleRepo;
 
-        public PeopleService(IFileRepository filesRepository, IFilesDomainService filesService, IGuidProvider guid,
+        public PeopleService(IPersonImageRepository personImagesRepository, IFilesDomainService filesService, IGuidProvider guid,
             ILogger<PeopleService> logger, IMapper mapper, IPersonRepository peopleRepo)
         {
-            this.filesRepository = filesRepository;
+            this.personImagesRepository = personImagesRepository;
             this.filesService = filesService;
             this.guid = guid;
             this.logger = logger;
@@ -36,21 +36,19 @@ namespace Domain.People
         {
             try
             {
-                var personGuid = guid.NewGuidAsString;
-                await filesService.Upload(input.Files, $"{personGuid}");
 
                 var person = new Person
                 {
                     Name = input.Name,
-                    Guid = personGuid,
-                    Files = input.Files.Select(x => new File
+                    Images = input.Files.Select(x => new PersonImage()
                     {
                         Name = x.FileName,
-                        ParentGuid = personGuid
                     }).ToList()
                 };
                 peopleRepo.Add(person);
                 peopleRepo.Save();
+
+                await filesService.Upload(input.Files, $"{ImageTypes.PersonImage}/{person.Id}");
 
                 return person.Id;
             }
@@ -67,8 +65,8 @@ namespace Domain.People
             try
             {
                 foreach (var person in people)
-                    if (person.Files.Any() && string.IsNullOrWhiteSpace(person.Files.First().Thumbnail))
-                        await filesService.GetThumbnail(person.Files.First());
+                    if (person.Images.Any() && string.IsNullOrWhiteSpace(person.Images.First().Thumbnail))
+                        await filesService.GetThumbnail(person.Images.First());
             }
             catch (Exception ex)
             {
@@ -82,17 +80,18 @@ namespace Domain.People
         public async Task<PersonOutput> GetPersonById(int id)
         {
             var person = peopleRepo.GetPersonById(id);
-            var filesWithoutUrl = person.Files.Where(x => x.Url == null).ToList();
+            var filesWithoutUrl = person.Images.Where(x => x.Url == null).ToList();
             if (filesWithoutUrl.Any())
             {
-                var links = await filesService.GetLinksToFilesInFolder($"/{person.Guid}");
+                var links = await filesService.GetLinksToFilesInFolder($"{ImageTypes.PersonImage}/{person.Id}");
+
                 foreach (var file in filesWithoutUrl)
                 {
                     file.Url = links.FirstOrDefault(x => x.FileName == file.Name)?.Url;
-                    filesRepository.Update(file);
+                    personImagesRepository.Update(file);
                 }
 
-                filesRepository.Save();
+                personImagesRepository.Save();
             }
 
             var respone = mapper.Map<PersonOutput>(person);
@@ -104,7 +103,7 @@ namespace Domain.People
             try
             {
                 var person = peopleRepo.GetPersonById(id);
-                await filesService.DeleteFiles(person.Files);
+                await filesService.DeleteFiles(person.Images);
                 peopleRepo.Delete(person.Id);
                 peopleRepo.Save();
             }

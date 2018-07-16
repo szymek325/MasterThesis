@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain.NeuralNetwork;
@@ -29,21 +30,29 @@ namespace Web.Controllers
         {
             collections.TryGetValue("name", out var neuralNetworkName);
             collections.TryGetValue("people", out var peopleIds);
-            var nnId= neuralNetworkService.Create(neuralNetworkName, peopleIds);
+            var nnId= await neuralNetworkService.Create(neuralNetworkName, peopleIds);
             return Ok(new {neuralNetworkId = nnId });
         }
 
         [HttpGet("[action]")]
-        public IEnumerable<NeuralNetworkOutput> GetAll()
+        public async Task<IEnumerable<NeuralNetworkRequest>> GetAll()
         {
-            var response = neuralNetworkService.GetAll();
-            return response;
+            try
+            {
+                var response = await neuralNetworkService.GetAll();
+                return response;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Exception when loading all neural networks",ex);
+                throw;
+            }
         }
 
         [HttpGet("[action]")]
-        public NeuralNetworkOutput Get(int id)
+        public async Task<NeuralNetworkRequest> Get(int id)
         {
-            var response = neuralNetworkService.GetById(id);
+            var response = await neuralNetworkService.GetById(id);
             return response;
         }
     }

@@ -27,6 +27,22 @@ namespace DataLayer
                 });
             }
 
+            if (!context.NeuralNetworkTypes.Any())
+            {
+                context.NeuralNetworkTypes.Add(new NeuralNetworkType
+                {
+                    Name = "LBPH"
+                });
+                context.NeuralNetworkTypes.Add(new NeuralNetworkType
+                {
+                    Name = "Eigen"
+                });
+                context.NeuralNetworkTypes.Add(new NeuralNetworkType
+                {
+                    Name = "Fisher"
+                });
+            }
+
             context.SaveChanges();
         }
     }

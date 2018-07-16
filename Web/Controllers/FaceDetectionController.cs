@@ -22,13 +22,13 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<FaceDetectionRequest>> GetAll()
+        public async Task<IEnumerable<DetectionRequest>> GetAll()
         {
             return await faceDetectionService.GetAllFaceDetectionsAsync();
         }
 
         [HttpGet("[action]")]
-        public async Task<FaceDetectionRequest> GetRequest(int id)
+        public async Task<DetectionRequest> GetRequest(int id)
         {
             var request = await faceDetectionService.GetRequestData(id);
             return request;
