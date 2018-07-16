@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.IO;
+using PeopleUploader.Models;
 
 namespace PeopleUploader.Services.Interfaces
 {
     public interface IFilesProvider
     {
-        IEnumerable<FileInfo> GetFiles();
+        IEnumerable<ParsedFile> GetFiles();
     }
 }

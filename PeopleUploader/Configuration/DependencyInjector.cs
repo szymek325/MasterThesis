@@ -36,6 +36,7 @@ namespace PeopleUploader.Configuration
             services.AddSingleton<ILoggerFactory, LoggerFactory>();
             services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
             services.AddDomainModule();
+            services.AddServices();
 
 
             var serviceProvider = services.BuildServiceProvider();
