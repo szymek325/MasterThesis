@@ -18,6 +18,7 @@ namespace PeopleUploader.Services.Implementation
 
         public async Task Start()
         {
+            logger.LogInformation("START PeopleUploader");
             try
             {
                 await peopleCreator.AddPeopleToSystem();
@@ -27,6 +28,7 @@ namespace PeopleUploader.Services.Implementation
             {
                 logger.LogError("error", ex);
             }
+            logger.LogInformation("END PeopleUploader");
         }
     }
 }

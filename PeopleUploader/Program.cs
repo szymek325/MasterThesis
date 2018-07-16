@@ -22,7 +22,6 @@ namespace PeopleUploader
         public static async Task MainAsync(IRunner programRunner)
         {
             await programRunner.Start();
-            Console.WriteLine("Hello World!");
         }
     }
 }
