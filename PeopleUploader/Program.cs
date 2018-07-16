@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using PeopleUploader.Configuration;
+using PeopleUploader.Services.Interfaces;
 
 namespace PeopleUploader
 {
@@ -11,10 +12,7 @@ namespace PeopleUploader
         {
             var servicesProvider = DependencyInjector.BuildDi();
             var runner = servicesProvider.GetRequiredService<IRunner>();
-            runner.DoAction("Action1");
-
-            Console.WriteLine("Press ANY key to exit");
-            Console.ReadLine();
+            runner.Start();
 
             // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
             LogManager.Shutdown();

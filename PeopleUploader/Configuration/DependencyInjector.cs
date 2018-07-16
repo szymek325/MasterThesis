@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog;
 using NLog.Extensions.Logging;
+using PeopleUploader.Services.Implementation;
+using PeopleUploader.Services.Interfaces;
 
 namespace PeopleUploader.Configuration
 {
@@ -33,8 +35,8 @@ namespace PeopleUploader.Configuration
             services.Configure<PeopleConfiguration>(x => config.GetSection("PeopleConfiguration").Bind(x));
             services.AddSingleton<ILoggerFactory, LoggerFactory>();
             services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
-            services.AddTransient<IRunner, Runner>();
             services.AddDomainModule();
+
 
             var serviceProvider = services.BuildServiceProvider();
 
@@ -48,6 +50,13 @@ namespace PeopleUploader.Configuration
             LogManager.LoadConfiguration("nlog.config");
 
             return serviceProvider;
+        }
+
+        private static void AddServices(this IServiceCollection services)
+        {
+            services.AddTransient<IRunner, Runner>();
+            services.AddTransient<IPeopleCreator, PeopleCreator>();
+            services.AddTransient<IFilesProvider, FilesProvider>();
         }
     }
 }
