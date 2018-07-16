@@ -32,15 +32,16 @@ namespace PeopleUploader
         {
             //Configuration
             var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", false, true)
-                .AddJsonFile("appsettings.Azure.json", false, true)
+                .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile("appsettings.Azure.json", true, true)
                 .Build();
 
             //Runner is the custom class
             var services = new ServiceCollection();
             services.AddAutoMapper();
-            services.Configure<ConnectionStrings>(options => config.GetSection("ConnectionStrings"));
-            services.Configure<DropboxConfiguration>(options => config.GetSection("DropboxConfiguration"));
+            services.AddOptions();
+            services.Configure<ConnectionStrings>(x=>config.GetSection("ConnectionStrings").Bind(x));
+            services.Configure<DropboxConfiguration>(x=>config.GetSection("DropboxConfiguration").Bind(x));
             services.AddSingleton<ILoggerFactory, LoggerFactory>();
             services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
             services.AddTransient<IRunner, Runner>();
