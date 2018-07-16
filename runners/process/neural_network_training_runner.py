@@ -14,13 +14,13 @@ class NeuralNetworkTrainingRunner():
         self.nnRepo = NeuralNetworkRepository()
 
     def run_training(self):
-        self.logger.info("START NeuralNetworkTraining")
+        self.logger.info("  START NeuralNetworkTraining")
         requests = self.nnRepo.get_all_not_completed()
         if not requests == null and requests.count() is not 0:
             self.peopleManager.download_people_to_local()
             for request in requests:
                 self.nnManager.process_request(request)
-        self.logger.info("END NeuralNetworkTraining")
+        self.logger.info("  END NeuralNetworkTraining")
 
 
 if __name__ == "__main__":
