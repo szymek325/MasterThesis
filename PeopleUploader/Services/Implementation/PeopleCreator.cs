@@ -26,9 +26,10 @@ namespace PeopleUploader.Services.Implementation
         {
             try
             {
-                var files = filesProvider.GetFiles();
+                var files = filesProvider.GetFiles().ToList();
                 var distinctPerson = files.Select(x => x.PersonName).Distinct().ToList();
-                Console.WriteLine($"Found {distinctPerson} distinct people");
+                Console.WriteLine($"Found {distinctPerson.Count} distinct people");
+                logger.LogInformation($"Found {distinctPerson.Count} distinct people");
                 foreach (var person in distinctPerson)
                 {
                     var personFilesToUpload = files.Where(x => x.PersonName == person).Select(x => new FileToUpload
@@ -41,6 +42,8 @@ namespace PeopleUploader.Services.Implementation
                         Files = personFilesToUpload,
                         Name = person
                     };
+                    Console.WriteLine($"Uploading {personInput.Name} person with {personInput.Files.Count()}");
+                    logger.LogInformation($"Uploading {personInput.Name} person with {personInput.Files.Count()}");
                     await peopleService.CreateNew(personInput);
                 }
             }
