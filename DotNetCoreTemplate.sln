@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dropbox.Client", "DropboxCl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{57356DF6-EF05-4793-8E1C-1261630D90A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeopleUploader", "PeopleUploader\PeopleUploader.csproj", "{71F05FF3-F856-40A0-B329-43C39C832011}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Azure|Any CPU = Azure|Any CPU
@@ -42,6 +44,12 @@ Global
 		{57356DF6-EF05-4793-8E1C-1261630D90A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57356DF6-EF05-4793-8E1C-1261630D90A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57356DF6-EF05-4793-8E1C-1261630D90A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71F05FF3-F856-40A0-B329-43C39C832011}.Azure|Any CPU.ActiveCfg = Azure|Any CPU
+		{71F05FF3-F856-40A0-B329-43C39C832011}.Azure|Any CPU.Build.0 = Azure|Any CPU
+		{71F05FF3-F856-40A0-B329-43C39C832011}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71F05FF3-F856-40A0-B329-43C39C832011}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71F05FF3-F856-40A0-B329-43C39C832011}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71F05FF3-F856-40A0-B329-43C39C832011}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
