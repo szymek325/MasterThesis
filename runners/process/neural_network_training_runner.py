@@ -19,7 +19,11 @@ class NeuralNetworkTrainingRunner():
         if not requests == null and requests.count() is not 0:
             self.peopleManager.download_people_to_local()
             for request in requests:
-                self.nnManager.process_request(request)
+                try:
+                    self.nnManager.process_request(request)
+                except:
+                    self.logger.error(f"Exception when processing {request.id}")
+                    self.nnRepo.complete_as_error(request.id)
         self.logger.info("  END NeuralNetworkTraining")
 
 

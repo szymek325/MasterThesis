@@ -24,7 +24,11 @@ class FaceDetectionProcess():
         requests = self.faceDetectionRepository.get_all_not_completed()
         if not requests == null:
             for request in requests:
-                self.request_manager.process_request(request)
+                try:
+                    self.request_manager.process_request(request)
+                except:
+                    self.logger.error(f"Exception when processing {request.id}")
+                    self.faceDetectionRepository.complete_as_error(request.id)
             self.directory.clean_directory(self.pathsProvider.local_detection_image_path())
         self.logger.info("  END FaceDetection")
 

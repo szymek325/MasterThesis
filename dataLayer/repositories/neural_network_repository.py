@@ -32,3 +32,13 @@ class NeuralNetworkRepository():
         for nn in neural_networks:
             result.append([nn.id, len(nn.files)])
         return result
+
+    def complete_as_error(self, id):
+        Base.metadata.create_all(engine)
+        session = Session()
+        requests = session.query(NeuralNetwork).filter_by(id=id)
+        for req in requests:
+            req.statusId = 4
+            req.completionTime = datetime.datetime.now()
+        session.commit()
+        session.close()

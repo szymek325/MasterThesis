@@ -23,7 +23,11 @@ class FaceRecognitionProcess():
         if not requests == null and requests.count() is not 0:
             self.neuralNetworksManager.download_neural_networks_to_local()
             for request in requests:
-                self.faceRecognitionManager.process_request(request)
+                try:
+                    self.faceRecognitionManager.process_request(request)
+                except:
+                    self.logger.error(f"Exception when processing {request.id}")
+                    self.faceRecognitionRepo.complete_as_error(request.id)
         self.logger.info("  END FaceRecognition")
 
 

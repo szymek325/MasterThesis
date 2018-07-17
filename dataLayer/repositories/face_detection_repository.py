@@ -24,6 +24,17 @@ class FaceDetectionRepository():
             req.statusId = 3
             req.dnnFaces = dnn_len
             req.haarFaces = haar_len
-            req.completionTime= datetime.datetime.now()
+            req.completionTime = datetime.datetime.now()
+        session.commit()
+        session.close()
+
+    @exception
+    def complete_as_error(self, id):
+        Base.metadata.create_all(engine)
+        session = Session()
+        requests = session.query(Detection).filter_by(id=id)
+        for req in requests:
+            req.statusId = 4
+            req.completionTime = datetime.datetime.now()
         session.commit()
         session.close()
