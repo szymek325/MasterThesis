@@ -1,6 +1,6 @@
 {
   "local_files_path":"temp",
-  "use_local_environment":true,
+  "use_local_environment":false,
   "environments":{
     "debug":"Debug",
     "azure":"Azure"

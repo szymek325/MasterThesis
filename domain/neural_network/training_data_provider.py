@@ -16,7 +16,7 @@ class TrainingDataProvider():
         self.logger = LoggerFactory()
         self.pathsProvider = PathsProvider()
         self.neuralNetworkPersonRepo = NeuralNetworkPersonRepository()
-        self.faceDetector = DnnFaceDetector()
+        self.faceDetector = HaarFaceDetector()
         self.imageConverter = ImageConverter()
 
     def get_training_data_for_neural_network(self, request_id: int):
@@ -39,11 +39,12 @@ class TrainingDataProvider():
         open_cv_image = cv2.imread(imagePath)
         faces=[]
         try:
-            faces = self.faceDetector.run_detector_with_load(imagePath)
+            faces = self.faceDetector.run_detector(open_cv_image)
         except:
             self.logger.info(f"Exception when extracting data from {imagePath}")
         if len(faces) is not 0:
             (startX, startY, endX, endY) = faces[0]
-            np_image = self.imageConverter.convert_to_np_array(open_cv_image[startY:endY, startX:endX])
+            cropped_image=open_cv_image[startY:endY, startX:endX]
+            np_image = self.imageConverter.convert_to_np_array(cropped_image)
             face_samples.append(np_image)
             ids.append(person_id)
