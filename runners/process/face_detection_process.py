@@ -1,3 +1,5 @@
+import traceback
+
 from sqlalchemy import null
 
 from configuration_global.config_reader import ConfigReader

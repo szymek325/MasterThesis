@@ -1,3 +1,5 @@
+import traceback
+
 from sqlalchemy import null
 
 from configuration_global.exception_handler import exception
