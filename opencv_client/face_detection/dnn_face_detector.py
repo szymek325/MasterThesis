@@ -13,7 +13,6 @@ class DnnFaceDetector:
         self.net = cv2.dnn.readNetFromCaffe(os.path.abspath(self.configReader.proto_txt),
                                             os.path.abspath(self.configReader.dnn_model))
 
-    @exception
     def run_detector(self, image):
         """
         :param image: loaded by cv2.imread

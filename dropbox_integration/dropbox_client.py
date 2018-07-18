@@ -12,7 +12,6 @@ class DropboxClient:
         self.directory = DirectoryManager()
         self.client = dropbox.Dropbox("bJ90jq_k1TAAAAAAAAAABiHGq8c16qGnRew7tKYN1yJdChP3CRiPIpOG30ExjVkZ")
 
-    @exception
     def download_single_file(self, source_path: str, save_path):
         files = self.client.files_list_folder(f"/{source_path}")
         if not files.entries.count == 0:
@@ -20,7 +19,6 @@ class DropboxClient:
             self.client.files_download_to_file(f"{save_path}/{file.name}", file.path_lower)
             return file.name
 
-    @exception
     def download_folder(self, source_path: str, save_path):
         files = self.client.files_list_folder(f"/{source_path}")
         for file in files.entries:

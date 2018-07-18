@@ -1,4 +1,3 @@
-from configuration_global.exception_handler import exception
 from configuration_global.logger_factory import LoggerFactory
 from configuration_global.paths_provider import PathsProvider
 from dataLayer.repositories.person_repository import PersonRepository
@@ -14,7 +13,6 @@ class PeopleDownloader():
         self.peopleRepo = PersonRepository()
         self.filesDownloader = FilesDownloader()
 
-    @exception
     def download_people_to_local(self):
         people_path = self.pathProvider.local_person_image_path()
         directories = self.directoryManager.get_subdirectories_with_files_count(people_path)

@@ -1,4 +1,3 @@
-from configuration_global.exception_handler import exception
 from configuration_global.logger_factory import LoggerFactory
 from dataLayer.entities.recognition import Recognition
 from dataLayer.repositories.face_recognition_repository import FaceRecognitionRepository
@@ -15,7 +14,6 @@ class RecognitionRequestManager():
         self.faceRecognizer = FaceRecognizer()
         self.recognitionRepository = FaceRecognitionRepository()
 
-    @exception
     def process_request(self, request: Recognition):
         self.logger.info(f"Working on face recognition request {request.id} id")
         input_file_path = self.filesDownloader.download_recognition_input(request.id)

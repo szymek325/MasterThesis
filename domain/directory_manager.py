@@ -1,7 +1,6 @@
 import os
 import shutil
 
-from configuration_global.exception_handler import exception
 from configuration_global.paths_provider import PathsProvider
 
 
@@ -35,12 +34,10 @@ class DirectoryManager:
         files = [f for f in os.listdir(directory)]
         return files
 
-    @exception
     def create_directory_if_doesnt_exist(self, directory):
         if not os.path.exists(directory):
             os.makedirs(directory)
 
-    @exception
     def clean_directory(self, directory):
         if os.path.exists(directory):
             shutil.rmtree(directory)

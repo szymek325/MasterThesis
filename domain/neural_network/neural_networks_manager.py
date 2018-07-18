@@ -1,4 +1,3 @@
-from configuration_global.exception_handler import exception
 from configuration_global.logger_factory import LoggerFactory
 from configuration_global.paths_provider import PathsProvider
 from dataLayer.repositories.neural_network_repository import NeuralNetworkRepository
@@ -14,7 +13,6 @@ class NeuralNetworksManager():
         self.nnRepo = NeuralNetworkRepository()
         self.directoryManager = DirectoryManager()
 
-    @exception
     def download_neural_networks_to_local(self):
         nn_path = self.pathProvider.local_neural_network_path()
         directories = self.directoryManager.get_subdirectories_with_files_count(nn_path)

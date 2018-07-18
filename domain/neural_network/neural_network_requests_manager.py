@@ -1,4 +1,3 @@
-from configuration_global.exception_handler import exception
 from configuration_global.logger_factory import LoggerFactory
 from dataLayer.entities.neural_network import NeuralNetwork
 from dataLayer.repositories.neural_network_repository import NeuralNetworkRepository
@@ -15,7 +14,6 @@ class NeuralNetworkRequestsManager():
         self.neuralNetworkRepo = NeuralNetworkRepository()
         self.neuralNetworkResultUploader = NeuralNetworkUploader()
 
-    @exception
     def process_request(self, request: NeuralNetwork):
         self.logger.info(f"Working on creating neural network for request with {request.id} id")
         face_samples, ids = self.trainingDataProvider.get_training_data_for_neural_network(request.id)

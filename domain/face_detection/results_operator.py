@@ -5,7 +5,7 @@ import cv2
 from configuration_global.paths_provider import PathsProvider
 from dataLayer.repositories.detection_image_repository import DetectionImageRepository
 from dropbox_integration.files_uploader import FilesUploader
-from opencv_client.image_editor import ImageEditor
+from opencv_client.image_converters.image_editor import ImageEditor
 
 
 class ResultsOperator:

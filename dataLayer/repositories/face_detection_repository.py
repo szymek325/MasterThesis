@@ -1,13 +1,11 @@
 import datetime
 
-from configuration_global.exception_handler import exception
 from dataLayer.database_connection import Base, engine, Session
 from dataLayer.entities.detection import Detection
 
 
 class FaceDetectionRepository():
 
-    @exception
     def get_all_not_completed(self):
         Base.metadata.create_all(engine)
         session = Session()
@@ -15,7 +13,6 @@ class FaceDetectionRepository():
         session.close()
         return requests
 
-    @exception
     def complete_request(self, id, haar_len, dnn_len):
         Base.metadata.create_all(engine)
         session = Session()
@@ -28,7 +25,6 @@ class FaceDetectionRepository():
         session.commit()
         session.close()
 
-    @exception
     def complete_with_error(self, id):
         Base.metadata.create_all(engine)
         session = Session()
