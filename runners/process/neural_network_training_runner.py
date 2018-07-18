@@ -1,5 +1,6 @@
 from sqlalchemy import null
 
+from configuration_global.exception_handler import exception
 from configuration_global.logger_factory import LoggerFactory
 from dataLayer.repositories.neural_network_repository import NeuralNetworkRepository
 from domain.neural_network.neural_network_requests_manager import NeuralNetworkRequestsManager
@@ -13,6 +14,7 @@ class NeuralNetworkTrainingRunner():
         self.nnManager = NeuralNetworkRequestsManager()
         self.nnRepo = NeuralNetworkRepository()
 
+    @exception
     def run_training(self):
         self.logger.info("  START NeuralNetworkTraining")
         requests = self.nnRepo.get_all_not_completed()
@@ -21,9 +23,9 @@ class NeuralNetworkTrainingRunner():
             for request in requests:
                 try:
                     self.nnManager.process_request(request)
-                except:
-                    self.logger.error(f"Exception when processing {request.id}")
-                    self.nnRepo.complete_as_error(request.id)
+                except Exception as ex:
+                    self.logger.error(f"Exception when processing neural network training {request.id}. Error: \n {str(ex)}")
+                    self.nnRepo.complete_with_error(request.id)
         self.logger.info("  END NeuralNetworkTraining")
 
 

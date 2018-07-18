@@ -25,9 +25,9 @@ class FaceRecognitionProcess():
             for request in requests:
                 try:
                     self.faceRecognitionManager.process_request(request)
-                except:
-                    self.logger.error(f"Exception when processing {request.id}")
-                    self.faceRecognitionRepo.complete_as_error(request.id)
+                except Exception as ex:
+                    self.logger.error(f"Exception when processing recognition {request.id}. Error: \n {str(ex)}")
+                    self.faceRecognitionRepo.complete_with_error(request.id)
         self.logger.info("  END FaceRecognition")
 
 

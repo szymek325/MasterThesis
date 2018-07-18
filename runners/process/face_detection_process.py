@@ -6,7 +6,7 @@ from configuration_global.paths_provider import PathsProvider
 from domain.directory_manager import DirectoryManager
 from dataLayer.repositories.face_detection_repository import FaceDetectionRepository
 from domain.face_detection.face_detection_requests_manager import FaceDetectionRequestsManager
-from configuration_global.exception_handler import exception
+from configuration_global.exception_handler import exception, log_exception
 
 
 class FaceDetectionProcess():
@@ -26,9 +26,9 @@ class FaceDetectionProcess():
             for request in requests:
                 try:
                     self.request_manager.process_request(request)
-                except:
-                    self.logger.error(f"Exception when processing {request.id}")
-                    self.faceDetectionRepository.complete_as_error(request.id)
+                except Exception as ex:
+                    self.logger.error(f"Exception when processing detection {request.id}. Error: \n {str(ex)}")
+                    self.faceDetectionRepository.complete_with_error(request.id)
             self.directory.clean_directory(self.pathsProvider.local_detection_image_path())
         self.logger.info("  END FaceDetection")
 

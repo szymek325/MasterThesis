@@ -33,7 +33,7 @@ class NeuralNetworkRepository():
             result.append([nn.id, len(nn.files)])
         return result
 
-    def complete_as_error(self, id):
+    def complete_with_error(self, id):
         Base.metadata.create_all(engine)
         session = Session()
         requests = session.query(NeuralNetwork).filter_by(id=id)
