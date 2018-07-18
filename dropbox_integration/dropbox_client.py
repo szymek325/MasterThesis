@@ -17,7 +17,6 @@ class DropboxClient:
         if not files.entries.count == 0:
             file = files.entries[0]
             self.client.files_download_to_file(f"{save_path}/{file.name}", file.path_lower)
-            return file.name
 
     def download_folder(self, source_path: str, save_path):
         files = self.client.files_list_folder(f"/{source_path}")
@@ -26,8 +25,3 @@ class DropboxClient:
 
     def upload_file(self, path_with_file_name, file):
         self.client.files_upload(file, f"/{path_with_file_name}")
-
-
-if __name__ == "__main__":
-    drop = DropboxClient()
-    drop.download_single_file(3)
