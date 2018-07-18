@@ -14,8 +14,8 @@ class ProgramRunner:
     def run_program(self):
         self.logger.info("START APP")
         self.detectionProcessRunner.run_face_detection()
-        self.recognitionProcessRunner.run_face_recognition()
         self.neuralNetworkTrainingProcessRunner.run_training()
+        self.recognitionProcessRunner.run_face_recognition()
         self.logger.info("END APP")
 
 
