@@ -22,9 +22,5 @@ class OpenCvConfigurationReader:
         return os.path.join(self.module_directory, self.configuration["proto_txt"])
 
     @property
-    def neural_networks_path(self):
-        return os.path.join(self.module_directory, self.configuration["neural_networks_path"])
-
-    @property
     def required_face_confidence(self):
         return self.configuration["required_face_confidence"]
