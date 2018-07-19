@@ -13,5 +13,6 @@ namespace DataLayer.Entities
         public Status Status { get; set; }
         public DateTime? CompletionTime { get; set; }
         public IEnumerable<DetectionImage> Images { get; set; }
+        public IEnumerable<DetectionResult> Results { get; set; }
     }
 }
