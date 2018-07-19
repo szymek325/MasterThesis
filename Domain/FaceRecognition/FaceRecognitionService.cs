@@ -38,9 +38,9 @@ namespace Domain.FaceRecognition
             var faceRecognitions = recoRepo.GetAllFacesWithFullNeuralNetwork().ToList();
             try
             {
-                foreach (var faceDetection in faceRecognitions)
-                    if (faceDetection.Images.Any() && string.IsNullOrWhiteSpace(faceDetection.Images.First().Thumbnail))
-                        await filesService.GetThumbnail(faceDetection.Images.First());
+                foreach (var recognition in faceRecognitions)
+                    if (string.IsNullOrWhiteSpace(recognition.Image.Thumbnail))
+                        await filesService.GetThumbnail(recognition.Image);
             }
             catch (Exception ex)
             {
@@ -60,11 +60,11 @@ namespace Domain.FaceRecognition
                     Name = request.Name,
                     StatusId = 1,
                     NeuralNetworkId = request.NeuralNetworkId,
-                    Images = request.Files.Select(x => new ImageAttachment
+                    Image = request.Files.Select(x => new ImageAttachment
                     {
                         Name = x.FileName,
                         ImageAttachmentTypeId = ImageTypes.RecognitionImage
-                    }).ToList()
+                    }).FirstOrDefault()
                 };
                 recoRepo.Add(newRecognition);
                 recoRepo.Save();
@@ -83,20 +83,9 @@ namespace Domain.FaceRecognition
         public async Task<RecognitionRequest> GetRequestData(int id)
         {
             var recognitionJob = recoRepo.GetRequestById(id);
-            var filesWithoutUrl = recognitionJob.Images.Where(x => x.Url == null).ToList();
-            if (filesWithoutUrl.Any())
-            {
-                var links = await filesService.GetLinksToFilesInFolder(
-                    $"{nameof(ImageTypes.RecognitionImage)}/{recognitionJob.Id}");
 
-                foreach (var file in filesWithoutUrl)
-                {
-                    file.Url = links.FirstOrDefault(x => x.FileName == file.Name)?.Url;
-                    imageRepository.Update(file);
-                }
-
-                imageRepository.Save();
-            }
+            if (string.IsNullOrWhiteSpace(recognitionJob.Image.Url))
+                await filesService.GetLinkToFile(recognitionJob.Image);
 
             var request = mapper.Map<RecognitionRequest>(recognitionJob);
             return request;

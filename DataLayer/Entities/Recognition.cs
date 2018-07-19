@@ -13,7 +13,7 @@ namespace DataLayer.Entities
         public int? StatusId { get; set; }
         public Status Status { get; set; }
         public DateTime? CompletionTime { get; set; }
-        public IEnumerable<ImageAttachment> Images { get; set; }
+        public ImageAttachment Image { get; set; }
         public IEnumerable<RecognitionResult> RecognitionResults { get; set; }
     }
 }
