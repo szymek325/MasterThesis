@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DataLayer.Entities;
 using DataLayer.Entities.Common;
+using DataLayer.Helpers;
 using DataLayer.Repositories.Interface;
 using Domain.Files.DTO;
 using Domain.Files.Helpers;

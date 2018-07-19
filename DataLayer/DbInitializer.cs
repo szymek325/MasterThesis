@@ -13,6 +13,8 @@ namespace DataLayer
 
             InitializeDetectionTypes(context);
 
+            InitializeAttachmentTypes(context);
+
             context.SaveChanges();
         }
 

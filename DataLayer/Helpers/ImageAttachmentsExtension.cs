@@ -1,7 +1,7 @@
 ﻿using System;
 using DataLayer.Entities;
 
-namespace Domain.Files.Helpers
+namespace DataLayer.Helpers
 {
     public static class ImageAttachmentsExtension
     {
