@@ -1,6 +1,8 @@
-﻿namespace DataLayer.Entities
+﻿using DataLayer.Entities.Common;
+
+namespace DataLayer.Entities
 {
-    public class DetectionResult
+    public class DetectionResult : EntityBase
     {
         public int StartX { get; set; }
         public int EndX { get; set; }

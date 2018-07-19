@@ -17,6 +17,8 @@ namespace DataLayer
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Detection> Detections { get; set; }
         public DbSet<DetectionImage> DetectionImages { get; set; }
+        public DbSet<DetectionResult> DetectionResults { get; set; }
+        public DbSet<DetectionResultImage> DetectionResultImages { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<PersonImage> PersonImages { get; set; }
         public DbSet<Recognition> Recognitions { get; set; }
@@ -40,6 +42,12 @@ namespace DataLayer
                 .HasOne(bc => bc.Person)
                 .WithMany("NeuralNetworkPeople");
 
+            modelBuilder.Entity<DetectionResult>()
+                .HasOne(a => a.Image)
+                .WithOne(b => b.DetectionResult)
+                .HasForeignKey<DetectionResultImage>(b => b.DetectionResultId);
+
+
             //less important stuff
             foreach (var entityType in modelBuilder.Model.GetEntityTypes()
                 .Where(t => t.ClrType.IsSubclassOf(typeof(EntityBase))))
@@ -57,6 +65,8 @@ namespace DataLayer
             modelBuilder.Entity<Status>().ToTable(nameof(Status));
             modelBuilder.Entity<Detection>().ToTable(nameof(Detection));
             modelBuilder.Entity<DetectionImage>().ToTable(nameof(DetectionImage));
+            modelBuilder.Entity<DetectionResult>().ToTable(nameof(DetectionResult));
+            modelBuilder.Entity<DetectionResultImage>().ToTable(nameof(DetectionResultImage));
             modelBuilder.Entity<Person>().ToTable(nameof(Person));
             modelBuilder.Entity<PersonImage>().ToTable(nameof(PersonImage));
             modelBuilder.Entity<Recognition>().ToTable(nameof(Recognition));
