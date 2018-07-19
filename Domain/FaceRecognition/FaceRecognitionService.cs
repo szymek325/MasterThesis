@@ -63,13 +63,13 @@ namespace Domain.FaceRecognition
                     Images = request.Files.Select(x => new ImageAttachment
                     {
                         Name = x.FileName,
-                        ImageAttachmentTypeId = ImagesTypesEnum.RecognitionImage
+                        ImageAttachmentTypeId = ImageTypes.RecognitionImage
                     }).ToList()
                 };
                 recoRepo.Add(newRecognition);
                 recoRepo.Save();
 
-                await filesService.Upload(request.Files, $"{ImageTypes.RecognitionImage}/{newRecognition.Id}");
+                await filesService.Upload(request.Files, $"{nameof(ImageTypes.RecognitionImage)}/{newRecognition.Id}");
 
                 return newRecognition.Id;
             }
@@ -87,7 +87,7 @@ namespace Domain.FaceRecognition
             if (filesWithoutUrl.Any())
             {
                 var links = await filesService.GetLinksToFilesInFolder(
-                    $"{ImageTypes.RecognitionImage}/{recognitionJob.Id}");
+                    $"{nameof(ImageTypes.RecognitionImage)}/{recognitionJob.Id}");
 
                 foreach (var file in filesWithoutUrl)
                 {

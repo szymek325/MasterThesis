@@ -6,6 +6,7 @@ using AutoMapper;
 using DataLayer.Repositories.Interface;
 using Domain.FaceDetection.DTO;
 using Domain.Files;
+using Domain.Files.Helpers;
 using Microsoft.Extensions.Logging;
 
 namespace Domain.FaceDetection
@@ -39,7 +40,7 @@ namespace Domain.FaceDetection
                 if (filesWithoutUrl.Any())
                 {
                     var links = await filesService.GetLinksToFilesInFolder(
-                        $"{ImageTypes.DetectionResultImage}/{requestId}");
+                        $"{nameof(ImageTypes.DetectionResultImage)}/{requestId}");
                     var fileLinks = links.ToList();
                     foreach (var file in filesWithoutUrl)
                     {

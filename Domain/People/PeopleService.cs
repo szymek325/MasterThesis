@@ -44,13 +44,13 @@ namespace Domain.People
                     Images = input.Files.Select(x => new ImageAttachment()
                     {
                         Name = x.FileName,
-                        ImageAttachmentTypeId = ImagesTypesEnum.PersonImage
+                        ImageAttachmentTypeId = ImageTypes.PersonImage
                     }).ToList()
                 };
                 peopleRepo.Add(person);
                 peopleRepo.Save();
 
-                await filesService.Upload(input.Files, $"{ImageTypes.PersonImage}/{person.Id}");
+                await filesService.Upload(input.Files, $"{nameof(ImageTypes.PersonImage)}/{person.Id}");
 
                 return person.Id;
             }
@@ -85,7 +85,7 @@ namespace Domain.People
             var filesWithoutUrl = person.Images.Where(x => x.Url == null).ToList();
             if (filesWithoutUrl.Any())
             {
-                var links = await filesService.GetLinksToFilesInFolder($"{ImageTypes.PersonImage}/{person.Id}");
+                var links = await filesService.GetLinksToFilesInFolder($"{nameof(ImageTypes.PersonImage)}/{person.Id}");
 
                 foreach (var file in filesWithoutUrl)
                 {

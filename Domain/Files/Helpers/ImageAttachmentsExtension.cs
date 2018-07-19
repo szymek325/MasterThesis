@@ -7,14 +7,14 @@ namespace Domain.Files.Helpers
     {
         public static string GetPath(this ImageAttachment image)
         {
-            if (image.ImageAttachmentTypeId == ImagesTypesEnum.DetectionImage)
-                return $"{nameof(ImagesTypesEnum.DetectionImage)}/{image.DetectionId}";
-            if (image.ImageAttachmentTypeId == ImagesTypesEnum.DetectionImageResult)
-                return $"{nameof(ImagesTypesEnum.DetectionImageResult)}/{image.DetectionResultId}";
-            if (image.ImageAttachmentTypeId == ImagesTypesEnum.PersonImage)
-                return $"{nameof(ImagesTypesEnum.PersonImage)}/{image.PersonId}";
-            if (image.ImageAttachmentTypeId == ImagesTypesEnum.RecognitionImage)
-                return $"{nameof(ImagesTypesEnum.RecognitionImage)}/{image.RecognitionId}";
+            if (image.ImageAttachmentTypeId == ImageTypes.DetectionImage)
+                return $"{nameof(ImageTypes.DetectionImage)}/{image.DetectionId}";
+            if (image.ImageAttachmentTypeId == ImageTypes.DetectionResultImage)
+                return $"{nameof(ImageTypes.DetectionResultImage)}/{image.DetectionResultId}";
+            if (image.ImageAttachmentTypeId == ImageTypes.PersonImage)
+                return $"{nameof(ImageTypes.PersonImage)}/{image.PersonId}";
+            if (image.ImageAttachmentTypeId == ImageTypes.RecognitionImage)
+                return $"{nameof(ImageTypes.RecognitionImage)}/{image.RecognitionId}";
             throw new ArgumentException("Wrong value of ImageAttachmentTypeId");
         }
     }
