@@ -4,6 +4,7 @@ namespace DataLayer.Entities
 {
     public class DetectionResultImage : EntityBase, IImage
     {
+        public int DetectionId { get; set; }
         public int DetectionResultId { get; set; }
         public DetectionResult DetectionResult { get; set; }
         public string Name { get; set; }
@@ -12,7 +13,7 @@ namespace DataLayer.Entities
 
         public string GetPath()
         {
-            return $"{nameof(DetectionResultImage)}/{DetectionResultId}";
+            return $"{nameof(DetectionResultImage)}/{DetectionId}";
         }
     }
 }
