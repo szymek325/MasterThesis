@@ -14,16 +14,14 @@ namespace Domain.FaceDetection
 {
     public class FaceDetectionService : IFaceDetectionService
     {
-        private readonly IImageRepository imageRepository;
         private readonly IDetectionRepository detectionRepository;
         private readonly IFilesDomainService filesService;
         private readonly ILogger<FaceDetectionService> logger;
         private readonly IMapper mapper;
 
-        public FaceDetectionService(IImageRepository imageRepository, IDetectionRepository detectionRepository,
-            IFilesDomainService filesService, ILogger<FaceDetectionService> logger, IMapper mapper)
+        public FaceDetectionService(IDetectionRepository detectionRepository, IFilesDomainService filesService,
+            ILogger<FaceDetectionService> logger, IMapper mapper)
         {
-            this.imageRepository = imageRepository;
             this.detectionRepository = detectionRepository;
             this.filesService = filesService;
             this.logger = logger;
@@ -38,11 +36,11 @@ namespace Domain.FaceDetection
                 {
                     Name = request.Name,
                     StatusId = 1,
-                    Images = request.Files.Select(x => new ImageAttachment()
+                    Image = request.Files.Select(x => new ImageAttachment()
                     {
                         Name = x.FileName,
                         ImageAttachmentTypeId = ImageTypes.DetectionImage
-                    }).ToList()
+                    }).FirstOrDefault()
                 };
                 detectionRepository.Add(newDetection);
                 detectionRepository.Save();
@@ -64,8 +62,8 @@ namespace Domain.FaceDetection
             try
             {
                 foreach (var faceDetection in faceDetections)
-                    if (faceDetection.Images.Any() && string.IsNullOrWhiteSpace(faceDetection.Images.First().Thumbnail))
-                        await filesService.GetThumbnail(faceDetection.Images.First());
+                    if (string.IsNullOrWhiteSpace(faceDetection.Image.Thumbnail))
+                        await filesService.GetThumbnail(faceDetection.Image);
             }
             catch (Exception ex)
             {
@@ -79,20 +77,9 @@ namespace Domain.FaceDetection
         public async Task<DetectionRequest> GetRequestData(int id)
         {
             var detectionJob = detectionRepository.GetRequestById(id);
-            var filesWithoutUrl = detectionJob.Images.Where(x => x.Url == null).ToList();
-            if (filesWithoutUrl.Any())
-            {
-                var links = await filesService.GetLinksToFilesInFolder(
-                    $"{nameof(ImageTypes.DetectionImage)}/{detectionJob.Id}");
 
-                foreach (var file in filesWithoutUrl)
-                {
-                    file.Url = links.FirstOrDefault(x => x.FileName == file.Name)?.Url;
-                    imageRepository.Update(file);
-                }
-
-                imageRepository.Save();
-            }
+            if (string.IsNullOrWhiteSpace(detectionJob.Image.Url))
+                await filesService.GetLinkToFile(detectionJob.Image);
 
             var request = mapper.Map<DetectionRequest>(detectionJob);
             return request;

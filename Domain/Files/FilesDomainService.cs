@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using AutoMapper;
 using DataLayer.Entities;
@@ -72,6 +73,22 @@ namespace Domain.Files
             }
 
             return links;
+        }
+
+        public async Task GetLinkToFile(ImageAttachment image)
+        {
+            var imagePath = $"{image.GetPath()}/{image.Name}";
+            try
+            {
+                var url=await urlClient.CreateLinkToFile(imagePath);
+                image.Url = url;
+                imageRepository.Update(image);
+                imageRepository.Save();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"Exception when generating link for file: {imagePath}", ex);
+            }
         }
 
 
