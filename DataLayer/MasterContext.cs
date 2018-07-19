@@ -16,18 +16,16 @@ namespace DataLayer
         public DbSet<SensorsReading> SensorsReadings { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Detection> Detections { get; set; }
-        public DbSet<DetectionImage> DetectionImages { get; set; }
         public DbSet<DetectionResult> DetectionResults { get; set; }
-        public DbSet<DetectionResultImage> DetectionResultImages { get; set; }
         public DbSet<DetectionType> DetectionTypes { get; set; }
         public DbSet<Person> People { get; set; }
-        public DbSet<PersonImage> PersonImages { get; set; }
         public DbSet<Recognition> Recognitions { get; set; }
-        public DbSet<RecognitionImage> RecognitionImages { get; set; }
         public DbSet<NeuralNetwork> NeuralNetworks { get; set; }
         public DbSet<NeuralNetworkFile> NeuralNetworkFiles { get; set; }
         public DbSet<NeuralNetworkType> NeuralNetworkTypes { get; set; }
         public DbSet<NeuralNetworkPerson> NeuralNetworkPeople { get; set; }
+        public DbSet<ImageAttachment> ImageAttachments { get; set; }
+        public DbSet<ImageAttachmentType> ImageAttachmentTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -42,12 +40,6 @@ namespace DataLayer
             modelBuilder.Entity<NeuralNetworkPerson>()
                 .HasOne(bc => bc.Person)
                 .WithMany("NeuralNetworkPeople");
-
-            modelBuilder.Entity<DetectionResult>()
-                .HasOne(a => a.Image)
-                .WithOne(b => b.DetectionResult)
-                .HasForeignKey<DetectionResultImage>(b => b.DetectionResultId);
-
 
             //less important stuff
             foreach (var entityType in modelBuilder.Model.GetEntityTypes()
@@ -65,17 +57,15 @@ namespace DataLayer
             modelBuilder.Entity<SensorsReading>().ToTable(nameof(SensorsReading));
             modelBuilder.Entity<Status>().ToTable(nameof(Status));
             modelBuilder.Entity<Detection>().ToTable(nameof(Detection));
-            modelBuilder.Entity<DetectionImage>().ToTable(nameof(DetectionImage));
             modelBuilder.Entity<DetectionResult>().ToTable(nameof(DetectionResult));
-            modelBuilder.Entity<DetectionResultImage>().ToTable(nameof(DetectionResultImage));
             modelBuilder.Entity<DetectionType>().ToTable(nameof(DetectionType));
             modelBuilder.Entity<Person>().ToTable(nameof(Person));
-            modelBuilder.Entity<PersonImage>().ToTable(nameof(PersonImage));
             modelBuilder.Entity<Recognition>().ToTable(nameof(Recognition));
-            modelBuilder.Entity<RecognitionImage>().ToTable(nameof(RecognitionImage));
             modelBuilder.Entity<NeuralNetwork>().ToTable(nameof(NeuralNetwork));
             modelBuilder.Entity<NeuralNetworkFile>().ToTable(nameof(NeuralNetworkFile));
             modelBuilder.Entity<NeuralNetworkType>().ToTable(nameof(NeuralNetworkType));
+            modelBuilder.Entity<ImageAttachment>().ToTable(nameof(ImageAttachment));
+            modelBuilder.Entity<ImageAttachmentType>().ToTable(nameof(ImageAttachmentType));
         }
     }
 }

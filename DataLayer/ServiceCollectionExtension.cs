@@ -28,7 +28,7 @@ namespace DataLayer
             services.AddTransient<IRecognitionImageRepository, RecognitionImageRepository>();
             services.AddTransient<IRecognitionResultRepository, RecognitionResultRepository>();
 
-            services.AddTransient<IFileRepository, FileRepository>();
+            services.AddTransient<IImageRepository, ImageRepository>();
 
             services.AddTransient<ISensorsReadingRepository, SensorsReadingRepository>();
             services.AddTransient<INeuralNetworkRepository, NeuralNetworkRepository>();

@@ -15,7 +15,7 @@ namespace Domain.Files
 {
     public class FilesDomainService : IFilesDomainService
     {
-        private readonly IFileRepository fileRepository;
+        private readonly IImageRepository imageRepository;
         private readonly IFilesClient filesClient;
         private readonly IFoldersClient foldersClient;
         private readonly ILogger<FilesDomainService> logger;
@@ -23,14 +23,14 @@ namespace Domain.Files
         private readonly IUrlClient urlClient;
 
         public FilesDomainService(IFilesClient filesClient, IFoldersClient foldersClient,
-            ILogger<FilesDomainService> logger, IMapper mapper, IUrlClient urlClient, IFileRepository fileRepository)
+            ILogger<FilesDomainService> logger, IMapper mapper, IUrlClient urlClient, IImageRepository imageRepository)
         {
             this.filesClient = filesClient;
             this.foldersClient = foldersClient;
             this.logger = logger;
             this.mapper = mapper;
             this.urlClient = urlClient;
-            this.fileRepository = fileRepository;
+            this.imageRepository = imageRepository;
         }
 
         public async Task Upload(IEnumerable<FileToUpload> files, string location)
@@ -78,8 +78,8 @@ namespace Domain.Files
             {
                 file.Thumbnail =
                     await filesClient.DownloadThumbnail($"{file.GetPath()}", file.Name);
-                fileRepository.Update(file);
-                fileRepository.Save();
+                imageRepository.Update(file);
+                imageRepository.Save();
             }
             catch (Exception ex)
             {
@@ -92,8 +92,8 @@ namespace Domain.Files
             try
             {
                 await filesClient.Delete(file.GetPath(), file.Name);
-                fileRepository.Delete(file.Id);
-                fileRepository.Save();
+                imageRepository.Delete(file.Id);
+                imageRepository.Save();
             }
             catch (Exception ex)
             {
@@ -112,8 +112,8 @@ namespace Domain.Files
                     var firstFile = files.First();
                     await foldersClient.DeleteFolder($"{firstFile.GetPath()}");
                     foreach (var file in files)
-                        fileRepository.Delete(file.Id);
-                    fileRepository.Save();
+                        imageRepository.Delete(file.Id);
+                    imageRepository.Save();
                 }
             }
             catch (Exception ex)

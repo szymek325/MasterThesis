@@ -9,10 +9,10 @@ namespace DataLayer.Entities
         public string Name { get; set; }
         public int DnnFaces { get; set; }
         public int HaarFaces { get; set; }
-        public int? StatusId { get; set; }
+        public int StatusId { get; set; }
         public Status Status { get; set; }
         public DateTime? CompletionTime { get; set; }
-        public IEnumerable<DetectionImage> Images { get; set; }
+        public IEnumerable<ImageAttachment> Images { get; set; }
         public IEnumerable<DetectionResult> Results { get; set; }
     }
 }

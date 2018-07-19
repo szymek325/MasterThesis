@@ -66,5 +66,26 @@ namespace DataLayer
                 Name = "Error"
             });
         }
+
+        private static void InitializeAttachmentTypes(MasterContext context)
+        {
+            if (context.ImageAttachmentTypes.Any()) return;
+            context.ImageAttachmentTypes.Add(new ImageAttachmentType
+            {
+                Name = "Detection"
+            });
+            context.ImageAttachmentTypes.Add(new ImageAttachmentType
+            {
+                Name = "DetectionResult"
+            });
+            context.ImageAttachmentTypes.Add(new ImageAttachmentType
+            {
+                Name = "Recognition"
+            });
+            context.ImageAttachmentTypes.Add(new ImageAttachmentType
+            {
+                Name = "Person"
+            });
+        }
     }
 }
