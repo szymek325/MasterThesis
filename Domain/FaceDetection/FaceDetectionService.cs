@@ -7,23 +7,23 @@ using DataLayer.Entities;
 using DataLayer.Repositories.Interface;
 using Domain.FaceDetection.DTO;
 using Domain.Files;
+using Domain.Files.Helpers;
 using Microsoft.Extensions.Logging;
 
 namespace Domain.FaceDetection
 {
     public class FaceDetectionService : IFaceDetectionService
     {
-        private readonly IDetectionImageRepository detectionImagesRepository;
+        private readonly IImageRepository imageRepository;
         private readonly IDetectionRepository detectionRepository;
         private readonly IFilesDomainService filesService;
         private readonly ILogger<FaceDetectionService> logger;
         private readonly IMapper mapper;
 
-        public FaceDetectionService(IDetectionImageRepository detectionImagesRepository,
-            IDetectionRepository detectionRepository,
+        public FaceDetectionService(IImageRepository imageRepository, IDetectionRepository detectionRepository,
             IFilesDomainService filesService, ILogger<FaceDetectionService> logger, IMapper mapper)
         {
-            this.detectionImagesRepository = detectionImagesRepository;
+            this.imageRepository = imageRepository;
             this.detectionRepository = detectionRepository;
             this.filesService = filesService;
             this.logger = logger;
@@ -38,9 +38,10 @@ namespace Domain.FaceDetection
                 {
                     Name = request.Name,
                     StatusId = 1,
-                    Images = request.Files.Select(x => new DetectionImage
+                    Images = request.Files.Select(x => new ImageAttachment()
                     {
-                        Name = x.FileName
+                        Name = x.FileName,
+                        ImageAttachmentTypeId = ImagesTypesEnum.DetectionImage
                     }).ToList()
                 };
                 detectionRepository.Add(newDetection);
@@ -87,10 +88,10 @@ namespace Domain.FaceDetection
                 foreach (var file in filesWithoutUrl)
                 {
                     file.Url = links.FirstOrDefault(x => x.FileName == file.Name)?.Url;
-                    detectionImagesRepository.Update(file);
+                    imageRepository.Update(file);
                 }
 
-                detectionImagesRepository.Save();
+                imageRepository.Save();
             }
 
             var request = mapper.Map<DetectionRequest>(detectionJob);

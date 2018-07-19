@@ -10,6 +10,36 @@ namespace DataLayer.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "DetectionType",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DetectionType", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ImageAttachmentType",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ImageAttachmentType", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "NeuralNetworkType",
                 columns: table => new
                 {
@@ -72,30 +102,6 @@ namespace DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PersonImage",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
-                    ModifiedDate = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    PersonId = table.Column<int>(nullable: true),
-                    Thumbnail = table.Column<string>(nullable: true),
-                    Url = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PersonImage", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PersonImage_Person_PersonId",
-                        column: x => x.PersonId,
-                        principalTable: "Person",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Detection",
                 columns: table => new
                 {
@@ -107,7 +113,7 @@ namespace DataLayer.Migrations
                     HaarFaces = table.Column<int>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    StatusId = table.Column<int>(nullable: true)
+                    StatusId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -117,7 +123,7 @@ namespace DataLayer.Migrations
                         column: x => x.StatusId,
                         principalTable: "Status",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -145,27 +151,35 @@ namespace DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DetectionImage",
+                name: "DetectionResult",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
-                    DetectionId = table.Column<int>(nullable: true),
+                    DetectionId = table.Column<int>(nullable: false),
+                    DetectionTypeId = table.Column<int>(nullable: false),
+                    EndX = table.Column<int>(nullable: false),
+                    EndY = table.Column<int>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Thumbnail = table.Column<string>(nullable: true),
-                    Url = table.Column<string>(nullable: true)
+                    StartX = table.Column<int>(nullable: false),
+                    StartY = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DetectionImage", x => x.Id);
+                    table.PrimaryKey("PK_DetectionResult", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DetectionImage_Detection_DetectionId",
+                        name: "FK_DetectionResult_Detection_DetectionId",
                         column: x => x.DetectionId,
                         principalTable: "Detection",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DetectionResult_DetectionType_DetectionTypeId",
+                        column: x => x.DetectionTypeId,
+                        principalTable: "DetectionType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -177,7 +191,7 @@ namespace DataLayer.Migrations
                     CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    NeuralNetworkId = table.Column<int>(nullable: true),
+                    NeuralNetworkId = table.Column<int>(nullable: false),
                     NeuralNetworkTypeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -188,7 +202,7 @@ namespace DataLayer.Migrations
                         column: x => x.NeuralNetworkId,
                         principalTable: "NeuralNetwork",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_NeuralNetworkFile_NeuralNetworkType_NeuralNetworkTypeId",
                         column: x => x.NeuralNetworkTypeId,
@@ -253,23 +267,51 @@ namespace DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RecognitionImage",
+                name: "ImageAttachment",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
+                    DetectionId = table.Column<int>(nullable: true),
+                    DetectionResultId = table.Column<int>(nullable: true),
+                    ImageAttachmentTypeId = table.Column<int>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
+                    PersonId = table.Column<int>(nullable: true),
                     RecognitionId = table.Column<int>(nullable: true),
                     Thumbnail = table.Column<string>(nullable: true),
                     Url = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RecognitionImage", x => x.Id);
+                    table.PrimaryKey("PK_ImageAttachment", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RecognitionImage_Recognition_RecognitionId",
+                        name: "FK_ImageAttachment_Detection_DetectionId",
+                        column: x => x.DetectionId,
+                        principalTable: "Detection",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ImageAttachment_DetectionResult_DetectionResultId",
+                        column: x => x.DetectionResultId,
+                        principalTable: "DetectionResult",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ImageAttachment_ImageAttachmentType_ImageAttachmentTypeId",
+                        column: x => x.ImageAttachmentTypeId,
+                        principalTable: "ImageAttachmentType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ImageAttachment_Person_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "Person",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ImageAttachment_Recognition_RecognitionId",
                         column: x => x.RecognitionId,
                         principalTable: "Recognition",
                         principalColumn: "Id",
@@ -312,9 +354,41 @@ namespace DataLayer.Migrations
                 column: "StatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DetectionImage_DetectionId",
-                table: "DetectionImage",
+                name: "IX_DetectionResult_DetectionId",
+                table: "DetectionResult",
                 column: "DetectionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DetectionResult_DetectionTypeId",
+                table: "DetectionResult",
+                column: "DetectionTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ImageAttachment_DetectionId",
+                table: "ImageAttachment",
+                column: "DetectionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ImageAttachment_DetectionResultId",
+                table: "ImageAttachment",
+                column: "DetectionResultId",
+                unique: true,
+                filter: "[DetectionResultId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ImageAttachment_ImageAttachmentTypeId",
+                table: "ImageAttachment",
+                column: "ImageAttachmentTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ImageAttachment_PersonId",
+                table: "ImageAttachment",
+                column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ImageAttachment_RecognitionId",
+                table: "ImageAttachment",
+                column: "RecognitionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NeuralNetwork_StatusId",
@@ -337,11 +411,6 @@ namespace DataLayer.Migrations
                 column: "NeuralNetworkId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PersonImage_PersonId",
-                table: "PersonImage",
-                column: "PersonId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Recognition_NeuralNetworkId",
                 table: "Recognition",
                 column: "NeuralNetworkId");
@@ -350,11 +419,6 @@ namespace DataLayer.Migrations
                 name: "IX_Recognition_StatusId",
                 table: "Recognition",
                 column: "StatusId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RecognitionImage_RecognitionId",
-                table: "RecognitionImage",
-                column: "RecognitionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RecognitionResult_NeuralNetworkFileId",
@@ -370,16 +434,10 @@ namespace DataLayer.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DetectionImage");
+                name: "ImageAttachment");
 
             migrationBuilder.DropTable(
                 name: "NeuralNetworkPeople");
-
-            migrationBuilder.DropTable(
-                name: "PersonImage");
-
-            migrationBuilder.DropTable(
-                name: "RecognitionImage");
 
             migrationBuilder.DropTable(
                 name: "RecognitionResult");
@@ -388,7 +446,10 @@ namespace DataLayer.Migrations
                 name: "SensorsReading");
 
             migrationBuilder.DropTable(
-                name: "Detection");
+                name: "DetectionResult");
+
+            migrationBuilder.DropTable(
+                name: "ImageAttachmentType");
 
             migrationBuilder.DropTable(
                 name: "Person");
@@ -398,6 +459,12 @@ namespace DataLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "Recognition");
+
+            migrationBuilder.DropTable(
+                name: "Detection");
+
+            migrationBuilder.DropTable(
+                name: "DetectionType");
 
             migrationBuilder.DropTable(
                 name: "NeuralNetworkType");

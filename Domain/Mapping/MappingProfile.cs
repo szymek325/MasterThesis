@@ -40,7 +40,7 @@ namespace Domain.Mapping
 
             CreateMap<DataLayer.Entities.SensorsReading, Reading>().ReverseMap();
 
-            CreateMap<IImage, FileLink>()
+            CreateMap<ImageAttachment, FileLink>()
                 .ForMember(dest => dest.FileName, opts => opts.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Url, opts => opts.MapFrom(src => src.Url));
 

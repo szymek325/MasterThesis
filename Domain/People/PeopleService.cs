@@ -7,6 +7,7 @@ using DataLayer.Entities;
 using DataLayer.Repositories.Interface;
 using Domain.Configuration;
 using Domain.Files;
+using Domain.Files.Helpers;
 using Domain.People.DTO;
 using Microsoft.Extensions.Logging;
 
@@ -14,17 +15,17 @@ namespace Domain.People
 {
     public class PeopleService : IPeopleService
     {
-        private readonly IPersonImageRepository personImagesRepository;
+        private readonly IImageRepository imageRepository;
         private readonly IFilesDomainService filesService;
         private readonly IGuidProvider guid;
         private readonly ILogger<PeopleService> logger;
         private readonly IMapper mapper;
         private readonly IPersonRepository peopleRepo;
 
-        public PeopleService(IPersonImageRepository personImagesRepository, IFilesDomainService filesService, IGuidProvider guid,
+        public PeopleService(IImageRepository imageRepository, IFilesDomainService filesService, IGuidProvider guid,
             ILogger<PeopleService> logger, IMapper mapper, IPersonRepository peopleRepo)
         {
-            this.personImagesRepository = personImagesRepository;
+            this.imageRepository = imageRepository;
             this.filesService = filesService;
             this.guid = guid;
             this.logger = logger;
@@ -40,9 +41,10 @@ namespace Domain.People
                 var person = new Person
                 {
                     Name = input.Name,
-                    Images = input.Files.Select(x => new PersonImage()
+                    Images = input.Files.Select(x => new ImageAttachment()
                     {
                         Name = x.FileName,
+                        ImageAttachmentTypeId = ImagesTypesEnum.PersonImage
                     }).ToList()
                 };
                 peopleRepo.Add(person);
@@ -88,10 +90,10 @@ namespace Domain.People
                 foreach (var file in filesWithoutUrl)
                 {
                     file.Url = links.FirstOrDefault(x => x.FileName == file.Name)?.Url;
-                    personImagesRepository.Update(file);
+                    imageRepository.Update(file);
                 }
 
-                personImagesRepository.Save();
+                imageRepository.Save();
             }
 
             var respone = mapper.Map<PersonOutput>(person);

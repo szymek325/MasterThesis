@@ -11,8 +11,8 @@ using System;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(MasterContext))]
-    [Migration("20180719155332_DetectionIdInResultImage")]
-    partial class DetectionIdInResultImage
+    [Migration("20180719170438_InitDb")]
+    partial class InitDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,39 +40,13 @@ namespace DataLayer.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("StatusId");
+                    b.Property<int>("StatusId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("StatusId");
 
                     b.ToTable("Detection");
-                });
-
-            modelBuilder.Entity("DataLayer.Entities.DetectionImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreationTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasDefaultValueSql("getutcdate()");
-
-                    b.Property<int>("DetectionId");
-
-                    b.Property<DateTime?>("ModifiedDate");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Thumbnail");
-
-                    b.Property<string>("Url");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DetectionId");
-
-                    b.ToTable("DetectionImage");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.DetectionResult", b =>
@@ -107,35 +81,6 @@ namespace DataLayer.Migrations
                     b.ToTable("DetectionResult");
                 });
 
-            modelBuilder.Entity("DataLayer.Entities.DetectionResultImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreationTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasDefaultValueSql("getutcdate()");
-
-                    b.Property<int>("DetectionId");
-
-                    b.Property<int>("DetectionResultId");
-
-                    b.Property<DateTime?>("ModifiedDate");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Thumbnail");
-
-                    b.Property<string>("Url");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DetectionResultId")
-                        .IsUnique();
-
-                    b.ToTable("DetectionResultImage");
-                });
-
             modelBuilder.Entity("DataLayer.Entities.DetectionType", b =>
                 {
                     b.Property<int>("Id")
@@ -152,6 +97,68 @@ namespace DataLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DetectionType");
+                });
+
+            modelBuilder.Entity("DataLayer.Entities.ImageAttachment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationTime")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasDefaultValueSql("getutcdate()");
+
+                    b.Property<int?>("DetectionId");
+
+                    b.Property<int?>("DetectionResultId");
+
+                    b.Property<int>("ImageAttachmentTypeId");
+
+                    b.Property<DateTime?>("ModifiedDate");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("PersonId");
+
+                    b.Property<int?>("RecognitionId");
+
+                    b.Property<string>("Thumbnail");
+
+                    b.Property<string>("Url");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DetectionId");
+
+                    b.HasIndex("DetectionResultId")
+                        .IsUnique()
+                        .HasFilter("[DetectionResultId] IS NOT NULL");
+
+                    b.HasIndex("ImageAttachmentTypeId");
+
+                    b.HasIndex("PersonId");
+
+                    b.HasIndex("RecognitionId");
+
+                    b.ToTable("ImageAttachment");
+                });
+
+            modelBuilder.Entity("DataLayer.Entities.ImageAttachmentType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationTime")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasDefaultValueSql("getutcdate()");
+
+                    b.Property<DateTime?>("ModifiedDate");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ImageAttachmentType");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.ManyToManyHelper.NeuralNetworkPerson", b =>
@@ -257,32 +264,6 @@ namespace DataLayer.Migrations
                     b.ToTable("Person");
                 });
 
-            modelBuilder.Entity("DataLayer.Entities.PersonImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreationTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasDefaultValueSql("getutcdate()");
-
-                    b.Property<DateTime?>("ModifiedDate");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int?>("PersonId");
-
-                    b.Property<string>("Thumbnail");
-
-                    b.Property<string>("Url");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("PersonImage");
-                });
-
             modelBuilder.Entity("DataLayer.Entities.Recognition", b =>
                 {
                     b.Property<int>("Id")
@@ -311,32 +292,6 @@ namespace DataLayer.Migrations
                     b.HasIndex("StatusId");
 
                     b.ToTable("Recognition");
-                });
-
-            modelBuilder.Entity("DataLayer.Entities.RecognitionImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreationTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasDefaultValueSql("getutcdate()");
-
-                    b.Property<DateTime?>("ModifiedDate");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int>("RecognitionId");
-
-                    b.Property<string>("Thumbnail");
-
-                    b.Property<string>("Url");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RecognitionId");
-
-                    b.ToTable("RecognitionImage");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.RecognitionResult", b =>
@@ -409,14 +364,7 @@ namespace DataLayer.Migrations
                 {
                     b.HasOne("DataLayer.Entities.Status", "Status")
                         .WithMany()
-                        .HasForeignKey("StatusId");
-                });
-
-            modelBuilder.Entity("DataLayer.Entities.DetectionImage", b =>
-                {
-                    b.HasOne("DataLayer.Entities.Detection", "Detection")
-                        .WithMany("Images")
-                        .HasForeignKey("DetectionId")
+                        .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -433,12 +381,28 @@ namespace DataLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("DataLayer.Entities.DetectionResultImage", b =>
+            modelBuilder.Entity("DataLayer.Entities.ImageAttachment", b =>
                 {
+                    b.HasOne("DataLayer.Entities.Detection", "Detection")
+                        .WithMany("Images")
+                        .HasForeignKey("DetectionId");
+
                     b.HasOne("DataLayer.Entities.DetectionResult", "DetectionResult")
                         .WithOne("Image")
-                        .HasForeignKey("DataLayer.Entities.DetectionResultImage", "DetectionResultId")
+                        .HasForeignKey("DataLayer.Entities.ImageAttachment", "DetectionResultId");
+
+                    b.HasOne("DataLayer.Entities.ImageAttachmentType", "ImageAttachmentType")
+                        .WithMany()
+                        .HasForeignKey("ImageAttachmentTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DataLayer.Entities.Person", "Person")
+                        .WithMany("Images")
+                        .HasForeignKey("PersonId");
+
+                    b.HasOne("DataLayer.Entities.Recognition", "Recognition")
+                        .WithMany("Images")
+                        .HasForeignKey("RecognitionId");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.ManyToManyHelper.NeuralNetworkPerson", b =>
@@ -474,13 +438,6 @@ namespace DataLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("DataLayer.Entities.PersonImage", b =>
-                {
-                    b.HasOne("DataLayer.Entities.Person", "Person")
-                        .WithMany("Images")
-                        .HasForeignKey("PersonId");
-                });
-
             modelBuilder.Entity("DataLayer.Entities.Recognition", b =>
                 {
                     b.HasOne("DataLayer.Entities.NeuralNetwork", "NeuralNetwork")
@@ -490,14 +447,6 @@ namespace DataLayer.Migrations
                     b.HasOne("DataLayer.Entities.Status", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId");
-                });
-
-            modelBuilder.Entity("DataLayer.Entities.RecognitionImage", b =>
-                {
-                    b.HasOne("DataLayer.Entities.Recognition", "Recognition")
-                        .WithMany("Images")
-                        .HasForeignKey("RecognitionId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DataLayer.Entities.RecognitionResult", b =>

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using DataLayer.Entities;
 using DataLayer.Entities.Common;
 using DataLayer.Repositories.Interface;
 using Domain.Files.DTO;
+using Domain.Files.Helpers;
 using Dropbox.Client.Files;
 using Dropbox.Client.Folders;
 using Dropbox.Client.Links;
@@ -72,7 +74,7 @@ namespace Domain.Files
         }
 
 
-        public async Task GetThumbnail(IImage file)
+        public async Task GetThumbnail(ImageAttachment file)
         {
             try
             {
@@ -87,7 +89,7 @@ namespace Domain.Files
             }
         }
 
-        public async Task DeleteSingleFile(IImage file)
+        public async Task DeleteSingleFile(ImageAttachment file)
         {
             try
             {
@@ -102,7 +104,7 @@ namespace Domain.Files
             }
         }
 
-        public async Task DeleteFiles(IEnumerable<IImage> files)
+        public async Task DeleteFiles(IEnumerable<ImageAttachment> files)
         {
             try
             {

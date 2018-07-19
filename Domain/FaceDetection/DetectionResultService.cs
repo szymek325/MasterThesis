@@ -12,21 +12,20 @@ namespace Domain.FaceDetection
 {
     public class DetectionResultService : IDetectionResultService
     {
-        private readonly IDetectionResultImageRepository detectionResultImageRepo;
+        private readonly IImageRepository imageRepository;
         private readonly IDetectionResultRepository detectionResultRepo;
         private readonly IFilesDomainService filesService;
         private readonly ILogger<DetectionResultService> logger;
         private readonly IMapper mapper;
 
-        public DetectionResultService(IFilesDomainService filesService, ILogger<DetectionResultService> logger,
-            IMapper mapper,
-            IDetectionResultRepository detectionResultRepo, IDetectionResultImageRepository detectionResultImageRepo)
+        public DetectionResultService(IImageRepository imageRepository, IDetectionResultRepository detectionResultRepo,
+            IFilesDomainService filesService, ILogger<DetectionResultService> logger, IMapper mapper)
         {
+            this.imageRepository = imageRepository;
+            this.detectionResultRepo = detectionResultRepo;
             this.filesService = filesService;
             this.logger = logger;
             this.mapper = mapper;
-            this.detectionResultRepo = detectionResultRepo;
-            this.detectionResultImageRepo = detectionResultImageRepo;
         }
 
         public async Task<IEnumerable<DetectionResultOutput>> GetResultsForRequest(int requestId)
@@ -45,10 +44,10 @@ namespace Domain.FaceDetection
                     foreach (var file in filesWithoutUrl)
                     {
                         file.Url = fileLinks.FirstOrDefault(x => x.FileName == file.Name)?.Url;
-                        detectionResultImageRepo.Update(file);
+                        imageRepository.Update(file);
                     }
 
-                    detectionResultImageRepo.Save();
+                    imageRepository.Save();
                 }
 
                 var output = mapper.Map<IEnumerable<DetectionResultOutput>>(results);

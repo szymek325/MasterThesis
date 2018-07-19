@@ -7,6 +7,7 @@ using DataLayer.Entities;
 using DataLayer.Repositories.Interface;
 using Domain.FaceRecognition.DTO;
 using Domain.Files;
+using Domain.Files.Helpers;
 using Microsoft.Extensions.Logging;
 
 namespace Domain.FaceRecognition
@@ -16,21 +17,20 @@ namespace Domain.FaceRecognition
         private readonly IFilesDomainService filesService;
         private readonly ILogger<FaceRecognitionService> logger;
         private readonly IMapper mapper;
-        private readonly IRecognitionImageRepository recognitionImagesRepository;
+        private readonly IImageRepository imageRepository;
         private readonly IRecognitionResultRepository recognitionResultRepository;
         private readonly IRecognitionRepository recoRepo;
 
         public FaceRecognitionService(IFilesDomainService filesService, ILogger<FaceRecognitionService> logger,
-            IMapper mapper,
-            IRecognitionImageRepository recognitionImagesRepository, IRecognitionRepository recoRepo,
-            IRecognitionResultRepository recognitionResultRepository)
+            IMapper mapper, IImageRepository imageRepository, IRecognitionResultRepository recognitionResultRepository,
+            IRecognitionRepository recoRepo)
         {
             this.filesService = filesService;
             this.logger = logger;
             this.mapper = mapper;
-            this.recognitionImagesRepository = recognitionImagesRepository;
-            this.recoRepo = recoRepo;
+            this.imageRepository = imageRepository;
             this.recognitionResultRepository = recognitionResultRepository;
+            this.recoRepo = recoRepo;
         }
 
         public async Task<IEnumerable<RecognitionRequest>> GetAllFaceRecognitions()
@@ -60,9 +60,10 @@ namespace Domain.FaceRecognition
                     Name = request.Name,
                     StatusId = 1,
                     NeuralNetworkId = request.NeuralNetworkId,
-                    Images = request.Files.Select(x => new RecognitionImage
+                    Images = request.Files.Select(x => new ImageAttachment
                     {
-                        Name = x.FileName
+                        Name = x.FileName,
+                        ImageAttachmentTypeId = ImagesTypesEnum.RecognitionImage
                     }).ToList()
                 };
                 recoRepo.Add(newRecognition);
@@ -91,10 +92,10 @@ namespace Domain.FaceRecognition
                 foreach (var file in filesWithoutUrl)
                 {
                     file.Url = links.FirstOrDefault(x => x.FileName == file.Name)?.Url;
-                    recognitionImagesRepository.Update(file);
+                    imageRepository.Update(file);
                 }
 
-                recognitionImagesRepository.Save();
+                imageRepository.Save();
             }
 
             var request = mapper.Map<RecognitionRequest>(recognitionJob);
