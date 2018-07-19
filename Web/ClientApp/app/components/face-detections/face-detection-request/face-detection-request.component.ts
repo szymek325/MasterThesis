@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { FaceDetectionService } from "../../../services/face-detection.service";
-import { IFaceDetectionRequest } from "../../../interfaces/face-detection-request";
+import { IFaceDetectionRequest } from "../../../interfaces/detection/face-detection-request";
+import { IDetectionResult } from "../../../interfaces/detection/detection-result";
 
 @Component({
     selector: "face-detection-request",
@@ -9,9 +10,7 @@ import { IFaceDetectionRequest } from "../../../interfaces/face-detection-reques
 })
 export class FaceDetectionRequestComponent implements OnInit, OnDestroy {
     request: IFaceDetectionRequest;
-    haarLink;
-    dnnLink;
-    inputLink;
+    results: IDetectionResult[];
     id: number;
     private sub: any;
 
@@ -27,14 +26,17 @@ export class FaceDetectionRequestComponent implements OnInit, OnDestroy {
         this.requestDownloader.getRequest(this.id.toString())
             .subscribe(result => {
                     this.request = result as IFaceDetectionRequest;
-                    this.dnnLink = this.request.fileLinks.filter(x => x.fileName.split(".")[0] === "dnn")[0];
-                    this.haarLink = this.request.fileLinks.filter(x => x.fileName.split(".")[0] === "haar")[0];
-                    this.inputLink =
-                        this.request.fileLinks.filter(x => x.fileName.split(".")[0] !== "dnn" &&
-                            x.fileName.split(".")[0] !== "haar")[0];
                     console.log(this.request);
                 },
-                error => { console.log(error) });
+            error => { console.log(error) });
+
+        if (this.request.completionTime != null) {
+            this.requestDownloader.getRequestResults(this.id.toString())
+                .subscribe(result => {
+                    this.results = result as IDetectionResult[];
+                    console.log(this.results);
+                });
+        }
     }
 
     ngOnDestroy(): void {

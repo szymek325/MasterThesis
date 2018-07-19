@@ -18,6 +18,8 @@ namespace DataLayer
 
             services.AddTransient<IDetectionRepository, Repositories.Implementation.DetectionRepository>();
             services.AddTransient<IDetectionImageRepository, DetectionImageRepository>();
+            services.AddTransient<IDetectionResultRepository, DetectionResultRepository>();
+            services.AddTransient<IDetectionResultImageRepository, DetectionResultImageRepository>();
 
             services.AddTransient<IPersonRepository, PersonRepository>();
             services.AddTransient<IPersonImageRepository, PersonImageRepository>();

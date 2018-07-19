@@ -1,4 +1,4 @@
-﻿import {IFileLink} from "./file-link";
+﻿import {IFileLink} from "../file-link";
 
 export interface IFaceDetectionRequest{
     id: number;
@@ -7,7 +7,7 @@ export interface IFaceDetectionRequest{
     dnn: number;
     haar: number;
     thumbnail: string;
-    fileLinks: IFileLink[];
+    fileLink: IFileLink;
     creationTime: string;
     completionTime:string;
 }

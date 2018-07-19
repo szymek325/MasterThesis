@@ -25,6 +25,7 @@ namespace Domain
             services.AddTransient<IGuidProvider, GuidProvider>();
             services.AddTransient<INeuralNetworkService, NeuralNetworkService>();
             services.AddTransient<IFaceRecognitionService, FaceRecognitionService>();
+            services.AddTransient<IDetectionResultService, DetectionResultService>();
 
             return services;
         }
