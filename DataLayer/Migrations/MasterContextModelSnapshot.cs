@@ -127,7 +127,9 @@ namespace DataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DetectionId");
+                    b.HasIndex("DetectionId")
+                        .IsUnique()
+                        .HasFilter("[DetectionId] IS NOT NULL");
 
                     b.HasIndex("DetectionResultId")
                         .IsUnique()
@@ -137,7 +139,9 @@ namespace DataLayer.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.HasIndex("RecognitionId");
+                    b.HasIndex("RecognitionId")
+                        .IsUnique()
+                        .HasFilter("[RecognitionId] IS NOT NULL");
 
                     b.ToTable("ImageAttachment");
                 });
@@ -383,8 +387,8 @@ namespace DataLayer.Migrations
             modelBuilder.Entity("DataLayer.Entities.ImageAttachment", b =>
                 {
                     b.HasOne("DataLayer.Entities.Detection", "Detection")
-                        .WithMany("Images")
-                        .HasForeignKey("DetectionId");
+                        .WithOne("Image")
+                        .HasForeignKey("DataLayer.Entities.ImageAttachment", "DetectionId");
 
                     b.HasOne("DataLayer.Entities.DetectionResult", "DetectionResult")
                         .WithOne("Image")
@@ -400,8 +404,8 @@ namespace DataLayer.Migrations
                         .HasForeignKey("PersonId");
 
                     b.HasOne("DataLayer.Entities.Recognition", "Recognition")
-                        .WithMany("Images")
-                        .HasForeignKey("RecognitionId");
+                        .WithOne("Image")
+                        .HasForeignKey("DataLayer.Entities.ImageAttachment", "RecognitionId");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.ManyToManyHelper.NeuralNetworkPerson", b =>

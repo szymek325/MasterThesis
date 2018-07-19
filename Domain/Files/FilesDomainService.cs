@@ -80,7 +80,7 @@ namespace Domain.Files
             var imagePath = $"{image.GetPath()}/{image.Name}";
             try
             {
-                var url=await urlClient.CreateLinkToFile(imagePath);
+                var url=await urlClient.CreateLinkToFileWithMissingBasePath(imagePath);
                 image.Url = url;
                 imageRepository.Update(image);
                 imageRepository.Save();

@@ -9,5 +9,6 @@ namespace Dropbox.Client.Links
         Task<string> CreateLinkToFile(string pathToFile);
         Task<IEnumerable<SharedLinkMetadata>> GetAllLinks();
         Task<IEnumerable<SharedLinkMetadata>> GetAllLinksFromFolder(string pathToFolder);
+        Task<string> CreateLinkToFileWithMissingBasePath(string pathToFile);
     }
 }

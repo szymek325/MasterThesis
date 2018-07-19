@@ -11,7 +11,7 @@ using System;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(MasterContext))]
-    [Migration("20180719170438_InitDb")]
+    [Migration("20180719183422_InitDb")]
     partial class InitDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -128,7 +128,9 @@ namespace DataLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DetectionId");
+                    b.HasIndex("DetectionId")
+                        .IsUnique()
+                        .HasFilter("[DetectionId] IS NOT NULL");
 
                     b.HasIndex("DetectionResultId")
                         .IsUnique()
@@ -138,7 +140,9 @@ namespace DataLayer.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.HasIndex("RecognitionId");
+                    b.HasIndex("RecognitionId")
+                        .IsUnique()
+                        .HasFilter("[RecognitionId] IS NOT NULL");
 
                     b.ToTable("ImageAttachment");
                 });
@@ -384,8 +388,8 @@ namespace DataLayer.Migrations
             modelBuilder.Entity("DataLayer.Entities.ImageAttachment", b =>
                 {
                     b.HasOne("DataLayer.Entities.Detection", "Detection")
-                        .WithMany("Images")
-                        .HasForeignKey("DetectionId");
+                        .WithOne("Image")
+                        .HasForeignKey("DataLayer.Entities.ImageAttachment", "DetectionId");
 
                     b.HasOne("DataLayer.Entities.DetectionResult", "DetectionResult")
                         .WithOne("Image")
@@ -401,8 +405,8 @@ namespace DataLayer.Migrations
                         .HasForeignKey("PersonId");
 
                     b.HasOne("DataLayer.Entities.Recognition", "Recognition")
-                        .WithMany("Images")
-                        .HasForeignKey("RecognitionId");
+                        .WithOne("Image")
+                        .HasForeignKey("DataLayer.Entities.ImageAttachment", "RecognitionId");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.ManyToManyHelper.NeuralNetworkPerson", b =>

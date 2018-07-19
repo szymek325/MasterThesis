@@ -366,7 +366,9 @@ namespace DataLayer.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ImageAttachment_DetectionId",
                 table: "ImageAttachment",
-                column: "DetectionId");
+                column: "DetectionId",
+                unique: true,
+                filter: "[DetectionId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ImageAttachment_DetectionResultId",
@@ -388,7 +390,9 @@ namespace DataLayer.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ImageAttachment_RecognitionId",
                 table: "ImageAttachment",
-                column: "RecognitionId");
+                column: "RecognitionId",
+                unique: true,
+                filter: "[RecognitionId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NeuralNetwork_StatusId",
