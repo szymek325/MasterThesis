@@ -7,43 +7,64 @@ namespace DataLayer
     {
         public static void Seed(MasterContext context)
         {
-            if (!context.Statuses.Any())
-            {
-                context.Statuses.Add(new Status
-                {
-                    Name = "New"
-                });
-                context.Statuses.Add(new Status
-                {
-                    Name = "In Progress"
-                });
-                context.Statuses.Add(new Status
-                {
-                    Name = "Completed"
-                });
-                context.Statuses.Add(new Status
-                {
-                    Name = "Error"
-                });
-            }
+            InitializeStatuses(context);
 
-            if (!context.NeuralNetworkTypes.Any())
-            {
-                context.NeuralNetworkTypes.Add(new NeuralNetworkType
-                {
-                    Name = "LBPH"
-                });
-                context.NeuralNetworkTypes.Add(new NeuralNetworkType
-                {
-                    Name = "Eigen"
-                });
-                context.NeuralNetworkTypes.Add(new NeuralNetworkType
-                {
-                    Name = "Fisher"
-                });
-            }
+            InitializeNeuralNetworkTypes(context);
+
+            InitializeDetectionTypes(context);
 
             context.SaveChanges();
+        }
+
+        private static void InitializeDetectionTypes(MasterContext context)
+        {
+            if (context.DetectionTypes.Any()) return;
+            context.DetectionTypes.Add(new DetectionType
+            {
+                Name = "dnn"
+            });
+            context.DetectionTypes.Add(new DetectionType
+            {
+                Name = "haar"
+            });
+        }
+
+        private static void InitializeNeuralNetworkTypes(MasterContext context)
+        {
+            if (context.NeuralNetworkTypes.Any()) return;
+            context.NeuralNetworkTypes.Add(new NeuralNetworkType
+            {
+                Name = "LBPH"
+            });
+            context.NeuralNetworkTypes.Add(new NeuralNetworkType
+            {
+                Name = "Eigen"
+            });
+            context.NeuralNetworkTypes.Add(new NeuralNetworkType
+            {
+                Name = "Fisher"
+            });
+        }
+
+        private static void InitializeStatuses(MasterContext context)
+        {
+            if (context.Statuses.Any()) return;
+            context.Statuses.Add(new Status
+            {
+                Name = "New"
+            });
+            context.Statuses.Add(new Status
+            {
+                Name = "In Progress"
+            });
+            context.Statuses.Add(new Status
+            {
+                Name = "Completed"
+            });
+            context.Statuses.Add(new Status
+            {
+                Name = "Error"
+            });
         }
     }
 }

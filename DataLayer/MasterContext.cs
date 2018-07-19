@@ -19,6 +19,7 @@ namespace DataLayer
         public DbSet<DetectionImage> DetectionImages { get; set; }
         public DbSet<DetectionResult> DetectionResults { get; set; }
         public DbSet<DetectionResultImage> DetectionResultImages { get; set; }
+        public DbSet<DetectionType> DetectionTypes { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<PersonImage> PersonImages { get; set; }
         public DbSet<Recognition> Recognitions { get; set; }
@@ -67,6 +68,7 @@ namespace DataLayer
             modelBuilder.Entity<DetectionImage>().ToTable(nameof(DetectionImage));
             modelBuilder.Entity<DetectionResult>().ToTable(nameof(DetectionResult));
             modelBuilder.Entity<DetectionResultImage>().ToTable(nameof(DetectionResultImage));
+            modelBuilder.Entity<DetectionType>().ToTable(nameof(DetectionType));
             modelBuilder.Entity<Person>().ToTable(nameof(Person));
             modelBuilder.Entity<PersonImage>().ToTable(nameof(PersonImage));
             modelBuilder.Entity<Recognition>().ToTable(nameof(Recognition));

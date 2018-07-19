@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DataLayer.Entities;
 using DataLayer.Repositories.Interface;
-using Domain.Configuration;
 using Domain.FaceDetection.DTO;
 using Domain.Files;
 using Microsoft.Extensions.Logging;
@@ -17,20 +16,18 @@ namespace Domain.FaceDetection
         private readonly IDetectionImageRepository detectionImagesRepository;
         private readonly IDetectionRepository detectionRepository;
         private readonly IFilesDomainService filesService;
-        private readonly IGuidProvider guid;
         private readonly ILogger<FaceDetectionService> logger;
         private readonly IMapper mapper;
 
-        public FaceDetectionService(IDetectionRepository detectionRepository, IFilesDomainService filesService,
-            IGuidProvider guid,
-            ILogger<FaceDetectionService> logger, IMapper mapper, IDetectionImageRepository detectionImagesRepository)
+        public FaceDetectionService(IDetectionImageRepository detectionImagesRepository,
+            IDetectionRepository detectionRepository,
+            IFilesDomainService filesService, ILogger<FaceDetectionService> logger, IMapper mapper)
         {
+            this.detectionImagesRepository = detectionImagesRepository;
             this.detectionRepository = detectionRepository;
             this.filesService = filesService;
-            this.guid = guid;
             this.logger = logger;
             this.mapper = mapper;
-            this.detectionImagesRepository = detectionImagesRepository;
         }
 
         public async Task<int> CreateRequest(NewRequest request)
@@ -56,7 +53,7 @@ namespace Domain.FaceDetection
             catch (Exception ex)
             {
                 logger.LogError("Exception when creating face deteciton request ", ex);
-                throw;
+                throw new Exception("Exception when creating face deteciton request ");
             }
         }
 
@@ -84,7 +81,8 @@ namespace Domain.FaceDetection
             var filesWithoutUrl = detectionJob.Images.Where(x => x.Url == null).ToList();
             if (filesWithoutUrl.Any())
             {
-                var links = await filesService.GetLinksToFilesInFolder($"{ImageTypes.DetectionImage}/{detectionJob.Id}");
+                var links = await filesService.GetLinksToFilesInFolder(
+                    $"{ImageTypes.DetectionImage}/{detectionJob.Id}");
 
                 foreach (var file in filesWithoutUrl)
                 {
