@@ -34,21 +34,11 @@ namespace Domain.FaceDetection
             try
             {
                 var results = detectionResultRepo.GetResultsConnectedToRequest(requestId);
-                var filesWithoutUrl = results.Where(x => string.IsNullOrWhiteSpace(x.Image.Url)).Select(x => x.Image)
-                    .ToList();
 
-                if (filesWithoutUrl.Any())
+                foreach (var result in results)
                 {
-                    var links = await filesService.GetLinksToFilesInFolder(
-                        $"{nameof(ImageTypes.DetectionResultImage)}/{requestId}");
-                    var fileLinks = links.ToList();
-                    foreach (var file in filesWithoutUrl)
-                    {
-                        file.Url = fileLinks.FirstOrDefault(x => x.FileName == file.Name)?.Url;
-                        imageRepository.Update(file);
-                    }
-
-                    imageRepository.Save();
+                    if (string.IsNullOrWhiteSpace(result.Image.Url))
+                        await filesService.GetLinkToFile(result.Image);
                 }
 
                 var output = mapper.Map<IEnumerable<DetectionResultOutput>>(results);

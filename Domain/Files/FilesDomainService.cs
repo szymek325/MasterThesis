@@ -81,7 +81,7 @@ namespace Domain.Files
             try
             {
                 var url=await urlClient.CreateLinkToFileWithMissingBasePath(imagePath);
-                image.Url = url;
+                image.Url = TurnIntoSourceLink(url);
                 imageRepository.Update(image);
                 imageRepository.Save();
             }
