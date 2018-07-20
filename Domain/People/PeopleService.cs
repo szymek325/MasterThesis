@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DataLayer.Entities;
+using DataLayer.Helpers;
 using DataLayer.Repositories.Interface;
 using Domain.Configuration;
 using Domain.Files;
-using Domain.Files.Helpers;
 using Domain.People.DTO;
 using Microsoft.Extensions.Logging;
 
@@ -44,13 +44,13 @@ namespace Domain.People
                     Images = input.Files.Select(x => new ImageAttachment()
                     {
                         Name = x.FileName,
-                        ImageAttachmentTypeId = ImageTypes.PersonImage
+                        ImageAttachmentTypeId = ImageTypes.Person
                     }).ToList()
                 };
                 peopleRepo.Add(person);
                 peopleRepo.Save();
 
-                await filesService.Upload(input.Files, $"{nameof(ImageTypes.PersonImage)}/{person.Id}");
+                await filesService.Upload(input.Files, $"{nameof(ImageTypes.Person)}/{person.Id}");
 
                 return person.Id;
             }
@@ -85,7 +85,7 @@ namespace Domain.People
             var filesWithoutUrl = person.Images.Where(x => x.Url == null).ToList();
             if (filesWithoutUrl.Any())
             {
-                var links = await filesService.GetLinksToFilesInFolder($"{nameof(ImageTypes.PersonImage)}/{person.Id}");
+                var links = await filesService.GetLinksToFilesInFolder($"{nameof(ImageTypes.Person)}/{person.Id}");
 
                 foreach (var file in filesWithoutUrl)
                 {

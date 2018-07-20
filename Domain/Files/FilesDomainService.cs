@@ -9,7 +9,6 @@ using DataLayer.Entities.Common;
 using DataLayer.Helpers;
 using DataLayer.Repositories.Interface;
 using Domain.Files.DTO;
-using Domain.Files.Helpers;
 using Dropbox.Client.Files;
 using Dropbox.Client.Folders;
 using Dropbox.Client.Links;
@@ -77,6 +76,9 @@ namespace Domain.Files
 
         public async Task GetLinkToFile(ImageAttachment image)
         {
+            //TODO Message = "There is already an open DataReader associated with this Command which must be closed first."
+            //TODO need to aad getting links from exisiting list if exception occurs
+            //TODO add MultipleActiveResultSets=true and think further
             var imagePath = $"{image.GetPath()}/{image.Name}";
             try
             {
@@ -87,7 +89,7 @@ namespace Domain.Files
             }
             catch (Exception ex)
             {
-                logger.LogError($"Exception when generating link for file: {imagePath}", ex);
+                logger.LogError(ex,$"Exception when generating link for file: {imagePath}");
             }
         }
 
@@ -103,7 +105,7 @@ namespace Domain.Files
             }
             catch (Exception ex)
             {
-                logger.LogError("Exception when creating thumbnail", ex);
+                logger.LogError(ex,"Exception when creating thumbnail");
             }
         }
 

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DataLayer.Entities;
+using DataLayer.Helpers;
 using DataLayer.Repositories.Interface;
 using Domain.FaceDetection.DTO;
 using Domain.Files;
-using Domain.Files.Helpers;
 using Microsoft.Extensions.Logging;
 
 namespace Domain.FaceDetection
@@ -39,13 +39,13 @@ namespace Domain.FaceDetection
                     Image = request.Files.Select(x => new ImageAttachment()
                     {
                         Name = x.FileName,
-                        ImageAttachmentTypeId = ImageTypes.DetectionImage
+                        ImageAttachmentTypeId = ImageTypes.Detection
                     }).FirstOrDefault()
                 };
                 detectionRepository.Add(newDetection);
                 detectionRepository.Save();
 
-                await filesService.Upload(request.Files, $"{nameof(ImageTypes.DetectionImage)}/{newDetection.Id}");
+                await filesService.Upload(request.Files, $"{nameof(ImageTypes.Detection)}/{newDetection.Id}");
 
                 return newDetection.Id;
             }

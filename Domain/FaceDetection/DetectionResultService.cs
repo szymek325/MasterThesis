@@ -6,7 +6,6 @@ using AutoMapper;
 using DataLayer.Repositories.Interface;
 using Domain.FaceDetection.DTO;
 using Domain.Files;
-using Domain.Files.Helpers;
 using Microsoft.Extensions.Logging;
 
 namespace Domain.FaceDetection

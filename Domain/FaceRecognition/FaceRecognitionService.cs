@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DataLayer.Entities;
+using DataLayer.Helpers;
 using DataLayer.Repositories.Interface;
 using Domain.FaceRecognition.DTO;
 using Domain.Files;
-using Domain.Files.Helpers;
 using Microsoft.Extensions.Logging;
 
 namespace Domain.FaceRecognition
@@ -63,13 +63,13 @@ namespace Domain.FaceRecognition
                     Image = request.Files.Select(x => new ImageAttachment
                     {
                         Name = x.FileName,
-                        ImageAttachmentTypeId = ImageTypes.RecognitionImage
+                        ImageAttachmentTypeId = ImageTypes.Recognition
                     }).FirstOrDefault()
                 };
                 recoRepo.Add(newRecognition);
                 recoRepo.Save();
 
-                await filesService.Upload(request.Files, $"{nameof(ImageTypes.RecognitionImage)}/{newRecognition.Id}");
+                await filesService.Upload(request.Files, $"{nameof(ImageTypes.Recognition)}/{newRecognition.Id}");
 
                 return newRecognition.Id;
             }
