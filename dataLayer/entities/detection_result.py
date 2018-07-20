@@ -10,5 +10,5 @@ class DetectionResult(Base):
     id = Column('Id', Integer, primary_key=True)
     name = Column('Name', String)
     statusId = Column('StatusId', Integer)
-    images = relationship("DetectionImage")
+    image = relationship("ImageAttachment")
     completionTime = Column('CompletionTime', Date)

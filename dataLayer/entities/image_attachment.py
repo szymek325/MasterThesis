@@ -1,6 +1,7 @@
 from sqlalchemy import Column, String, Integer, Date, ForeignKey
 
 from dataLayer.database_connection import Base
+from dataLayer.type_providers.image_attachment_types import ImageAttachmentTypes
 
 
 class ImageAttachment(Base):
@@ -15,6 +16,15 @@ class ImageAttachment(Base):
     person_id = Column("PersonId", Integer, ForeignKey("Person.Id"), nullable=True)
     image_attachment_type_id = Column("ImageAttachmentTypeId", Integer)
 
-    def __init__(self, name, parent_id):
+    def __init__(self, name, parent_id, type_id):
+        attachment_Types= ImageAttachmentTypes()
         self.name = name
-        self.detection_id = parent_id
+        self.image_attachment_type_id=type_id
+        if type_id is attachment_Types.detection:
+            self.detection_id = parent_id
+        elif type_id is attachment_Types.detection_result:
+            self.detection_result_id = parent_id
+        elif type_id is attachment_Types.recognition:
+            self.recognition_id = parent_id
+        elif type_id is attachment_Types.person:
+            self.person_id = parent_id

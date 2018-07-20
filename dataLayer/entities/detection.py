@@ -12,5 +12,5 @@ class Detection(Base):
     haarFaces = Column('HaarFaces', Integer)
     name = Column('Name', String)
     statusId = Column('StatusId', Integer)
-    images = relationship("DetectionImage")
+    image = relationship("ImageAttachment")
     completionTime = Column('CompletionTime', Date)

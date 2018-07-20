@@ -1,9 +1,4 @@
-from configuration_global.logger_factory import LoggerFactory
-
-
 class ImageAttachmentTypes:
-    def __init__(self):
-        self.logger = LoggerFactory()
 
     @property
     def detection(self):
@@ -47,5 +42,4 @@ class ImageAttachmentTypes:
         elif attachment_type_id is self.person_id:
             return self.person
         else:
-            self.logger.error(f"Unknown attachment_type_id: {attachment_type_id}")
             return "Unknown"
