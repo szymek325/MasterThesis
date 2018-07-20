@@ -8,4 +8,6 @@ class DetectionResultRepository():
         session = Session()
         session.add(detection_result)
         session.commit()
+        generated_id=detection_result.id
         session.close()
+        return generated_id
