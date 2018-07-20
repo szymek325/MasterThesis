@@ -28,15 +28,13 @@ export class FaceDetectionRequestComponent implements OnInit, OnDestroy {
                     this.request = result as IFaceDetectionRequest;
                     console.log(this.request);
                 },
-            error => { console.log(error) });
+                error => { console.log(error) });
 
-        if (this.request.completionTime != null) {
-            this.requestDownloader.getRequestResults(this.id.toString())
-                .subscribe(result => {
-                    this.results = result as IDetectionResult[];
-                    console.log(this.results);
-                });
-        }
+        this.requestDownloader.getRequestResults(this.id.toString())
+            .subscribe(result => {
+                this.results = result as IDetectionResult[];
+                console.log(this.results);
+            });
     }
 
     ngOnDestroy(): void {

@@ -12,17 +12,36 @@
             <img id="input" />
             <img src="{{request.fileLink.url}}" />
         </div>
-
         <div>
-            <label for="haar">Faces detected by Haar</label>
-            <div id="haar">{{request.haar}}</div>
-            <img src="{{haarLink.url}}" />
-        </div>
-
-        <div>
-            <label for="dnn">Faces detected by Deep Neural Network</label>
-            <div id="dnn">{{request.dnn}}</div>
-            <img src="{{dnnLink.url}}" />
+            <h3>Results</h3>
+            <table class="table" *ngIf="results">
+                <thead>
+                    <tr>
+                        <th>Detection type</th>
+                        <th>startX</th>
+                        <th>endX</th>
+                        <th>startY</th>
+                        <th>endY</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let result of results">
+                        <td>{{result.detectionTypeName}}</td>
+                        <td>{{result.startX}}</td>
+                        <td>{{result.endX}}</td>
+                        <td>{{result.startY}}</td>
+                        <td>{{result.endY}}</td>
+                        <td>
+                            <div class="slider">
+                                <div class="slide">
+                                    <img src="{{result.image.url}}"/>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
