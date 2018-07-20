@@ -1,22 +1,22 @@
 import cv2
 
 from configuration_global.logger_factory import LoggerFactory
-from opencv_client.face_recognition.face_recognizer_names import FaceRecognizerNames
+from dataLayer.type_providers.neural_network_types import NeuralNetworkTypes
 
 
 class NeuralNetworkProvider():
     def __init__(self):
         self.logger = LoggerFactory()
-        self.recognizerNames = FaceRecognizerNames()
+        self.nnTypes = NeuralNetworkTypes()
         self.recognizer = "empty"
 
-    def create_neural_network_by_type(self, file_path: str, nn_type: str):
-        self.logger.info(f"Creating FaceRecognizer of type: {nn_type}")
-        if nn_type.lower() == self.recognizerNames.eigen():
+    def create_neural_network_by_type_id(self, file_path: str, nn_type_id: str):
+        self.logger.info(f"Creating FaceRecognizer of type: {nn_type_id}")
+        if nn_type_id == self.nnTypes.eigen_id:
             self.recognizer = cv2.face.EigenFaceRecognizer_create()
-        elif nn_type.lower() == self.recognizerNames.lbph():
+        elif nn_type_id == self.nnTypes.lbph_id:
             self.recognizer = cv2.face.LBPHFaceRecognizer_create()
-        elif nn_type.lower() == self.recognizerNames.fisher():
+        elif nn_type_id == self.nnTypes.fisher_id:
             self.recognizer = cv2.face.FisherFaceRecognizer_create()
         self.recognizer.read(file_path)
         return self.recognizer
