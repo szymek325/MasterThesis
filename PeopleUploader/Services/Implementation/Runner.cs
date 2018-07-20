@@ -26,7 +26,7 @@ namespace PeopleUploader.Services.Implementation
             catch (Exception ex)
 
             {
-                logger.LogError("error", ex);
+                logger.LogError(ex, "error");
             }
             logger.LogInformation("END PeopleUploader");
         }

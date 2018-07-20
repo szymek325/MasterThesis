@@ -57,7 +57,7 @@ namespace PeopleUploader.Services.Implementation
             }
             catch (Exception ex)
             {
-                logger.LogError("exception when looking for files", ex);
+                logger.LogError(ex, "exception when looking for files");
             }
 
             return parsedFiles;
@@ -89,7 +89,7 @@ namespace PeopleUploader.Services.Implementation
             }
             catch (Exception ex)
             {
-                logger.LogError("exception when looking for files", ex);
+                logger.LogError(ex, "exception when looking for files");
             }
 
             return parsedFiles;

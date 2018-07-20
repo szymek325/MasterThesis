@@ -45,7 +45,7 @@ namespace Domain.FaceDetection
             }
             catch (Exception ex)
             {
-                logger.LogError($"Exception when loading results for detection request :{requestId}", ex);
+                logger.LogError(ex, $"Exception when loading results for detection request :{requestId}");
                 throw;
             }
         }

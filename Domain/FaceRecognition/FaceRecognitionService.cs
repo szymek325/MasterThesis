@@ -44,7 +44,7 @@ namespace Domain.FaceRecognition
             }
             catch (Exception ex)
             {
-                logger.LogError("Exception when trying to obtain thumbnails of FR Requests", ex);
+                logger.LogError(ex, "Exception when trying to obtain thumbnails of FR Requests");
             }
 
             var requests = mapper.Map<IEnumerable<RecognitionRequest>>(faceRecognitions);
@@ -75,7 +75,7 @@ namespace Domain.FaceRecognition
             }
             catch (Exception ex)
             {
-                logger.LogError("Exception when creating face recognition request ", ex);
+                logger.LogError(ex, "Exception when creating face recognition request ");
                 throw;
             }
         }

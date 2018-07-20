@@ -49,7 +49,7 @@ namespace PeopleUploader.Services.Implementation
             }
             catch (Exception ex)
             {
-                logger.LogError("Exception when adding people", ex);
+                logger.LogError(ex, "Exception when adding people");
             }
         }
     }

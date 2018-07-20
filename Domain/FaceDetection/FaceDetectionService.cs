@@ -51,7 +51,7 @@ namespace Domain.FaceDetection
             }
             catch (Exception ex)
             {
-                logger.LogError("Exception when creating face deteciton request ", ex);
+                logger.LogError(ex, "Exception when creating face deteciton request ");
                 throw new Exception("Exception when creating face deteciton request ");
             }
         }
@@ -67,7 +67,7 @@ namespace Domain.FaceDetection
             }
             catch (Exception ex)
             {
-                logger.LogError("Exception when trying to obtain thumbnails of FD Requests", ex);
+                logger.LogError(ex, "Exception when trying to obtain thumbnails of FD Requests");
             }
 
             var requests = mapper.Map<IEnumerable<DetectionRequest>>(faceDetections);

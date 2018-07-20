@@ -44,7 +44,7 @@ namespace Web.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError("Exception when loading all neural networks",ex);
+                logger.LogError(ex, "Exception when loading all neural networks");
                 throw;
             }
         }

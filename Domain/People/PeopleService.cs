@@ -56,7 +56,7 @@ namespace Domain.People
             }
             catch (Exception ex)
             {
-                logger.LogError("exception when saving new Person", ex);
+                logger.LogError(ex, "exception when saving new Person");
                 throw;
             }
         }
@@ -72,7 +72,7 @@ namespace Domain.People
             }
             catch (Exception ex)
             {
-                logger.LogError("exception when downloading all People", ex);
+                logger.LogError(ex, "exception when downloading all People");
             }
 
             var respone = mapper.Map<IEnumerable<PersonOutput>>(people);
@@ -111,7 +111,7 @@ namespace Domain.People
             }
             catch (Exception ex)
             {
-                logger.LogError("Exception when retrieving person", ex);
+                logger.LogError(ex, "Exception when retrieving person");
                 throw;
             }
         }

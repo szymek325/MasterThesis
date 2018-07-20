@@ -46,7 +46,7 @@ namespace Domain.NeuralNetwork
             }
             catch (Exception exception)
             {
-                logger.LogError("exception on", exception);
+                logger.LogError(exception, "exception during neural network request creation");
                 throw;
             }
         }

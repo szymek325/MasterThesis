@@ -68,7 +68,7 @@ namespace Domain.Files
             }
             catch (Exception ex)
             {
-                logger.LogError("exception when retrieving links", ex);
+                logger.LogError(ex, "exception when retrieving links");
             }
 
             return links;
@@ -119,8 +119,7 @@ namespace Domain.Files
             }
             catch (Exception ex)
             {
-                logger.LogError(
-                    $"Exception when deleting file /{file.GetPath()}/{file.Name}", ex);
+                logger.LogError(ex, $"Exception when deleting file /{file.GetPath()}/{file.Name}");
             }
         }
 
@@ -140,7 +139,7 @@ namespace Domain.Files
             }
             catch (Exception ex)
             {
-                logger.LogError("exception when deleteing folder", ex);
+                logger.LogError(ex, "exception when deleteing folder");
             }
         }
 
