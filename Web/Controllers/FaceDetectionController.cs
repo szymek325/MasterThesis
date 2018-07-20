@@ -13,11 +13,14 @@ namespace Web.Controllers
     public class FaceDetectionController : Controller
     {
         private readonly IFaceDetectionService faceDetectionService;
+        private readonly IDetectionResultService detectionResultService;
         private readonly IMapper mapper;
 
-        public FaceDetectionController(IFaceDetectionService faceDetectionService, IMapper mapper)
+        public FaceDetectionController(IFaceDetectionService faceDetectionService,
+            IDetectionResultService detectionResultService, IMapper mapper)
         {
             this.faceDetectionService = faceDetectionService;
+            this.detectionResultService = detectionResultService;
             this.mapper = mapper;
         }
 
@@ -46,6 +49,13 @@ namespace Web.Controllers
                 Files = files
             });
             return Ok(new {task_Id = response});
+        }
+
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<DetectionResultOutput>> GetRequestResults(int id)
+        {
+            var request = await detectionResultService.GetResultsForRequest(id);
+            return request;
         }
     }
 }

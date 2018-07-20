@@ -15,12 +15,12 @@ namespace DataLayer.Repositories.Implementation
 
         public IEnumerable<Detection> GetAllFaces()
         {
-            return GetAll().Include(x => x.Status).Include(x=>x.Images).AsEnumerable();
+            return GetAll().Include(x => x.Status).Include(x=>x.Image).AsEnumerable();
         }
 
         public Detection GetRequestById(int id)
         {
-            return GetAll().Include(x => x.Status).Include(x => x.Images).FirstOrDefault(x => x.Id == id);
+            return GetAll().Include(x => x.Status).Include(x => x.Image).FirstOrDefault(x => x.Id == id);
         }
     }
 }

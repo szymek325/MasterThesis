@@ -12,17 +12,25 @@ namespace Dropbox.Client.Links
         private readonly DropboxClient dbxClient;
         private readonly IDropboxClientFactory dropboxClientFactory;
         private readonly ILogger<UrlClient> logger;
+        private readonly string basePath;
 
         public UrlClient( ILogger<UrlClient> logger, IDropboxClientFactory dropboxClientFactory)
         {
             this.logger = logger;
             this.dropboxClientFactory = dropboxClientFactory;
             dbxClient = this.dropboxClientFactory.GetDropboxClient();
+            basePath = this.dropboxClientFactory.GetBasePath();
         }
 
         public async Task<string> CreateLinkToFile(string pathToFile)
         {
             var response = await dbxClient.Sharing.CreateSharedLinkWithSettingsAsync(pathToFile);
+            return response.Url;
+        }
+        public async Task<string> CreateLinkToFileWithMissingBasePath(string pathToFile)
+        {
+            var path = $"{basePath}/{pathToFile}";
+            var response = await dbxClient.Sharing.CreateSharedLinkWithSettingsAsync(path);
             return response.Url;
         }
 

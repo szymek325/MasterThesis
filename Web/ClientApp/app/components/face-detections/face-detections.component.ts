@@ -1,6 +1,6 @@
 import { Component, OnInit} from "@angular/core";
 import {FaceDetectionService} from "../../services/face-detection.service";
-import { IFaceDetectionRequest} from "../../interfaces/face-detection-request";
+import { IFaceDetectionRequest } from "../../interfaces/detection/face-detection-request";
 import { Router } from "@angular/router";
 
 

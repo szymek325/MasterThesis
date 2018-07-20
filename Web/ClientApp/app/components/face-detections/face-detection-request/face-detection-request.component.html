@@ -1,28 +1,101 @@
 ﻿<div class="container">
-    <h1>Face Detection Request : {{id}}</h1>
-    
+    <h1 class="center-block">Face Detection</h1>
+
     <p *ngIf="!request"><em>Loading request data...</em></p>
     <div *ngIf="request">
-        <div>
-            <label for="name">Name</label>
-            <div id="name">{{request.name}}</div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>Id</label>
+            </div>
+            <div class="col-md-3">{{request.id}}</div>
         </div>
-        <div>
-            <label for="input">Input image</label>
-            <img id="input"/>
-            <img src="{{inputLink.url}}"/>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label for="name">Name</label>
+            </div>
+            <div class="col-md-3" id="name">{{request.name}}</div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3">
+                <label for="name">Creation time</label>
+            </div>
+            <div class="col-md-3" id="name">{{request.creationTime?.replace("T"," ")}}</div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3">
+                <label for="name">Completion time</label>
+            </div>
+            <div class="col-md-3" id="name">{{request.completionTime?.replace("T"," ")}}</div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3">
+                <label for="name">Status</label>
+            </div>
+            <div class="col-md-3" id="name">{{request.status}}</div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3">
+                <label for="name">Haar faces found</label>
+            </div>
+            <div class="col-md-3" id="name">{{request.haarFaces}}</div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3">
+                <label for="name">DNN faces found</label>
+            </div>
+            <div class="col-md-3" id="name">{{request.dnnFaces}}</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label for="input">Input image</label>
+            </div>
+            <div class="col-md-3">
+                <div class="slider">
+                    <div class="slide">
+                        <img src="{{request.fileLink.url}}"/>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div>
-            <label for="haar">Faces detected by Haar</label>
-            <div id="haar">{{request.haar}}</div>
-            <img src="{{haarLink.url}}"/>
-        </div>
-
-        <div>
-            <label for="dnn">Faces detected by Deep Neural Network</label>
-            <div id="dnn">{{request.dnn}}</div>
-            <img src="{{dnnLink.url}}"/>
+            <h3>Results</h3>
+            <p *ngIf="!results"><em>Loading results</em></p>
+            <table class="table" *ngIf="results">
+                <thead>
+                <tr>
+                    <th>Detection type</th>
+                    <th>startX</th>
+                    <th>endX</th>
+                    <th>startY</th>
+                    <th>endY</th>
+                    <th>Image</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let result of results">
+                    <td>{{result.detectionTypeName}}</td>
+                    <td>{{result.startX}}</td>
+                    <td>{{result.endX}}</td>
+                    <td>{{result.startY}}</td>
+                    <td>{{result.endY}}</td>
+                    <td>
+                        <div class="slider">
+                            <div class="slide">
+                                <img src="{{result.image.url}}"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
