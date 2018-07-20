@@ -13,6 +13,9 @@ class PathsProvider():
     def dropbox_detection_image_path(self):
         return os.path.join(self.config.environment_name(), "DetectionImage")
 
+    def dropbox_detection_result_image_path(self):
+        return os.path.join(self.config.environment_name(), "DetectionResultImage")
+
     def dropbox_recognition_image_path(self):
         return os.path.join(self.config.environment_name(), "RecognitionImage")
 
@@ -24,6 +27,9 @@ class PathsProvider():
 
     def local_detection_image_path(self):
         return os.path.join(self.config.local_files_path, self.dropbox_detection_image_path())
+
+    def local_detection_result_image_path(self):
+        return os.path.join(self.config.local_files_path, self.dropbox_detection_result_image_path())
 
     def local_recognition_image_path(self):
         return os.path.join(self.config.local_files_path, self.dropbox_recognition_image_path())

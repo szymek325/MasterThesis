@@ -3,14 +3,14 @@ from sqlalchemy import Column, String, Integer, Date, ForeignKey
 from dataLayer.database_connection import Base
 
 
-class PersonImage(Base):
-    __tablename__ = 'PersonImage'
+class DetectionResultImage(Base):
+    __tablename__ = 'DetectionResultImage'
 
     id = Column(Integer, primary_key=True)
     name = Column('Name', String)
     thumbnail = Column("Thumbnail", String)
-    person_id = Column("PersonId", Integer, ForeignKey("Person.Id"))
+    detection_id = Column("DetectionId", Integer, ForeignKey("Detection.Id"))
 
-    def __init__(self, name, person_id):
+    def __init__(self, name, detection_id):
         self.name = name
-        self.person_id = person_id
+        self.detection_id = detection_id

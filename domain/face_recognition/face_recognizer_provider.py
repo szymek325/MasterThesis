@@ -2,7 +2,6 @@ import os
 
 from configuration_global.paths_provider import PathsProvider
 from dataLayer.repositories.neural_network_file_repository import NeuralNetworkFileRepository
-from dataLayer.repositories.neural_network_type_repository import NeuralNetworkTypeRepository
 from opencv_client.neural_network.neural_network_provider import NeuralNetworkProvider
 
 
@@ -11,7 +10,6 @@ class FaceRecognizerProvider():
         self.pathsProvider = PathsProvider()
         self.neuralNetworkProvider = NeuralNetworkProvider()
         self.neuralNetworkFilesRepo = NeuralNetworkFileRepository()
-        self.nnTypesRepo = NeuralNetworkTypeRepository()
 
     def create_face_recognizers_for_request(self, request_id):
         nn_files = self.neuralNetworkFilesRepo.get_all_files_connected_to_neural_network_with_neural_types(request_id)

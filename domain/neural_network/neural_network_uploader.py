@@ -3,7 +3,7 @@ from os import path, listdir
 from configuration_global.logger_factory import LoggerFactory
 from configuration_global.paths_provider import PathsProvider
 from dataLayer.repositories.neural_network_file_repository import NeuralNetworkFileRepository
-from dataLayer.repositories.neural_network_type_repository import NeuralNetworkTypeRepository
+from dataLayer.type_providers.neural_network_types import NeuralNetworkTypes
 from domain.string_operator import StringOperator
 from dropbox_integration.files_uploader import FilesUploader
 
@@ -14,7 +14,7 @@ class NeuralNetworkUploader():
         self.pathsProvider = PathsProvider()
         self.filesUploader = FilesUploader()
         self.nnFilesRepo = NeuralNetworkFileRepository()
-        self.nnTypesRepo = NeuralNetworkTypeRepository()
+        self.nnTypes = NeuralNetworkTypes()
         self.stringOperator = StringOperator()
 
     def upload_files(self, neural_network_id):
@@ -30,5 +30,5 @@ class NeuralNetworkUploader():
     def __get_file_name_and_file_type_id(self, file_path):
         file_name = self.stringOperator.get_file_name_from_path(file_path)
         nn_type_name = self.stringOperator.find_between(file_name, '_', '.')
-        nn_type_id = self.nnTypesRepo.get_id_by_name(nn_type_name)
+        nn_type_id = self.nnTypes.get_type_id(nn_type_name)
         return file_name, nn_type_id
