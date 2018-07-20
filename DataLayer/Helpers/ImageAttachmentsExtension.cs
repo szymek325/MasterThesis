@@ -7,14 +7,14 @@ namespace DataLayer.Helpers
     {
         public static string GetPath(this ImageAttachment image)
         {
-            if (image.ImageAttachmentTypeId == ImageTypes.DetectionImage)
-                return $"{nameof(ImageTypes.DetectionImage)}/{image.DetectionId}";
-            if (image.ImageAttachmentTypeId == ImageTypes.DetectionResultImage)
-                return $"{nameof(ImageTypes.DetectionResultImage)}/{image.DetectionResultId}";
-            if (image.ImageAttachmentTypeId == ImageTypes.PersonImage)
-                return $"{nameof(ImageTypes.PersonImage)}/{image.PersonId}";
-            if (image.ImageAttachmentTypeId == ImageTypes.RecognitionImage)
-                return $"{nameof(ImageTypes.RecognitionImage)}/{image.RecognitionId}";
+            if (image.ImageAttachmentTypeId == ImageTypes.Detection)
+                return $"{nameof(ImageTypes.Detection)}/{image.DetectionId}";
+            if (image.ImageAttachmentTypeId == ImageTypes.DetectionResult)
+                return $"{nameof(ImageTypes.DetectionResult)}/{image.DetectionResultId}";
+            if (image.ImageAttachmentTypeId == ImageTypes.Person)
+                return $"{nameof(ImageTypes.Person)}/{image.PersonId}";
+            if (image.ImageAttachmentTypeId == ImageTypes.Recognition)
+                return $"{nameof(ImageTypes.Recognition)}/{image.RecognitionId}";
             throw new ArgumentException("Wrong value of ImageAttachmentTypeId");
         }
     }
