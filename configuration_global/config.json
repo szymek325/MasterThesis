@@ -1,7 +1,7 @@
 {
   "logs_path": "temp/logs",
   "local_files_path":"temp",
-  "use_local_environment":false,
+  "use_local_environment":true,
   "environments":{
     "debug":"Debug",
     "azure":"Azure"

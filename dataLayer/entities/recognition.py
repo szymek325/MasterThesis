@@ -3,7 +3,6 @@ from sqlalchemy.orm import relationship
 
 from dataLayer.database_connection import Base
 from dataLayer.entities.neural_network import NeuralNetwork
-from dataLayer.entities.recognition_image import RecognitionImage
 
 
 class Recognition(Base):
@@ -14,5 +13,5 @@ class Recognition(Base):
     neural_network_id = Column("NeuralNetworkId", Integer, ForeignKey("NeuralNetwork.Id"))
     neural_network = relationship(NeuralNetwork)
     statusId = Column('StatusId', Integer)
-    images = relationship(RecognitionImage)
+    image = relationship("ImageAttachment")
     completionTime = Column('CompletionTime', Date)

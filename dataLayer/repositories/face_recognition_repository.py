@@ -19,6 +19,7 @@ class FaceRecognitionRepository():
         requests = session.query(Recognition).filter_by(id=request_id)
         for req in requests:
             req.statusId = 3
+            req.completionTime = datetime.datetime.now()
         session.commit()
         session.close()
 
