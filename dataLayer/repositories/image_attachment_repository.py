@@ -6,7 +6,7 @@ class ImageAttachmentRepository():
     def add_detection_result_image(self, name, detection_id):
         Base.metadata.create_all(engine)
         session = Session()
-        reading = ImageAttachment(name, detection_id)
-        session.add(reading)
+        image = ImageAttachment(name, detection_id)
+        session.add(image)
         session.commit()
         session.close()
