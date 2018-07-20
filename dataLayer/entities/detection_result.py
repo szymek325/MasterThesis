@@ -15,7 +15,7 @@ class DetectionResult(Base):
     detection_id = Column("DetectionId", Integer, ForeignKey("Detection.Id"), nullable=True)
     detection = relationship("Detection")
     detection_type_id = Column("DetectionTypeId", Integer)
-    image = relationship("ImageAttachment")
+    image = relationship("ImageAttachment",uselist=False)
 
     def __init__(self, coordinates, request_id, detection_type_id, image_attachment):
         self.startX, self.startY, self.endX, self.endY = coordinates

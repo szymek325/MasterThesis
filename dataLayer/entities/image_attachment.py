@@ -26,9 +26,9 @@ class ImageAttachment(Base):
     person = relationship("Person")
 
     def __init__(self, name, parent_id, type_id):
-        attachment_Types= ImageAttachmentTypes()
+        attachment_Types = ImageAttachmentTypes()
         self.name = name
-        self.image_attachment_type_id=type_id
+        self.image_attachment_type_id = type_id
         if type_id is attachment_Types.detection_id:
             self.detection_id = parent_id
         elif type_id is attachment_Types.detection_result_id:
@@ -37,3 +37,7 @@ class ImageAttachment(Base):
             self.recognition_id = parent_id
         elif type_id is attachment_Types.person_id:
             self.person_id = parent_id
+
+    def __init__(self, name, type_id):
+        self.name = name
+        self.image_attachment_type_id = type_id
