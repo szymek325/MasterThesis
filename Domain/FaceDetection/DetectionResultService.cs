@@ -32,7 +32,7 @@ namespace Domain.FaceDetection
         {
             try
             {
-                var results = detectionResultRepo.GetResultsConnectedToRequest(requestId);
+                var results = detectionResultRepo.GetResultsConnectedToRequest(requestId).ToList();
 
                 foreach (var result in results)
                 {

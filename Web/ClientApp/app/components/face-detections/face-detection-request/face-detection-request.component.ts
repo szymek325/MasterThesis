@@ -7,6 +7,7 @@ import { IDetectionResult } from "../../../interfaces/detection/detection-result
 @Component({
     selector: "face-detection-request",
     templateUrl: "./face-detection-request.component.html",
+    styleUrls: ["./face-detection-request.component.css"]
 })
 export class FaceDetectionRequestComponent implements OnInit, OnDestroy {
     request: IFaceDetectionRequest;
