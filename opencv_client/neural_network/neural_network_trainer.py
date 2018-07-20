@@ -21,17 +21,17 @@ class NeuralNetworkTrainer():
     def create_lbph_face_recognizer(self, request_id, face_samples, people_ids: [int]):
         recognizer = cv2.face.LBPHFaceRecognizer_create()
         recognizer.train(face_samples, people_ids)
-        recognizer.write(f'{self.requestPath}/{request_id}_{self.recognizerNames.lbph()}.yml')
+        recognizer.write(f'{self.requestPath}/{request_id}_{self.recognizerNames.lbph()}.xml')
 
     def create_eigen_face_recognizer(self, request_id, face_samples, people_ids: [int]):
         recognizer = cv2.face.EigenFaceRecognizer_create()
         recognizer.train(face_samples, people_ids)
-        recognizer.write(f'{self.requestPath}/{request_id}_{self.recognizerNames.eigen()}.yml')
+        recognizer.write(f'{self.requestPath}/{request_id}_{self.recognizerNames.eigen()}.xml')
 
     def create_fisher_face_recognizer(self, request_id, face_samples, people_ids: [int]):
         recognizer = cv2.face.FisherFaceRecognizer_create()
         recognizer.train(face_samples, people_ids)
-        recognizer.write(f'{self.requestPath}/{request_id}_{self.recognizerNames.fisher()}.yml')
+        recognizer.write(f'{self.requestPath}/{request_id}_{self.recognizerNames.fisher()}.xml')
 
     def create_all_face_recognizers(self, request_id, face_samples, people_ids: [int]):
         self.requestPath = os.path.join(self.pathsProvider.local_neural_network_path(), str(request_id))

@@ -30,15 +30,14 @@ class NeuralNetworkTypes:
         return 3
 
     def get_type_id(self, nn_type_name: str):
-        if nn_type_name.lower() is self.lbph.lower():
+        if nn_type_name.lower() == self.lbph.lower():
             return self.lbph_id
-        elif nn_type_name.lower() is self.eigen.lower():
+        elif nn_type_name.lower() == self.eigen.lower():
             return self.eigen_id
-        elif nn_type_name.lower() is self.fisher.lower():
+        elif nn_type_name.lower() == self.fisher.lower():
             return self.fisher_id
         else:
-            self.logger.error(f"Unknown nn_type_name: {nn_type_name}")
-            return 0
+            raise Exception(f"Wrong nn_type_name. Cant find a match for : {nn_type_name}")
 
     def get_type_name(self, nn_type_id:int):
         if nn_type_id is self.lbph_id:

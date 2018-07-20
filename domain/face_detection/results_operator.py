@@ -26,7 +26,7 @@ class ResultsOperator:
         self.dnn_file_name = "dnn.jpg"
 
     def upload_results(self, request_id: int, faces_detected_by_dnn, faces_detected_by_haar, image):
-        # TODO a lot of thinking how to resolve this shit
+        # TODO refactor needed
         haar_file_path, dnn_file_path = self.__prepare_results__(request_id, faces_detected_by_dnn,
                                                                  faces_detected_by_haar, image)
         haar_file = open(haar_file_path, "rb")
@@ -41,8 +41,6 @@ class ResultsOperator:
             haar_result=DetectionResult(faces_detected_by_haar[0],request_id,self.detectionTypes.haar_id,haar_image)
             haar_id=self.resultsRepository.add_detection_result_with_image(haar_result)
             self.filesUploader.upload_detection_result(haar_id, haar_file.read(), self.haar_file_name)
-        # self.files_repository.add_detection_result_image(self.haar_file_name, request_id, self.attachmentTypes.detection_result_id)
-        # self.files_repository.add_detection_result_image(self.dnn_file_name, request_id, self.attachmentTypes.detection_result_id)
 
     def __prepare_results__(self, request_id, dnn_faces, haar_faces, image):
         haar_file = self.imageEditor.draw_faces(image, haar_faces)

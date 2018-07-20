@@ -42,4 +42,5 @@ class ImageAttachmentTypes:
         elif attachment_type_id is self.person_id:
             return self.person
         else:
-            return "Unknown"
+            raise Exception(f"Wrong attachment_type_id. Cant find a match for : {attachment_type_id}")
+

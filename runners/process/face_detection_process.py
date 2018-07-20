@@ -29,8 +29,8 @@ class FaceDetectionProcess():
                 try:
                     self.request_manager.process_request(request)
                 except Exception as ex:
-                    self.logger.error(f"Exception when processing detection {request.id}.\n Error: {str(ex)} \n Stacktrace: {traceback.format_exc(ex)}")
-                    #self.faceDetectionRepository.complete_with_error(request.id)
+                    self.logger.error(f"Exception when processing detection {request.id}.\n Error: {str(ex)}")
+                    self.faceDetectionRepository.complete_with_error(request.id)
             self.directory.clean_directory(self.pathsProvider.local_detection_image_path())
         self.logger.info("  END FaceDetection")
 

@@ -23,8 +23,8 @@ class NeuralNetworkUploader():
         for file_path in file_paths:
             opened_file = open(file_path, 'rb')
             file_name, nn_type_id = self.__get_file_name_and_file_type_id(file_path)
-            self.nnFilesRepo.add_neural_network_file(file_name, neural_network_id, nn_type_id)
             self.filesUploader.upload_neural_network(neural_network_id, opened_file.read(), file_name)
+            self.nnFilesRepo.add_neural_network_file(file_name, neural_network_id, nn_type_id)
             self.logger.info(f"Uploaded file: {file_name}")
 
     def __get_file_name_and_file_type_id(self, file_path):

@@ -26,7 +26,7 @@ class NeuralNetworkTrainingRunner():
                 try:
                     self.nnManager.process_request(request)
                 except Exception as ex:
-                    self.logger.error(f"Exception when processing neural network training {request.id}.\n Error: {str(ex)} \n Stacktrace: {traceback.format_exc(ex)}")
+                    self.logger.error(f"Exception when processing neural network training {request.id}.\n Error: {str(ex)}")
                     self.nnRepo.complete_with_error(request.id)
         self.logger.info("  END NeuralNetworkTraining")
 
