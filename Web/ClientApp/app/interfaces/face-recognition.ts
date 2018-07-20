@@ -1,4 +1,4 @@
-import { INeuralNetwork } from "./neural-network";
+import { INeuralNetwork } from "./neuralNetwork/neural-network";
 import {IFileLink} from "./file-link";
 
 export interface IFaceRecognition {

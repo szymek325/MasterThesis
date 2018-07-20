@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using DataLayer.Helpers;
 using DataLayer.Repositories.Interface;
 using Domain.NeuralNetwork.DTO;
 using Microsoft.Extensions.Logging;
@@ -60,8 +61,15 @@ namespace Domain.NeuralNetwork
 
         public Task<IEnumerable<NeuralNetworkRequest>> GetAll()
         {
-            var neuralNetworks = nnRepo.GetAllNeuralNetworks().ToList();
+            var neuralNetworks = nnRepo.GetAllNeuralNetworksWithDependencies().ToList();
             var output = mapper.Map<IEnumerable<NeuralNetworkRequest>>(neuralNetworks);
+            return Task.FromResult(output);
+        }
+
+        public Task<IEnumerable<NeuralNetworkBaseInfoOutput>> GetAllCompleted()
+        {
+            var neuralNetworks = nnRepo.GetAllCompleted();
+            var output = mapper.Map<IEnumerable<NeuralNetworkBaseInfoOutput>>(neuralNetworks);
             return Task.FromResult(output);
         }
     }

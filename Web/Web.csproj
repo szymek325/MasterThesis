@@ -44,7 +44,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\app\interfaces\neuralNetwork\" />
     <Folder Include="ClientApp\app\interfaces\people\" />
     <Folder Include="ClientApp\app\interfaces\recognition\" />
   </ItemGroup>

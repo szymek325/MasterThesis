@@ -1,4 +1,5 @@
-import { IPerson } from "./person";
+import { IPerson } from "../person";
+
 export interface INeuralNetwork {
     name: string;
     description: string;

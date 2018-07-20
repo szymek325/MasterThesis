@@ -50,6 +50,22 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
+        public async Task<IEnumerable<NeuralNetworkBaseInfoOutput>> GetAllCompleted()
+        {
+            try
+            {
+                var response = await neuralNetworkService.GetAllCompleted();
+                return response;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Exception when loading all completed neural networks");
+                throw;
+            }
+        }
+
+
+        [HttpGet("[action]")]
         public async Task<NeuralNetworkRequest> Get(int id)
         {
             var response = await neuralNetworkService.GetById(id);

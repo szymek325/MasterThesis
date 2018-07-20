@@ -4,7 +4,7 @@ import { FaceRecognitionService } from "../../../services/face-recognition.servi
 import { AlertService } from "../../../services/alert.service";
 import { Router } from "@angular/router";
 import { NeuralNetworksService } from "../../../services/neural-networks.service";
-import { INeuralNetwork } from "../../../interfaces/neural-network";
+import { INnBaseInfo } from "../../../interfaces/neuralNetwork/nn-base-info";
 
 @Component({
     selector: "app-new-face-recognition",
@@ -12,7 +12,7 @@ import { INeuralNetwork } from "../../../interfaces/neural-network";
     styleUrls: ["./new-face-recognition.component.css"]
 })
 export class NewFaceRecognitionComponent implements OnInit {
-    neuralNetworks: INeuralNetwork[];
+    neuralNetworks: INnBaseInfo[];
     formData: any;
     recognitionForm: FormGroup;
     file: any;
@@ -63,9 +63,9 @@ export class NewFaceRecognitionComponent implements OnInit {
             name: ["name", [Validators.required, Validators.minLength(3)]],
             neuralOption: ["", [Validators.required]],
         });
-        this.nnService.getAllNeuralNetworks()
+        this.nnService.getAllCompletedNeuralNetworks()
             .subscribe(result => {
-                    this.neuralNetworks = result as INeuralNetwork[];
+                    this.neuralNetworks = result as INnBaseInfo[];
                     console.log(this.neuralNetworks);
                 },
                 error => { console.log(error) });

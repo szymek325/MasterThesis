@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { NeuralNetworksService } from "../../services/neural-networks.service";
 import { Router } from "@angular/router";
-import { INeuralNetwork } from "../../interfaces/neural-network";
+import { INeuralNetwork } from "../../interfaces/neuralNetwork/neural-network";
 
 @Component({
     selector: "app-neural-networks",

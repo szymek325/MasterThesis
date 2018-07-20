@@ -6,7 +6,8 @@ namespace DataLayer.Repositories.Interface
 {
     public interface INeuralNetworkRepository : IGenericRepository<NeuralNetwork>
     {
-        IEnumerable<NeuralNetwork> GetAllNeuralNetworks();
+        IEnumerable<NeuralNetwork> GetAllNeuralNetworksWithDependencies();
+        IEnumerable<NeuralNetwork> GetAllCompleted();
         NeuralNetwork GetById(int id);
     }
 }

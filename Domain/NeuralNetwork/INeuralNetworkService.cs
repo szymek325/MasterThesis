@@ -9,5 +9,6 @@ namespace Domain.NeuralNetwork
         Task<IEnumerable<NeuralNetworkRequest>> GetAll();
         Task<int> Create(string neuralNetworkName, string peopleIds);
         Task<NeuralNetworkRequest> GetById(int id);
+        Task<IEnumerable<NeuralNetworkBaseInfoOutput>> GetAllCompleted();
     }
 }
