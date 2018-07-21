@@ -45,7 +45,6 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\app\interfaces\people\" />
-    <Folder Include="ClientApp\app\interfaces\recognition\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

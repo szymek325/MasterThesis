@@ -11,9 +11,9 @@ namespace Domain.FaceRecognition.DTO
         public string Name { get; set; }
         public string Status { get; set; }
         public string Thumbnail { get; set; }
-        public NeuralNetworkRequest NeuralNetwork { get; set; }
         public DateTime CreationTime { get; set; }
         public DateTime? CompletionTime { get; set; }
         public FileLink FileLink { get; set; }
+        public IEnumerable<RecognitionResultOutput> Results { get; set; }
     }
 }

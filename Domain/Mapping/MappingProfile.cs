@@ -12,17 +12,6 @@ namespace Domain.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Recognition, RecognitionRequest>()
-                .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
-                .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Status, opts => opts.MapFrom(src => src.Status.Name))
-                .ForMember(dest => dest.CreationTime, opts => opts.MapFrom(src => src.CreationTime))
-                .ForMember(dest => dest.CompletionTime, opts => opts.MapFrom(src => src.CompletionTime))
-                .ForMember(dest => dest.Thumbnail,
-                    opts => opts.MapFrom(src => src.Image.Thumbnail))
-                .ForMember(dest => dest.FileLink, opts => opts.MapFrom(src => src.Image))
-                .ForMember(dest => dest.NeuralNetwork, opts => opts.MapFrom(src => src.NeuralNetwork));
-
             CreateMap<DataLayer.Entities.SensorsReading, Reading>().ReverseMap();
 
             CreateMap<ImageAttachment, FileLink>()
@@ -38,14 +27,6 @@ namespace Domain.Mapping
                     opts.Condition(src=>src.Images!=null);
                     opts.MapFrom(src => src.Images);
                 })
-                .ReverseMap();
-
-            CreateMap<RecognitionResult, RecognitionResultOutput>()
-                .ForMember(dest => dest.IdentifiedPersonId, opts => opts.MapFrom(src => src.IdentifiedPersonId))
-                .ForMember(dest => dest.Confidence, opts => opts.MapFrom(src => src.Confidence))
-                .ForMember(dest => dest.NeuralNetworkFileName, opts => opts.MapFrom(src => src.NeuralNetworkFile.Name))
-                .ForMember(dest => dest.NeuralNetworkTypeName,
-                    opts => opts.MapFrom(src => src.NeuralNetworkFile.NeuralNetworkType.Name))
                 .ReverseMap();
         }
     }
