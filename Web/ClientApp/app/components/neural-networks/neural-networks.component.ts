@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { NeuralNetworksService } from "../../services/neural-networks.service";
 import { Router } from "@angular/router";
-import { INeuralNetwork } from "../../interfaces/neuralNetwork/neural-network";
+import { IAllNeuralNetworkModel } from "../../interfaces/neuralNetwork/all-neural-network-model";
 
 @Component({
     selector: "app-neural-networks",
@@ -9,7 +9,7 @@ import { INeuralNetwork } from "../../interfaces/neuralNetwork/neural-network";
     styleUrls: ["./neural-networks.component.css"]
 })
 export class NeuralNetworksComponent implements OnInit {
-    neuralNetworks: INeuralNetwork[];
+    neuralNetworks: IAllNeuralNetworkModel[];
 
     constructor(private neuralNetworkService: NeuralNetworksService, private router: Router) {}
 
@@ -24,7 +24,7 @@ export class NeuralNetworksComponent implements OnInit {
     ngOnInit() {
         this.neuralNetworkService.getAllNeuralNetworks()
             .subscribe(result => {
-                    this.neuralNetworks = result as INeuralNetwork[];
+                this.neuralNetworks = result as IAllNeuralNetworkModel[];
                     console.log(this.neuralNetworks);
                 },
                 error => { console.log(error) });
