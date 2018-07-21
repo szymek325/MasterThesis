@@ -81,6 +81,12 @@ namespace Domain.FaceDetection
             if (string.IsNullOrWhiteSpace(detectionJob.Image.Url))
                 await filesService.GetLinkToFile(detectionJob.Image);
 
+            foreach (var detectionJobResult in detectionJob.Results)
+            {
+                if (string.IsNullOrWhiteSpace(detectionJobResult.Image.Url))
+                    await filesService.GetLinkToFile(detectionJobResult.Image);
+            }
+
             var request = mapper.Map<DetectionRequest>(detectionJob);
             return request;
         }

@@ -67,8 +67,7 @@
 
         <div>
             <h3>Results</h3>
-            <p *ngIf="!results"><em>Loading results</em></p>
-            <table class="table" *ngIf="results">
+            <table class="table" *ngIf="request.results">
                 <thead>
                 <tr>
                     <th>Detection type</th>
@@ -80,7 +79,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let result of results">
+                <tr *ngFor="let result of request.results">
                     <td>{{result.detectionTypeName}}</td>
                     <td>{{result.startX}}</td>
                     <td>{{result.endX}}</td>

@@ -18,6 +18,7 @@ namespace Domain.NeuralNetwork.Mapping
                 .ReverseMap();
 
             CreateMap<NeuralNetworkFile, NeuralNetworkFileOutput>()
+                .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
                 .ForMember(dest => dest.TypeName, opts => opts.MapFrom(src => src.NeuralNetworkType.Name))
                 .ReverseMap();

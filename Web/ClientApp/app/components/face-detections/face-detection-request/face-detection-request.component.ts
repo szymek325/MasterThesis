@@ -11,7 +11,6 @@ import { IDetectionResult } from "../../../interfaces/detection/detection-result
 })
 export class FaceDetectionRequestComponent implements OnInit, OnDestroy {
     request: IFaceDetectionRequest;
-    results: IDetectionResult[];
     id: number;
     private sub: any;
 
@@ -30,12 +29,6 @@ export class FaceDetectionRequestComponent implements OnInit, OnDestroy {
                     console.log(this.request);
                 },
                 error => { console.log(error) });
-
-        this.requestDownloader.getRequestResults(this.id.toString())
-            .subscribe(result => {
-                this.results = result as IDetectionResult[];
-                console.log(this.results);
-            });
     }
 
     ngOnDestroy(): void {

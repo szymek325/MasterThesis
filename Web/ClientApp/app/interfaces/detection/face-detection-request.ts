@@ -1,4 +1,5 @@
-﻿import {IFileLink} from "../file-link";
+﻿import { IFileLink } from "../file-link";
+import { IDetectionResult } from "./detection-result";
 
 export interface IFaceDetectionRequest{
     id: number;
@@ -9,5 +10,6 @@ export interface IFaceDetectionRequest{
     thumbnail: string;
     fileLink: IFileLink;
     creationTime: string;
-    completionTime:string;
+    completionTime: string;
+    results: IDetectionResult[];
 }
