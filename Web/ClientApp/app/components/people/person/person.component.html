@@ -4,13 +4,23 @@
     <em>Loading person data...</em>
 </p>
 <div *ngIf="person">
-    <div>
-        <label for="name">Id</label>
-        <div id="id">{{person.id}}</div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label for="name">Id</label>
+        </div>
+        <div id="id" class="col-md-3">
+            {{person.id}}
+        </div>
     </div>
-    <div>
-        <label for="name">Name</label>
-        <div id="name">{{person.name}}</div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label for="name">Name</label>
+        </div>
+        <div id="name" class="col-md-3">
+            {{person.name}}
+        </div>
     </div>
 
     <div>
