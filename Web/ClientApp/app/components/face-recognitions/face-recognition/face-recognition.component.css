@@ -1,5 +1,6 @@
 [hidden] { display: none !important; }
 
+div.row { padding-top: 5px; }
 
 .slider { display: flex; }
 

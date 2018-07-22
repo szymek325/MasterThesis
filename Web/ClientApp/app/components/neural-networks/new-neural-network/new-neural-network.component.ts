@@ -24,9 +24,14 @@ export class NewNeuralNetworkComponent implements OnInit {
 
 
     onClickSubmit(data) {
+        this.alertService.clear();
         console.log(data);
         var chosenPeople=this.selectedOptions();
         console.log(chosenPeople);
+        if (chosenPeople.length < 1) {
+            this.alertService.error("At least 1 person must be chosen");
+            return false;
+        }
         this.formData = new FormData();
         this.formData.set("name", data.name);
         this.formData.set("people", chosenPeople);
@@ -46,7 +51,7 @@ export class NewNeuralNetworkComponent implements OnInit {
                 });
     }
 
-    selectedOptions() { // right now: ['1','3']
+    selectedOptions() {
         return this.people
             .filter(opt => opt.checked)
             .map(opt => opt.id);
