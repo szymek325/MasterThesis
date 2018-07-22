@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FaceRecognitionService } from "../../services/face-recognition.service";
 import { Router } from "@angular/router";
-import {IFaceRecognition} from"../../interfaces/face-recognition";
+import {IFaceRecognition} from"../../interfaces/recognition/face-recognition";
 
 @Component({
     selector: "app-face-recognitions",

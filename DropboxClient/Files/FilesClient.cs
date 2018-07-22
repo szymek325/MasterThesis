@@ -60,7 +60,7 @@ namespace Dropbox.Client.Files
             }
             catch (Exception ex)
             {
-                logger.LogError($"Exception when retrieving thumbnail from path {path}",ex);
+                logger.LogError(ex, $"Exception when retrieving thumbnail from path {path}");
             }
 
             return thumbnail;

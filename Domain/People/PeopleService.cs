@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DataLayer.Entities;
+using DataLayer.Helpers;
 using DataLayer.Repositories.Interface;
 using Domain.Configuration;
 using Domain.Files;
@@ -14,17 +15,17 @@ namespace Domain.People
 {
     public class PeopleService : IPeopleService
     {
-        private readonly IPersonImageRepository personImagesRepository;
+        private readonly IImageRepository imageRepository;
         private readonly IFilesDomainService filesService;
         private readonly IGuidProvider guid;
         private readonly ILogger<PeopleService> logger;
         private readonly IMapper mapper;
         private readonly IPersonRepository peopleRepo;
 
-        public PeopleService(IPersonImageRepository personImagesRepository, IFilesDomainService filesService, IGuidProvider guid,
+        public PeopleService(IImageRepository imageRepository, IFilesDomainService filesService, IGuidProvider guid,
             ILogger<PeopleService> logger, IMapper mapper, IPersonRepository peopleRepo)
         {
-            this.personImagesRepository = personImagesRepository;
+            this.imageRepository = imageRepository;
             this.filesService = filesService;
             this.guid = guid;
             this.logger = logger;
@@ -40,21 +41,22 @@ namespace Domain.People
                 var person = new Person
                 {
                     Name = input.Name,
-                    Images = input.Files.Select(x => new PersonImage()
+                    Images = input.Files.Select(x => new ImageAttachment()
                     {
                         Name = x.FileName,
+                        ImageAttachmentTypeId = ImageTypes.Person
                     }).ToList()
                 };
                 peopleRepo.Add(person);
                 peopleRepo.Save();
 
-                await filesService.Upload(input.Files, $"{ImageTypes.PersonImage}/{person.Id}");
+                await filesService.Upload(input.Files, $"{nameof(ImageTypes.Person)}/{person.Id}");
 
                 return person.Id;
             }
             catch (Exception ex)
             {
-                logger.LogError("exception when saving new Person", ex);
+                logger.LogError(ex, "exception when saving new Person");
                 throw;
             }
         }
@@ -70,7 +72,7 @@ namespace Domain.People
             }
             catch (Exception ex)
             {
-                logger.LogError("exception when downloading all People", ex);
+                logger.LogError(ex, "exception when downloading all People");
             }
 
             var respone = mapper.Map<IEnumerable<PersonOutput>>(people);
@@ -83,15 +85,15 @@ namespace Domain.People
             var filesWithoutUrl = person.Images.Where(x => x.Url == null).ToList();
             if (filesWithoutUrl.Any())
             {
-                var links = await filesService.GetLinksToFilesInFolder($"{ImageTypes.PersonImage}/{person.Id}");
+                var links = await filesService.GetLinksToFilesInFolder($"{nameof(ImageTypes.Person)}/{person.Id}");
 
                 foreach (var file in filesWithoutUrl)
                 {
                     file.Url = links.FirstOrDefault(x => x.FileName == file.Name)?.Url;
-                    personImagesRepository.Update(file);
+                    imageRepository.Update(file);
                 }
 
-                personImagesRepository.Save();
+                imageRepository.Save();
             }
 
             var respone = mapper.Map<PersonOutput>(person);
@@ -109,7 +111,7 @@ namespace Domain.People
             }
             catch (Exception ex)
             {
-                logger.LogError("Exception when retrieving person", ex);
+                logger.LogError(ex, "Exception when retrieving person");
                 throw;
             }
         }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FaceRecognitionService } from "../../../services/face-recognition.service";
 import { ActivatedRoute } from "@angular/router";
-import { IFaceRecognition } from "../../../interfaces/face-recognition";
+import { IFaceRecognition } from "../../../interfaces/recognition/face-recognition";
 
 @Component({
     selector: "app-face-recognition",
@@ -9,8 +9,7 @@ import { IFaceRecognition } from "../../../interfaces/face-recognition";
     styleUrls: ["./face-recognition.component.css"]
 })
 export class FaceRecognitionComponent implements OnInit {
-    recognitionRequest: any;
-    recognitionResults: any;
+    request: any;
     id: number;
     private sub: any;
 
@@ -24,14 +23,8 @@ export class FaceRecognitionComponent implements OnInit {
         });
         this.faceRecognitionService.getFaceRecognition(this.id.toString())
             .subscribe(result => {
-                    this.recognitionRequest = result as IFaceRecognition;
-                    console.log(this.recognitionRequest);
-                },
-                error => { console.log(error) });
-        this.faceRecognitionService.getResultsForRecognition(this.id.toString())
-            .subscribe(result => {
-                    this.recognitionResults = result as IRecognitionResult;
-                    console.log(this.recognitionResults);
+                    this.request = result as IFaceRecognition;
+                    console.log(this.request);
                 },
                 error => { console.log(error) });
     }

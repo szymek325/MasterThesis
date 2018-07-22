@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -27,28 +26,20 @@ namespace Domain.NeuralNetwork
 
         public Task<int> Create(string neuralNetworkName, string peopleIds)
         {
-            try
+            var neuralNetwork = new DataLayer.Entities.NeuralNetwork
             {
-                var neuralNetwork = new DataLayer.Entities.NeuralNetwork
-                {
-                    Name = neuralNetworkName,
-                    StatusId = 1
-                };
-                foreach (var personId in peopleIds.Split(','))
-                {
-                    var person = personRepo.GetPersonById(int.Parse(personId));
-                    neuralNetwork.People.Add(person);
-                }
+                Name = neuralNetworkName,
+                StatusId = 1
+            };
+            foreach (var personId in peopleIds.Split(','))
+            {
+                var person = personRepo.GetPersonById(int.Parse(personId));
+                neuralNetwork.People.Add(person);
+            }
 
-                nnRepo.Add(neuralNetwork);
-                nnRepo.Save();
-                return Task.FromResult(neuralNetwork.Id);
-            }
-            catch (Exception exception)
-            {
-                logger.LogError("exception on", exception);
-                throw;
-            }
+            nnRepo.Add(neuralNetwork);
+            nnRepo.Save();
+            return Task.FromResult(neuralNetwork.Id);
         }
 
         public Task<NeuralNetworkRequest> GetById(int id)
@@ -58,10 +49,17 @@ namespace Domain.NeuralNetwork
             return Task.FromResult(output);
         }
 
-        public Task<IEnumerable<NeuralNetworkRequest>> GetAll()
+        public Task<IEnumerable<AllNeuralNetworksOutput>> GetAll()
         {
-            var neuralNetworks = nnRepo.GetAllNeuralNetworks().ToList();
-            var output = mapper.Map<IEnumerable<NeuralNetworkRequest>>(neuralNetworks);
+            var neuralNetworks = nnRepo.GetAllNeuralNetworksWithDependencies().ToList();
+            var output = mapper.Map<IEnumerable<AllNeuralNetworksOutput>>(neuralNetworks);
+            return Task.FromResult(output);
+        }
+
+        public Task<IEnumerable<NeuralNetworkBaseInfoOutput>> GetAllCompleted()
+        {
+            var neuralNetworks = nnRepo.GetAllCompleted();
+            var output = mapper.Map<IEnumerable<NeuralNetworkBaseInfoOutput>>(neuralNetworks);
             return Task.FromResult(output);
         }
     }

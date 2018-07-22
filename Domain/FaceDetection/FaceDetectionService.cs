@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DataLayer.Entities;
+using DataLayer.Helpers;
 using DataLayer.Repositories.Interface;
-using Domain.Configuration;
 using Domain.FaceDetection.DTO;
 using Domain.Files;
 using Microsoft.Extensions.Logging;
@@ -14,23 +14,18 @@ namespace Domain.FaceDetection
 {
     public class FaceDetectionService : IFaceDetectionService
     {
-        private readonly IDetectionImageRepository detectionImagesRepository;
         private readonly IDetectionRepository detectionRepository;
         private readonly IFilesDomainService filesService;
-        private readonly IGuidProvider guid;
         private readonly ILogger<FaceDetectionService> logger;
         private readonly IMapper mapper;
 
         public FaceDetectionService(IDetectionRepository detectionRepository, IFilesDomainService filesService,
-            IGuidProvider guid,
-            ILogger<FaceDetectionService> logger, IMapper mapper, IDetectionImageRepository detectionImagesRepository)
+            ILogger<FaceDetectionService> logger, IMapper mapper)
         {
             this.detectionRepository = detectionRepository;
             this.filesService = filesService;
-            this.guid = guid;
             this.logger = logger;
             this.mapper = mapper;
-            this.detectionImagesRepository = detectionImagesRepository;
         }
 
         public async Task<int> CreateRequest(NewRequest request)
@@ -41,22 +36,23 @@ namespace Domain.FaceDetection
                 {
                     Name = request.Name,
                     StatusId = 1,
-                    Images = request.Files.Select(x => new DetectionImage
+                    Image = request.Files.Select(x => new ImageAttachment()
                     {
-                        Name = x.FileName
-                    }).ToList()
+                        Name = x.FileName,
+                        ImageAttachmentTypeId = ImageTypes.Detection
+                    }).FirstOrDefault()
                 };
                 detectionRepository.Add(newDetection);
                 detectionRepository.Save();
 
-                await filesService.Upload(request.Files, $"{ImageTypes.DetectionImage}/{newDetection.Id}");
+                await filesService.Upload(request.Files, $"{nameof(ImageTypes.Detection)}/{newDetection.Id}");
 
                 return newDetection.Id;
             }
             catch (Exception ex)
             {
-                logger.LogError("Exception when creating face deteciton request ", ex);
-                throw;
+                logger.LogError(ex, "Exception when creating face deteciton request ");
+                throw new Exception("Exception when creating face deteciton request ");
             }
         }
 
@@ -66,12 +62,12 @@ namespace Domain.FaceDetection
             try
             {
                 foreach (var faceDetection in faceDetections)
-                    if (faceDetection.Images.Any() && string.IsNullOrWhiteSpace(faceDetection.Images.First().Thumbnail))
-                        await filesService.GetThumbnail(faceDetection.Images.First());
+                    if (string.IsNullOrWhiteSpace(faceDetection.Image.Thumbnail))
+                        await filesService.GetThumbnail(faceDetection.Image);
             }
             catch (Exception ex)
             {
-                logger.LogError("Exception when trying to obtain thumbnails of FD Requests", ex);
+                logger.LogError(ex, "Exception when trying to obtain thumbnails of FD Requests");
             }
 
             var requests = mapper.Map<IEnumerable<DetectionRequest>>(faceDetections);
@@ -81,18 +77,14 @@ namespace Domain.FaceDetection
         public async Task<DetectionRequest> GetRequestData(int id)
         {
             var detectionJob = detectionRepository.GetRequestById(id);
-            var filesWithoutUrl = detectionJob.Images.Where(x => x.Url == null).ToList();
-            if (filesWithoutUrl.Any())
+
+            if (string.IsNullOrWhiteSpace(detectionJob.Image.Url))
+                await filesService.GetLinkToFile(detectionJob.Image);
+
+            foreach (var detectionJobResult in detectionJob.Results)
             {
-                var links = await filesService.GetLinksToFilesInFolder($"{ImageTypes.DetectionImage}/{detectionJob.Id}");
-
-                foreach (var file in filesWithoutUrl)
-                {
-                    file.Url = links.FirstOrDefault(x => x.FileName == file.Name)?.Url;
-                    detectionImagesRepository.Update(file);
-                }
-
-                detectionImagesRepository.Save();
+                if (string.IsNullOrWhiteSpace(detectionJobResult.Image.Url))
+                    await filesService.GetLinkToFile(detectionJobResult.Image);
             }
 
             var request = mapper.Map<DetectionRequest>(detectionJob);

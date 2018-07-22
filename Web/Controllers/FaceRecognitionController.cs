@@ -36,7 +36,7 @@ namespace Web.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError("Exception when loading all Recognition requests", ex);
+                logger.LogError(ex, "Exception when loading all Recognition requests");
                 throw;
             }
         }
@@ -67,7 +67,7 @@ namespace Web.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError($"Exception when loading face recognition {id} ",ex);
+                logger.LogError(ex, $"Exception when loading face recognition {id}");
                 throw;
             }
             
@@ -83,7 +83,7 @@ namespace Web.Controllers
             }
             catch (Exception ex)
             {
-                logger.LogError($"Exception when loading face recognition results for {id} ", ex);
+                logger.LogError(ex, $"Exception when loading face recognition results for {id}");
                 throw;
             }
 
