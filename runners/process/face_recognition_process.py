@@ -1,3 +1,5 @@
+import traceback
+
 from sqlalchemy import null
 
 from configuration_global.config_reader import ConfigReader
@@ -23,7 +25,11 @@ class FaceRecognitionProcess():
         if not requests == null and requests.count() is not 0:
             self.neuralNetworksManager.download_neural_networks_to_local()
             for request in requests:
-                self.faceRecognitionManager.process_request(request)
+                try:
+                    self.faceRecognitionManager.process_request(request)
+                except Exception as ex:
+                    self.logger.error(f"Exception when processing recognition {request.id}.\n Error: {str(ex)}")
+                    self.faceRecognitionRepo.complete_with_error(request.id)
         self.logger.info("  END FaceRecognition")
 
 

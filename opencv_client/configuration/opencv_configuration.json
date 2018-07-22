@@ -2,7 +2,6 @@
   "face_cascade_path": "opencv_files/lbpcascade_frontalface_improved.xml",
   "proto_txt": "opencv_files/deploy.prototxt.txt",
   "dnn_model": "opencv_files/res10_300x300_ssd_iter_140000.caffemodel",
-  "required_face_confidence": 0.5,
-  "neural_networks_path": "opencv_files/neural_networks/"
+  "required_face_confidence": 0.5
 }
 

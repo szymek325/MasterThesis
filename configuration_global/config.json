@@ -1,18 +1,10 @@
 {
+  "logs_path": "temp/logs",
   "local_files_path":"temp",
   "use_local_environment":true,
   "environments":{
     "debug":"Debug",
     "azure":"Azure"
-  },
-  "detectedMotionPath": "temp/detectedMotion/",
-  "detectedFaceSavePath": "temp/detectedFace/",
-  "training_data": "temp/trainingFaces/",
-  "face_detection_requests_path": "temp/faceDetectionRequests/",
-  "face_recognition_requests_path": "temp/faceRecognitionRequests/",
-  "neural_networks_path": "opencv_client/opencv_files/neural_networks/",
-  "logs_path": "temp/logs",
-  "local_people_path": "temp/people",
-  "face_recognition_interval": 60
+  }
 }
 

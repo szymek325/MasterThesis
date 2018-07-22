@@ -6,8 +6,8 @@ from configuration_global.paths_provider import PathsProvider
 from dataLayer.repositories.neural_network_person_repository import NeuralNetworkPersonRepository
 import numpy as np
 
+from opencv_client.face_detection.dnn_face_detector import DnnFaceDetector
 from opencv_client.face_detection.haar_face_detector import HaarFaceDetector
-from opencv_client.face_recognition.training_input_preparator import TrainingDataExtractor
 from opencv_client.image_converters.image_converter import ImageConverter
 
 
@@ -16,7 +16,6 @@ class TrainingDataProvider():
         self.logger = LoggerFactory()
         self.pathsProvider = PathsProvider()
         self.neuralNetworkPersonRepo = NeuralNetworkPersonRepository()
-        self.trainingDataExtractor = TrainingDataExtractor()
         self.faceDetector = HaarFaceDetector()
         self.imageConverter = ImageConverter()
 
@@ -38,9 +37,14 @@ class TrainingDataProvider():
     def extract_training_data(self, face_samples, ids, imagePath, person_id):
         self.logger.info(imagePath)
         open_cv_image = cv2.imread(imagePath)
-        faces = self.faceDetector.run_detector(open_cv_image)
+        faces=[]
+        try:
+            faces = self.faceDetector.run_detector(open_cv_image)
+        except:
+            self.logger.info(f"Exception when extracting data from {imagePath}")
         if len(faces) is not 0:
             (startX, startY, endX, endY) = faces[0]
-            np_image = self.imageConverter.convert_to_np_array(open_cv_image[startY:endY, startX:endX])
+            cropped_image=open_cv_image[startY:endY, startX:endX]
+            np_image = self.imageConverter.convert_to_np_array(cropped_image)
             face_samples.append(np_image)
             ids.append(person_id)

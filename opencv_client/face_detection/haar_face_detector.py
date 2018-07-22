@@ -11,7 +11,6 @@ class HaarFaceDetector:
         self.configReader = OpenCvConfigurationReader()
         self.faceCascade = cv2.CascadeClassifier(os.path.abspath(self.configReader.face_cascade_path))
 
-    @exception
     def run_detector(self, image):
         """
         :param image: loaded by cv2.imread
