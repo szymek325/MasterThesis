@@ -2,22 +2,57 @@
     <h1>New Face Recognition request form</h1>
     <alert></alert>
     <form [formGroup]="recognitionForm" (ngSubmit)="onClickSubmit(recognitionForm.value)" *ngIf="neuralNetworks">
-
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" formControlName="name" id="name" ngModel>
+        
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3">
+                    <label for="name">Name</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" formControlName="name" id="name" ngModel>
+                </div>
+            </div>
         </div>
-        <div class="alert alert-danger" *ngIf="!recognitionForm.controls['name'].valid && recognitionForm.controls['name'].touched">'Name' field is required</div>
 
-        <select id="neuralOption" class="form-control" formControlName="neuralOption">
-            <option *ngFor="let nn of neuralNetworks" [ngValue]="nn.id" >id: {{nn.id}} name: {{ nn.name }} </option>
-        </select>
-
-        <div class="form-group">
-            <label for="file">File</label>
-            <input type="file" class="form-control" [ngModelOptions]="{standalone: true}" (change)="validateFile($event)" id="file" accept=".jpeg, .bmp, .png, .jpg" ngModel #FaceImage>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="alert alert-danger" *ngIf="!recognitionForm.controls['name'].valid && recognitionForm.controls['name'].touched">
+                    'Name' field is required
+                </div>
+            </div>
         </div>
-        <div class="alert alert-danger" *ngIf="!isFileValid">File must be of type .jpeg, .jpg, or .png</div>
+        
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3">
+                    <label for="neuralOption">Neural Network</label>
+                </div>
+                <div class="col-md-3">
+                    <select id="neuralOption" class="form-control" formControlName="neuralOption">
+                        <option *ngFor="let nn of neuralNetworks" [ngValue]="nn.id" >id: {{nn.id}} name: {{ nn.name }} </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3">
+                    <label for="file">File</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="file" class="form-control" [ngModelOptions]="{standalone: true}" (change)="validateFile($event)" id="file" accept=".jpeg, .bmp, .png, .jpg" ngModel #FaceImage>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="alert alert-danger" *ngIf="!isFileValid">
+                    File must be of type .jpeg, .jpg, or .png
+                </div>
+            </div>
+        </div>
 
         <div>
             <button type="submit" [disabled]="!(recognitionForm.valid && isFileValid)" class="btn btn-success">Submit</button>
