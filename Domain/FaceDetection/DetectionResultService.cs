@@ -28,6 +28,7 @@ namespace Domain.FaceDetection
             this.mapper = mapper;
         }
 
+        [Obsolete("not used right now")]
         public async Task<IEnumerable<DetectionResultOutput>> GetResultsForRequest(int requestId)
         {
             try

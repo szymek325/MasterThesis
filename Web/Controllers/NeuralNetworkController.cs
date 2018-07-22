@@ -28,14 +28,22 @@ namespace Web.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Create(IFormCollection collections)
         {
-            collections.TryGetValue("name", out var neuralNetworkName);
-            collections.TryGetValue("people", out var peopleIds);
-            var nnId= await neuralNetworkService.Create(neuralNetworkName, peopleIds);
-            return Ok(new {neuralNetworkId = nnId });
+            try
+            {
+                collections.TryGetValue("name", out var neuralNetworkName);
+                collections.TryGetValue("people", out var peopleIds);
+                var nnId= await neuralNetworkService.Create(neuralNetworkName, peopleIds);
+                return Ok(new {neuralNetworkId = nnId });
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Exception when creating neural network request");
+                throw;
+            }
         }
 
         [HttpGet("[action]")]
-        public async Task<IEnumerable<NeuralNetworkRequest>> GetAll()
+        public async Task<IEnumerable<AllNeuralNetworksOutput>> GetAll()
         {
             try
             {
@@ -50,10 +58,34 @@ namespace Web.Controllers
         }
 
         [HttpGet("[action]")]
+        public async Task<IEnumerable<NeuralNetworkBaseInfoOutput>> GetAllCompleted()
+        {
+            try
+            {
+                var response = await neuralNetworkService.GetAllCompleted();
+                return response;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Exception when loading all completed neural networks");
+                throw;
+            }
+        }
+
+
+        [HttpGet("[action]")]
         public async Task<NeuralNetworkRequest> Get(int id)
         {
-            var response = await neuralNetworkService.GetById(id);
-            return response;
+            try
+            {
+                var response = await neuralNetworkService.GetById(id);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, $"Exception when loading data for nn request :{id}");
+                throw;
+            }
         }
     }
 }

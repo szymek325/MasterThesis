@@ -20,7 +20,14 @@ namespace DataLayer.Repositories.Implementation
 
         public Detection GetRequestById(int id)
         {
-            return GetAll().Include(x => x.Status).Include(x => x.Image).FirstOrDefault(x => x.Id == id);
+            return GetAll()
+                .Include(x => x.Status)
+                .Include(x => x.Image)
+                .Include(x=>x.Results)
+                    .ThenInclude(x=>x.DetectionType)
+                .Include(x => x.Results)
+                    .ThenInclude(x => x.Image)
+                .FirstOrDefault(x => x.Id == id);
         }
     }
 }

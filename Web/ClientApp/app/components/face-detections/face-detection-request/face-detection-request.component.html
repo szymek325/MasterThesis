@@ -12,44 +12,44 @@
 
         <div class="row">
             <div class="col-md-3">
-                <label for="name">Name</label>
+                <label>Name</label>
             </div>
-            <div class="col-md-3" id="name">{{request.name}}</div>
+            <div class="col-md-3">{{request.name}}</div>
         </div>
         
         <div class="row">
             <div class="col-md-3">
-                <label for="name">Creation time</label>
+                <label>Creation time</label>
             </div>
-            <div class="col-md-3" id="name">{{request.creationTime?.replace("T"," ")}}</div>
+            <div class="col-md-3">{{request.creationTime?.replace("T"," ")}}</div>
         </div>
         
         <div class="row">
             <div class="col-md-3">
-                <label for="name">Completion time</label>
+                <label>Completion time</label>
             </div>
-            <div class="col-md-3" id="name">{{request.completionTime?.replace("T"," ")}}</div>
+            <div class="col-md-3">{{request.completionTime?.replace("T"," ")}}</div>
         </div>
         
         <div class="row">
             <div class="col-md-3">
-                <label for="name">Status</label>
+                <label>Status</label>
             </div>
-            <div class="col-md-3" id="name">{{request.status}}</div>
+            <div class="col-md-3">{{request.status}}</div>
         </div>
         
         <div class="row">
             <div class="col-md-3">
-                <label for="name">Haar faces found</label>
+                <label>Haar faces found</label>
             </div>
-            <div class="col-md-3" id="name">{{request.haarFaces}}</div>
+            <div class="col-md-3">{{request.haarFaces}}</div>
         </div>
         
         <div class="row">
             <div class="col-md-3">
-                <label for="name">DNN faces found</label>
+                <label>DNN faces found</label>
             </div>
-            <div class="col-md-3" id="name">{{request.dnnFaces}}</div>
+            <div class="col-md-3">{{request.dnnFaces}}</div>
         </div>
 
         <div class="row">
@@ -67,8 +67,7 @@
 
         <div>
             <h3>Results</h3>
-            <p *ngIf="!results"><em>Loading results</em></p>
-            <table class="table" *ngIf="results">
+            <table class="table" *ngIf="request.results">
                 <thead>
                 <tr>
                     <th>Detection type</th>
@@ -80,7 +79,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let result of results">
+                <tr *ngFor="let result of request.results">
                     <td>{{result.detectionTypeName}}</td>
                     <td>{{result.startX}}</td>
                     <td>{{result.endX}}</td>

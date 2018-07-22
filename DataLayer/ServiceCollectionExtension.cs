@@ -42,7 +42,7 @@ namespace DataLayer
             }
             catch (Exception ex)
             {
-                
+                Console.WriteLine(ex.Message);
             }
         }
 

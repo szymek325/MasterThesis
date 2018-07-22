@@ -15,6 +15,10 @@ export class NeuralNetworksService {
         return this.httpClient.get(this.baseUrl + "api/NeuralNetwork/GetAll");
     };
 
+    getAllCompletedNeuralNetworks(): Observable<Object> {
+        return this.httpClient.get(this.baseUrl + "api/NeuralNetwork/GetAllCompleted");
+    };
+
     getNeuralNetwork(id: string): Observable<Object> {
         const params = new HttpParams().set("id", id);
         return this.httpClient.get(this.baseUrl + "api/NeuralNetwork/Get", { params });

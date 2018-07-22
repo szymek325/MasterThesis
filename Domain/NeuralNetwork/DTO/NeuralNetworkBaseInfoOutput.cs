@@ -1,9 +1,8 @@
 ﻿namespace Domain.NeuralNetwork.DTO
 {
-    public class NeuralNetworkFileOutput
+    public class NeuralNetworkBaseInfoOutput
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string TypeName { get; set; }
     }
 }

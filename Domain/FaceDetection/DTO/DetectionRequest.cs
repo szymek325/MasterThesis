@@ -15,5 +15,6 @@ namespace Domain.FaceDetection.DTO
         public DateTime CreationTime { get; set; }
         public DateTime? CompletionTime { get; set; }
         public FileLink FileLink { get; set; }
+        public IEnumerable<DetectionResultOutput> Results { get; set; }
     }
 }
