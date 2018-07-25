@@ -1,4 +1,5 @@
 using AutoMapper;
+using AzureFaceApi.Client.Configuration;
 using DataLayer.Configuration;
 using Domain;
 using Dropbox.Client.Configuration;
@@ -26,6 +27,7 @@ namespace Web
             services.AddAutoMapper();
             services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
             services.Configure<DropboxConfiguration>(Configuration.GetSection("DropboxConfiguration"));
+            services.Configure<FaceApiConfiguration>(Configuration.GetSection("FaceApiConfiguration"));
             services.AddDomainModule();
         }
 
