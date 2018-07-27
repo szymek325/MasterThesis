@@ -17,7 +17,6 @@ class CognitiveClient():
         try:
             result = self.client.face.detect(path, False, False)
             faces = [self.resultsConverter.convert_to_coordinates_format(face) for face in result]
-            self.logger.info(faces)
             return faces
         except self.client.CognitiveFaceException as exp:
             self.logger.error('Response: {}. {}'.format(exp.code, exp.msg))

@@ -26,11 +26,12 @@ class FaceDetectorsManager():
                          f"\n   Haar: {faces_detected_by_haar}"
                          f"\n   DNN: {faces_detected_by_dnn}"
                          f"\n   Azure: {faces_detected_by_azure}")
-        result = {
+        result = [
             [self.detectionTypes.haar, faces_detected_by_haar],
             [self.detectionTypes.dnn, faces_detected_by_dnn],
             [self.detectionTypes.azure, faces_detected_by_azure]
-        }
+        ]
+        self.logger.info(result)
         return result
 
     def get_faces_on_image(self, image):
