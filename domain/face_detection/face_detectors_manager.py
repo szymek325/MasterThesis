@@ -35,6 +35,8 @@ class FaceDetectorsManager():
 
     def get_face_by_azure(self, file_path):
         faces_detected_by_azure = self.azureClient.async_detect(file_path)
-        self.logger.info(f"Faces detected by "
-                         f"\n   Azure: {faces_detected_by_azure}")
+        for face in faces_detected_by_azure:
+            self.logger.info(f"Faces detected by "
+                             f"\n   Azure: {face['faceRectangle']}")
+
         return faces_detected_by_azure
