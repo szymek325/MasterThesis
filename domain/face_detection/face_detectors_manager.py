@@ -1,6 +1,9 @@
+import cv2
+
 from cognitive_face_client.cognitive_client import CognitiveClient
 from configuration_global.config_reader import ConfigReader
 from configuration_global.logger_factory import LoggerFactory
+from dataLayer.type_providers.detection_types import DetectionTypes
 from opencv_client.face_detection.dnn_face_detector import DnnFaceDetector
 from opencv_client.face_detection.haar_face_detector import HaarFaceDetector
 
@@ -12,6 +15,23 @@ class FaceDetectorsManager():
         self.haarDetector = HaarFaceDetector()
         self.dnnDetector = DnnFaceDetector()
         self.azureClient = CognitiveClient()
+        self.detectionTypes = DetectionTypes()
+
+    def get_faces_on_image_from_file_path(self, file_path):
+        image = cv2.imread(file_path)
+        faces_detected_by_haar = self.haarDetector.run_detector(image)
+        faces_detected_by_dnn = self.dnnDetector.run_detector(image)
+        faces_detected_by_azure = self.azureClient.async_detect(file_path)
+        self.logger.info(f"Faces detected by "
+                         f"\n   Haar: {faces_detected_by_haar}"
+                         f"\n   DNN: {faces_detected_by_dnn}"
+                         f"\n   Azure: {faces_detected_by_azure}")
+        result = {
+            [self.detectionTypes.haar, faces_detected_by_haar],
+            [self.detectionTypes.dnn, faces_detected_by_dnn],
+            [self.detectionTypes.azure, faces_detected_by_azure]
+        }
+        return result
 
     def get_faces_on_image(self, image):
         faces_detected_by_haar = self.haarDetector.run_detector(image)
@@ -35,8 +55,6 @@ class FaceDetectorsManager():
 
     def get_face_by_azure(self, file_path):
         faces_detected_by_azure = self.azureClient.async_detect(file_path)
-        for face in faces_detected_by_azure:
-            self.logger.info(f"Faces detected by "
-                             f"\n   Azure: {face['faceRectangle']}")
-
+        self.logger.info(f"Faces detected by "
+                         f"\n   Azure: {faces_detected_by_azure}")
         return faces_detected_by_azure

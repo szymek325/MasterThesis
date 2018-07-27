@@ -6,6 +6,7 @@ from configuration_global.logger_factory import LoggerFactory
 from configuration_global.paths_provider import PathsProvider
 from dataLayer.entities.detection import Detection
 from dataLayer.repositories.face_detection_repository import FaceDetectionRepository
+from dataLayer.type_providers.detection_types import DetectionTypes
 from domain.directory_manager import DirectoryManager
 from domain.face_detection.results_operator import ResultsOperator
 from domain.face_detection.face_detectors_manager import FaceDetectorsManager
@@ -21,14 +22,14 @@ class DetectionRequestsManager():
         self.filesDownloader = FilesDownloader()
         self.pathsProvider = PathsProvider()
         self.directoryManager = DirectoryManager()
+        self.detectionTypes = DetectionTypes()
 
     def process_request(self, request: Detection):
         self.logger.info(f"Working on Face Detection Request id: {request.id} started")
         input_file_path = self.__get_input_filepath__(request.id)
-        image = cv2.imread(input_file_path)
-        faces_detected_by_haar, faces_detected_by_dnn = self.faceDetectorsManager.get_faces_on_image(image)
-        faces_detected_by_azure = self.faceDetectorsManager.get_face_by_azure(input_file_path)
-        self.__finish_request__(faces_detected_by_dnn, faces_detected_by_haar, image, request.id)
+        results = self.faceDetectorsManager.get_faces_on_image_from_file_path(input_file_path)
+
+        self.__finish_request__(results, input_file_path, request.id)
         self.logger.info(f"Finished Face Detection Request id: {request.id} ")
 
     def __get_input_filepath__(self, request_id):
@@ -37,7 +38,6 @@ class DetectionRequestsManager():
         input_file_path = self.directoryManager.get_file_from_directory(request_path)
         return input_file_path
 
-    def __finish_request__(self, faces_detected_by_dnn, faces_detected_by_haar, image, request_id):
-        self.resultsOperator.upload_results(request_id, faces_detected_by_dnn, faces_detected_by_haar, image)
-        self.faceDetectionRepository.complete_request(request_id, len(faces_detected_by_haar),
-                                                      len(faces_detected_by_dnn))
+    def __finish_request__(self, results, input_file_path, request_id):
+        self.resultsOperator.upload_results(request_id, results, input_file_path)
+        self.faceDetectionRepository.complete_request(request_id, 0, 0)

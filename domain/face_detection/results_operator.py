@@ -2,6 +2,7 @@ import os
 
 import cv2
 
+from configuration_global.logger_factory import LoggerFactory
 from configuration_global.paths_provider import PathsProvider
 from dataLayer.entities.detection_result import DetectionResult
 from dataLayer.entities.image_attachment import ImageAttachment
@@ -20,33 +21,24 @@ class ResultsOperator:
         self.files_repository = ImageAttachmentRepository()
         self.pathsProvider = PathsProvider()
         self.attachmentTypes = ImageAttachmentTypes()
-        self.detectionTypes=DetectionTypes()
-        self.resultsRepository= DetectionResultRepository()
-        self.haar_file_name = "haar.jpg"
-        self.dnn_file_name = "dnn.jpg"
+        self.detectionTypes = DetectionTypes()
+        self.resultsRepository = DetectionResultRepository()
+        self.logger = LoggerFactory()
 
-    def upload_results(self, request_id: int, faces_detected_by_dnn, faces_detected_by_haar, image):
-        # TODO refactor needed
-        haar_file_path, dnn_file_path = self.__prepare_results__(request_id, faces_detected_by_dnn,
-                                                                 faces_detected_by_haar, image)
-        haar_file = open(haar_file_path, "rb")
-        dnn_file = open(dnn_file_path, "rb")
-        if len(faces_detected_by_dnn) is not 0:
-            dnn_image= ImageAttachment(self.dnn_file_name,self.attachmentTypes.detection_result_id)
-            dnn_result=DetectionResult(faces_detected_by_dnn[0],request_id,self.detectionTypes.dnn_id,dnn_image)
-            dnn_id=self.resultsRepository.add_detection_result_with_image(dnn_result)
-            self.filesUploader.upload_detection_result(dnn_id, dnn_file.read(), self.dnn_file_name)
-        if len(faces_detected_by_haar) is not 0:
-            haar_image = ImageAttachment(self.haar_file_name, self.attachmentTypes.detection_result_id)
-            haar_result=DetectionResult(faces_detected_by_haar[0],request_id,self.detectionTypes.haar_id,haar_image)
-            haar_id=self.resultsRepository.add_detection_result_with_image(haar_result)
-            self.filesUploader.upload_detection_result(haar_id, haar_file.read(), self.haar_file_name)
-
-    def __prepare_results__(self, request_id, dnn_faces, haar_faces, image):
-        haar_file = self.imageEditor.draw_faces(image, haar_faces)
-        dnn_file = self.imageEditor.draw_faces(image, dnn_faces)
-        haar_path = os.path.join(self.pathsProvider.local_detection_image_path(), str(request_id), self.haar_file_name)
-        cv2.imwrite(haar_path, haar_file)
-        dnn_path = os.path.join(self.pathsProvider.local_detection_image_path(), str(request_id), self.dnn_file_name)
-        cv2.imwrite(dnn_path, dnn_file)
-        return haar_path, dnn_path
+    def upload_results(self, request_id: int, results, image_file_path):
+        for res in results:
+            type_name = res[0]
+            faces = res[1]
+            self.logger.info(res)
+            image = cv2.imread(image_file_path)
+            result_image_data = self.imageEditor.draw_faces(image, faces)
+            file_name = f"{type_name}.jpg"
+            result_file_path = os.path.join(self.pathsProvider.local_detection_image_path(), str(request_id), file_name)
+            cv2.imwrite(result_file_path, result_image_data)
+            image_attachment = ImageAttachment(file_name, self.attachmentTypes.detection_result_id)
+            main_face_coordinates = faces[0] if len(faces) != 0 else [0, 0, 0, 0]
+            result_entity = DetectionResult(main_face_coordinates[0], request_id,
+                                            self.detectionTypes.get_type_id(type_name), image_attachment)
+            result_id = self.resultsRepository.add_detection_result_with_image(result_entity)
+            result_file = open(result_file_path, "rb")
+            self.filesUploader.upload_detection_result(result_id, result_file.read(), file_name)
