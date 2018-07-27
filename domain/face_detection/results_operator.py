@@ -38,8 +38,7 @@ class ResultsOperator:
             image_attachment = ImageAttachment(file_name, self.attachmentTypes.detection_result_id)
             main_face_coordinates = faces[0] if len(faces) != 0 else [0, 0, 0, 0]
             #error happens here
-            result_entity = DetectionResult(main_face_coordinates[0], request_id,
-                                            self.detectionTypes.get_type_id(type_name), image_attachment)
+            result_entity = DetectionResult(main_face_coordinates, request_id, self.detectionTypes.get_type_id(type_name), image_attachment)
             result_id = self.resultsRepository.add_detection_result_with_image(result_entity)
             result_file = open(result_file_path, "rb")
             self.filesUploader.upload_detection_result(result_id, result_file.read(), file_name)

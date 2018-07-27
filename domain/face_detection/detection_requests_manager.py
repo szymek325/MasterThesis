@@ -28,7 +28,6 @@ class DetectionRequestsManager():
         self.logger.info(f"Working on Face Detection Request id: {request.id} started")
         input_file_path = self.__get_input_filepath__(request.id)
         results = self.faceDetectorsManager.get_faces_on_image_from_file_path(input_file_path)
-
         self.__finish_request__(results, input_file_path, request.id)
         self.logger.info(f"Finished Face Detection Request id: {request.id} ")
 

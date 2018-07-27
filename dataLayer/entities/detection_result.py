@@ -19,9 +19,15 @@ class DetectionResult(Base):
     image = relationship("ImageAttachment", uselist=False)
 
     def __init__(self, coordinates, request_id, detection_type_id, image_attachment):
-        startX, startY, endX, endY = coordinates
-        self.startX, self.startY, self.endX, self.endY = np.asscalar(startX), np.asscalar(startY), np.asscalar(
-            endX), np.asscalar(endY)
+        self.__convert_to_int_if_required__(coordinates)
         self.detection_id = request_id
         self.detection_type_id = detection_type_id
         self.image = image_attachment
+
+    def __convert_to_int_if_required__(self, coordinates):
+        startX, startY, endX, endY = coordinates
+        try:
+            self.startX, self.startY, self.endX, self.endY = np.asscalar(startX), np.asscalar(startY), np.asscalar(endX), np.asscalar(endY)
+        except AttributeError as ex:
+            self.startX, self.startY, self.endX, self.endY = startX, startY, endX, endY
+
