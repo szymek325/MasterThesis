@@ -27,6 +27,7 @@ class DetectionRequestsManager():
         input_file_path = self.__get_input_filepath__(request.id)
         image = cv2.imread(input_file_path)
         faces_detected_by_haar, faces_detected_by_dnn = self.faceDetectorsManager.get_faces_on_image(image)
+        faces_detected_by_azure = self.faceDetectorsManager.get_face_by_azure(input_file_path)
         self.__finish_request__(faces_detected_by_dnn, faces_detected_by_haar, image, request.id)
         self.logger.info(f"Finished Face Detection Request id: {request.id} ")
 
