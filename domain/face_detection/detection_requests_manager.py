@@ -39,4 +39,4 @@ class DetectionRequestsManager():
 
     def __finish_request__(self, results, input_file_path, request_id):
         self.resultsOperator.upload_results(request_id, results, input_file_path)
-        self.faceDetectionRepository.complete_request(request_id, 0, 0)
+        self.faceDetectionRepository.complete_request(request_id)
