@@ -27,6 +27,8 @@ namespace DataLayer.Repositories.Implementation
                     .ThenInclude(x=>x.DetectionType)
                 .Include(x => x.Results)
                     .ThenInclude(x => x.Image)
+                .Include(x => x.Results)
+                    .ThenInclude(x => x.FaceRectangles)
                 .FirstOrDefault(x => x.Id == id);
         }
     }

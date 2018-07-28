@@ -20,11 +20,16 @@ namespace Domain.FaceDetection.Mapping
                 .ForMember(dest => dest.FileLink, opts => opts.MapFrom(src => src.Image))
                 .ReverseMap();
 
+            CreateMap<DetectionRectangle, FaceRectangle>()
+                .ForMember(dest => dest.StartX, opts => opts.MapFrom(src => src.StartX))
+                .ForMember(dest => dest.StartY, opts => opts.MapFrom(src => src.StartY))
+                .ForMember(dest => dest.EndX, opts => opts.MapFrom(src => src.EndX))
+                .ForMember(dest => dest.EndY, opts => opts.MapFrom(src => src.EndY))
+                .ForMember(dest => dest.Area, opts => opts.MapFrom(src => src.Area))
+                .ReverseMap();
+
             CreateMap<DetectionResult, DetectionResultOutput>()
-                //.ForMember(dest => dest.StartX, opts => opts.MapFrom(src => src.StartX))
-                //.ForMember(dest => dest.StartY, opts => opts.MapFrom(src => src.StartY))
-                //.ForMember(dest => dest.EndX, opts => opts.MapFrom(src => src.EndX))
-                //.ForMember(dest => dest.EndY, opts => opts.MapFrom(src => src.EndY))
+                .ForMember(dest => dest.FaceRectangles, opts => opts.MapFrom(src => src.FaceRectangles))
                 .ForMember(dest => dest.DetectionTypeName, opts => opts.MapFrom(src => src.DetectionType.Name))
                 .ForMember(dest => dest.Image, opts => opts.MapFrom(src => src.Image))
                 .ReverseMap();

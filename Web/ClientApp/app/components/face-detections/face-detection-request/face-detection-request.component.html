@@ -1,7 +1,9 @@
 ﻿<div class="container">
     <h1 class="center-block">Face Detection</h1>
 
-    <p *ngIf="!request"><em>Loading request data...</em></p>
+    <p *ngIf="!request">
+        <em>Loading request data...</em>
+    </p>
     <div *ngIf="request">
         <div class="row">
             <div class="col-md-3">
@@ -16,35 +18,35 @@
             </div>
             <div class="col-md-3">{{request.name}}</div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-3">
                 <label>Creation time</label>
             </div>
             <div class="col-md-3">{{request.creationTime?.replace("T"," ")}}</div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-3">
                 <label>Completion time</label>
             </div>
             <div class="col-md-3">{{request.completionTime?.replace("T"," ")}}</div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-3">
                 <label>Status</label>
             </div>
             <div class="col-md-3">{{request.status}}</div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-3">
                 <label>Haar faces found</label>
             </div>
             <div class="col-md-3">{{request.haarFaces}}</div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-3">
                 <label>DNN faces found</label>
@@ -75,16 +77,18 @@
                     <th>endX</th>
                     <th>startY</th>
                     <th>endY</th>
+                    <td>area</td>
                     <th>Image</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let result of request.results">
                     <td>{{result.detectionTypeName}}</td>
-                    <td>{{result.startX}}</td>
-                    <td>{{result.endX}}</td>
-                    <td>{{result.startY}}</td>
-                    <td>{{result.endY}}</td>
+                    <td *ngFor="let face of result.faceRectangles">{{face.startX}}</td>
+                    <td *ngFor="let face of result.faceRectangles">{{face.endX}}</td>
+                    <td *ngFor="let face of result.faceRectangles">{{face.startY}}</td>
+                    <td *ngFor="let face of result.faceRectangles">{{face.endY}}</td>
+                    <td *ngFor="let face of result.faceRectangles">{{face.area}}</td>
                     <td>
                         <div class="slider">
                             <div class="slide">

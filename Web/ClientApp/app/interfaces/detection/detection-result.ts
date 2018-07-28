@@ -7,4 +7,5 @@ export interface IDetectionResult {
     endY: number;
     image: IFileLink;
     detectionTypeName: string;
+    faceRectangles: IFaceRectangle[];
 }
