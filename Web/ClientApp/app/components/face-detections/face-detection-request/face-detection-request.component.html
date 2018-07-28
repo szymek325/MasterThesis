@@ -42,20 +42,6 @@
 
         <div class="row">
             <div class="col-md-3">
-                <label>Haar faces found</label>
-            </div>
-            <div class="col-md-3">{{request.haarFaces}}</div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3">
-                <label>DNN faces found</label>
-            </div>
-            <div class="col-md-3">{{request.dnnFaces}}</div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3">
                 <label for="input">Input image</label>
             </div>
             <div class="col-md-3">
@@ -71,32 +57,54 @@
             <h3>Results</h3>
             <table class="table" *ngIf="request.results">
                 <thead>
-                <tr>
-                    <th>Detection type</th>
-                    <th>startX</th>
-                    <th>endX</th>
-                    <th>startY</th>
-                    <th>endY</th>
-                    <td>area</td>
-                    <th>Image</th>
-                </tr>
+                    <tr>
+                        <th>Detection type</th>
+                        <th>faces found</th>
+                        <th>startX</th>
+                        <th>endX</th>
+                        <th>startY</th>
+                        <th>endY</th>
+                        <th>area</th>
+                        <th>Image</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let result of request.results">
-                    <td>{{result.detectionTypeName}}</td>
-                    <td *ngFor="let face of result.faceRectangles">{{face.startX}}</td>
-                    <td *ngFor="let face of result.faceRectangles">{{face.endX}}</td>
-                    <td *ngFor="let face of result.faceRectangles">{{face.startY}}</td>
-                    <td *ngFor="let face of result.faceRectangles">{{face.endY}}</td>
-                    <td *ngFor="let face of result.faceRectangles">{{face.area}}</td>
-                    <td>
-                        <div class="slider">
-                            <div class="slide">
-                                <img src="{{result.image.url}}"/>
+                    <tr *ngFor="let result of request.results">
+                        <td><b>{{result.detectionTypeName}}</b></td>
+                        <td><b>{{result.faceRectangles.length}}</b></td>
+                        <td>
+                            <div class="row" *ngFor="let face of result.faceRectangles">
+                                {{face.startX}}
                             </div>
-                        </div>
-                    </td>
-                </tr>
+                        </td>
+                        <td>
+                            <div class="row" *ngFor="let face of result.faceRectangles">
+                                {{face.endX}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row" *ngFor="let face of result.faceRectangles">
+                                {{face.startY}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row" *ngFor="let face of result.faceRectangles">
+                                {{face.endY}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row" *ngFor="let face of result.faceRectangles">
+                                {{face.area}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slider">
+                                <div class="slide">
+                                    <img src="{{result.image.url}}" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
