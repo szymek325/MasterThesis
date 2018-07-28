@@ -31,6 +31,10 @@ export class FaceDetectionRequestComponent implements OnInit, OnDestroy {
                 error => { console.log(error) });
     }
 
+    onNavigate(url) {
+        window.open(url, "_blank");
+    }
+
     ngOnDestroy(): void {
         this.sub.unsubscribe();
     }

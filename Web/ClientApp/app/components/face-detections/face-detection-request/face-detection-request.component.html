@@ -100,7 +100,7 @@
                         <td>
                             <div class="slider">
                                 <div class="slide">
-                                    <img src="{{result.image.url}}" />
+                                    <img (click)="onNavigate(result.image.url)" src="{{result.image.url}}" />
                                 </div>
                             </div>
                         </td>
