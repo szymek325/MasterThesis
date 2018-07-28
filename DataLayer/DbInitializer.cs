@@ -29,6 +29,10 @@ namespace DataLayer
             {
                 Name = "haar"
             });
+            context.DetectionTypes.Add(new DetectionType
+            {
+                Name = "azure"
+            });
         }
 
         private static void InitializeNeuralNetworkTypes(MasterContext context)

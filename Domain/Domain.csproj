@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AzureFaceApi.Client\AzureFaceApi.Client.csproj" />
     <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
     <ProjectReference Include="..\DropboxClient\Dropbox.Client.csproj" />
   </ItemGroup>

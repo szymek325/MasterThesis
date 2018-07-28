@@ -1,5 +1,4 @@
-﻿using AzureFaceApi.Client;
-using DataLayer;
+﻿using DataLayer;
 using Domain.Configuration;
 using Domain.FaceDetection;
 using Domain.FaceRecognition;
@@ -17,7 +16,6 @@ namespace Domain
         public static IServiceCollection AddDomainModule(this IServiceCollection services)
         {
             services.AddDropboxConnector();
-            services.AddFaceApiClientModule();
             services.AddDataLayerModule();
 
             services.AddTransient<IFilesDomainService, FilesDomainService>();
