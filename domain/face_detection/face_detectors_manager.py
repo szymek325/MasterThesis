@@ -21,7 +21,7 @@ class FaceDetectorsManager():
         image = cv2.imread(file_path)
         faces_detected_by_haar = self.haarDetector.run_detector(image)
         faces_detected_by_dnn = self.dnnDetector.run_detector(image)
-        faces_detected_by_azure = self.azureClient.async_detect(file_path)
+        faces_detected_by_azure = self.azureClient.detect_face_rectangles(file_path)
         self.logger.info(f"Faces detected by "
                          f"\n   Haar: {faces_detected_by_haar}"
                          f"\n   DNN: {faces_detected_by_dnn}"
@@ -55,7 +55,7 @@ class FaceDetectorsManager():
         return faces_detected_by_dnn
 
     def get_face_by_azure(self, file_path):
-        faces_detected_by_azure = self.azureClient.async_detect(file_path)
+        faces_detected_by_azure = self.azureClient.detect_face_rectangles(file_path)
         self.logger.info(f"Faces detected by "
                          f"\n   Azure: {faces_detected_by_azure}")
         return faces_detected_by_azure
