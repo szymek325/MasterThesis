@@ -50,6 +50,10 @@ namespace DataLayer
             {
                 Name = "Fisher"
             });
+            context.NeuralNetworkTypes.Add(new NeuralNetworkType
+            {
+                Name = "AzureLargeGroup"
+            });
         }
 
         private static void InitializeStatuses(MasterContext context)
