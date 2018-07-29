@@ -28,5 +28,3 @@ class CognitiveClient():
     def identify_faces(self, faces_ids, large_person_group):
         res = CF.face.identify(faces_ids, large_person_group_id=large_person_group)
         return res
-
-    #
