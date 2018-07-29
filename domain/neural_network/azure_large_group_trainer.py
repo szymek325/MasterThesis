@@ -17,3 +17,4 @@ class AzureLargeGroupTrainer():
         for person_id, image_path in people_with_image_paths:
             group_person_id = people_dictionary[f'{person_id}']
             self.largeGroupClient.add_face_to_person_in_large_group(group_person_id, request_id, image_path)
+        self.largeGroupClient.train_large_group(request_id)

@@ -35,3 +35,20 @@ class AzureLargeGroupsClient():
             self.logger.error(f"Exception when adding face to person in large group. Ex: {ex}")
             raise
 
+    def train_large_group(self, large_group_id):
+        self.logger.info(f"Starting training of azure large group id: {large_group_id}")
+        try:
+            self.cognitiveClient.train_large_group(large_group_id)
+        except Exception as ex:
+            self.logger.error(f"Exception when training large group. Ex: {ex}")
+            raise
+
+    def get_large_group_status(self, large_group_id):
+        self.logger.info(f"Checking status of large group id: {large_group_id}")
+        try:
+            res = self.cognitiveClient.get_large_group_status(large_group_id)
+            self.logger.info(f"Azure NN status :{res}")
+            return res
+        except Exception as ex:
+            self.logger.error(f"Exception when checking large group status. Ex: {ex}")
+            raise

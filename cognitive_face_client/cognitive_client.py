@@ -25,6 +25,14 @@ class CognitiveClient():
         res = CF.large_person_group_person_face.add(image_path, large_group_id, person_id)
         return res
 
+    def train_large_group(self, large_group_id):
+        res = CF.large_person_group.train(large_group_id)
+        return res
+
     def identify_faces(self, faces_ids, large_person_group):
         res = CF.face.identify(faces_ids, large_person_group_id=large_person_group)
+        return res
+
+    def get_large_group_status(self, large_group_id):
+        res = CF.large_person_group.get_status(large_group_id)
         return res
