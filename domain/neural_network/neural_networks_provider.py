@@ -5,7 +5,7 @@ from domain.directory_manager import DirectoryManager
 from dropbox_integration.files_downloader import FilesDownloader
 
 
-class NeuralNetworksManager():
+class NeuralNetworksProvider():
     def __init__(self):
         self.pathProvider = PathsProvider()
         self.logger = LoggerFactory()

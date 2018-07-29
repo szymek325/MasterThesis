@@ -7,7 +7,7 @@ from configuration_global.exception_handler import exception
 from configuration_global.logger_factory import LoggerFactory
 from dataLayer.repositories.face_recognition_repository import FaceRecognitionRepository
 from domain.face_recognition.recognition_requests_manager import RecognitionRequestManager
-from domain.neural_network.neural_networks_manager import NeuralNetworksManager
+from domain.neural_network.neural_networks_provider import NeuralNetworksProvider
 
 
 class FaceRecognitionProcess():
@@ -16,7 +16,7 @@ class FaceRecognitionProcess():
         self.config = ConfigReader()
         self.faceRecognitionManager = RecognitionRequestManager()
         self.faceRecognitionRepo = FaceRecognitionRepository()
-        self.neuralNetworksManager = NeuralNetworksManager()
+        self.neuralNetworksManager = NeuralNetworksProvider()
 
     @exception
     def run_face_recognition(self):
