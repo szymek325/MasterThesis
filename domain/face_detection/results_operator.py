@@ -26,25 +26,28 @@ class ResultsOperator:
         self.detectionTypes = DetectionTypes()
         self.resultsRepository = DetectionResultRepository()
         self.logger = LoggerFactory()
+
     @exception
     def upload_results(self, request_id: int, results, image_file_path):
         for res in results:
             type_name = res[0]
             faces = res[1]
-            self.logger.info(res)
-            image = cv2.imread(image_file_path)
-            result_image_data = self.imageEditor.draw_faces(image, faces)
+            self.logger.info(f"Working on results for {type_name} \n{faces}")
             file_name = f"{type_name}.jpg"
             result_file_path = os.path.join(self.pathsProvider.local_detection_image_path(), str(request_id), file_name)
-            cv2.imwrite(result_file_path, result_image_data)
-            image_attachment = ImageAttachment(file_name, self.attachmentTypes.detection_result_id)
-            try:
-                faces_coordinates = [DetectionRectangle(faces) for faces in faces]
-                result_entity = DetectionResult(request_id, self.detectionTypes.get_type_id(type_name),
-                                                image_attachment, faces_coordinates)
-                result_id = self.resultsRepository.add_detection_result_with_image(result_entity)
-                result_file = open(result_file_path, "rb")
-            except Exception as ex:
-                self.logger.error(ex)
-                raise
+            self.__save_result_image_to_local_directory__(faces, image_file_path, result_file_path)
+            result_entity = self.__prepare_result_entities__(faces, file_name, request_id, type_name)
+            result_id = self.resultsRepository.add_detection_result_with_image(result_entity)
+            result_file = open(result_file_path, "rb")
             self.filesUploader.upload_detection_result(result_id, result_file.read(), file_name)
+
+    def __prepare_result_entities__(self, faces, file_name, request_id, type_name):
+        image_attachment = ImageAttachment(file_name, self.attachmentTypes.detection_result_id)
+        faces_coordinates = [DetectionRectangle(faces) for faces in faces]
+        result_entity = DetectionResult(request_id, self.detectionTypes.get_type_id(type_name), image_attachment, faces_coordinates)
+        return result_entity
+
+    def __save_result_image_to_local_directory__(self, faces, image_file_path, result_file_path):
+        image = cv2.imread(image_file_path)
+        result_image_data = self.imageEditor.draw_faces(image, faces)
+        cv2.imwrite(result_file_path, result_image_data)
