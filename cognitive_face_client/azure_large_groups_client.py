@@ -18,7 +18,7 @@ class AzureLargeGroupsClient():
             raise
 
     def create_person_in_large_group(self, large_group_id, person_name):
-        self.logger.info(f"Creating person {person_name} in large group {large_group_id}")
+        self.logger.info(f"Creating person: {person_name} in large group: {large_group_id}")
         try:
             res = self.cognitiveClient.create_person_in_large_group(large_group_id, person_name)
             person_id = res['personId']
@@ -34,3 +34,4 @@ class AzureLargeGroupsClient():
         except Exception as ex:
             self.logger.error(f"Exception when adding face to person in large group. Ex: {ex}")
             raise
+
