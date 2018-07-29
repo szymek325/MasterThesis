@@ -1,6 +1,6 @@
 import cognitive_face as CF
 
-from configuration_global.logger_factory import LoggerFactory
+from cognitive_face_client import helpers
 
 
 class CognitiveClient():
@@ -9,7 +9,6 @@ class CognitiveClient():
         self.client.Key.set("b204cc1207534676b3d77f668405dd95")
         # klucz 2:9a8c664f40b346b7ab1bd3949a3e5f7e
         self.client.BaseUrl.set("https://westcentralus.api.cognitive.microsoft.com/face/v1.0")
-        self.logger = LoggerFactory()
 
     def detect_faces(self, path):
         result = self.client.face.detect(path, False, False)
@@ -30,21 +29,8 @@ class CognitiveClient():
     def identify_faces(self, faces_ids, large_person_group):
         res = CF.face.identify(faces_ids, large_person_group_id=large_person_group)
         return res
-    # def detect_face_rectangles(self, path):
-    #     try:
-    #         result = self.client.face.detect(path, False, False)
-    #         faces = [self.resultsConverter.convert_to_coordinates_format(face) for face in result]
-    #         return faces
-    #     except self.client.CognitiveFaceException as exp:
-    #         self.logger.error(f'Exception when sending face recognition request. Response: {exp.code}. {exp.msg}')
-    #
-    # def detect_face_rectangles(self, path):
-    #     try:
-    #         result = self.client.face.detect(path, False, False)
-    #         faces = [self.resultsConverter.convert_to_coordinates_format(face) for face in result]
-    #         return faces
-    #     except self.client.CognitiveFaceException as exp:
-    #         self.logger.error(f'Exception when sending face recognition request. Response: {exp.code}. {exp.msg}')
+
+
     #
     # def create_large_group(self, request_id: int, name: str):
     #     self.logger.info(f"Creating Azure LargePersonGroup with id: {request_id}, name : {name}")

@@ -28,7 +28,7 @@ class ResultsOperator:
         self.logger = LoggerFactory()
 
     @exception
-    def upload_results(self, request_id: int, results, image_file_path):
+    def prepare_and_upload_results(self, request_id: int, results, image_file_path):
         for res in results:
             type_name = res[0]
             faces = res[1]

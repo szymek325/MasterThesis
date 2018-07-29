@@ -1,7 +1,5 @@
 import os
 
-import cv2
-
 from configuration_global.logger_factory import LoggerFactory
 from configuration_global.paths_provider import PathsProvider
 from dataLayer.entities.detection import Detection
@@ -27,6 +25,7 @@ class DetectionRequestsManager():
     def process_request(self, request: Detection):
         self.logger.info(f"Working on Face Detection Request id: {request.id} started")
         input_file_path = self.__get_input_filepath__(request.id)
+        self.logger.info(f"Running all face detectors")
         results = self.faceDetectorsManager.get_faces_on_image_from_file_path(input_file_path)
         self.__finish_request__(results, input_file_path, request.id)
         self.logger.info(f"Finished Face Detection Request id: {request.id} ")
@@ -38,5 +37,5 @@ class DetectionRequestsManager():
         return input_file_path
 
     def __finish_request__(self, results, input_file_path, request_id):
-        self.resultsOperator.upload_results(request_id, results, input_file_path)
+        self.resultsOperator.prepare_and_upload_results(request_id, results, input_file_path)
         self.faceDetectionRepository.complete_request(request_id)
