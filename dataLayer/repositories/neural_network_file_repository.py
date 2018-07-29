@@ -12,9 +12,10 @@ class NeuralNetworkFileRepository():
         session.commit()
         session.close()
 
-    def get_all_files_connected_to_neural_network(self, nn_id):
+    def get_all_open_cv_files_connected_to_neural_network(self, nn_id):
         Base.metadata.create_all(engine)
         session = Session()
-        result = session.query(NeuralNetworkFile).filter_by(neuralNetworkId=nn_id)
+        result = session.query(NeuralNetworkFile).filter(NeuralNetworkFile.neuralNetworkId == nn_id,
+                                                         NeuralNetworkFile.neuralNetworkTypeId < 4)
         session.close()
         return result
