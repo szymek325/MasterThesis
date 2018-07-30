@@ -1,7 +1,7 @@
 import cv2
 
 from cognitive_face_client import helpers
-from cognitive_face_client.azure_detection_client import AzureDetectionClient
+from cognitive_face_client.azure_face_client import AzureFaceClient
 from configuration_global.config_reader import ConfigReader
 from configuration_global.logger_factory import LoggerFactory
 from dataLayer.type_providers.detection_types import DetectionTypes
@@ -15,7 +15,7 @@ class FaceDetectorsManager():
         self.logger = LoggerFactory()
         self.haarDetector = HaarFaceDetector()
         self.dnnDetector = DnnFaceDetector()
-        self.azureDetectionClient = AzureDetectionClient()
+        self.azureDetectionClient = AzureFaceClient()
         self.detectionTypes = DetectionTypes()
 
     def get_faces_on_image_from_file_path(self, file_path):

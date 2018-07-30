@@ -28,6 +28,7 @@ class FaceDetectionProcess():
             for request in requests:
                 try:
                     self.request_manager.process_request(request)
+                    self.faceDetectionRepository.complete_request(request.id)
                 except Exception as ex:
                     self.logger.error(f"Exception when processing detection {request.id}.\n Error: {str(ex)}")
                     self.faceDetectionRepository.complete_with_error(request.id)
