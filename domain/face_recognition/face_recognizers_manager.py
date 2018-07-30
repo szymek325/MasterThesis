@@ -33,10 +33,12 @@ class FaceRecognizersManager():
             recognized_azure_ids = self.azureFaceClient.get_faces_identity(face_ids, azure_file.neuralNetworkId)
             for face_id, rec_az_id in recognized_azure_ids.items():
                 person_identity = self.__get_person_id__(rec_az_id, dictionary)
-                self.recognitionResultRepo.add_recognition_result(person_identity, request_id, 1, azure_file.id)
+                self.recognitionResultRepo.add_recognition_result(person_identity[0], request_id, 1, azure_file.id,
+                                                                  person_identity[1])
 
     def __get_person_id__(self, azure_id, people_dictionary):
         for person_id, azure_person_id in people_dictionary.items():
             if azure_person_id == azure_id:
-                return person_id
-        return 0
+                return person_id, ""
+        if azure_id == 'Unknown':
+            return 0, "Face found. Person is Unknown"
