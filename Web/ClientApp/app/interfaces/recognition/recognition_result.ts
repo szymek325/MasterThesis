@@ -3,4 +3,5 @@
     confidence: number;
     neuralNetworkFileName: string;
     neuralNetworkTypeName: string;
+    comments: string;
 }

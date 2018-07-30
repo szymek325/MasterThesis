@@ -6,5 +6,6 @@
         public int Confidence { get; set; }
         public string NeuralNetworkFileName { get; set; }
         public string NeuralNetworkTypeName { get; set; }
+        public string Comments { get; set; }
     }
 }

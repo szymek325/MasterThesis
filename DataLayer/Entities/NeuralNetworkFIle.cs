@@ -9,5 +9,6 @@ namespace DataLayer.Entities
         public NeuralNetwork NeuralNetwork { get; set; }
         public int NeuralNetworkTypeId { get; set; }
         public NeuralNetworkType NeuralNetworkType { get; set; }
+        public string AdditionalData { get; set; }
     }
 }

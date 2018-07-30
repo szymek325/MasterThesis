@@ -12,6 +12,7 @@ namespace Domain.FaceRecognition.Mapping
                 .ForMember(dest => dest.IdentifiedPersonId, opts => opts.MapFrom(src => src.IdentifiedPersonId))
                 .ForMember(dest => dest.Confidence, opts => opts.MapFrom(src => src.Confidence))
                 .ForMember(dest => dest.NeuralNetworkFileName, opts => opts.MapFrom(src => src.NeuralNetworkFile.Name))
+                .ForMember(dest => dest.Comments, opts => opts.MapFrom(src => src.Comments))
                 .ForMember(dest => dest.NeuralNetworkTypeName,
                     opts => opts.MapFrom(src => src.NeuralNetworkFile.NeuralNetworkType.Name))
                 .ReverseMap();
