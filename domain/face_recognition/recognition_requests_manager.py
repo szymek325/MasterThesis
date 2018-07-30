@@ -15,5 +15,6 @@ class RecognitionRequestManager():
     def process_request(self, request: Recognition):
         self.logger.info(f"Working on face recognition request {request.id} id")
         input_file_path = self.inputFileProvider.get_recognition_input_file_path(request.id)
-        self.recognizersManager.get_identity_by_open_cv_recognizers(request.id, request.neural_network_id,input_file_path)
+        self.recognizersManager.get_identity_by_open_cv_recognizers(request.id, request.neural_network_id, input_file_path)
+        self.recognizersManager.get_identity_by_azure_cognitive(request.id, request.neural_network_id, input_file_path)
         self.logger.info(f"Completed recognition request id: {request.id} name: {request.name}")

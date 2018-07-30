@@ -1,8 +1,4 @@
 class ResultsConverter:
-    def __init__(self):
-        # todo need to get this dictionary it somewhere
-        self.person_id_names = {}
-
     def get_face_rectangles_from_result(self, result):
         faces = []
         for entry in result:
@@ -22,11 +18,12 @@ class ResultsConverter:
         return face_ids
 
     def get_face_identities_from_result(self, result):
-        face_identities = []
+        face_identities = {}
         for entry in result:
             face_id = entry['faceId']
             if entry['candidates']:
                 person_id = entry['candidates'][0]['personId']
-                face_identities[face_id].set_name(self.person_id_names[person_id])
+                face_identities[face_id] = person_id
             else:
-                face_identities[face_id].set_name('Unknown')
+                face_identities[face_id] = 'Unknown'
+        return face_identities

@@ -21,7 +21,7 @@ class AzureFaceClient():
             self.logger.error(f'Exception when sending face detection request. Response: {exp.code}. {exp.msg}')
 
     def get_face_ids(self, path):
-        self.logger.info(f"Getting face ids for image {image_path}")
+        self.logger.info(f"Getting face ids for image {path}")
         try:
             result = self.cognitiveClient.detect_faces(path)
             faces = self.resultsConverter.get_face_ids_from_result(result)
@@ -33,7 +33,7 @@ class AzureFaceClient():
         self.logger.info(f"Getting faces identity for faces_ids {faces_ids}")
         try:
             result = self.cognitiveClient.identify_faces(faces_ids, large_group_id)
-            faces_identities = self.resultsConverter.get_face_identities_from_result(result)
-            return faces_identities
+            azure_faces_identities = self.resultsConverter.get_face_identities_from_result(result)
+            return azure_faces_identities
         except CognitiveFaceException as exp:
             self.logger.error(f'Exception when sending identify face request. Response: {exp.code}. {exp.msg}')

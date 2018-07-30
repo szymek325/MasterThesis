@@ -10,7 +10,7 @@ class CognitiveClient():
         self.client.BaseUrl.set("https://westcentralus.api.cognitive.microsoft.com/face/v1.0")
 
     def detect_faces(self, path):
-        result = self.client.face.detect(path, False, False)
+        result = self.client.face.detect(path, True, False)
         return result
 
     def create_large_group(self, request_id: int, name: str):
