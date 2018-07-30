@@ -10,8 +10,6 @@
             <th>Id</th>
             <th>Name</th>
             <th>Input</th>
-            <th>Deep Neural Network</th>
-            <th>Haar</th>
             <th>Status</th>
             <th>Creation Time</th>
             <th>Completion Time</th>
@@ -22,8 +20,6 @@
             <td>{{ face.id }}</td>
             <td>{{ face.name }}</td>
             <td><img src="data:image/jpeg;base64,{{face.thumbnail}}" /></td>
-            <td>{{ face.dnnFaces }}</td>
-            <td>{{ face.haarFaces }}</td>
             <td>{{ face.status }}</td>
             <td>{{ face.creationTime?.replace("T"," ") }}</td>
             <td>{{ face.completionTime?.replace("T"," ") }}</td>

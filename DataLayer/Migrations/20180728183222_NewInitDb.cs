@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
 namespace DataLayer.Migrations
 {
-    public partial class InitDb : Migration
+    public partial class NewInitDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,9 +60,9 @@ namespace DataLayer.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
-                    Description = table.Column<string>(nullable: true),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -77,8 +76,8 @@ namespace DataLayer.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
-                    Humidity = table.Column<int>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
+                    Humidity = table.Column<int>(nullable: false),
                     Temperature = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -107,13 +106,13 @@ namespace DataLayer.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CompletionTime = table.Column<DateTime>(nullable: true),
                     CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
-                    DnnFaces = table.Column<int>(nullable: false),
-                    HaarFaces = table.Column<int>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    StatusId = table.Column<int>(nullable: false)
+                    DnnFaces = table.Column<int>(nullable: false),
+                    HaarFaces = table.Column<int>(nullable: false),
+                    StatusId = table.Column<int>(nullable: false),
+                    CompletionTime = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -132,12 +131,12 @@ namespace DataLayer.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CompletionTime = table.Column<DateTime>(nullable: true),
                     CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
-                    Description = table.Column<string>(nullable: true),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    StatusId = table.Column<int>(nullable: true)
+                    Description = table.Column<string>(nullable: true),
+                    StatusId = table.Column<int>(nullable: true),
+                    CompletionTime = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -157,13 +156,9 @@ namespace DataLayer.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
-                    DetectionId = table.Column<int>(nullable: false),
-                    DetectionTypeId = table.Column<int>(nullable: false),
-                    EndX = table.Column<int>(nullable: false),
-                    EndY = table.Column<int>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
-                    StartX = table.Column<int>(nullable: false),
-                    StartY = table.Column<int>(nullable: false)
+                    DetectionId = table.Column<int>(nullable: false),
+                    DetectionTypeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -215,8 +210,8 @@ namespace DataLayer.Migrations
                 name: "NeuralNetworkPeople",
                 columns: table => new
                 {
-                    PersonId = table.Column<int>(nullable: false),
-                    NeuralNetworkId = table.Column<int>(nullable: false)
+                    NeuralNetworkId = table.Column<int>(nullable: false),
+                    PersonId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -241,13 +236,13 @@ namespace DataLayer.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CompletionTime = table.Column<DateTime>(nullable: true),
                     CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
-                    Description = table.Column<string>(nullable: true),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     NeuralNetworkId = table.Column<int>(nullable: true),
-                    StatusId = table.Column<int>(nullable: true)
+                    StatusId = table.Column<int>(nullable: true),
+                    CompletionTime = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -267,21 +262,47 @@ namespace DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DetectionRectangle",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    StartX = table.Column<int>(nullable: false),
+                    EndX = table.Column<int>(nullable: false),
+                    StartY = table.Column<int>(nullable: false),
+                    EndY = table.Column<int>(nullable: false),
+                    Area = table.Column<int>(nullable: false),
+                    DetectionResultId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DetectionRectangle", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DetectionRectangle_DetectionResult_DetectionResultId",
+                        column: x => x.DetectionResultId,
+                        principalTable: "DetectionResult",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ImageAttachment",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
-                    DetectionId = table.Column<int>(nullable: true),
-                    DetectionResultId = table.Column<int>(nullable: true),
-                    ImageAttachmentTypeId = table.Column<int>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    PersonId = table.Column<int>(nullable: true),
-                    RecognitionId = table.Column<int>(nullable: true),
                     Thumbnail = table.Column<string>(nullable: true),
-                    Url = table.Column<string>(nullable: true)
+                    Url = table.Column<string>(nullable: true),
+                    ImageAttachmentTypeId = table.Column<int>(nullable: false),
+                    DetectionId = table.Column<int>(nullable: true),
+                    DetectionResultId = table.Column<int>(nullable: true),
+                    RecognitionId = table.Column<int>(nullable: true),
+                    PersonId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -324,10 +345,10 @@ namespace DataLayer.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Confidence = table.Column<int>(nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
-                    IdentifiedPersonId = table.Column<int>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
+                    IdentifiedPersonId = table.Column<int>(nullable: false),
+                    Confidence = table.Column<int>(nullable: false),
                     NeuralNetworkFileId = table.Column<int>(nullable: false),
                     RecognitionId = table.Column<int>(nullable: false)
                 },
@@ -352,6 +373,11 @@ namespace DataLayer.Migrations
                 name: "IX_Detection_StatusId",
                 table: "Detection",
                 column: "StatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DetectionRectangle_DetectionResultId",
+                table: "DetectionRectangle",
+                column: "DetectionResultId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DetectionResult_DetectionId",
@@ -437,6 +463,9 @@ namespace DataLayer.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "DetectionRectangle");
+
             migrationBuilder.DropTable(
                 name: "ImageAttachment");
 

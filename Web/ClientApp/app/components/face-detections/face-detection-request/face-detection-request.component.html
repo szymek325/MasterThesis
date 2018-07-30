@@ -1,7 +1,9 @@
 ﻿<div class="container">
     <h1 class="center-block">Face Detection</h1>
 
-    <p *ngIf="!request"><em>Loading request data...</em></p>
+    <p *ngIf="!request">
+        <em>Loading request data...</em>
+    </p>
     <div *ngIf="request">
         <div class="row">
             <div class="col-md-3">
@@ -16,40 +18,26 @@
             </div>
             <div class="col-md-3">{{request.name}}</div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-3">
                 <label>Creation time</label>
             </div>
             <div class="col-md-3">{{request.creationTime?.replace("T"," ")}}</div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-3">
                 <label>Completion time</label>
             </div>
             <div class="col-md-3">{{request.completionTime?.replace("T"," ")}}</div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-3">
                 <label>Status</label>
             </div>
             <div class="col-md-3">{{request.status}}</div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-3">
-                <label>Haar faces found</label>
-            </div>
-            <div class="col-md-3">{{request.haarFaces}}</div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-3">
-                <label>DNN faces found</label>
-            </div>
-            <div class="col-md-3">{{request.dnnFaces}}</div>
         </div>
 
         <div class="row">
@@ -69,30 +57,54 @@
             <h3>Results</h3>
             <table class="table" *ngIf="request.results">
                 <thead>
-                <tr>
-                    <th>Detection type</th>
-                    <th>startX</th>
-                    <th>endX</th>
-                    <th>startY</th>
-                    <th>endY</th>
-                    <th>Image</th>
-                </tr>
+                    <tr>
+                        <th>Detection type</th>
+                        <th>faces found</th>
+                        <th>startX</th>
+                        <th>endX</th>
+                        <th>startY</th>
+                        <th>endY</th>
+                        <th>area</th>
+                        <th>Image</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let result of request.results">
-                    <td>{{result.detectionTypeName}}</td>
-                    <td>{{result.startX}}</td>
-                    <td>{{result.endX}}</td>
-                    <td>{{result.startY}}</td>
-                    <td>{{result.endY}}</td>
-                    <td>
-                        <div class="slider">
-                            <div class="slide">
-                                <img src="{{result.image.url}}"/>
+                    <tr *ngFor="let result of request.results">
+                        <td><b>{{result.detectionTypeName}}</b></td>
+                        <td><b>{{result.faceRectangles.length}}</b></td>
+                        <td>
+                            <div class="row" *ngFor="let face of result.faceRectangles">
+                                {{face.startX}}
                             </div>
-                        </div>
-                    </td>
-                </tr>
+                        </td>
+                        <td>
+                            <div class="row" *ngFor="let face of result.faceRectangles">
+                                {{face.endX}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row" *ngFor="let face of result.faceRectangles">
+                                {{face.startY}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row" *ngFor="let face of result.faceRectangles">
+                                {{face.endY}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row" *ngFor="let face of result.faceRectangles">
+                                {{face.area}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="slider">
+                                <div class="slide">
+                                    <img (click)="onNavigate(result.image.url)" src="{{result.image.url}}" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

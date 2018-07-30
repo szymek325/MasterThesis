@@ -17,6 +17,7 @@ namespace DataLayer
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Detection> Detections { get; set; }
         public DbSet<DetectionResult> DetectionResults { get; set; }
+        public DbSet<DetectionRectangle> DetectionRectangles { get; set; }
         public DbSet<DetectionType> DetectionTypes { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<Recognition> Recognitions { get; set; }
@@ -58,6 +59,7 @@ namespace DataLayer
             modelBuilder.Entity<Status>().ToTable(nameof(Status));
             modelBuilder.Entity<Detection>().ToTable(nameof(Detection));
             modelBuilder.Entity<DetectionResult>().ToTable(nameof(DetectionResult));
+            modelBuilder.Entity<DetectionRectangle>().ToTable(nameof(DetectionRectangle));
             modelBuilder.Entity<DetectionType>().ToTable(nameof(DetectionType));
             modelBuilder.Entity<Person>().ToTable(nameof(Person));
             modelBuilder.Entity<Recognition>().ToTable(nameof(Recognition));
