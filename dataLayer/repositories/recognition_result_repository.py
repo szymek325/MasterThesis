@@ -3,10 +3,10 @@ from dataLayer.entities.recognition_result import RecognitionResult
 
 
 class RecognitionResultRepository():
-    def add_recognition_result(self, identity, recognition_id, confidence, file_id):
+    def add_recognition_result(self, identity, recognition_id, confidence, file_id, comments=""):
         Base.metadata.create_all(engine)
         session = Session()
-        reading = RecognitionResult(identity, recognition_id, confidence, file_id)
+        reading = RecognitionResult(identity, recognition_id, confidence, file_id, comments)
         session.add(reading)
         session.commit()
         session.close()

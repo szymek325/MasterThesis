@@ -8,8 +8,6 @@ class Detection(Base):
     __tablename__ = 'Detection'
 
     id = Column('Id', Integer, primary_key=True)
-    dnnFaces = Column('DnnFaces', Integer)
-    haarFaces = Column('HaarFaces', Integer)
     name = Column('Name', String)
     statusId = Column('StatusId', Integer)
     image = relationship("ImageAttachment")

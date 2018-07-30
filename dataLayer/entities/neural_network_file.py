@@ -13,9 +13,11 @@ class NeuralNetworkFile(Base):
     creationTime = Column('CreationTime', Date)
     neuralNetworkId = Column("NeuralNetworkId", Integer, ForeignKey("NeuralNetwork.Id"))
     neuralNetworkTypeId = Column('NeuralNetworkTypeId', Integer)
+    additional_data = Column('AdditionalData', String)
 
-    def __init__(self, name, neural_network_id, neural_network_type_id):
+    def __init__(self, name, neural_network_id, neural_network_type_id, additional_data=""):
         self.name = name
         self.neuralNetworkId = neural_network_id
         self.neuralNetworkTypeId = neural_network_type_id
         self.creationTime = datetime.datetime.now()
+        self.additional_data = additional_data

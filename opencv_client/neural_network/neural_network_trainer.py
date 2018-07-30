@@ -33,7 +33,9 @@ class NeuralNetworkTrainer():
         recognizer.train(face_samples, people_ids)
         recognizer.write(f'{self.requestPath}/{request_id}_{self.nnTypes.fisher}.xml')
 
-    def create_all_face_recognizers(self, request_id, face_samples, people_ids: [int]):
+    def create_all_face_recognizers(self, request_id, training_data):
+        face_samples = training_data[0]
+        people_ids = training_data[1]
         self.requestPath = os.path.join(self.pathsProvider.local_neural_network_path(), str(request_id))
         self.directoryManager.create_directory_if_doesnt_exist(self.requestPath)
         self.create_lbph_face_recognizer(request_id, face_samples, people_ids)

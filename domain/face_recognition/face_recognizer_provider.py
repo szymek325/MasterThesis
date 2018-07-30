@@ -12,7 +12,7 @@ class FaceRecognizerProvider():
         self.neuralNetworkFilesRepo = NeuralNetworkFileRepository()
 
     def create_face_recognizers_for_request(self, request_id):
-        nn_files = self.neuralNetworkFilesRepo.get_all_files_connected_to_neural_network(request_id)
+        nn_files = self.neuralNetworkFilesRepo.get_all_open_cv_files_connected_to_neural_network(request_id)
         face_recognizers = []
         for file in nn_files:
             nn_path = os.path.join(self.pathsProvider.local_neural_network_path(), str(file.neuralNetworkId), file.name)

@@ -17,6 +17,8 @@ class FaceRecognizer():
         detected_faces = self.faceDetectorManager.get_face_by_haar(image)
         for face_recognizer, file_id in recognizers:
             self.logger.info(f"Using {face_recognizer} recognizer created from {file_id} file id")
+            if len(detected_faces) is 0:
+                self.recognitionResultRepo.add_recognition_result(0, request_id, 1, file_id, "No faces detected")
             for (startX, startY, endX, endY) in detected_faces:
                 predict_image = self.imageConverter.convert_to_np_array(image[startY:endY, startX:endX])
                 nbr_predicted, confidence = face_recognizer.predict(predict_image)
