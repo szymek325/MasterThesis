@@ -39,3 +39,4 @@ class FaceRecognizersManager():
         for person_id, azure_person_id in people_dictionary.items():
             if azure_person_id == azure_id:
                 return person_id
+        return 0
