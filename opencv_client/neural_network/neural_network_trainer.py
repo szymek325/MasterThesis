@@ -19,19 +19,28 @@ class NeuralNetworkTrainer():
         self.requestPath = "path"
 
     def create_lbph_face_recognizer(self, request_id, face_samples, people_ids: [int]):
-        recognizer = cv2.face.LBPHFaceRecognizer_create()
-        recognizer.train(face_samples, people_ids)
-        recognizer.write(f'{self.requestPath}/{request_id}_{self.nnTypes.lbph}.xml')
+        try:
+            recognizer = cv2.face.LBPHFaceRecognizer_create()
+            recognizer.train(face_samples, people_ids)
+            recognizer.write(f'{self.requestPath}/{request_id}_{self.nnTypes.lbph}.xml')
+        except Exception as ex:
+            self.logger.error(f"Exception when creating LBPH neural network. Ex: {ex}")
 
     def create_eigen_face_recognizer(self, request_id, face_samples, people_ids: [int]):
-        recognizer = cv2.face.EigenFaceRecognizer_create()
-        recognizer.train(face_samples, people_ids)
-        recognizer.write(f'{self.requestPath}/{request_id}_{self.nnTypes.eigen}.xml')
+        try:
+            recognizer = cv2.face.EigenFaceRecognizer_create()
+            recognizer.train(face_samples, people_ids)
+            recognizer.write(f'{self.requestPath}/{request_id}_{self.nnTypes.eigen}.xml')
+        except Exception as ex:
+            self.logger.error(f"Exception when creating Eigen neural network. Ex: {ex}")
 
     def create_fisher_face_recognizer(self, request_id, face_samples, people_ids: [int]):
-        recognizer = cv2.face.FisherFaceRecognizer_create()
-        recognizer.train(face_samples, people_ids)
-        recognizer.write(f'{self.requestPath}/{request_id}_{self.nnTypes.fisher}.xml')
+        try:
+            recognizer = cv2.face.FisherFaceRecognizer_create()
+            recognizer.train(face_samples, people_ids)
+            recognizer.write(f'{self.requestPath}/{request_id}_{self.nnTypes.fisher}.xml')
+        except Exception as ex:
+            self.logger.error(f"Exception when creating Fisher neural network. Ex: {ex}")
 
     def create_all_face_recognizers(self, request_id, training_data):
         face_samples = training_data[0]
