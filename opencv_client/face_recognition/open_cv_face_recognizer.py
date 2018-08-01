@@ -5,7 +5,7 @@ from domain.face_detection.face_detectors_manager import FaceDetectorsManager
 from opencv_client.image_converters.image_converter import ImageConverter
 
 
-class FaceRecognizer():
+class OpenCvFaceRecognizer():
     def __init__(self):
         self.logger = LoggerFactory()
         self.faceDetectorManager = FaceDetectorsManager()
