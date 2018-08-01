@@ -1,4 +1,4 @@
-from cognitive_face_client.azure_large_groups_client import AzureLargeGroupsClient
+from cognitive_face_client.clients.azure_large_groups_client import AzureLargeGroupsClient
 from configuration_global.logger_factory import LoggerFactory
 from dataLayer.repositories.neural_network_file_repository import NeuralNetworkFileRepository
 from dataLayer.type_providers.neural_network_types import NeuralNetworkTypes

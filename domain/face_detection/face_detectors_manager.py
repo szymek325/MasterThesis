@@ -1,7 +1,6 @@
 import cv2
 
-from cognitive_face_client import helpers
-from cognitive_face_client.azure_face_client import AzureFaceClient
+from cognitive_face_client.clients.azure_face_client import AzureFaceClient
 from configuration_global.config_reader import ConfigReader
 from configuration_global.logger_factory import LoggerFactory
 from dataLayer.type_providers.detection_types import DetectionTypes
