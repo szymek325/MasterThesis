@@ -24,7 +24,7 @@ class AzureFaceRecognizer():
         dictionary = ast.literal_eval(azure_file.additional_data)
         face_ids = self.azureFaceClient.get_face_ids(image_file_path)
         recognized_azure_ids = self.azureFaceClient.get_faces_identity(face_ids, azure_file.neuralNetworkId)
-        if len(recognized_azure_ids) is not 0:
+        if len(recognized_azure_ids) is 0:
             self.recognitionResultRepo.add_recognition_result(0, request_id, 0, azure_file.id, "No faces found")
             return
         for face_id, rec_az_id in recognized_azure_ids.items():
