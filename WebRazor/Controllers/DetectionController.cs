@@ -28,7 +28,7 @@ namespace WebRazor.Controllers
             this.logger = logger;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> AllDetections()
         {
             var requests = await faceDetectionService.GetAllFaceDetectionsAsync();
             var model = new DetectionsViewModel
@@ -38,29 +38,22 @@ namespace WebRazor.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Request(int id)
+        public async Task<IActionResult> Detection(int id)
         {
             var request = await faceDetectionService.GetRequestData(id);
             return View(request);
         }
 
-        public async Task<IActionResult> New()
+        public IActionResult NewDetection()
         {
             return View();
         }
-
-        //[HttpGet("[action]")]
-        //public async Task<DetectionRequest> GetRequest(int id)
-        //{
-        //    var request = await faceDetectionService.GetRequestData(id);
-        //    return request;
-        //}
 
         public async Task<IActionResult> Create(NewDetectionViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View("New",model);
+                return View("NewDetection", model);
             }
             try
             {
@@ -77,14 +70,7 @@ namespace WebRazor.Controllers
                 logger.LogError(ex, "error");
             }
 
-           return RedirectToAction("Index", "Detection", new { area = "" });
+           return RedirectToAction("AllDetections", "Detection", new { area = "" });
         }
-
-        //[HttpGet("[action]")]
-        //public async Task<IEnumerable<DetectionResultOutput>> GetRequestResults(int id)
-        //{
-        //    var request = await detectionResultService.GetResultsForRequest(id);
-        //    return request;
-        //}
     }
 }

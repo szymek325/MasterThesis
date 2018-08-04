@@ -1,11 +1,11 @@
-﻿@model WebRazor.Models.Detection.NewDetectionViewModel
+﻿@model WebRazor.Models.People.NewPersonViewModel
 @{
-    ViewData["Title"] = "New Face Detection";
+    ViewData["Title"] = "New Person";
 }
 <h2>@ViewData["Title"]</h2>
 
 <div>
-    @using (Html.BeginForm("Create", "Detection", FormMethod.Post, new {enctype = "multipart/form-data"}))
+    @using (Html.BeginForm("Create", "People", FormMethod.Post, new {enctype = "multipart/form-data"}))
     {
         <input class="btn btn-success" type="submit" value="Create Request"/>
         <div class="row">
@@ -21,10 +21,10 @@
             <div class="col-md-3">
                 <label for="file">File</label>
             </div>
-            @Html.ValidationMessageFor(x => x.File)
+            @Html.ValidationMessageFor(x => x.Files)
             <div class="col-md-3">
                 <div>
-                    @Html.TextBoxFor(m => m.File, new {type = "file", @class = "input-file"})
+                    @Html.TextBoxFor(m => m.Files, new {type = "file", multiple = "multiple", @class = "input-file"})
                 </div>
             </div>
         </div>

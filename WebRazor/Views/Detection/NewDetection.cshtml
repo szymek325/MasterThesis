@@ -1,0 +1,32 @@
+﻿@model WebRazor.Models.Detection.NewDetectionViewModel
+@{
+    ViewData["Title"] = "New Face Detection";
+}
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    @using (Html.BeginForm("Create", "Detection", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input class="btn btn-success" type="submit" value="Create Request" />
+        <div class="row">
+            <div class="col-md-3">
+                <label for="name">Name</label>
+            </div>
+            <div class="col-md-3">
+                @Html.TextBoxFor(model => model.Name)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label for="file">File</label>
+            </div>
+            @Html.ValidationMessageFor(x => x.File)
+            <div class="col-md-3">
+                <div>
+                    @Html.TextBoxFor(m => m.File, new { type = "file", @class = "input-file" })
+                </div>
+            </div>
+        </div>
+    }
+</div>
