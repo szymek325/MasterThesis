@@ -5,7 +5,9 @@
 <h2>@ViewData["Title"].</h2>
 <h3>@ViewData["Message"]</h3>
 
-<button type="button" class="btn btn-default" (click)="newRequest()">Create new Face Detection request</button>
+<button class="btn btn-success" onclick="location.href = '@Url.Action("New", "Detection")'">
+    Create new Face Detection Request
+</button>
 
 <table class="table" *ngIf="requests">
 <thead>
