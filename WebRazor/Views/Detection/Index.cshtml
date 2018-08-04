@@ -1,0 +1,40 @@
+﻿@model WebRazor.Models.Detection.DetectionsModel
+@{
+    ViewData["Title"] = "Detections";
+}
+<h2>@ViewData["Title"].</h2>
+<h3>@ViewData["Message"]</h3>
+
+<button type="button" class="btn btn-default" (click)="newRequest()">Create new Face Detection request</button>
+
+<table class="table" *ngIf="requests">
+<thead>
+<tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Input</th>
+    <th>Status</th>
+    <th>Creation Time</th>
+    <th>Completion Time</th>
+</tr>
+</thead>
+<tbody>
+@foreach (var request in Model.DetectionRequests)
+{
+    <tr>
+        <td>@request.Id</td>
+        <td>@request.Name</td>
+        <td>
+            <img src="data:image/jpeg;base64,@request.Thumbnail"/>
+        </td>
+        <td>@request.Status</td>
+        <td>@request.CreationTime.ToString().Replace("T", " ")</td>
+        <td>@request.CompletionTime.ToString().Replace("T", " ")</td>
+        <td class="btn btn-success" onclick="location.href = '@Url.Action("Request", "Detection", new {request.Id})'">
+            Show
+        </td>
+
+    </tr>
+}
+</tbody>
+</tab
