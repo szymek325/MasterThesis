@@ -2,11 +2,12 @@
 @{
     ViewData["Title"] = "Detections";
 }
-<h2>@ViewData["Title"]</h2>
 
 <button class="btn btn-success" onclick="location.href = '@Url.Action("NewDetection", "Detection")'">
-    Create new Face Detection Request
+    Create new Face Detection
 </button>
+
+<h2>@ViewData["Title"]</h2>
 
 <table class="table" *ngIf="requests">
     <thead>

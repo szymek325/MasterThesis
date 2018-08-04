@@ -2,11 +2,12 @@
 @{
     ViewData["Title"] = "People";
 }
-<h2>@ViewData["Title"]</h2>
 
 <button class="btn btn-success" onclick="location.href = '@Url.Action("NewPerson", "People")'">
     Create new Person
 </button>
+
+<h2>@ViewData["Title"]</h2>
 
 <table class="table" *ngIf="requests">
     <thead>

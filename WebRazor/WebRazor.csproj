@@ -29,9 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\NeuralNetworks\" />
     <Folder Include="Models\Recognition\" />
-    <Folder Include="Styles\" />
+    <Folder Include="Views\NeuralNetworks\" />
+    <Folder Include="Views\Recognition\" />
   </ItemGroup>
 
 </Project>
