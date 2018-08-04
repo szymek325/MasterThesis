@@ -31,7 +31,7 @@ namespace WebRazor.Controllers
         public async Task<IActionResult> Index()
         {
             var requests = await faceDetectionService.GetAllFaceDetectionsAsync();
-            var model = new DetectionsModel
+            var model = new DetectionsViewModel
             {
                 DetectionRequests = requests
             };
@@ -56,7 +56,7 @@ namespace WebRazor.Controllers
         //    return request;
         //}
 
-        public async Task<IActionResult> Create(NewDetection model)
+        public async Task<IActionResult> Create(NewDetectionViewModel model)
         {
             if (!ModelState.IsValid)
             {

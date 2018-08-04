@@ -3,7 +3,7 @@ using Domain.FaceDetection.DTO;
 
 namespace WebRazor.Models.Detection
 {
-    public class DetectionsModel
+    public class DetectionsViewModel
     {
         public IEnumerable<DetectionRequest> DetectionRequests { get; set; }
     }

@@ -2,7 +2,7 @@
 
 namespace WebRazor.Models.Detection
 {
-    public class NewDetection
+    public class NewDetectionViewModel
     {
         public string Name { get; set; }
         [ValidateFile(ErrorMessage = "Please select a PNG image smaller than 1MB")]
