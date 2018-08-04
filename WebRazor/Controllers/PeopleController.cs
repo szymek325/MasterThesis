@@ -53,7 +53,7 @@ namespace WebRazor.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("New", model);
+                return View("NewPerson", model);
             }
             try
             {

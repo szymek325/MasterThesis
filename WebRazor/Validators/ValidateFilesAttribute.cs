@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Microsoft.AspNetCore.Http;
 
 namespace WebRazor.Validators
 {
-    public class ValidateFileAttribute : RequiredAttribute
+    public class ValidateFilesAttribute : RequiredAttribute
     {
         public override bool IsValid(object value)
         {
@@ -14,16 +15,25 @@ namespace WebRazor.Validators
                 "image/png",
                 "image/jpeg"
             };
-            var file = value as IFormFile;
-            if (file == null) return false;
+            var files = value as IEnumerable<IFormFile>;
+            if (files == null)
+                return false;
+            var formFiles = files.ToList();
+            if (formFiles.Count<2)
+                return false;
 
             try
             {
-                if (acceptedFilesTypes.Contains(file.ContentType)) return true;
+                foreach (var file in formFiles)
+                    if (!acceptedFilesTypes.Contains(file.ContentType))
+                        return false;
+
+                return true;
             }
             catch
             {
             }
+
 
             return false;
         }
