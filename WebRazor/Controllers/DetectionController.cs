@@ -5,9 +5,7 @@ using AutoMapper;
 using Domain.FaceDetection;
 using Domain.FaceDetection.DTO;
 using Domain.Files.DTO;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
 using WebRazor.Models.Detection;
 
@@ -17,10 +15,11 @@ namespace WebRazor.Controllers
     {
         private readonly IDetectionResultService detectionResultService;
         private readonly IFaceDetectionService faceDetectionService;
-        private readonly IMapper mapper;
         private readonly ILogger<DetectionController> logger;
+        private readonly IMapper mapper;
 
-        public DetectionController(IDetectionResultService detectionResultService, IFaceDetectionService faceDetectionService, IMapper mapper,
+        public DetectionController(IDetectionResultService detectionResultService,
+            IFaceDetectionService faceDetectionService, IMapper mapper,
             ILogger<DetectionController> logger)
         {
             this.detectionResultService = detectionResultService;
@@ -57,26 +56,28 @@ namespace WebRazor.Controllers
         //    return request;
         //}
 
-        [HttpPost("[action]")]
-        public async Task<IActionResult> Create(IFormCollection collections)
+        public async Task<IActionResult> Create(NewDetection model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("New",model);
+            }
             try
             {
-                var files = mapper.Map<IEnumerable<FileToUpload>>(collections.Files);
-                collections.TryGetValue("name", out var requestName);
-
+                var file = mapper.Map<FileToUpload>(model.File);
+                
                 var response = await faceDetectionService.CreateRequest(new NewRequest
                 {
-                    Name = requestName,
-                    Files = files
+                    Name = model.Name,
+                    Files = new List<FileToUpload> {file}
                 });
             }
             catch (Exception ex)
             {
-                logger.LogError(ex,"error");
+                logger.LogError(ex, "error");
             }
-            
-            return Ok(new {task_Id = 1});
+
+           return RedirectToAction("Index", "Detection", new { area = "" });
         }
 
         //[HttpGet("[action]")]
