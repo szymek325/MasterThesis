@@ -33,6 +33,8 @@ namespace Domain.NeuralNetwork
             };
             foreach (var personId in peopleIds.Split(','))
             {
+                if (string.IsNullOrWhiteSpace(personId))
+                    continue;
                 var person = personRepo.GetPersonById(int.Parse(personId));
                 neuralNetwork.People.Add(person);
             }

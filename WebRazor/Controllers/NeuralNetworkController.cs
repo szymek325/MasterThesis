@@ -59,7 +59,13 @@ namespace WebRazor.Controllers
                 return View("NewNeuralNetwork", model);
             try
             {
-                var response = await neuralNetworkService.Create("", "");
+                var checkedPeople = model.PeopleCheckboxes.Where(x => x.IsChecked);
+                var peopleString = "";
+                foreach (var checkedPerson in checkedPeople)
+                {
+                    peopleString = peopleString + $",{checkedPerson.Id}";
+                }
+                var response = await neuralNetworkService.Create(model.Name, peopleString);
             }
             catch (Exception ex)
             {
