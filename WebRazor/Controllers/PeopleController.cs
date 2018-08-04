@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Domain.FaceDetection.DTO;
 using Domain.Files.DTO;
 using Domain.People;
 using Domain.People.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using WebRazor.Models.Detection;
 using WebRazor.Models.People;
 
 namespace WebRazor.Controllers
 {
-    public class PeopleController: Controller
+    public class PeopleController : Controller
     {
+        private readonly ILogger<PeopleController> logger;
         private readonly IMapper mapper;
         private readonly IPeopleService peopleService;
-        private readonly ILogger<PeopleController> logger;
 
         public PeopleController(IMapper mapper, IPeopleService peopleService, ILogger<PeopleController> logger)
         {
@@ -51,10 +48,7 @@ namespace WebRazor.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(NewPersonViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View("NewPerson", model);
-            }
+            if (!ModelState.IsValid) return View("NewPerson", model);
             try
             {
                 var files = mapper.Map<IEnumerable<FileToUpload>>(model.Files);
@@ -70,7 +64,7 @@ namespace WebRazor.Controllers
                 logger.LogError(ex, "error");
             }
 
-            return RedirectToAction("AllPeople", "People", new { area = "" });
+            return RedirectToAction("AllPeople", "People", new {area = ""});
         }
     }
 }
