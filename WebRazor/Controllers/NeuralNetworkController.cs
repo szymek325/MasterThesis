@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain.NeuralNetwork;
+using Domain.People;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using WebRazor.Models.Detection;
 using WebRazor.Models.NeuralNetworks;
 
 namespace WebRazor.Controllers
@@ -14,13 +15,16 @@ namespace WebRazor.Controllers
         private readonly ILogger<NeuralNetworkController> logger;
         private readonly IMapper mapper;
         private readonly INeuralNetworkService neuralNetworkService;
+        private readonly IPeopleService peopleService;
 
-        public NeuralNetworkController(INeuralNetworkService neuralNetworkService, IMapper mapper,
-            ILogger<NeuralNetworkController> logger)
+        public NeuralNetworkController(ILogger<NeuralNetworkController> logger, IMapper mapper,
+            INeuralNetworkService neuralNetworkService,
+            IPeopleService peopleService)
         {
-            this.neuralNetworkService = neuralNetworkService;
-            this.mapper = mapper;
             this.logger = logger;
+            this.mapper = mapper;
+            this.neuralNetworkService = neuralNetworkService;
+            this.peopleService = peopleService;
         }
 
         public async Task<IActionResult> AllNeuralNetworks()
@@ -39,12 +43,17 @@ namespace WebRazor.Controllers
             return View(request);
         }
 
-        public IActionResult NewNeuralNetwork()
+        public async Task<IActionResult> NewNeuralNetwork()
         {
-            return View();
+            var people = await peopleService.GetPeopleCheckboxes();
+            var model = new NewNeuralNetworkViewModel
+            {
+                PeopleCheckboxes = people.ToList()
+            };
+            return View(model);
         }
 
-        public async Task<IActionResult> Create(NewDetectionViewModel model)
+        public async Task<IActionResult> Create(NewNeuralNetworkViewModel model)
         {
             if (!ModelState.IsValid)
                 return View("NewNeuralNetwork", model);

@@ -10,5 +10,6 @@ namespace Domain.People
         Task<IEnumerable<PersonOutput>> GetAllPeople();
         Task<PersonOutput> GetPersonById(int id);
         Task DeletePersonById(int id);
+        Task<IEnumerable<PersonAsCheckbox>> GetPeopleCheckboxes();
     }
 }

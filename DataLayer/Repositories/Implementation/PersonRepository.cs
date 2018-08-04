@@ -13,7 +13,7 @@ namespace DataLayer.Repositories.Implementation
         {
         }
 
-        public IEnumerable<Person> GetAllPeople()
+        public IEnumerable<Person> GetAllPeopleWithImages()
         {
             return GetAll().Include(x => x.Images).AsEnumerable();
         }

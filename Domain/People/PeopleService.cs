@@ -15,9 +15,9 @@ namespace Domain.People
 {
     public class PeopleService : IPeopleService
     {
-        private readonly IImageRepository imageRepository;
         private readonly IFilesDomainService filesService;
         private readonly IGuidProvider guid;
+        private readonly IImageRepository imageRepository;
         private readonly ILogger<PeopleService> logger;
         private readonly IMapper mapper;
         private readonly IPersonRepository peopleRepo;
@@ -37,11 +37,10 @@ namespace Domain.People
         {
             try
             {
-
                 var person = new Person
                 {
                     Name = input.Name,
-                    Images = input.Files.Select(x => new ImageAttachment()
+                    Images = input.Files.Select(x => new ImageAttachment
                     {
                         Name = x.FileName,
                         ImageAttachmentTypeId = ImageTypes.Person
@@ -63,7 +62,7 @@ namespace Domain.People
 
         public async Task<IEnumerable<PersonOutput>> GetAllPeople()
         {
-            var people = peopleRepo.GetAllPeople().ToList();
+            var people = peopleRepo.GetAllPeopleWithImages().ToList();
             try
             {
                 foreach (var person in people)
@@ -114,6 +113,13 @@ namespace Domain.People
                 logger.LogError(ex, "Exception when retrieving person");
                 throw;
             }
+        }
+
+        public async Task<IEnumerable<PersonAsCheckbox>> GetPeopleCheckboxes()
+        {
+            var people = peopleRepo.GetAll().ToList();
+            var respone = mapper.Map<IEnumerable<PersonAsCheckbox>>(people);
+            return respone;
         }
     }
 }
