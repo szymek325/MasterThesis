@@ -31,9 +31,11 @@ class ResultsOperator:
     def prepare_and_upload_results(self, request_id: int, results, image_file_path):
         for res in results:
             type_name = res[0]
-            faces = res[1]
-            self.logger.info(f"Working on results for {type_name} \n{faces}")
             file_name = f"{type_name}.jpg"
+            faces = res[1]
+            if faces is None:
+                return
+            self.logger.info(f"Working on results for {type_name} \n{faces}")
             result_file_path = os.path.join(self.pathsProvider.local_detection_image_path(), str(request_id), file_name)
             self.__save_result_image_to_local_directory__(faces, image_file_path, result_file_path)
             result_entity = self.__prepare_result_entities__(faces, file_name, request_id, type_name)
