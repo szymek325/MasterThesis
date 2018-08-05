@@ -1,20 +1,23 @@
-﻿@model WebRazor.Models.People.NewPersonViewModel
+﻿<link href="~/css/common.css" rel="stylesheet" />
+@model WebRazor.Models.People.NewPersonViewModel
 @{
     ViewData["Title"] = "New Person";
 }
 <h2>@ViewData["Title"]</h2>
 
-<div>
-    @using (Html.BeginForm("Create", "People", FormMethod.Post, new {enctype = "multipart/form-data"}))
-    {
-        <input class="btn btn-success" type="submit" value="Create Request"/>
+@using (Html.BeginForm("Create", "People", FormMethod.Post, new {enctype = "multipart/form-data"}))
+{
+    <div class="container">
+
         <div class="row">
             <div class="col-md-3">
                 <label for="name">Name</label>
             </div>
-            @Html.ValidationMessageFor(x => x.Name)
             <div class="col-md-3">
                 @Html.TextBoxFor(model => model.Name)
+                <div class="row">
+                    @Html.ValidationMessageFor(m => m.Name, "", new {@class = "text-danger"})
+                </div>
             </div>
         </div>
 
@@ -22,12 +25,18 @@
             <div class="col-md-3">
                 <label for="file">File</label>
             </div>
-            @Html.ValidationMessageFor(x => x.Files)
             <div class="col-md-3">
                 <div>
                     @Html.TextBoxFor(m => m.Files, new {type = "file", multiple = "multiple", @class = "input-file"})
+                    <div class="row">
+                        @Html.ValidationMessageFor(m => m.Files, "", new {@class = "text-danger"})
+                    </div>
                 </div>
             </div>
         </div>
-    }
-</div>
+
+        <div class="row">
+            <input class="btn btn-success" type="submit" value="Submit"/>
+        </div>
+    </div>
+}
