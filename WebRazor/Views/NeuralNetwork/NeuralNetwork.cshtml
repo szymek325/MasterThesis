@@ -1,0 +1,77 @@
+﻿@model Domain.NeuralNetwork.DTO.NeuralNetworkRequest
+
+@{
+    ViewBag.Title = "Neural Network";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <div class="row">
+        <div class="col-md-3">
+            <label>Id</label>
+        </div>
+        <div class="col-md-3">@Model.Id</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label>Name</label>
+        </div>
+        <div class="col-md-3">@Model.Name</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label>Completion time</label>
+        </div>
+        <div class="col-md-3">@Model.CompletionTime</div>
+    </div>
+
+    <div>
+        <h3>People data used for training</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var person in Model.People)
+            {
+                <tr>
+                    <td>@person.Id</td>
+                    <td>@person.Name</td>
+                    <td class="btn btn-success" onclick="location.href = '@Url.Action("Person", "People", new {person.Id})'">
+                        Show
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h3>Trained files</h3>
+        <table class="table" *ngIf="neuralNetwork.files">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Type</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var file in Model.Files)
+            {
+                <tr>
+                    <td>@file.Id</td>
+                    <td>@file.Name</td>
+                    <td>@file.TypeName</td>
+                </tr>
+            }
+
+            </tbody>
+        </table>
+    </div>
+</div>

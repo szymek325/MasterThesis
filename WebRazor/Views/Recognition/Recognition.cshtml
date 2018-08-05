@@ -1,0 +1,98 @@
+﻿<link href="~/css/common.css" rel="stylesheet" />
+@model Domain.FaceRecognition.DTO.RecognitionRequest
+@{
+    ViewData["Title"] = "Recognition";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="container">
+    <div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>Id</label>
+            </div>
+            <div class="col-md-3">@Model.Id</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Name</label>
+            </div>
+            <div class="col-md-3">@Model.Name</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Creation time</label>
+            </div>
+            <div class="col-md-3">@Model.CreationTime</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Completion time</label>
+            </div>
+            <div class="col-md-3">@Model.CompletionTime</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Status</label>
+            </div>
+            <div class="col-md-3">@Model.Status</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label for="input">Input image</label>
+            </div>
+            <div class="col-md-3">
+                <div class="slider">
+                    <div class="slide">
+                        <img src="@Model.FileLink.Url"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3>Results</h3>
+            <table class="table" *ngIf="request.results">
+                <thead>
+                <tr>
+                    <th>Recognised Identity</th>
+                    <th>Confidence</th>
+                    <th>Neural Network Name</th>
+                    <th>Neural Network Type</th>
+                    <th>Comments</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                @foreach (var result in Model.Results)
+                {
+                    <tr>
+                        <td>
+                            @result.IdentifiedPersonId
+                        </td>
+                        <td>
+                            @result.Confidence
+                        </td>
+                        <td>
+                            @result.NeuralNetworkFileName
+                        </td>
+                        <td>
+                            @result.NeuralNetworkTypeName
+                        </td>
+                        <td>
+                            @result.Comments
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

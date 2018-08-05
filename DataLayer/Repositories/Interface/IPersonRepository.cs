@@ -6,7 +6,7 @@ namespace DataLayer.Repositories.Interface
 {
     public interface IPersonRepository : IGenericRepository<Person>
     {
-        IEnumerable<Person> GetAllPeople();
+        IEnumerable<Person> GetAllPeopleWithImages();
         Person GetPersonById(int id);
     }
 }
