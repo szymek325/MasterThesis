@@ -15,6 +15,13 @@
         "ASPNETCORE_ENVIRONMENT": "Azure"
       }
     },
+    "Amazon": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Amazon"
+      }
+    },
     "Debug": {
       "commandName": "IISExpress",
       "launchBrowser": true,
