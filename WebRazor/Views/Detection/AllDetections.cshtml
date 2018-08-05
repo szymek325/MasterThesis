@@ -30,8 +30,8 @@
                 <img src="data:image/jpeg;base64,@request.Thumbnail"/>
             </td>
             <td>@request.Status</td>
-            <td>@request.CreationTime.ToString().Replace("T", " ")</td>
-            <td>@request.CompletionTime.ToString().Replace("T", " ")</td>
+            <td>@request.CreationTime</td>
+            <td>@request.CompletionTime</td>
             <td class="btn btn-success" onclick="location.href = '@Url.Action("Detection", "Detection", new {request.Id})'">
                 Show
             </td>

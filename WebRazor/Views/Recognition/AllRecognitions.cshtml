@@ -8,3 +8,35 @@
 </button>
 
 <h2>@ViewData["Title"]</h2>
+
+<table class="table" *ngIf="requests">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Input</th>
+            <th>Status</th>
+            <th>Creation Time</th>
+            <th>Completion Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model.RecognitionRequests)
+        {
+            <tr>
+                <td>@request.Id</td>
+                <td>@request.Name</td>
+                <td>
+                    <img src="data:image/jpeg;base64,@request.Thumbnail" />
+                </td>
+                <td>@request.Status</td>
+                <td>@request.CreationTime</td>
+                <td>@request.CompletionTime</td>
+                <td class="btn btn-success" onclick="location.href = '@Url.Action("Recognition", "Recognition", new {request.Id})'">
+                    Show
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
