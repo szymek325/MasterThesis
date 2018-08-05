@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain.FaceRecognition;
 using Domain.FaceRecognition.DTO;
 using Domain.Files.DTO;
+using Domain.NeuralNetwork;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using WebRazor.Models.Detection;
 using WebRazor.Models.Recognition;
@@ -15,12 +18,15 @@ namespace WebRazor.Controllers
     public class RecognitionController : Controller
     {
         private readonly IFaceRecognitionService faceRecognitionService;
+        private readonly INeuralNetworkService neuralNetworkService;
         private readonly IMapper mapper;
         private readonly ILogger<RecognitionController> logger;
 
-        public RecognitionController(IFaceRecognitionService faceRecognitionService, IMapper mapper, ILogger<RecognitionController> logger)
+        public RecognitionController(IFaceRecognitionService faceRecognitionService, INeuralNetworkService neuralNetworkService, IMapper mapper,
+            ILogger<RecognitionController> logger)
         {
             this.faceRecognitionService = faceRecognitionService;
+            this.neuralNetworkService = neuralNetworkService;
             this.mapper = mapper;
             this.logger = logger;
         }
@@ -41,12 +47,18 @@ namespace WebRazor.Controllers
             return View(request);
         }
 
-        public IActionResult NewRecognition()
+        public async Task<IActionResult> NewRecognition()
         {
-            return View();
+            var completedNeuralNetworks = await neuralNetworkService.GetAllCompleted();
+            var neuralNetworksSelectList = mapper.Map<List<SelectListItem>>(completedNeuralNetworks);
+            var model = new NewRecognitionViewModel
+            {
+                NeuralNetworks = neuralNetworksSelectList
+            };
+            return View(model);
         }
 
-        public async Task<IActionResult> Create(NewDetectionViewModel model)
+        public async Task<IActionResult> Create(NewRecognitionViewModel model)
         {
             if (!ModelState.IsValid)
             {
