@@ -28,8 +28,9 @@
             <div class="col-md-3">
                 <label for="name">Neural Network</label>
             </div>
+            @Html.ValidationMessageFor(x => x.NeuralNetworkId)
             <div class="col-md-3">
-                @Html.DropDownListFor(m => m.NeuralNetworkId,@Model.NeuralNetworks,"Select Neural Network")
+                @Html.DropDownListFor(m => m.NeuralNetworkId, @Model.NeuralNetworks, "Select Neural Network")
             </div>
         </div>
 

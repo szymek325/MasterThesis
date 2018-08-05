@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain.FaceRecognition;
@@ -10,7 +9,6 @@ using Domain.NeuralNetwork;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using WebRazor.Models.Detection;
 using WebRazor.Models.Recognition;
 
 namespace WebRazor.Controllers
@@ -18,11 +16,12 @@ namespace WebRazor.Controllers
     public class RecognitionController : Controller
     {
         private readonly IFaceRecognitionService faceRecognitionService;
-        private readonly INeuralNetworkService neuralNetworkService;
-        private readonly IMapper mapper;
         private readonly ILogger<RecognitionController> logger;
+        private readonly IMapper mapper;
+        private readonly INeuralNetworkService neuralNetworkService;
 
-        public RecognitionController(IFaceRecognitionService faceRecognitionService, INeuralNetworkService neuralNetworkService, IMapper mapper,
+        public RecognitionController(IFaceRecognitionService faceRecognitionService,
+            INeuralNetworkService neuralNetworkService, IMapper mapper,
             ILogger<RecognitionController> logger)
         {
             this.faceRecognitionService = faceRecognitionService;
@@ -49,11 +48,9 @@ namespace WebRazor.Controllers
 
         public async Task<IActionResult> NewRecognition()
         {
-            var completedNeuralNetworks = await neuralNetworkService.GetAllCompleted();
-            var neuralNetworksSelectList = mapper.Map<List<SelectListItem>>(completedNeuralNetworks);
             var model = new NewRecognitionViewModel
             {
-                NeuralNetworks = neuralNetworksSelectList
+                NeuralNetworks = await GetNeuralNetworksSelectListItems()
             };
             return View(model);
         }
@@ -62,8 +59,10 @@ namespace WebRazor.Controllers
         {
             if (!ModelState.IsValid)
             {
+                model.NeuralNetworks = await GetNeuralNetworksSelectListItems();
                 return View("NewRecognition", model);
             }
+
             try
             {
                 var file = mapper.Map<FileToUpload>(model.File);
@@ -71,7 +70,8 @@ namespace WebRazor.Controllers
                 var response = await faceRecognitionService.CreateRequest(new NewRequest
                 {
                     Name = model.Name,
-                    Files = new List<FileToUpload> { file }
+                    NeuralNetworkId = model.NeuralNetworkId,
+                    Files = new List<FileToUpload> {file}
                 });
             }
             catch (Exception ex)
@@ -79,7 +79,14 @@ namespace WebRazor.Controllers
                 logger.LogError(ex, "error");
             }
 
-            return RedirectToAction("AllRecognitions", "Recognition", new { area = "" });
+            return RedirectToAction("AllRecognitions", "Recognition", new {area = ""});
+        }
+
+        private async Task<List<SelectListItem>> GetNeuralNetworksSelectListItems()
+        {
+            var completedNeuralNetworks = await neuralNetworkService.GetAllCompleted();
+            var neuralNetworksSelectList = mapper.Map<List<SelectListItem>>(completedNeuralNetworks);
+            return neuralNetworksSelectList;
         }
     }
 }
