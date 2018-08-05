@@ -1,0 +1,10 @@
+﻿@model WebRazor.Models.Recognition.RecognitionsViewModel
+@{
+    ViewData["Title"] = "Recognitions";
+}
+
+<button class="btn btn-success" onclick="location.href = '@Url.Action("NewRecognition", "Recognition")'">
+    Create new Recognition Request
+</button>
+
+<h2>@ViewData["Title"]</h2>

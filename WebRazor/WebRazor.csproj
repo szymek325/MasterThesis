@@ -29,9 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Recognition\" />
     <Folder Include="Views\NeuralNetworks\" />
-    <Folder Include="Views\Recognition\" />
   </ItemGroup>
 
 </Project>

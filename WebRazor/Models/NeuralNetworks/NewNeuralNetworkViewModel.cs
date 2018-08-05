@@ -6,8 +6,9 @@ namespace WebRazor.Models.NeuralNetworks
 {
     public class NewNeuralNetworkViewModel
     {
-        [Required] public string Name { get; set; }
-
+        [Required]
+        public string Name { get; set; }
+        [Required]
         public List<PersonAsCheckbox> PeopleCheckboxes { get; set; }
     }
 }
