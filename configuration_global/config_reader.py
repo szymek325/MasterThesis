@@ -1,6 +1,5 @@
 import json
 import os
-import platform
 
 
 class ConfigReader:
@@ -19,14 +18,5 @@ class ConfigReader:
         return os.path.join(self.project_directory, self.configuration["local_files_path"])
 
     @property
-    def use_local_environment(self):
-        if platform.system() == "Windows":
-            return self.configuration["use_local_environment"]
-        else:
-            return False
-
-    def environment_name(self):
-        if self.use_local_environment:
-            return self.configuration['environments']["debug"]
-        else:
-            return self.configuration['environments']["azure"]
+    def environment_to_use(self):
+        return self.configuration["environment_to_use"]
