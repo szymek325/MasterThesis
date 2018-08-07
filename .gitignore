@@ -1,0 +1,9 @@
+*.aux
+*.out
+*.lof
+*.log
+*.lot
+*.gz
+*.xml
+*.toc
+*.bib
