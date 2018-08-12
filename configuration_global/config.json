@@ -1,6 +1,6 @@
 {
   "logs_path": "temp/logs",
   "local_files_path": "temp",
-  "environment_to_use": "azure"
+  "environment_to_use": "amazon"
 }
 
