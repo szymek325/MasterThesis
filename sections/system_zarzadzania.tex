@@ -17,5 +17,28 @@ Na usługi pomocnicze wykorzystane w projekcie składają się
 \end{itemize}
 
 \section{Aplikacja webowa}
+Aplikacja webowa jest jedyną częścią systemu, do której użytkownik może mieć bezpośredni dostęp. Strona powstała w celu maksymalnego uproszczenia procesu badania kolejnych algorytmów i usług, które różniły się sposobem podawania danych wejściowych, sposobem uczenia oraz formatem zwracanych odpowiedzi. Do pozostałych zalet takiego rozwiązania należy ułatwienie przechowywania danych, poprzez umieszczenie ich we wspólnym miejscu co pomaga, w późniejszej interpretacji wyników.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{aplikacja_webowa_razor_widok.png}
+	\caption{Wygląd strony głównej}
+	\label{fig:strona_glowna_razor}
+\end{figure}
+Zgodnie z interfejsem przedstawionym na rysunku \ref{fig:strona_glowna_razor}, strona została podzielona na 5 głównych sekcji:
+\begin{itemize}
+\item Detections- detekcje,
+\item People- ludzie,
+\item Neural Networks- sieci neuronowe,
+\item Recognition- rozpoznawanie,
+\item Sensor Readings- odczyty sensorów.
+\end{itemize}
+\subsection{Wzorzec projektowy MVC}
+Strona internetowa powstała na bazie wzorca projektowego MVC. Założenia wzorca Model-Widok-Kontroler są bardzo proste, ich składowymi są:
+\begin{itemize}
+\item Model- reprezentuje logikę biznesową. Tutaj znajdują się wszelkie obiekty, które służą do wykonywania zaimplementowanej funkcjonalności danej aplikacji,
+\item Widok- jest warstwą prezentacji. Odpowiada za prezentację logiki biznesowej (Modelu) użytkownikowi w przystępny sposób,
+\item Kontroler- obsługuje żądania użytkownika. Odebrane zadania oddelegowuje do odpowiednich modeli.
+\end{itemize}
+
 \section{Aplikacja konsolowa}
 \section{Program zarządzający domem}
