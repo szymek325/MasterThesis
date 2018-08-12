@@ -10,5 +10,6 @@ namespace DataLayer.Entities
         public NeuralNetworkFile NeuralNetworkFile { get; set; }
         public int RecognitionId { get; set; }
         public Recognition Recognition { get; set; }
+        public string Comments { get; set; }
     }
 }

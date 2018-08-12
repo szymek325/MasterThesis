@@ -1,0 +1,52 @@
+﻿<link href="~/css/common.css" rel="stylesheet"/>
+@model Domain.People.DTO.PersonOutput
+@{
+    ViewData["Title"] = "Person";
+}
+<h2>@ViewData["Title"]</h2>
+
+<div class="container">
+    <div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>Id</label>
+            </div>
+            <div class="col-md-3">@Model.Id</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Name</label>
+            </div>
+            <div class="col-md-3">@Model.Name</div>
+        </div>
+
+        <div>
+            <table class="table" *ngIf="person.fileLinks">
+                <thead>
+                <tr>
+                    <th>Filename</th>
+                    <th>Preview</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var image in Model.FileLinks)
+                {
+                    <tr>
+                        <td>@image.FileName</td>
+                        <td>
+                            <div class="slider">
+                                <div class="slide">
+                                    <img src="@image.Url"/>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

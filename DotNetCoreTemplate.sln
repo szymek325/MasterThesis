@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27428.2005
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer", "DataLayer\DataLayer.csproj", "{0D1A7399-9DA2-462A-AFB5-6ED47ECAE3D9}"
 EndProject
@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dropbox.Client", "DropboxCl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{57356DF6-EF05-4793-8E1C-1261630D90A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeopleUploader", "PeopleUploader\PeopleUploader.csproj", "{71F05FF3-F856-40A0-B329-43C39C832011}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PeopleUploader", "PeopleUploader\PeopleUploader.csproj", "{71F05FF3-F856-40A0-B329-43C39C832011}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebRazor", "WebRazor\WebRazor.csproj", "{13490DDE-A951-4B10-96CF-52EDCEF615A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +52,12 @@ Global
 		{71F05FF3-F856-40A0-B329-43C39C832011}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71F05FF3-F856-40A0-B329-43C39C832011}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71F05FF3-F856-40A0-B329-43C39C832011}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13490DDE-A951-4B10-96CF-52EDCEF615A8}.Azure|Any CPU.ActiveCfg = Debug|Any CPU
+		{13490DDE-A951-4B10-96CF-52EDCEF615A8}.Azure|Any CPU.Build.0 = Debug|Any CPU
+		{13490DDE-A951-4B10-96CF-52EDCEF615A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13490DDE-A951-4B10-96CF-52EDCEF615A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13490DDE-A951-4B10-96CF-52EDCEF615A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13490DDE-A951-4B10-96CF-52EDCEF615A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

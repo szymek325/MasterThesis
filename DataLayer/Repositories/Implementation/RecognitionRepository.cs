@@ -15,8 +15,11 @@ namespace DataLayer.Repositories.Implementation
 
         public IEnumerable<Recognition> GetAllFacesWithFullNeuralNetwork()
         {
-            return GetAll().Include(x => x.Status).Include(x => x.Image).Include(x => x.NeuralNetwork)
-                .ThenInclude(x => x.Files);
+            return GetAll().Include(x => x.Status)
+                .Include(x => x.Image)
+                .Include(x => x.NeuralNetwork)
+                    .ThenInclude(x => x.Files)
+                .OrderByDescending(x => x.CreationTime);
         }
 
         public Recognition GetRequestById(int id)

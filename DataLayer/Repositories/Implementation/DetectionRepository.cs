@@ -15,7 +15,10 @@ namespace DataLayer.Repositories.Implementation
 
         public IEnumerable<Detection> GetAllFaces()
         {
-            return GetAll().Include(x => x.Status).Include(x=>x.Image).AsEnumerable();
+            return GetAll()
+                .Include(x => x.Status)
+                .Include(x=>x.Image)
+                .OrderByDescending(x=>x.CreationTime);
         }
 
         public Detection GetRequestById(int id)
@@ -27,6 +30,8 @@ namespace DataLayer.Repositories.Implementation
                     .ThenInclude(x=>x.DetectionType)
                 .Include(x => x.Results)
                     .ThenInclude(x => x.Image)
+                .Include(x => x.Results)
+                    .ThenInclude(x => x.FaceRectangles)
                 .FirstOrDefault(x => x.Id == id);
         }
     }

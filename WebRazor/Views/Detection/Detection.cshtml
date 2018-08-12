@@ -1,0 +1,144 @@
+﻿<link href="~/css/common.css" rel="stylesheet" />
+@model Domain.FaceDetection.DTO.DetectionRequest
+@{
+    ViewData["Title"] = "Detection";
+}
+<h2>@ViewData["Title"]</h2>
+
+<div class="container">
+    <div>
+        <div class="row">
+            <div class="col-md-3">
+                <label>Id</label>
+            </div>
+            <div class="col-md-3">@Model.Id</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Name</label>
+            </div>
+            <div class="col-md-3">@Model.Name</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Creation time</label>
+            </div>
+            <div class="col-md-3">@Model.CreationTime</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Completion time</label>
+            </div>
+            <div class="col-md-3">@Model.CompletionTime</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Status</label>
+            </div>
+            <div class="col-md-3">@Model.Status</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label for="input">Input image</label>
+            </div>
+            <div class="col-md-3">
+                <div class="slider">
+                    <div class="slide">
+                        <img src="@Model.FileLink.Url" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3>Results</h3>
+            <table class="table" *ngIf="request.results">
+                <thead>
+                    <tr>
+                        <th>Detection type</th>
+                        <th>faces found</th>
+                        <th>startX</th>
+                        <th>endX</th>
+                        <th>startY</th>
+                        <th>endY</th>
+                        <th>area</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var result in Model.Results)
+                    {
+                        <tr>
+                            <td>
+                                <b>@result.DetectionTypeName</b>
+                            </td>
+                            <td>
+                                <b>@result.FaceRectangles.Count()</b>
+                            </td>
+                            <td>
+
+                                @foreach (var face in result.FaceRectangles)
+                                {
+                                    <div class="row">
+                                        @face.StartX
+                                    </div>
+                                }
+                            </td>
+                            <td>
+
+                                @foreach (var face in result.FaceRectangles)
+                                {
+                                    <div class="row">
+                                        @face.EndX
+                                    </div>
+                                }
+                            </td>
+                            <td>
+
+                                @foreach (var face in result.FaceRectangles)
+                                {
+                                    <div class="row">
+                                        @face.StartY
+                                    </div>
+                                }
+                            </td>
+                            <td>
+
+                                @foreach (var face in result.FaceRectangles)
+                                {
+                                    <div class="row">
+                                        @face.EndY
+                                    </div>
+                                }
+                            </td>
+                            <td>
+
+                                @foreach (var face in result.FaceRectangles)
+                                {
+                                    <div class="row">
+                                        @face.Area
+                                    </div>
+                                }
+                            </td>
+
+                            <td>
+                                <div class="slider">
+                                    <div class="slide">
+                                        <img (click)="onNavigate(result.image.url)" src="@result.Image.Url" />
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

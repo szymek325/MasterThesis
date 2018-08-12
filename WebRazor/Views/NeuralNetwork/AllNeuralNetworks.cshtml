@@ -1,0 +1,43 @@
+﻿@model WebRazor.Models.NeuralNetworks.NeuralNetworksViewModel
+
+@{
+    ViewBag.Title = "Neural Networks";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<button class="btn btn-success" onclick="location.href = '@Url.Action("NewNeuralNetwork", "NeuralNetwork")'">
+    New
+</button>
+
+<table class="table" *ngIf="neuralNetworks">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Trained people count</th>
+            <th>Number of files</th>
+            <th>Status</th>
+            <th>Creation Time</th>
+            <th>Completion Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var network in Model.NeuralNetworks)
+        {
+            <tr>
+                <td>@network.Id</td>
+                <td>@network.Name</td>
+                <td>@network.PeopleCount</td>
+                <td>@network.FilesCount</td>
+                <td>@network.StatusName</td>
+                <td>@network.CreationTime</td>
+                <td>@network.CompletionTime</td>
+                <td class="btn btn-success" onclick="location.href = '@Url.Action("NeuralNetwork", "NeuralNetwork", new {network.Id})'">
+                    Show
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

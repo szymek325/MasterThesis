@@ -1,0 +1,34 @@
+﻿@model WebRazor.Models.People.PeopleViewModel
+@{
+    ViewData["Title"] = "People";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<button class="btn btn-success" onclick="location.href = '@Url.Action("NewPerson", "People")'">
+    New
+</button>
+
+<table class="table" *ngIf="requests">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Photo</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var person in Model.People)
+        {
+            <tr>
+                <td>@person.Id</td>
+                <td>@person.Name</td>
+                <td><img src="data:image/jpeg;base64,@person.Thumbnail" /></td>
+                <td class="btn btn-success" onclick="location.href = '@Url.Action("Person", "People", new {person.Id})'">
+                    Show
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
