@@ -5,9 +5,9 @@ class CognitiveClient():
     def __init__(self):
         self.client = CF
         # TODO key and url from configuration
-        self.client.Key.set("b204cc1207534676b3d77f668405dd95")
+        self.client.Key.set("34d5e52e828847bdb0caf94c77647556")
         # klucz 2:9a8c664f40b346b7ab1bd3949a3e5f7e
-        self.client.BaseUrl.set("https://westcentralus.api.cognitive.microsoft.com/face/v1.0")
+        self.client.BaseUrl.set("https://westeurope.api.cognitive.microsoft.com/face/v1.0")
 
     def detect_faces(self, path):
         result = self.client.face.detect(path, True, False)
