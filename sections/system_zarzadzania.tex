@@ -131,15 +131,27 @@ Widok ukazany na rysunku \ref{fig:sieci_neuronowe} pozwala sprawdzić ile osób 
 \end{figure}
 
 \subsection{Recognitions}
+W sekcji 'Recognitions' użytkownik ma możliwość wykorzystać wcześniej utworzone zbiory sieci neuronowych w celu identyfikacji tożsamości na zdjęciu przedstawiającym pojedynczą osobę.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{recognitions.png}
 	\caption{Lista zadań identyfikacji osoby}
 	\label{fig:recognitions}
 \end{figure}
-W sekcji 'Recognitions' użytkownik ma możliwość wykorzystać wcześniej utworzone zbiory sieci neuronowych w celu identyfikacji tożsamości na zdjęciu przedstawiającym pojedynczą osobę.
-
-Podobnie jak na pozostałych stronach, podczas tworzenia nowego zadania użytkownik będzie musiał uzupełnić prosty formularz. W formularzu należy załączyć jedno zdjęcie oraz wybrać grupę sieci neuronowych, która ma zostać wykorzystana do identyfikacji tożsamości osoby
+Podobnie jak na pozostałych stronach, podczas tworzenia nowego zadania użytkownik będzie musiał uzupełnić prosty formularz. W formularzu przedstawionym na rysunku \ref{fig:new_recognition} należy załączyć jedno zdjęcie oraz wybrać grupę sieci neuronowych, która ma zostać wykorzystana do identyfikacji tożsamości osoby.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{new_recognition.png}
+	\caption{Formularz tworzenia zadania identyfikacji}
+	\label{fig:new_recognition}
+\end{figure}
+Po zakończonym procesie identyfikacji opisanym w kolejnym podrozdziale, użytkownik może wyświetlić wynik uzyskany przez każdą sieć dostępną w grupie. Przykładowy rezultat widoczny jest na zdjęciu \ref{fig:recognition}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{recognition.png}
+	\caption{Zakończony request identyfikacji}
+	\label{fig:recognition}
+\end{figure}
 
 \section{Aplikacja konsolowa}
 
