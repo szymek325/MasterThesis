@@ -67,6 +67,28 @@ Druga wersja widoku aplikacji oferuje dostęp do tych samych możliwości co pie
 \end{figure}
 
 \subsection{Detections}
+Detections jest stroną odpowiedzialną za wykrywanie twarzy na obrazach przesłanych do systemu. Na głównej stronie możemy zobaczyć wszystkie zlecone detekcje, zarówno nowe jak i już zakończone.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{detections.png}
+	\caption{Widok detekcji twarzy}
+	\label{fig:detections}
+\end{figure}
+Przycisk 'New' widoczny na \ref{fig:detections} pozwala na stworzenie nowego zadania wykrycia twarzy na obrazie. Na formularzu z rysunku \ref{fig:new_detection} należy podać nazwę zadania oraz za pomocą przycisku 'Wybierz plik' wybrać obraz w formacie png,jpg lub jpeg znajdujący się na dysku użytkownika.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{new_detection.png}
+	\caption{Tworzenie nowej detekcji}
+	\label{fig:new_detection}
+\end{figure}
+Użycie przycisku 'Show' widocznego przy każdym zadaniu detekcji na rysunku \ref{fig:detections}, pozwoli na wyświetlenie szczegółów związanych z requestem, w tym wyników jeśli zadanie zostało zakończone.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{detekcja_z_wynikami.png}
+	\caption{Widok zakończonej detekcji}
+	\label{fig:detekcja_zakonczona}
+\end{figure}
+Strona ze zdjęcia \ref{fig:detekcja_zakonczona} pozwala sprawdzić datę utworzenia oraz zakończenia zadania, obraz wejściowy, szczegółowe informacje o obszarze zidentyfikowanym jako twarz oraz sposobie jej wykrycia.
 \subsection{People}
 \subsection{Neural Networks}
 \subsection{Recognitions}
