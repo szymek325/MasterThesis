@@ -12,10 +12,12 @@ namespace WebRazor
     {
         public static void Main(string[] args)
         {
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             var logger = LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
             try
             {
                 logger.Debug("init main");
+                logger.Info($"Environment is: {env}");
                 BuildWebHost(args).Run();
             }
             catch (Exception ex)
