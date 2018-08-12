@@ -43,10 +43,10 @@ class ConnectionStringProvider():
         self.password = "drift11"
 
     def azure_configuration(self):
-        self.db_server = "den1.mssql6.gear.host"
+        self.db_server = "masterthesi.database.windows.net"
         self.db_name = "masterthesisdb"
-        self.login = "masterthesisdb"
-        self.password = "Zp9P?Q!ezuXH"
+        self.login = "testAccount"
+        self.password = "TestPassword1"
 
     def local_configuration(self):
         self.db_server = "(LocalDb)\\MSSQLLocalDB"
