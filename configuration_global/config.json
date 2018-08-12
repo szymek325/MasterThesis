@@ -1,10 +1,6 @@
 {
   "logs_path": "temp/logs",
-  "local_files_path":"temp",
-  "use_local_environment":true,
-  "environments":{
-    "debug":"Debug",
-    "azure":"Azure"
-  }
+  "local_files_path": "temp",
+  "environment_to_use": "amazon"
 }
 
