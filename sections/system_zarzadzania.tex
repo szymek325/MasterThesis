@@ -32,13 +32,43 @@ Zgodnie z interfejsem przedstawionym na rysunku \ref{fig:strona_glowna_razor}, s
 \item Recognition- rozpoznawanie,
 \item Sensor Readings- odczyty sensorów.
 \end{itemize}
-\subsection{Wzorzec projektowy MVC}
-Strona internetowa powstała na bazie wzorca projektowego MVC. Założenia wzorca Model-Widok-Kontroler są bardzo proste, ich składowymi są:
+
+\subsection{Technologie}
+Aplikacja webowa powstała w najnowszej kompilacji .NET Core 2, będącej międzyplatformową strukturą open source o wysokiej wydajności służącą do tworzenia nowoczesnych aplikacji internetowych opartych na usługach chmurowych. Logika biznesowa aplikacji została zaprogramowana w języku C\#. Warstwa widoku powstała w dwóch dostępnych rozwiązaniach, nieznacznie różniących się wyglądem, ale znacznie odbiegających od siebie sposobem działania. Przed omówieniem poszczególnych rozwiązań przedstawiono, krótkie definicje wykorzystanego wzorca projektowego MVC oraz technologii SPA
+
+\subsubsection{Wzorzec projektowy MVC}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{mvc.png}
+	\caption{Schemat klasycznego wzorca MVC}
+	\label{fig:schemat_mvc}
+\end{figure}
+Strona internetowa powstała na bazie bardzo popularnego wśród programistów wzorca projektowego MVC. Założenia wzorca Model-Widok-Kontroler są bardzo proste, ich składowymi są:
 \begin{itemize}
 \item Model- reprezentuje logikę biznesową. Tutaj znajdują się wszelkie obiekty, które służą do wykonywania zaimplementowanej funkcjonalności danej aplikacji,
 \item Widok- jest warstwą prezentacji. Odpowiada za prezentację logiki biznesowej (Modelu) użytkownikowi w przystępny sposób,
 \item Kontroler- obsługuje żądania użytkownika. Odebrane zadania oddelegowuje do odpowiednich modeli.
 \end{itemize}
 
+\subsubsection{Single Page Application}
+Single Page Application (SPA) to aplikacja lub strona internetowa, która w całości wczytuje się za jednym razem. Cały potrzebny do działania strony kod (HTML, CSS, JavaScript) przesyłany jest na początku lub dodawany dynamicznie w kawałkach, zwykle w odpowiedzi na interakcje generowane przez użytkownika.
+Sposób działania takiej aplikacji jest zbliżony do odczuć towarzyszących korzystaniu z aplikacji desktopowej lub mobilnej. 
+
+\subsubsection{Rozwiązanie 1- Razor Pages}
+Pierwsza wersja została oparta o strony tworzone w technologi Razor Pages opartej o składnię Razor oraz podstawowe technologie webowe: HTML i CSS. Taki sposób tworzenia warstwy prezentacji jest zalecany dla aplikacji .NET Core, ponieważ pozwala zminimalizować ilość pracy wymaganej na jej utworzenie oraz zapewnia bardzo prosty proces wdrożenia. Aplikacja utworzona z pomocą Razor'a została zaprezentowana na rysunku \ref{fig:strona_glowna_razor}.
+
+\subsubsection{Rozwiązanie 2- Angular 4}
+Druga wersja widoku aplikacji oferuje dostęp do tych samych możliwości co pierwsze rozwiązanie, ale powstała przy pomocy frameworka webowego- Angular 4. Strona główna widoczna jest na rysunku \ref{fig:strona_glowna_angular}. Angular jest open sourcowym frameworkiem używanym do tworzenia aplikacji SPA (Single Page Application), napisany w języku TypeScript i wspierany oraz rozwijany przez Google.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{aplikacja_webowa_angular_widok.png}
+	\caption{Strona główna widoku utworzonym w Angular 4}
+	\label{fig:strona_glowna_angular}
+\end{figure}
+
+\subsection{Detections}
+\subsection{People}
+\subsection{Neural Networks}
+\subsection{Recognitions}
 \section{Aplikacja konsolowa}
 \section{Program zarządzający domem}
