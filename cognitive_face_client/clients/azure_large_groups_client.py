@@ -31,8 +31,12 @@ class AzureLargeGroupsClient():
         self.logger.info(f"Adding image {image_path} to person {person_id} in large group {large_group_id}")
         try:
             self.cognitiveClient.add_face_to_person_in_large_group(person_id, large_group_id, image_path)
+        except self.cognitiveClient.client.CognitiveFaceException as ex:
+            self.logger.error(f"Exception when adding face from {image_path}.Process will continue. Ex: {ex}")
+            if not (ex.status_code == 400 and ex.code == 'InvalidImage'):
+                raise
         except Exception as ex:
-            self.logger.error(f"Exception when adding face to person in large group. Ex: {ex}")
+            self.logger.error(f"Exception when adding face to person in large group. ImagePath: {image_path}. Ex: {ex}")
             raise
 
     def train_large_group(self, large_group_id):
