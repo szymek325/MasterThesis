@@ -154,5 +154,42 @@ Po zakończonym procesie identyfikacji opisanym w kolejnym podrozdziale, użytko
 \end{figure}
 
 \section{Aplikacja konsolowa}
+Aplikacja konsolowa powstała w celu przetwarzania czasochłonnych zadań w tle, tak by użytkownik aplikacji webowej nie doświadczał długich czasów ładowania oraz ewentualnych błędów podczas przerwania sesji lub połączenia internetowego ze stroną. Aplikacja konsolowa uruchamiana jest co 5 minut i przetwarza zadania trzech typów w kolejności widocznej na rysunku \ref{fig:worker_proces}. Poszczególne procesy zostały szerzej opisane w kolejnych podrozdziałach.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{worker_proces.png}
+	\caption{Proces działania aplikacji konsolowej}
+	\label{fig:worker_proces}
+\end{figure}
+
+
+
+\subsection{Technologie}
+
+
+\subsection{Proces wykrywania twarzy}
+Uogólniony proces detekcji twarzy na obrazie został przedstawiony na grafie \ref{fig:wykrywanie_proces}. Szczegółowy proces dla każdej z metod detekcji przedstawiono w rozdziale \ref{detekcja_twarzy}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{wykrywanie_twarzy.png}
+	\caption{Proces wykrywania twarzy}
+	\label{fig:wykrywanie_proces}
+\end{figure}
+
+\subsection{Proces trenowania sieci neuronowych}
+Proces trenowania sieci został przedstawiony na grafie \ref{fig:trenowanie_proces}, szczegółowe informacje o przygotowaniu danych uczących i procesie nauczania zostały opisane w kolejnej sekcji.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{proces_nauczania.png}
+	\caption{Proces trenowania sieci}
+	\label{fig:trenowanie_proces}
+\end{figure}
+
+\subsubsection{Przygotowanie danych trenujących} \label{przygotowanie_danych_uczących}
+
+\subsubsection{Trenowanie sieci} \label{trenowanie_sieci}
+
+\subsection{Proces rozpoznawania twarzy}
+
 
 \section{Program zarządzający domem}
