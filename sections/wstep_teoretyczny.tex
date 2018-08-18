@@ -48,8 +48,40 @@ Raspberry Pi jest platformą komputerową stworzoną przez Raspberry Pi Foundati
 OpenCv (Open Source Computer Vision Library) jest open sourcową biblioteką napisaną w języku C. Udostępniono liczne interfejsy biblioteki pozwalające na pracę z nią miedzy innymi w języku C++ i Python. Biblioteka wspiera systemy operacyjne Linux oraz Windows. Biblioteka została ukierunkowana na przetwarzanie obrazu w czasie rzeczywistym. W licznie udostępnionych funkcjach można znaleźć moduły pozwalające na detekcję i rozpoznawanie twarzy na obrazie, które zostały szerzej opisane w kolejnym punkcie.
 
 \subsection{Detekcja twarzy}
-\subsubsection{Haar} \label{haar}
-\subsubsection{Deep Neural Network} \label{dnn}
+Głównym wykrywaczem twarzy wykorzystywanym przez OpenCv jest kaskadowy klasyfikator Haar'a ale poza nim istnieją również inne metody. Jedną z nich jest wykorzystanie głębokiej sieci neuronowej.
+
+\subsubsection{Klasyfikator kaskad Haar'a} \label{haar}
+Detekcja obiektów klasyfikatorem kaskad Haar'a została oparta o metodę Paul'a Viola i Michael'a Jones'a– w skrócie Viola-Jones.
+
+\subsubsection{Algorytm Viola-Jones}
+Jest to jeden z pierwszych algorytmów pozwalających na osiągnięcie zadowalających wyników w detekcji obiektów na obrazie. Został on zaproponowany w 2001 roku i został przemyślany z głównym przeznaczeniem dla detekcji twarzy. Na kluczowe koncepcje tej metody składają się:
+\begin{itemize}
+\item wyszukiwanie cech Haar'a,
+\item integralność obrazu,
+\item metoda uczenia AdaBoost (podstawowy algorytm do boostingu, metoda dzięki której z dużej liczby słabych klasyfikatorów można otrzymać jeden lepszy )
+\end{itemize}
+
+\subsubsection{Cechy Haar'a}
+Cechy wykorzystywane w metodzie Viola-Jones opierają się na falkach Haara. Falki Haara są to sekwencje przeskalowanych kwadrato-podobnych funkcji, które razem tworzą falę(falo-podobną oscylację), podstawę z której można zbudować kwadrat. W dwóch wymiarach, fala kwadratu jest parą przylegających do siebie prostokątów, gdzie jeden jest jaśniejszy, a drugi ciemniejszy.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{szablon_cech_haara.png}
+	\caption{Szablony cech Haar'a}
+	\label{fig:szablon_cech_haara}
+\end{figure}
+Wartość każdej cechy jest obliczana jako różnica sumy poziomów szarości pikseli pokrywanych przez biały oraz czarny prostokąt oraz sumy poziomów szarości pikseli pokrywanych przez czarny prostokąt. Składniki tej różnicy posiadają wagi odwrotnie proporcjonalne do rozmiarów, dzięki czemu różnice wielkości dwóch obszarów są kompensowane.
+
+\subsubsection{Głęboka sieć neuronowa} \label{dnn}
+Pojęciem uczenia maszynowego określa się dziedzinę nauk związanych ze sztuczną inteligencją, zajmującą się badaniem algorytmów i systemów, które usprawniają swoje działanie wraz ze zdobywaniem nowej wiedzy lub też doświadczeniem. Wiedzą określamy dane uczące, które zostały wykorzystane do nauki. System może zostać usprawniony poprzez zwiększenie wiedzy systemu, które powinno pozwolić na usprawnienie procesu rozwiązywania podstawowych problemów.
+
+Algorytmy głębokiego uczenia maszynowego są jednymi z najbardziej zaawansowanych. Zbudowane są one w sposób przypominający biologiczne sieci neuronowe. Głęboka sieć neuronowa składa się z neuronów rozmieszczonych na warstwach. Wiele warstw jest powodem dla którego taki rodzaj algorytmu określa się mianem głębokiego. Przykładowa budowa głębokiej sieci neuronowej została przedstawiona na rysunku \ref{fig:budowa_dnn}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{schemat_dnn.png}
+	\caption{Budowa głębokiej sieci neuronowej}
+	\label{fig:budowa_dnn}
+\end{figure}
+Każdy z takich “sztucznych neuronów” jest tak naprawdę informacją, która jest przesyłana dalej do następnych neuronów i ich warstw. Poszczególne warstwy “uczą” się przetwarzać kolejne cechy obiektów/obrazów/dźwięków itp., dzięki czemu są w stanie odtwarzać całe obiekty w bardzo rzeczywisty sposób.
 
 \subsection{Rozpoznawanie twarzy}
 \subsubsection{Eigen} \label{eigen}
