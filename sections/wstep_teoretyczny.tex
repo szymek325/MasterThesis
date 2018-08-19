@@ -30,7 +30,7 @@ Raspberry Pi jest platformą komputerową stworzoną przez Raspberry Pi Foundati
 	\label{fig:raspberrypi}
 \end{figure}
 
-\subsection{Czujnik DHT 11 \textcolor{red}{TODO}}
+\subsection{Czujnik DHT 11}
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.2]{dht11.jpg}
@@ -56,7 +56,14 @@ Czujnik temperatury i wilgotności powietrza DHT11 jest bardzo popularnym czujni
   	\end{tabular}
 \end{table}
 
-\subsection{Raspberry Pi Camera HD \textcolor{red}{TODO}}
+\subsection{Raspberry Pi Camera HD}
+Raspberry Pi Camera HD jest dedykowaną kamerą przeznaczoną tylko i wyłącznie do urządzenia Raspberry Pi w wersji 3, 2 oraz B+. Szybszy transfer danych niż przez port USB zapewnia dedykowane złącze minikomputera (w formie taśmy na zdjęciu \ref{fig:picamera}). Kamera posiada matrycę o rozdzielczości 8 Mpx, wspiera tryb HD 1090p, 720p oraz 640 x 480. Moduł umożliwia wykonywanie zdjęć w rozdzielczości nawet 3280 x 2464 px. Wymagane sterowniki są preinstalowane na kompatybilnych urządzeniach.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.05]{picamera.jpg}
+	\caption{Raspberry Pi Camera Hd}
+	\label{fig:picamera}
+\end{figure}
 
 \section{Open Cv}
 OpenCv (Open Source Computer Vision Library) jest open sourcową biblioteką napisaną w języku C. Udostępniono liczne interfejsy biblioteki pozwalające na pracę z nią miedzy innymi w języku C++ i Python. Biblioteka wspiera systemy operacyjne Linux oraz Windows. Biblioteka została ukierunkowana na przetwarzanie obrazu w czasie rzeczywistym. W licznie udostępnionych funkcjach można znaleźć moduły pozwalające na detekcję i rozpoznawanie twarzy na obrazie, które zostały szerzej opisane w kolejnym punkcie.
@@ -87,14 +94,14 @@ Wartość każdej cechy jest obliczana jako różnica sumy poziomów szarości p
 
 \subsubsection{Głęboka sieć neuronowa} \label{dnn}
 Pojęciem uczenia maszynowego określa się dziedzinę nauk związanych ze sztuczną inteligencją, zajmującą się badaniem algorytmów i systemów, które usprawniają swoje działanie wraz ze zdobywaniem nowej wiedzy lub też doświadczeniem. Wiedzą określamy dane uczące, które zostały wykorzystane do nauki. System może zostać usprawniony poprzez zwiększenie wiedzy systemu, które powinno pozwolić na usprawnienie procesu rozwiązywania podstawowych problemów.
-
-Algorytmy głębokiego uczenia maszynowego są jednymi z najbardziej zaawansowanych. Zbudowane są one w sposób przypominający biologiczne sieci neuronowe. Głęboka sieć neuronowa składa się z neuronów rozmieszczonych na warstwach. Wiele warstw jest powodem dla którego taki rodzaj algorytmu określa się mianem głębokiego. Przykładowa budowa głębokiej sieci neuronowej została przedstawiona na rysunku \ref{fig:budowa_dnn}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{schemat_dnn.png}
 	\caption{Budowa głębokiej sieci neuronowej}
 	\label{fig:budowa_dnn}
 \end{figure}
+Algorytmy głębokiego uczenia maszynowego są jednymi z najbardziej zaawansowanych. Zbudowane są one w sposób przypominający biologiczne sieci neuronowe. Głęboka sieć neuronowa składa się z neuronów rozmieszczonych na warstwach. Wiele warstw jest powodem dla którego taki rodzaj algorytmu określa się mianem głębokiego. Przykładowa budowa głębokiej sieci neuronowej została przedstawiona na rysunku \ref{fig:budowa_dnn}.
+
 Każdy z takich “sztucznych neuronów” jest tak naprawdę informacją, która jest przesyłana dalej do następnych neuronów i ich warstw. Poszczególne warstwy “uczą” się przetwarzać kolejne cechy obiektów/obrazów/dźwięków itp., dzięki czemu są w stanie odtwarzać całe obiekty w bardzo rzeczywisty sposób.
 
 \subsection{Rozpoznawanie twarzy \textcolor{red}{TODO}}
