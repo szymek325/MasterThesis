@@ -7,12 +7,16 @@
 \end{figure}
 Aplikację powstałą na potrzeby tej pracy można podzielić na 3 moduły, które zostały przedstawione na rysunku \ref{fig:schemat_systemu}, a składają się na nie :
 \begin{itemize}
-\item Aplikacja webowa- interfejs pozwalający na zlecanie nowych zadań aplikacji konsolowej oraz odczyt wyników przesłanych przez nią oraz przez program zarządzający domem,
+\item Aplikacja webowa- interfejs pozwalający na zlecanie nowych zadań aplikacji konsolowej, odczyt wyników przesłanych przez obie aplikacje konsolowe,
 \item Aplikacja konsolowa- przetwarza zadania detekcji oraz rozpoznawania twarzy zlecone za pomocą aplikacji webowej,
-\item Program zarządzający domem- przekazuje cyklicznie odczytywane dane z czujników oraz wykryte ruchy do bazy danych, w celu dalszej obróbki przez pozostałe moduły.
+\item Aplikacja konsolowa zarządzająca domem- przekazuje cyklicznie odczytywane dane z czujników \textcolor{red}{oraz wykryte ruchy do bazy danych}, w celu dalszej obróbki przez pozostałe moduły.
 \end{itemize}
+We wczesnej fazie projektu istniała jedna aplikacja konsolowa, ale ze względu na skomplikowaność programu przetwarzającego zadania, została ona rozdzielona na aplikację, która musi być uruchamiana na Raspberry Pi (program zarządzający domem) oraz drugą, którą można uruchomić w dowolnym innym środowisku.
 Na usługi pomocnicze wykorzystane w projekcie składają się
 \begin{itemize}
-\item baza danych- przechowywanie danych o dodanych zadaniach, wynikach, nauczonych sieciach neuronowych oraz osobach,
-\item dropbox- przechowywanie większych plików- obrazów oraz nauczonych modeli sieci.
+\item baza danych MSSql- przechowywanie danych o dodanych zadaniach, wynikach, nauczonych sieciach neuronowych oraz osobach,
+\item Dropbox- przechowywanie większych plików- obrazów oraz nauczonych modeli sieci,
+\item Azure Cognitive Services- Web Api usługi przetwarzającej obrazy opisanej w rozdziale \ref{cognitive_services}.
 \end{itemize}
+
+\section{Środowisko uruchomieniowe \textcolor{red}{TODO}}
