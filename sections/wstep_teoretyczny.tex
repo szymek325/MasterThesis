@@ -1,4 +1,4 @@
-\section{Technologie programistyczne}
+\section{Technologie}
 \subsection{Wzorzec projektowy MVC}
 \begin{figure}[H]
 	\centering
@@ -17,6 +17,10 @@ Strona internetowa powstała na bazie bardzo popularnego wśród programistów w
 Single Page Application (SPA) to aplikacja lub strona internetowa, która w całości wczytuje się za jednym razem. Cały potrzebny do działania strony kod (HTML, CSS, JavaScript) przesyłany jest na początku lub dodawany dynamicznie w kawałkach, zwykle w odpowiedzi na interakcje generowane przez użytkownika.
 Sposób działania takiej aplikacji jest zbliżony do odczuć towarzyszących korzystaniu z aplikacji desktopowej lub mobilnej.
 
+\subsection{1-Wire} \label{1wire}
+One Wire to systemowa magistrala komunikacji elektronicznej pomiędzy urządzeniami, zapewniająca przesyłanie danych oraz zasilanie urządzenia przez pojedynczy kabel. Proces ten jest możliwy dzięki stopniowemu ładowaniu kondensatora znajdującego się w odbiorniku, a następnie wykorzystanie zgromadzonej energii do zasilenia urządzenia. Do magistrali może zostać podłączonych wiele urządzeń. Każdemu z nich przydzielany jest indywidualny adres 64-bitowy. Komunikację z urządzeniami inicjuje master, w tym przypadku Raspberry Pi.
+Przedstawiony protokół jest bardzo podobny do I2C, ale ze względu na wykorzystanie jedynie jednej linii danych, charakteryzuje się niższą prędkością przesyłania. Układ zazwyczaj zasilany jest napięciem o wartości 5V i służy do komunikacji pomiędzy niewielkimi urządzeniami, takimi jak np. termometr cyfrowy i mikrokontroler.
+
 \section{Raspberry Pi}
 Raspberry Pi jest platformą komputerową stworzoną przez Raspberry Pi Foundation, na którą składa się pojedynczy obwód drukowany. Pierwsza wersja tego urządzenia została zaprezentowana w 2012 roku. Na potrzeby tej pracy wykorzystano nowszą wersję urządzanie w wersji 3 B, którą została wyposażona w 4 rdzeniowy procesor i 1 GB pamięci RAM. Raspberry pozwala na podłączenie wielu urządzeń peryferyjnych za pomocą 4 portów USB lub 40 pinów GPIO. Dodatkowe złącze pozwala na podłączenie dedykowanej kamery. Dzięki znacznej ilości portów GPIO istnieje możliwość komunikacji cyfrowej z sensorami. Budowa urządzenia nie pozwala na podłączenie czujników analogowych.
 \begin{figure}[H]
@@ -25,6 +29,34 @@ Raspberry Pi jest platformą komputerową stworzoną przez Raspberry Pi Foundati
 	\caption{Raspberry Pi 3 B}
 	\label{fig:raspberrypi}
 \end{figure}
+
+\subsection{Czujnik DHT 11 \textcolor{red}{TODO}}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.2]{dht11.jpg}
+	\caption{Czujnik DHT11}
+	\label{fig:dht11}
+\end{figure}
+Czujnik temperatury i wilgotności powietrza DHT11 jest bardzo popularnym czujnikiem z interfejsem cyfrowym. Do komunikacji wykorzystuje on protokół 1-wire opisany w rozdziale \ref{1wire}.
+\begin{table}[H]
+	\centering
+	\caption{Parametry czujnika}
+	\begin{tabular}{|c|c|}
+  		\hline 
+  		\bfseries Parametr & \bfseries Wartość \\
+  		\hline
+  		Napięcie zasilania & 3,3V do 5,5V\\
+  		\hline
+  		Średni pobór prądu & 0,2 mA\\
+  		\hline 
+  		Zakres pomiaru temperatury & od - 20\si{\degree}C do +50\si{\degree}C\\
+  		\hline 
+  		Zakres pomiaru wilgotności & od 5\% do 95\% wilgotności względnej\\
+  		\hline 
+  	\end{tabular}
+\end{table}
+
+\subsection{Raspberry Pi Camera HD \textcolor{red}{TODO}}
 
 \section{Open Cv}
 OpenCv (Open Source Computer Vision Library) jest open sourcową biblioteką napisaną w języku C. Udostępniono liczne interfejsy biblioteki pozwalające na pracę z nią miedzy innymi w języku C++ i Python. Biblioteka wspiera systemy operacyjne Linux oraz Windows. Biblioteka została ukierunkowana na przetwarzanie obrazu w czasie rzeczywistym. W licznie udostępnionych funkcjach można znaleźć moduły pozwalające na detekcję i rozpoznawanie twarzy na obrazie, które zostały szerzej opisane w kolejnym punkcie.

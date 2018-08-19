@@ -11,7 +11,7 @@ Aplikację powstałą na potrzeby tej pracy można podzielić na 3 moduły, któ
 \item Aplikacja konsolowa- przetwarza zadania detekcji oraz rozpoznawania twarzy zlecone za pomocą aplikacji webowej,
 \item Aplikacja konsolowa zarządzająca domem- przekazuje cyklicznie odczytywane dane z czujników \textcolor{red}{oraz wykryte ruchy do bazy danych}, w celu dalszej obróbki przez pozostałe moduły.
 \end{itemize}
-We wczesnej fazie projektu istniała jedna aplikacja konsolowa, ale ze względu na skomplikowaność programu przetwarzającego zadania, została ona rozdzielona na aplikację, która musi być uruchamiana na Raspberry Pi (program zarządzający domem) oraz drugą, którą można uruchomić w dowolnym innym środowisku.
+We wczesnej fazie projektu istniała jedna aplikacja konsolowa, ale ze względu na skomplikowaność programu przetwarzającego zadania, została ona rozdzielona na aplikację, która musi być uruchamiana na Raspberry Pi (program zarządzający domem) oraz drugą, którą można uruchomić w dowolnym innym środowisku.s
 Na usługi pomocnicze wykorzystane w projekcie składają się
 \begin{itemize}
 \item baza danych MSSql- przechowywanie danych o dodanych zadaniach, wynikach, nauczonych sieciach neuronowych oraz osobach,
@@ -20,5 +20,10 @@ Na usługi pomocnicze wykorzystane w projekcie składają się
 \end{itemize}
 
 \section{Środowisko uruchomieniowe \textcolor{red}{TODO}}
+W celu zmaksymalizowania wydajności każdego z modułów, podjęto decyzję o uruchomieniu na Raspberry Pi jedynie tych elementów, które muszą mieć bezpośredni dostęp do czujników lub kamery. Pozostałe moduły uruchomiono w środowisku chmurowym.
 \subsection{Raspberry Pi \textcolor{red}{TODO}}
-\subsection{Azure i AWS \textcolor{red}{TODO}}
+
+
+\subsection{Środowisko chmurowe \textcolor{red}{TODO}}
+\subsubsection{Azure}
+\subsubsection{AWS}
