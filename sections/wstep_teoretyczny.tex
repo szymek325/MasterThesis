@@ -1,4 +1,4 @@
-\section{Technologie}
+\section{Technologie programistyczne}
 \subsection{Wzorzec projektowy MVC}
 \begin{figure}[H]
 	\centering
@@ -71,8 +71,11 @@ The PCA method finds the directions with the greatest variance in the data, call
 \subsubsection{Fisherfaces} \label{fisher}
 \subsubsection{Local Binary Patterns Histograms} \label{lbph}
 
-\section{Azure \textcolor{red}{TODO}}
-\subsection{Cognitive Services} \label{cognitive_services}
-
-\section{AWS \textcolor{red}{TODO}}
-
+\section{Azure Cognitive Services}
+Cognitive Services jest częścią platformy Azure stworzonej przez Microsoft. Usługa jest standardowo płatna, ale w przypadku użytku na potrzeby studenckie przyznawany jest darmowy dostęp na ograniczony czas. Cognitive Services zajmuje się rozwiązywaniem problemów biznesowych dzięki sztucznej inteligencji. Do dostępnych modułów między innymi należą:
+\begin{itemize}
+\item obraz- algorytmy przetwarzania obrazów umożliwiające inteligentne identyfikowanie, podpisywanie i moderowanie grafik,
+\item mowa- konwertowanie wypowiedzi audio na tekst, weryfikacja głosowa,
+\item język- przetwarzanie języka naturalnego.
+\end{itemize}
+Na cele tego projektu wykorzystano moduł dotyczący przetwarzania obrazu, a dokładniej wykrywanie i rozpoznawanie twarzy w nim dostępne. Producent zadbał o prostą możliwość integracji z większością popularnych języków programistycznych poprzez udostępnienie paczek deweloperskich. W przypadku braku SDK dla wybranego języka istnieje możliwość skorzystania z udostępnionego REST Api. Na stronie producenta można znaleźć obszerną dokumentację oraz tutoriale.
