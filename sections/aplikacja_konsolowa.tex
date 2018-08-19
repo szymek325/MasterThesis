@@ -69,7 +69,7 @@ Ogólny schemat procesu trenowania identyfikatorów twarzy OpenCv (Eigenfaces, F
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.55]{trenowanie_azure.png}
-	\caption{[DO POPRAWY] Trenowanie usługi Azure Cognitive Services}
+	\caption{Trenowanie usługi Azure Cognitive Services}
 	\label{fig:trenowanie_azure}
 \end{figure}
 Proces rozpoczyna się od wczytania wszystkich osób oraz ich zdjęć, które zostały przypisane do zadania trenowania sieci. Na diagramie \ref{fig:trenowanie_azure} niebieskim kolorem oznaczono zapytania do Azure Cognitive Services Api. Pierwszym i najważniejszym krokiem jest utworzenie nowej AzureLargeGroup, do której w następnym kroku zostaną dodane id/nazwy wszystkich osób znajdujących się na wczytanej liście.  Następnie każdy obraz z listy zostaje przypisany odpowiedniej osobie w AzureLargeGroup. W tym rozwiązaniu klient nie musi martwić się detekcją twarzy na obrazie, bo jest ona wykonywana przez usługę Azure po przesłaniu obrazu. W przypadku problemów z wykryciem twarzy na obrazie, zostanie zwrócona informacja mówiąca o tym że plik zostanie zignorowany podczas procesu nauczania. Po dodaniu wszystkich zdjęć, program wywołuje funkcję trenowania nowej sieci na podstawie danych dołączonych do AzureLargeGroup. Już po kilku sekundach, identyfikator tożsamości udostępniony przez usługę Azure jest gotowy do działania.
@@ -88,7 +88,7 @@ Niezależnie od typu FaceRecognizera, proces rozpoznawania twarzy z użyciem alg
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{rozpoznawanie_open_cv.png}
-	\caption{[DO POPRAWY]Proces identyfikacji osoby wykorzystując Open Cv}
+	\caption{Proces identyfikacji osoby wykorzystując Open Cv}
 	\label{fig:rozpoznawanie_open_cv}
 \end{figure}
 
@@ -96,7 +96,7 @@ Niezależnie od typu FaceRecognizera, proces rozpoznawania twarzy z użyciem alg
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{rozpoznawanie_azure.png}
-	\caption{[DO POPRAWY] Proces identyfikacji osoby wykorzystując Azure Cognitive Servces}
+	\caption{Proces identyfikacji osoby wykorzystując Azure Cognitive Servces}
 	\label{fig:rozpoznawanie_azure}
 \end{figure}
 Proces detekcji twarzy przy pomocy Azure Cognitive Services jest mniej obciążający dla platformy, na której uruchomiono program, ale za to wymaga równie wielu kroków. Pierwszym z nich jest wczytanie słownika tożsamości przypisanych do AzureLargeGroup. W kolejnym etapie zdjęcie wejściowe zostaje wysłane do usługi detekcji opisanej w \ref{detekcja_azure} ale ze zmodyfikowanymi parametrami. W tym przypadku, każdej wykrytej twarzy zostaje nadany numer identyfikacyjny Azure. Jeśli jakaś twarz została znaleziona to kolejnym etapem jest wysłanie żądania identyfikacji uzyskanej twarzy przy pomocy AzureLargeGroup, która została przypisana do tego requesta. Tożsamość rozpoznana przez CS zostaje zwrócona w postaci numera identyfikacyjnego usługi, dlatego musi ona zostać porównana z wcześniej wczytanym słownikiem, który pozwala na odczytanie Id osoby istniejącej w bazie danych programu.
