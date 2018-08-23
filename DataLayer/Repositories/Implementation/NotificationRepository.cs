@@ -4,6 +4,7 @@ using DataLayer.Entities;
 using DataLayer.Helpers;
 using DataLayer.Repositories.Base;
 using DataLayer.Repositories.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Repositories.Implementation
 {
@@ -11,6 +12,11 @@ namespace DataLayer.Repositories.Implementation
     {
         public NotificationRepository(MasterContext context) : base(context)
         {
+        }
+
+        public IEnumerable<Notification> GetAllWithIncluded()
+        {
+            return GetAll().Include(x => x.Image);
         }
 
         public IEnumerable<Notification> GetAllMotionNotifications()

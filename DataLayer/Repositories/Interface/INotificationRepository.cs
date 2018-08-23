@@ -9,5 +9,6 @@ namespace DataLayer.Repositories.Interface
         IEnumerable<Notification> GetAllMotionNotifications();
 
         IEnumerable<Notification> GetAllSensorNotifications();
+        IEnumerable<Notification> GetAllWithIncluded();
     }
 }
