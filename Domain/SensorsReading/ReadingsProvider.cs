@@ -35,14 +35,21 @@ namespace Domain.SensorsReading
         {
             var distinctDates = readingsRepo.GetAll().Select(x =>new DateOutput{
                 Date = x.CreationTime.Date}
-            ).Distinct().ToList();
+            ).Distinct().OrderByDescending(x=>x.Date).ToList();
             return distinctDates;
+        }
+
+        public IEnumerable<Reading> GetReadingsFromDay(DateTime day)
+        {
+            var sensorReadings = readingsRepo.GetByDay(day).OrderByDescending(x=>x.CreationTime);
+            var readings = mapper.Map<IEnumerable<Reading>>(sensorReadings);
+            return readings;
         }
 
         public IEnumerable<Reading> GetReadingsFromDay(string day)
         {
-            var dateTimeDay = DateTime.Parse(day);
-            var sensorReadings = readingsRepo.GetByDay(dateTimeDay);
+            var parsedDay = DateTime.Parse(day);
+            var sensorReadings = readingsRepo.GetByDay(parsedDay).OrderByDescending(x => x.CreationTime);
             var readings = mapper.Map<IEnumerable<Reading>>(sensorReadings);
             return readings;
         }

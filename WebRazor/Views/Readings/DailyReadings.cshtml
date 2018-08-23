@@ -1,0 +1,30 @@
+﻿@model WebRazor.Models.Readings.DailyReadingsViewModel
+
+@{
+    ViewBag.Title = $"Readings for {Model.Date}";
+    Layout = "_Layout";
+}
+
+<h2>Readings for @Model.Date.ToString("dd/MM/yyyy")</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Humidity</th>
+        <th>Temperature</th>
+        <th>Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var reading in Model.Readings)
+    {
+        <tr>
+            <td>@reading.Id</td>
+            <td>@reading.Humidity</td>
+            <td>@reading.Temperature</td>
+            <td>@reading.CreationTime</td>
+        </tr>
+    }
+    </tbody>
+</table>
