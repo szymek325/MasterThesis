@@ -96,6 +96,23 @@ namespace DataLayer
             {
                 Name = "Person"
             });
+            context.ImageAttachmentTypes.Add(new ImageAttachmentType
+            {
+                Name = "Motion"
+            });
+        }
+
+        private static void InitializeNotificationTypes(MasterContext context)
+        {
+            if (context.NotificationTypes.Any()) return;
+            context.NotificationTypes.Add(new NotificationType
+            {
+                Name = "Sensor Reading"
+            });
+            context.NotificationTypes.Add(new NotificationType
+            {
+                Name = "Motion Detection"
+            });
         }
     }
 }

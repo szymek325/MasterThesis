@@ -139,6 +139,8 @@ namespace DataLayer.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int?>("NotificationId");
+
                     b.Property<int?>("PersonId");
 
                     b.Property<int?>("RecognitionId");
@@ -158,6 +160,10 @@ namespace DataLayer.Migrations
                         .HasFilter("[DetectionResultId] IS NOT NULL");
 
                     b.HasIndex("ImageAttachmentTypeId");
+
+                    b.HasIndex("NotificationId")
+                        .IsUnique()
+                        .HasFilter("[NotificationId] IS NOT NULL");
 
                     b.HasIndex("PersonId");
 
@@ -273,6 +279,48 @@ namespace DataLayer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("NeuralNetworkType");
+                });
+
+            modelBuilder.Entity("DataLayer.Entities.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationTime")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasDefaultValueSql("getutcdate()");
+
+                    b.Property<string>("Message");
+
+                    b.Property<DateTime?>("ModifiedDate");
+
+                    b.Property<int>("NotificationTypeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NotificationTypeId");
+
+                    b.ToTable("Notification");
+                });
+
+            modelBuilder.Entity("DataLayer.Entities.NotificationType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationTime")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasDefaultValueSql("getutcdate()");
+
+                    b.Property<DateTime?>("ModifiedDate");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NotificationType");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.Person", b =>
@@ -442,6 +490,10 @@ namespace DataLayer.Migrations
                         .HasForeignKey("ImageAttachmentTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("DataLayer.Entities.Notification", "Notification")
+                        .WithOne("Image")
+                        .HasForeignKey("DataLayer.Entities.ImageAttachment", "NotificationId");
+
                     b.HasOne("DataLayer.Entities.Person", "Person")
                         .WithMany("Images")
                         .HasForeignKey("PersonId");
@@ -481,6 +533,14 @@ namespace DataLayer.Migrations
                     b.HasOne("DataLayer.Entities.NeuralNetworkType", "NeuralNetworkType")
                         .WithMany()
                         .HasForeignKey("NeuralNetworkTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DataLayer.Entities.Notification", b =>
+                {
+                    b.HasOne("DataLayer.Entities.NotificationType", "NotificationType")
+                        .WithMany()
+                        .HasForeignKey("NotificationTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

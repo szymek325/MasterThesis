@@ -27,12 +27,13 @@ namespace DataLayer
         public DbSet<NeuralNetworkPerson> NeuralNetworkPeople { get; set; }
         public DbSet<ImageAttachment> ImageAttachments { get; set; }
         public DbSet<ImageAttachmentType> ImageAttachmentTypes { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<NotificationType> NotificationTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<NeuralNetworkPerson>()
-                .HasKey(bc => new { bc.PersonId, NeuralNetworkRequestId = bc.NeuralNetworkId });
+                .HasKey(bc => new {bc.PersonId, NeuralNetworkRequestId = bc.NeuralNetworkId});
 
             modelBuilder.Entity<NeuralNetworkPerson>()
                 .HasOne(bc => bc.NeuralNetwork)
@@ -45,7 +46,6 @@ namespace DataLayer
             //less important stuff
             foreach (var entityType in modelBuilder.Model.GetEntityTypes()
                 .Where(t => t.ClrType.IsSubclassOf(typeof(EntityBase))))
-            {
                 modelBuilder.Entity(
                     entityType.Name,
                     x =>
@@ -53,7 +53,6 @@ namespace DataLayer
                         x.Property("CreationTime")
                             .HasDefaultValueSql("getutcdate()");
                     });
-            }
 
             modelBuilder.Entity<SensorsReading>().ToTable(nameof(SensorsReading));
             modelBuilder.Entity<Status>().ToTable(nameof(Status));
@@ -68,6 +67,8 @@ namespace DataLayer
             modelBuilder.Entity<NeuralNetworkType>().ToTable(nameof(NeuralNetworkType));
             modelBuilder.Entity<ImageAttachment>().ToTable(nameof(ImageAttachment));
             modelBuilder.Entity<ImageAttachmentType>().ToTable(nameof(ImageAttachmentType));
+            modelBuilder.Entity<Notification>().ToTable(nameof(Notification));
+            modelBuilder.Entity<NotificationType>().ToTable(nameof(NotificationType));
         }
     }
 }
