@@ -1,0 +1,28 @@
+﻿@model System.Collections.Generic.IEnumerable<Domain.SensorsReading.DTO.DateOutput>
+
+@{
+    ViewBag.Title = "Readings";
+    Layout = "_Layout";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Day</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var day in Model.ToList())
+    {
+        <tr>
+            <td>@day</td>
+            <td class="btn btn-success" onclick="location.href = '@Url.Action("DatePerDay", "Readings", new {day})'">
+                Show
+            </td>
+
+        </tr>
+    }
+    </tbody>
+</table>
