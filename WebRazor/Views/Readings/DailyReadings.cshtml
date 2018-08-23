@@ -5,9 +5,9 @@
     Layout = "_Layout";
 }
 
-<h2>Readings for @Model.Date</h2>
+<h2>Readings for @Model.Date.ToString("dd/MM/yyyy")</h2>
 
-<table class="table" *ngIf="requests">
+<table class="table">
     <thead>
     <tr>
         <th>Id</th>
