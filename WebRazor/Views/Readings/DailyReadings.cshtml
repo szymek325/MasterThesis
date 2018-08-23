@@ -1,11 +1,11 @@
-﻿@model IEnumerable<Domain.SensorsReading.DTO.Reading>
+﻿@model WebRazor.Models.Readings.DailyReadingsViewModel
 
 @{
-    ViewBag.Title = $"Readings for {Model.}";
+    ViewBag.Title = $"Readings for {Model.Date}";
     Layout = "_Layout";
 }
 
-<h2>Readings for </h2>
+<h2>Readings for @Model.Date</h2>
 
 <table class="table" *ngIf="requests">
     <thead>
@@ -17,7 +17,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var reading in Model.ToList())
+    @foreach (var reading in Model.Readings)
     {
         <tr>
             <td>@reading.Id</td>

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Domain.SensorsReading;
 using Domain.SensorsReading.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WebRazor.Models.Readings;
 
 namespace WebRazor.Controllers
 {
@@ -27,15 +26,16 @@ namespace WebRazor.Controllers
 
         public IActionResult AllDates()
         {
-            var dates=readingsProvider.GetDistinctDates();
-            return View(dates);
-
+            var dates = readingsProvider.GetDistinctDates();
+            var model = new AllDatesViewModel(dates);
+            return View(model);
         }
 
-        public IActionResult DatePerDay(string day)
+        public IActionResult DailyReadings(DateTime day)
         {
-            var readings=readingsProvider.GetReadingsFromDay(day);
-            return View(readings);
+            var readings = readingsProvider.GetReadingsFromDay(day);
+            var model = new DailyReadingsViewModel(day, readings);
+            return View(model);
         }
     }
 }

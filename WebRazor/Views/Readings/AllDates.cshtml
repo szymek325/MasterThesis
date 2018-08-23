@@ -1,4 +1,4 @@
-﻿@model System.Collections.Generic.IEnumerable<Domain.SensorsReading.DTO.DateOutput>
+﻿@model WebRazor.Models.Readings.AllDatesViewModel
 
 @{
     ViewBag.Title = "Readings";
@@ -14,11 +14,11 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var day in Model.ToList())
+    @foreach (var day in Model.Dates)
     {
         <tr>
-            <td>@day</td>
-            <td class="btn btn-success" onclick="location.href = '@Url.Action("DatePerDay", "Readings", new {day})'">
+            <td>@day.Date</td>
+            <td class="btn btn-success" onclick="location.href = '@Url.Action("DailyReadings", "Readings", new {day=day.Date})'">
                 Show
             </td>
 
