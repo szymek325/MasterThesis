@@ -20,14 +20,17 @@ namespace DataLayer.Extensions
             modelBuilder.Entity<DetectionType>().HasData(
                 new DetectionType
                 {
+                    Id=1,
                     Name = "dnn"
                 },
                 new DetectionType
                 {
+                    Id = 2,
                     Name = "haar"
                 },
                 new DetectionType
                 {
+                    Id = 3,
                     Name = "azure"
                 }
             );
@@ -38,18 +41,22 @@ namespace DataLayer.Extensions
             modelBuilder.Entity<NeuralNetworkType>().HasData(
                 new NeuralNetworkType
                 {
+                    Id = 1,
                     Name = "LBPH"
                 },
                 new NeuralNetworkType
                 {
+                    Id = 2,
                     Name = "Eigen"
                 },
                 new NeuralNetworkType
                 {
+                    Id = 3,
                     Name = "Fisher"
                 },
                 new NeuralNetworkType
                 {
+                    Id = 4,
                     Name = "AzureLargeGroup"
                 }
             );
@@ -60,18 +67,22 @@ namespace DataLayer.Extensions
             modelBuilder.Entity<Status>().HasData(
                 new Status
                 {
+                    Id = 1,
                     Name = "New"
                 },
                 new Status
                 {
+                    Id = 2,
                     Name = "In Progress"
                 },
                 new Status
                 {
+                    Id = 3,
                     Name = "Completed"
                 },
                 new Status
                 {
+                    Id = 4,
                     Name = "Error"
                 }
             );
@@ -79,25 +90,30 @@ namespace DataLayer.Extensions
 
         private static void InitializeAttachmentTypes(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Status>().HasData(
+            modelBuilder.Entity<ImageAttachmentType>().HasData(
                 new ImageAttachmentType
                 {
+                    Id = 1,
                     Name = "Detection"
                 },
                 new ImageAttachmentType
                 {
+                    Id = 2,
                     Name = "DetectionResult"
                 },
                 new ImageAttachmentType
                 {
+                    Id = 3,
                     Name = "Recognition"
                 },
                 new ImageAttachmentType
                 {
+                    Id = 4,
                     Name = "Person"
                 },
                 new ImageAttachmentType
                 {
+                    Id = 5,
                     Name = "Motion"
                 }
             );
@@ -105,13 +121,15 @@ namespace DataLayer.Extensions
 
         private static void InitializeNotificationTypes(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Status>().HasData(
+            modelBuilder.Entity<NotificationType>().HasData(
                 new NotificationType
                 {
+                    Id = 1,
                     Name = "Sensor Reading"
                 },
                 new NotificationType
                 {
+                    Id = 2,
                     Name = "Motion Detection"
                 }
             );
@@ -119,15 +137,17 @@ namespace DataLayer.Extensions
 
         private static void InitializeNotificationSettings(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Status>().HasData(
+            modelBuilder.Entity<NotificationSettings>().HasData(
                 new NotificationSettings
                 {
+                    Id = 1,
                     Name = "Temperature",
                     Min = 15,
                     Max = 30
                 },
                 new NotificationSettings
                 {
+                    Id = 2,
                     Name = "Humidity",
                     Min = 30,
                     Max = 60

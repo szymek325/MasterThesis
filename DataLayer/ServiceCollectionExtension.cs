@@ -1,11 +1,6 @@
-﻿using System;
-using System.Reflection;
-using DataLayer.Configuration;
-using DataLayer.Repositories.Implementation;
+﻿using DataLayer.Repositories.Implementation;
 using DataLayer.Repositories.Interface;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace DataLayer
 {
@@ -23,6 +18,7 @@ namespace DataLayer
             services.AddTransient<INeuralNetworkRepository, NeuralNetworkRepository>();
             services.AddTransient<INotificationRepository, NotificationRepository>();
             services.AddTransient<INotificationSettingsRepository, NotificationSettingsRepository>();
+            services.AddDbContext<MasterContext>();
             return services;
         }
     }

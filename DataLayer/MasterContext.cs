@@ -1,17 +1,22 @@
 ﻿using System.Linq;
+using System.Reflection;
+using DataLayer.Configuration;
 using DataLayer.Entities;
 using DataLayer.Entities.Common;
 using DataLayer.Entities.ManyToManyHelper;
 using DataLayer.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace DataLayer
 {
     public class MasterContext : DbContext
     {
-        public MasterContext(DbContextOptions<MasterContext> options)
-            : base(options)
+        private readonly IOptions<ConnectionStrings> connection;
+
+        public MasterContext(IOptions<ConnectionStrings> connection)
         {
+            this.connection = connection;
         }
 
         public DbSet<SensorsReading> SensorsReadings { get; set; }
@@ -31,6 +36,14 @@ namespace DataLayer
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<NotificationType> NotificationTypes { get; set; }
         public DbSet<NotificationSettings> NotificationSettings { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(
+                connection.Value.DefaultConnection,
+                optionsBuilder2 =>
+                    optionsBuilder2.MigrationsAssembly(typeof(MasterContext).GetTypeInfo().Assembly.GetName().Name));
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
