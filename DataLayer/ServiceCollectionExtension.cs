@@ -13,9 +13,6 @@ namespace DataLayer
     {
         public static IServiceCollection AddDataLayerModule(this IServiceCollection services)
         {
-            CreateContext(services);
-            SeedDb(services);
-
             services.AddTransient<IDetectionRepository, Repositories.Implementation.DetectionRepository>();
             services.AddTransient<IDetectionResultRepository, DetectionResultRepository>();
             services.AddTransient<IPersonRepository, PersonRepository>();
@@ -26,32 +23,7 @@ namespace DataLayer
             services.AddTransient<INeuralNetworkRepository, NeuralNetworkRepository>();
             services.AddTransient<INotificationRepository, NotificationRepository>();
             services.AddTransient<INotificationSettingsRepository, NotificationSettingsRepository>();
-
             return services;
-        }
-
-        private static void SeedDb(IServiceCollection services)
-        {
-            try
-            {
-                var serviceProvider = services.BuildServiceProvider();
-                var context = serviceProvider.GetService<MasterContext>();
-                DbInitializer.Seed(context);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        private static void CreateContext(IServiceCollection services)
-        {
-            var serviceProvider = services.BuildServiceProvider();
-            var connectionString = serviceProvider.GetService<IOptions<ConnectionStrings>>();
-            services.AddDbContext<MasterContext>(options => options.UseSqlServer(
-                connectionString.Value.DefaultConnection,
-                optionsBuilder =>
-                    optionsBuilder.MigrationsAssembly(typeof(MasterContext).GetTypeInfo().Assembly.GetName().Name)));
         }
     }
 }

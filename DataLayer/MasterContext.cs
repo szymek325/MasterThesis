@@ -2,6 +2,7 @@
 using DataLayer.Entities;
 using DataLayer.Entities.Common;
 using DataLayer.Entities.ManyToManyHelper;
+using DataLayer.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer
@@ -71,6 +72,8 @@ namespace DataLayer
             modelBuilder.Entity<Notification>().ToTable(nameof(Notification));
             modelBuilder.Entity<NotificationType>().ToTable(nameof(NotificationType));
             modelBuilder.Entity<NotificationSettings>().ToTable(nameof(Entities.NotificationSettings));
+
+            modelBuilder.Seed();
         }
     }
 }
