@@ -8,12 +8,10 @@ namespace DataLayer
         public static void Seed(MasterContext context)
         {
             InitializeStatuses(context);
-
             InitializeNeuralNetworkTypes(context);
-
             InitializeDetectionTypes(context);
-
             InitializeAttachmentTypes(context);
+            InitializeNotificationSettings(context);
 
             context.SaveChanges();
         }
@@ -112,6 +110,23 @@ namespace DataLayer
             context.NotificationTypes.Add(new NotificationType
             {
                 Name = "Motion Detection"
+            });
+        }
+
+        private static void InitializeNotificationSettings(MasterContext context)
+        {
+            if (context.NotificationSettings.Any()) return;
+            context.NotificationSettings.Add(new NotificationSettings
+            {
+                Name = "Temperature",
+                Min = 15,
+                Max = 30
+            });
+            context.NotificationSettings.Add(new NotificationSettings
+            {
+                Name = "Humidity",
+                Min = 30,
+                Max = 60
             });
         }
     }

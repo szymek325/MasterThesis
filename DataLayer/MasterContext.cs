@@ -29,6 +29,7 @@ namespace DataLayer
         public DbSet<ImageAttachmentType> ImageAttachmentTypes { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<NotificationType> NotificationTypes { get; set; }
+        public DbSet<NotificationSettings> NotificationSettings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -69,6 +70,7 @@ namespace DataLayer
             modelBuilder.Entity<ImageAttachmentType>().ToTable(nameof(ImageAttachmentType));
             modelBuilder.Entity<Notification>().ToTable(nameof(Notification));
             modelBuilder.Entity<NotificationType>().ToTable(nameof(NotificationType));
+            modelBuilder.Entity<NotificationSettings>().ToTable(nameof(Entities.NotificationSettings));
         }
     }
 }

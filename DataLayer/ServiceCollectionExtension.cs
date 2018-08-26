@@ -25,6 +25,7 @@ namespace DataLayer
             services.AddTransient<ISensorsReadingRepository, SensorsReadingRepository>();
             services.AddTransient<INeuralNetworkRepository, NeuralNetworkRepository>();
             services.AddTransient<INotificationRepository, NotificationRepository>();
+            services.AddTransient<INotificationSettingsRepository, NotificationSettingsRepository>();
 
             return services;
         }
