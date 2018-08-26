@@ -11,6 +11,7 @@ namespace DataLayer
             InitializeNeuralNetworkTypes(context);
             InitializeDetectionTypes(context);
             InitializeAttachmentTypes(context);
+            InitializeNotificationTypes(context);
             InitializeNotificationSettings(context);
 
             context.SaveChanges();
