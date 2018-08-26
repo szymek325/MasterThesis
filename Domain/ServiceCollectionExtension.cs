@@ -5,6 +5,7 @@ using Domain.FaceRecognition;
 using Domain.Files;
 using Domain.NeuralNetwork;
 using Domain.Notification;
+using Domain.NotificationSettings;
 using Domain.People;
 using Domain.SensorsReading;
 using Dropbox.Client;
@@ -28,6 +29,7 @@ namespace Domain
             services.AddTransient<IFaceRecognitionService, FaceRecognitionService>();
             services.AddTransient<IDetectionResultService, DetectionResultService>();
             services.AddTransient<INotificationService, NotificationService>();
+            services.AddTransient<INotificationSettingsService, NotificationSettingsService>();
 
             return services;
         }
