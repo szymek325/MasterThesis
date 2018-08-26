@@ -10,6 +10,9 @@ namespace Domain.Notification.Mapping
             CreateMap<DataLayer.Entities.Notification, NotificationOutput>()
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Message, opts => opts.MapFrom(src => src.Message))
+                .ForMember(dest => dest.CreationTime, opts => opts.MapFrom(src => src.CreationTime))
+                .ForMember(dest => dest.TypeName, opts => opts.MapFrom(src => src.NotificationType.Name))
+                .ForMember(dest => dest.Type, opts => opts.MapFrom(src => src.NotificationTypeId))
                 .ForMember(dest => dest.Thumbnail, opts =>
                     {
                         opts.Condition(src => src.Image != null);

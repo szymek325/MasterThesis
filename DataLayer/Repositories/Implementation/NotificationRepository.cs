@@ -16,7 +16,7 @@ namespace DataLayer.Repositories.Implementation
 
         public IEnumerable<Notification> GetAllWithIncluded()
         {
-            return GetAll().Include(x => x.Image);
+            return GetAll().Include(x => x.Image).Include(x=>x.NotificationType);
         }
 
         public IEnumerable<Notification> GetAllMotionNotifications()

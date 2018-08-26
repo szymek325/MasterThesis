@@ -18,16 +18,13 @@ namespace DataLayer
 
             services.AddTransient<IDetectionRepository, Repositories.Implementation.DetectionRepository>();
             services.AddTransient<IDetectionResultRepository, DetectionResultRepository>();
-
             services.AddTransient<IPersonRepository, PersonRepository>();
-
             services.AddTransient<IRecognitionRepository, RecognitionRepository>();
             services.AddTransient<IRecognitionResultRepository, RecognitionResultRepository>();
-
             services.AddTransient<IImageRepository, ImageRepository>();
-
             services.AddTransient<ISensorsReadingRepository, SensorsReadingRepository>();
             services.AddTransient<INeuralNetworkRepository, NeuralNetworkRepository>();
+            services.AddTransient<INotificationRepository, NotificationRepository>();
 
             return services;
         }
