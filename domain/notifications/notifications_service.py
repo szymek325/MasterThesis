@@ -30,7 +30,7 @@ class NotificationsService():
         reading = dict[parameter]
         if parameter_settings.min > reading:
             self.notificationRepository.add_sensor_notification(
-                notification_message.format(param=parameter, direction='low', min=parameter.min, max=parameter.max))
+                notification_message.format(param=parameter, direction='low', min=parameter_settings.min, max=parameter_settings.max))
         elif parameter_settings.max < reading:
             self.notificationRepository.add_sensor_notification(
-                notification_message.format(param=parameter, direction='high', min=parameter.min, max=parameter.max))
+                notification_message.format(param=parameter, direction='high', min=parameter_settings.min, max=parameter_settings.max))
