@@ -1,0 +1,34 @@
+﻿@model WebRazor.Models.Notification.NotificationsViewModel
+@{
+    ViewData["Title"] = "Notifications";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th class="col-md-2">Occurence time</th>
+        <th class="col-md-2">Type</th>
+        <th class="col-md-2">Message</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var day in Model.Notifications)
+    {
+        <tr>
+            <td class="col-md-2">@day.CreationTime </td>
+            <td class="col-md-2">@day.TypeName </td>
+            <td class="col-md-2">
+                <b>@day.Message</b>
+            </td>
+            @if (day.Type == 2)
+            {
+                <td>
+                    <img src="data:image/jpeg;base64,@day.Thumbnail"/>
+                </td>
+            }
+        </tr>
+    }
+    </tbody>
+</table>

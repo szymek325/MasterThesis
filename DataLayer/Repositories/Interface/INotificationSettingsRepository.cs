@@ -3,7 +3,7 @@ using DataLayer.Repositories.Base;
 
 namespace DataLayer.Repositories.Interface
 {
-    public interface IImageRepository : IGenericRepository<ImageAttachment>
+    public interface INotificationSettingsRepository : IGenericRepository<NotificationSettings>
     {
     }
 }

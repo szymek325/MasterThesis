@@ -14,6 +14,7 @@ namespace WebRazor
         {
             var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             var logger = LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
+            
             try
             {
                 logger.Debug("init main");

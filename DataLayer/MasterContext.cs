@@ -1,16 +1,22 @@
 ﻿using System.Linq;
+using System.Reflection;
+using DataLayer.Configuration;
 using DataLayer.Entities;
 using DataLayer.Entities.Common;
 using DataLayer.Entities.ManyToManyHelper;
+using DataLayer.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace DataLayer
 {
     public class MasterContext : DbContext
     {
-        public MasterContext(DbContextOptions<MasterContext> options)
-            : base(options)
+        private readonly IOptions<ConnectionStrings> connection;
+
+        public MasterContext(IOptions<ConnectionStrings> connection)
         {
+            this.connection = connection;
         }
 
         public DbSet<SensorsReading> SensorsReadings { get; set; }
@@ -27,12 +33,22 @@ namespace DataLayer
         public DbSet<NeuralNetworkPerson> NeuralNetworkPeople { get; set; }
         public DbSet<ImageAttachment> ImageAttachments { get; set; }
         public DbSet<ImageAttachmentType> ImageAttachmentTypes { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<NotificationType> NotificationTypes { get; set; }
+        public DbSet<NotificationSettings> NotificationSettings { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(
+                connection.Value.DefaultConnection,
+                optionsBuilder2 =>
+                    optionsBuilder2.MigrationsAssembly(typeof(MasterContext).GetTypeInfo().Assembly.GetName().Name));
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<NeuralNetworkPerson>()
-                .HasKey(bc => new { bc.PersonId, NeuralNetworkRequestId = bc.NeuralNetworkId });
+                .HasKey(bc => new {bc.PersonId, NeuralNetworkRequestId = bc.NeuralNetworkId});
 
             modelBuilder.Entity<NeuralNetworkPerson>()
                 .HasOne(bc => bc.NeuralNetwork)
@@ -45,7 +61,6 @@ namespace DataLayer
             //less important stuff
             foreach (var entityType in modelBuilder.Model.GetEntityTypes()
                 .Where(t => t.ClrType.IsSubclassOf(typeof(EntityBase))))
-            {
                 modelBuilder.Entity(
                     entityType.Name,
                     x =>
@@ -53,7 +68,6 @@ namespace DataLayer
                         x.Property("CreationTime")
                             .HasDefaultValueSql("getutcdate()");
                     });
-            }
 
             modelBuilder.Entity<SensorsReading>().ToTable(nameof(SensorsReading));
             modelBuilder.Entity<Status>().ToTable(nameof(Status));
@@ -68,6 +82,11 @@ namespace DataLayer
             modelBuilder.Entity<NeuralNetworkType>().ToTable(nameof(NeuralNetworkType));
             modelBuilder.Entity<ImageAttachment>().ToTable(nameof(ImageAttachment));
             modelBuilder.Entity<ImageAttachmentType>().ToTable(nameof(ImageAttachmentType));
+            modelBuilder.Entity<Notification>().ToTable(nameof(Notification));
+            modelBuilder.Entity<NotificationType>().ToTable(nameof(NotificationType));
+            modelBuilder.Entity<NotificationSettings>().ToTable(nameof(Entities.NotificationSettings));
+
+            modelBuilder.Seed();
         }
     }
 }
