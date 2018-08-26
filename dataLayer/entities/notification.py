@@ -10,8 +10,8 @@ class Notification(Base):
 
     id = Column('Id', Integer, primary_key=True)
     message = Column('Message', String)
-    image = relationship("ImageAttachment")
     notificationTypeId = Column('NotificationTypeId', Integer)
+    image = relationship('ImageAttachment')
 
     def __init__(self, message, notificaion_type_id, image):
         self.message = message
