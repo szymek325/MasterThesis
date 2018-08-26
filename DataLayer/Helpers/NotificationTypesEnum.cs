@@ -2,7 +2,7 @@
 
 namespace DataLayer.Helpers
 {
-    public enum NotificationTypes
+    public enum NotificationTypesEnum
     {
         [DisplayName("Sensor Reading")]
         SensorReading = 1,

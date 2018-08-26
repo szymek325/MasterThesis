@@ -21,12 +21,12 @@ namespace DataLayer.Repositories.Implementation
 
         public IEnumerable<Notification> GetAllMotionNotifications()
         {
-            return GetAll().Where(x => x.NotificationTypeId == (int) NotificationTypes.MotionDetection);
+            return GetAll().Where(x => x.NotificationTypeId == (int) NotificationTypesEnum.MotionDetection);
         }
 
         public IEnumerable<Notification> GetAllSensorNotifications()
         {
-            return GetAll().Where(x => x.NotificationTypeId == (int) NotificationTypes.SensorReading);
+            return GetAll().Where(x => x.NotificationTypeId == (int) NotificationTypesEnum.SensorReading);
         }
     }
 }
