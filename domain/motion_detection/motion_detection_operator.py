@@ -38,8 +38,9 @@ class MotionDetectionOperator:
     def __save_frame_if_room_is_occupied__(self, frame, movements):
         if self.stateOfRoom == "Occupied":
             self.motionCounter += 1
-            if (datetime.now() - self.lastUploaded).seconds >= 3:
+            if (datetime.now() - self.lastUploaded).seconds >= 15:
                 if self.motionCounter >= MIN_MOTION_FRAMES:
                     self.resultOperator.prepare_and_upload_result(frame, movements)
+                    self.lastUploaded=datetime.now()
         else:
             self.motionCounter = 0

@@ -4,6 +4,8 @@ from sqlalchemy.orm import relationship
 from dataLayer.database_connection import Base
 import numpy as np
 
+from dataLayer.entities.detection_rectangle import DetectionRectangle
+
 
 class DetectionResult(Base):
     __tablename__ = 'DetectionResult'
@@ -13,7 +15,7 @@ class DetectionResult(Base):
     detection = relationship("Detection")
     detection_type_id = Column("DetectionTypeId", Integer)
     image = relationship("ImageAttachment", uselist=False)
-    face_rectangles = relationship("DetectionRectangle")
+    face_rectangles = relationship(DetectionRectangle)
 
     def __init__(self, request_id, detection_type_id, image_attachment, face_coordinats):
         self.detection_id = request_id

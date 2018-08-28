@@ -26,15 +26,17 @@ class MotionResultOperator:
         self.notificationTypes = NotificationTypes()
         self.directoryManager = DirectoryManager()
         self.logger = LoggerFactory()
-        self.directoryManager.create_directory_if_doesnt_exist(self.pathsProvider.local_motion_image_path())
 
     def prepare_and_upload_result(self, frame, movements):
         self.logger.info("Motion detected")
-        file_name = os.path.join(self.pathsProvider.local_detection_image_path(), f"motion_{datetime.now().date()}.png")
+        file_name = f"motion_{datetime.now().date()}.png"
         new_id = self.add_notification_to_db(file_name)
-        self.__save_result_image_to_local_directory__(frame, movements, file_name)
-        result_file = open(file_name, "rb")
-        self.filesUploader.upload_detected_motion(new_id, result_file.read(), file_name)
+        file_path_to_create=os.path.join(self.pathsProvider.local_motion_image_path(), str(new_id))
+        file_path = os.path.join(file_path_to_create, file_name)
+        self.directoryManager.create_directory_if_doesnt_exist(file_path_to_create)
+        self.__save_result_image_to_local_directory__(frame, movements, file_path)
+        result_file = open(file_path, "rb")
+        self.filesUploader.upload_detected_motion(new_id, result_file.read(), file_path)
 
     def add_notification_to_db(self, file_name):
         image_attachment = ImageAttachment(file_name, self.attachmentTypes.motion_id)
