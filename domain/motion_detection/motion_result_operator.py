@@ -8,6 +8,7 @@ from dataLayer.entities.notification import Notification
 from dataLayer.repositories.notification_repository import NotificationRepository
 from dataLayer.type_providers.image_attachment_types import ImageAttachmentTypes
 from dataLayer.type_providers.notification_types import NotificationTypes
+from domain.directory_manager import DirectoryManager
 from dropbox_integration.files_uploader import FilesUploader
 from opencv_client.image_converters.image_editor import ImageEditor
 
@@ -23,13 +24,15 @@ class MotionResultOperator:
         self.filesUploader = FilesUploader()
         self.notificationsRepo = NotificationRepository()
         self.notificationTypes = NotificationTypes()
+        self.directoryManager = DirectoryManager()
         self.logger = LoggerFactory()
+        self.directoryManager.create_directory_if_doesnt_exist(self.pathsProvider.local_motion_image_path())
 
     def prepare_and_upload_result(self, frame, movements):
-        self.logger.info("ss")
-        file_name = os.path.join(self.pathsProvider.local_detection_image_path(), f"motion_{datetime.now()}.png")
+        self.logger.info("Motion detected")
+        file_name = os.path.join(self.pathsProvider.local_detection_image_path(), f"motion_{datetime.now().date()}.png")
         new_id = self.add_notification_to_db(file_name)
-        self.__save_result_image_to_local_directory__(frame, movements)
+        self.__save_result_image_to_local_directory__(frame, movements, file_name)
         result_file = open(file_name, "rb")
         self.filesUploader.upload_detected_motion(new_id, result_file.read(), file_name)
 
