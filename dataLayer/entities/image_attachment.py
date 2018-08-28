@@ -17,11 +17,6 @@ class ImageAttachment(Base):
     person_id = Column("PersonId", Integer, ForeignKey("Person.Id"), nullable=True)
     notification_id = Column("NotificationId", Integer, ForeignKey("Notification.Id"), nullable=True)
     image_attachment_type_id = Column("ImageAttachmentTypeId", Integer)
-    detection = relationship("Detection")
-    detection_result = relationship("DetectionResult")
-    recognition = relationship("Recognition")
-    person = relationship("Person")
-    notification = relationship("Notification")
 
     def __init__(self, name, parent_id, type_id):
         attachment_Types = ImageAttachmentTypes()

@@ -3,7 +3,6 @@ from sqlalchemy.orm import relationship
 
 from dataLayer.database_connection import Base
 from dataLayer.type_providers.notification_types import NotificationTypes
-from dataLayer.entities.image_attachment import ImageAttachment
 
 
 class Notification(Base):
@@ -12,10 +11,10 @@ class Notification(Base):
     id = Column('Id', Integer, primary_key=True)
     message = Column('Message', String)
     notificationTypeId = Column('NotificationTypeId', Integer)
-    image = relationship('Image', "ImageAttachment")
+    image = relationship("ImageAttachment", uselist=False)
 
     def __init__(self, message, notificaion_type_id, image):
         self.message = message
         self.notificationTypeId = notificaion_type_id
-        if notificaion_type_id == NotificationTypes.motion_detection:
+        if notificaion_type_id == NotificationTypes().motion_detection:
             self.image = image
