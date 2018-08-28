@@ -14,3 +14,12 @@ class NotificationRepository():
         session.add(notification)
         session.commit()
         session.close()
+
+    def add_movement_notification(self, notification_entity):
+        Base.metadata.create_all(engine)
+        session = Session()
+        session.add(notification_entity)
+        session.commit()
+        generated_id = notification_entity.id
+        session.close()
+        return generated_id

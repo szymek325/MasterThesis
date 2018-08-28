@@ -16,3 +16,7 @@ class FilesUploader():
     def upload_neural_network(self, request_id: int, file, file_name):
         dropbox_save_location = os.path.join(self.pathsProvider.dropbox_neural_network_path(), str(request_id), file_name).replace("\\","/")
         self.dropbox.upload_file(dropbox_save_location, file)
+
+    def upload_detected_motion(self, request_id: int, file, file_name):
+        dropbox_save_location = os.path.join(self.pathsProvider.dropbox_motion_image_path(), str(request_id), file_name).replace("\\", "/")
+        self.dropbox.upload_file(dropbox_save_location, file)

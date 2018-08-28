@@ -1,9 +1,11 @@
 import cv2
 from datetime import datetime
 from configuration_global.logger_factory import LoggerFactory
-from opencv_client.image_converters.image_editor import ImageEditor
+from domain.motion_detection.motion_result_operator import MotionResultOperator
 from opencv_client.movement_detection.movement_detector import MovementDetector
 from raspberry_modules.camera_operator import CameraOperator
+
+MIN_MOTION_FRAMES = 8
 
 
 class MotionDetectionOperator:
@@ -11,7 +13,7 @@ class MotionDetectionOperator:
         self.logger = LoggerFactory()
         self.cameraOperator = CameraOperator()
         self.movementDetector = MovementDetector()
-        self.imageEditor = ImageEditor()
+        self.resultOperator = MotionResultOperator()
         self.lastUploaded = datetime.now()
 
     def run_detection(self):
@@ -24,26 +26,20 @@ class MotionDetectionOperator:
             if len(movements) is not 0:
                 self.stateOfRoom = "Occupied"
 
-            if self.configReader.movement_timestamp:
-                self.imageEditor.mark_frame(frame, self.stateOfRoom)
-            if self.configReader.movement_marking:
-                self.imageEditor.draw_contour(movements, frame)
-
-            self.__save_frame_if_room_is_occupied__(frame)
+            self.__save_frame_if_room_is_occupied__(frame, movements)
 
             # if should bne here
             self.cameraOperator.show_video()
-
             key = cv2.waitKey(1) & 0xFF
             if key == ord("q"):
                 break
         self.cameraOperator.release_camera()
 
-    def __save_frame_if_room_is_occupied__(self, frame):
+    def __save_frame_if_room_is_occupied__(self, frame, movements):
         if self.stateOfRoom == "Occupied":
-            if (datetime.now() - self.lastUploaded).seconds >= 2.5:
-                self.motionCounter += 1
-                if self.motionCounter >= self.configReader.min_motion_frames:
-                    self.filesManager.save_motion(frame)
+            self.motionCounter += 1
+            if (datetime.now() - self.lastUploaded).seconds >= 30:
+                if self.motionCounter >= MIN_MOTION_FRAMES:
+                    self.resultOperator.prepare_and_upload_result(frame, movements)
         else:
             self.motionCounter = 0
