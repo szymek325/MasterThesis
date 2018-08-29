@@ -7,7 +7,7 @@ namespace DataLayer.Helpers
         [DisplayName("Sensor Reading")]
         SensorReading = 1,
 
-        [DisplayName("Motion Detection")]
-        MotionDetection = 2
+        [DisplayName("Movement Detection")]
+        Movement = 2
     }
 }

@@ -18,6 +18,7 @@ namespace DataLayer
             services.AddTransient<INeuralNetworkRepository, NeuralNetworkRepository>();
             services.AddTransient<INotificationRepository, NotificationRepository>();
             services.AddTransient<INotificationSettingsRepository, NotificationSettingsRepository>();
+            services.AddTransient<IMovementRepository, MovementRepository>();
             services.AddDbContext<MasterContext>();
             return services;
         }

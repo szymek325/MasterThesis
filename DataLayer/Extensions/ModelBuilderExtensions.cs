@@ -11,7 +11,6 @@ namespace DataLayer.Extensions
             InitializeNeuralNetworkTypes(modelBuilder);
             InitializeDetectionTypes(modelBuilder);
             InitializeAttachmentTypes(modelBuilder);
-            InitializeNotificationTypes(modelBuilder);
             InitializeNotificationSettings(modelBuilder);
         }
 
@@ -114,23 +113,7 @@ namespace DataLayer.Extensions
                 new ImageAttachmentType
                 {
                     Id = 5,
-                    Name = "Motion"
-                }
-            );
-        }
-
-        private static void InitializeNotificationTypes(this ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<NotificationType>().HasData(
-                new NotificationType
-                {
-                    Id = 1,
-                    Name = "Sensor Reading"
-                },
-                new NotificationType
-                {
-                    Id = 2,
-                    Name = "Motion Detection"
+                    Name = "Movement"
                 }
             );
         }
