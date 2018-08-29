@@ -34,7 +34,7 @@ namespace DataLayer
         public DbSet<ImageAttachment> ImageAttachments { get; set; }
         public DbSet<ImageAttachmentType> ImageAttachmentTypes { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-        public DbSet<NotificationType> NotificationTypes { get; set; }
+        public DbSet<Movement> Movements { get; set; }
         public DbSet<NotificationSettings> NotificationSettings { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -83,7 +83,7 @@ namespace DataLayer
             modelBuilder.Entity<ImageAttachment>().ToTable(nameof(ImageAttachment));
             modelBuilder.Entity<ImageAttachmentType>().ToTable(nameof(ImageAttachmentType));
             modelBuilder.Entity<Notification>().ToTable(nameof(Notification));
-            modelBuilder.Entity<NotificationType>().ToTable(nameof(NotificationType));
+            modelBuilder.Entity<Movement>().ToTable(nameof(Movement));
             modelBuilder.Entity<NotificationSettings>().ToTable(nameof(Entities.NotificationSettings));
 
             modelBuilder.Seed();

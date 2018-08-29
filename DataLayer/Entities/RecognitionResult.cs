@@ -1,4 +1,5 @@
-﻿using DataLayer.Entities.Common;
+﻿using System;
+using DataLayer.Entities.Common;
 
 namespace DataLayer.Entities
 {
@@ -11,5 +12,6 @@ namespace DataLayer.Entities
         public int RecognitionId { get; set; }
         public Recognition Recognition { get; set; }
         public string Comments { get; set; }
+        public DateTime? ProcessingTime { get; set; }
     }
 }

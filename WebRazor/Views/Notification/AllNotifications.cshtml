@@ -7,11 +7,12 @@
 
 <table class="table">
     <thead>
-    <tr>
-        <th class="col-md-2">Occurence time</th>
-        <th class="col-md-2">Type</th>
-        <th class="col-md-2">Message</th>
-    </tr>
+        <tr>
+            <th class="col-md-2">Occurence time</th>
+            <th class="col-md-2">Type</th>
+            <th class="col-md-2">Message</th>
+            <th class="col-md-2"></th>
+        </tr>
     </thead>
     <tbody>
     @foreach (var day in Model.Notifications)
@@ -22,12 +23,12 @@
             <td class="col-md-2">
                 <b>@day.Message</b>
             </td>
-            @if (day.Type == 2)
-            {
-                <td>
-                    <img src="data:image/jpeg;base64,@day.Thumbnail"/>
-                </td>
-            }
+            <td>
+                @if (day.Type == 2)
+                {
+                        <img src="data:image/jpeg;base64,@day.Thumbnail"/>
+                }
+            </td>
         </tr>
     }
     </tbody>
