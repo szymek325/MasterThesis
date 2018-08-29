@@ -26,17 +26,21 @@ class MovementResultOperator:
         self.logger = LoggerFactory()
 
     def prepare_and_upload_result(self, frame, movements):
-        self.logger.info("Motion detected")
+        self.logger.info("Movement detected")
         file_name = f"motion_{datetime.now().date()}.png"
-        new_id = self.add_notification_to_db(file_name)
+        new_id = self.__add_movement_to_db__(file_name)
         file_path_to_create = os.path.join(self.pathsProvider.local_motion_image_path(), str(new_id))
         file_path = os.path.join(file_path_to_create, file_name)
         self.directoryManager.create_directory_if_doesnt_exist(file_path_to_create)
         self.__save_result_image_to_local_directory__(frame, movements, file_path)
+        self.__upload_movement_photo__(file_name, file_path, new_id)
+
+    def __upload_movement_photo__(self, file_name, file_path, new_id):
+        self.logger.info(f"Uploading file :{file_path}")
         result_file = open(file_path, "rb")
         self.filesUploader.upload_detected_motion(new_id, result_file.read(), file_name)
 
-    def add_notification_to_db(self, file_name):
+    def __add_movement_to_db__(self, file_name):
         image_attachment = ImageAttachment(file_name, self.attachmentTypes.movement_id)
         notification_entity = Movement("Movement detected", image_attachment)
         motion_id = self.movementRepo.add_movement(notification_entity)
