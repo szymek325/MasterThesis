@@ -15,7 +15,6 @@ class DetectionRectangle(Base):
     endY = Column('EndY', Integer)
     area = Column('Area', Integer)
     detection_id = Column("DetectionResultId", Integer, ForeignKey("DetectionResult.Id"), nullable=True)
-    detection_result = relationship("DetectionResult")
 
     def __init__(self, coordinates):
         self.__convert_to_int_if_required__(coordinates)
