@@ -52,13 +52,13 @@ namespace Domain.Notification
             }
         }
 
-        private async Task GetLinksToFiles(List<Movement> movements)
+        private async Task GetLinksToFiles(IEnumerable<Movement> movements)
         {
             try
             {
                 foreach (var movement in movements)
                 {
-                    if (movement != null)
+                    if (movement == null)
                         continue;
                     if (string.IsNullOrWhiteSpace(movement.Image?.Thumbnail))
                         await filesService.GetThumbnail(movement.Image);

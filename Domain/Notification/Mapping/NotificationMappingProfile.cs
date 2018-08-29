@@ -21,7 +21,7 @@ namespace Domain.Notification.Mapping
                 .ForMember(dest => dest.Message, opts => opts.MapFrom(src => src.Message))
                 .ForMember(dest => dest.CreationTime, opts => opts.MapFrom(src => src.CreationTime))
                 .ForMember(dest => dest.TypeName, opts => opts.MapFrom(src => NotificationTypesEnum.Movement))
-                .ForMember(dest => dest.Type, opts => opts.MapFrom(src => (int)NotificationTypesEnum.SensorReading))
+                .ForMember(dest => dest.Type, opts => opts.MapFrom(src => (int)NotificationTypesEnum.Movement))
                 .ForMember(dest => dest.Thumbnail, opts =>
                     {
                         opts.Condition(src => src.Image != null);
