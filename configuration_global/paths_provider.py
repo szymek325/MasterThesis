@@ -24,7 +24,7 @@ class PathsProvider():
         return os.path.join(self.environmentProvider.get_environment(), self.imageAttachmentTypes.recognition)
 
     def dropbox_motion_image_path(self):
-        return os.path.join(self.environmentProvider.get_environment(), self.imageAttachmentTypes.motion)
+        return os.path.join(self.environmentProvider.get_environment(), self.imageAttachmentTypes.movement)
 
     def dropbox_neural_network_path(self):
         return os.path.join(self.environmentProvider.get_environment(), "NeuralNetworks")

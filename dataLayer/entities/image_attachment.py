@@ -4,6 +4,7 @@ from sqlalchemy.orm import relationship
 from dataLayer.database_connection import Base
 from dataLayer.entities.detection import Detection
 from dataLayer.entities.detection_result import DetectionResult
+from dataLayer.entities.movement import Movement
 from dataLayer.entities.notification import Notification
 from dataLayer.entities.person import Person
 from dataLayer.entities.recognition import Recognition
@@ -20,7 +21,7 @@ class ImageAttachment(Base):
     detection_result_id = Column("DetectionResultId", Integer, ForeignKey(DetectionResult.id), nullable=True)
     recognition_id = Column("RecognitionId", Integer, ForeignKey(Recognition.id), nullable=True)
     person_id = Column("PersonId", Integer, ForeignKey(Person.id), nullable=True)
-    notification_id = Column("NotificationId", Integer, ForeignKey(Notification.id), nullable=True)
+    notification_id = Column("MovementId", Integer, ForeignKey(Movement.id), nullable=True)
     image_attachment_type_id = Column("ImageAttachmentTypeId", Integer)
 
     def __init__(self, name, parent_id, type_id):
@@ -35,7 +36,7 @@ class ImageAttachment(Base):
             self.recognition_id = parent_id
         elif type_id is attachment_Types.person_id:
             self.person_id = parent_id
-        elif type_id is attachment_Types.motion_id:
+        elif type_id is attachment_Types.movement_id:
             self.notification_id = parent_id
 
     def __init__(self, name, type_id):

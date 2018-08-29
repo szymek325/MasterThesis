@@ -4,10 +4,9 @@ import os
 from configuration_global.logger_factory import LoggerFactory
 from configuration_global.paths_provider import PathsProvider
 from dataLayer.entities.image_attachment import ImageAttachment
-from dataLayer.entities.notification import Notification
-from dataLayer.repositories.notification_repository import NotificationRepository
+from dataLayer.entities.movement import Movement
+from dataLayer.repositories.movement_repository import MovementRepository
 from dataLayer.type_providers.image_attachment_types import ImageAttachmentTypes
-from dataLayer.type_providers.notification_types import NotificationTypes
 from domain.directory_manager import DirectoryManager
 from dropbox_integration.files_uploader import FilesUploader
 from opencv_client.image_converters.image_editor import ImageEditor
@@ -16,14 +15,13 @@ MOVEMENT_TIMESTAMP = False
 MOVEMENT_MARKING = False
 
 
-class MotionResultOperator:
+class MovementResultOperator:
     def __init__(self):
         self.imageEditor = ImageEditor()
         self.pathsProvider = PathsProvider()
         self.attachmentTypes = ImageAttachmentTypes()
         self.filesUploader = FilesUploader()
-        self.notificationsRepo = NotificationRepository()
-        self.notificationTypes = NotificationTypes()
+        self.movementRepo = MovementRepository()
         self.directoryManager = DirectoryManager()
         self.logger = LoggerFactory()
 
@@ -39,10 +37,9 @@ class MotionResultOperator:
         self.filesUploader.upload_detected_motion(new_id, result_file.read(), file_name)
 
     def add_notification_to_db(self, file_name):
-        image_attachment = ImageAttachment(file_name, self.attachmentTypes.motion_id)
-        notification_entity = Notification("Movement detected", self.notificationTypes.motion_detection,
-                                           image_attachment)
-        motion_id = self.notificationsRepo.add_movement_notification(notification_entity)
+        image_attachment = ImageAttachment(file_name, self.attachmentTypes.movement_id)
+        notification_entity = Movement("Movement detected", image_attachment)
+        motion_id = self.movementRepo.add_movement(notification_entity)
         return motion_id
 
     def __save_result_image_to_local_directory__(self, frame_to_upload, detected_movemenets, file_name):

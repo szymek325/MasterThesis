@@ -17,8 +17,8 @@ class ImageAttachmentTypes:
         return "Person"
 
     @property
-    def motion(self):
-        return "Motion"
+    def movement(self):
+        return "Movement"
 
     @property
     def detection_id(self):
@@ -37,7 +37,7 @@ class ImageAttachmentTypes:
         return 4
 
     @property
-    def motion_id(self):
+    def movement_id(self):
         return 5
 
     def get_path_for_id(self, attachment_type_id: int):
@@ -49,8 +49,8 @@ class ImageAttachmentTypes:
             return self.recognition
         elif attachment_type_id is self.person_id:
             return self.person
-        elif attachment_type_id is self.motion_id:
-            return self.motion
+        elif attachment_type_id is self.movement_id:
+            return self.movement
         else:
             raise Exception(f"Wrong attachment_type_id. Cant find a match for : {attachment_type_id}")
 

@@ -1,19 +1,19 @@
 import cv2
 from datetime import datetime
 from configuration_global.logger_factory import LoggerFactory
-from domain.motion_detection.motion_result_operator import MotionResultOperator
+from domain.movement_detection.movement_result_operator import MovementResultOperator
 from opencv_client.movement_detection.movement_detector import MovementDetector
 from raspberry_modules.camera_operator import CameraOperator
 
 MIN_MOTION_FRAMES = 8
 
 
-class MotionDetectionOperator:
+class MovementDetectionOperator:
     def __init__(self):
         self.logger = LoggerFactory()
         self.cameraOperator = CameraOperator()
         self.movementDetector = MovementDetector()
-        self.resultOperator = MotionResultOperator()
+        self.resultOperator = MovementResultOperator()
         self.lastUploaded = datetime.now()
 
     def run_detection(self):
