@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DataLayer.Entities.Common;
 
 namespace DataLayer.Entities
@@ -11,5 +12,6 @@ namespace DataLayer.Entities
         public virtual DetectionType DetectionType { get; set; }
         public virtual ImageAttachment Image { get; set; }
         public IEnumerable<DetectionRectangle> FaceRectangles { get; set; }
+        public DateTime? ProcessingTime { get; set; }
     }
 }
