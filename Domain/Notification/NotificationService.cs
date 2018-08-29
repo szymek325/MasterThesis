@@ -33,8 +33,8 @@ namespace Domain.Notification
             try
             {
                 foreach (var notify in notifications)
-                    if (string.IsNullOrWhiteSpace(notify.Image.Thumbnail)
-                        && notify.NotificationTypeId == (int) NotificationTypesEnum.MotionDetection)
+                    if (notify.NotificationTypeId == (int) NotificationTypesEnum.MotionDetection &&
+                        string.IsNullOrWhiteSpace(notify?.Image?.Thumbnail))
                         await filesService.GetThumbnail(notify.Image);
             }
             catch (Exception ex)
