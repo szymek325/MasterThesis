@@ -19,10 +19,21 @@ Na usługi pomocnicze wykorzystane w projekcie składają się
 \item Azure Cognitive Services- Web Api usługi przetwarzającej obrazy opisanej w rozdziale \ref{cognitive_services}.
 \end{itemize}
 
-\section{Konfiguracje uruchomieniowe \textcolor{red}{TODO}}
-W celu zmaksymalizowania wydajności każdego z modułów, podjęto decyzję o uruchomieniu każdego z nich w odrębnym środowisku. System został uruchomiony w dwóch konfiguracjach. Niezależnie dla konfiguracji niezmienny pozostał moduł aplikacji konsolowej zarządzającej "domem", który ze względu na wymaganie fizycznego dostępu do urządzeń podłączonych do Raspberry Pi, zawsze był uruchamiany w tym środowisku.
-Pierwsza z konfiguracji została oparta o środowisku chmurowe Azure, a druga AWS.
-\subsection{Konfiguracja 1- Azure}
+\section{Konfiguracje uruchomieniowe}
+W celu zmaksymalizowania wydajności modułów, podjęto decyzję o uruchomieniu każdego z nich w odrębnym środowisku. System został uruchomiony w dwóch konfiguracjach. Niezależnie dla konfiguracji niezmienny pozostał moduł aplikacji konsolowej zarządzającej "domem", który ze względu na wymaganie fizycznego dostępu do urządzeń podłączonych do Raspberry Pi zawsze był uruchamiany w tym środowisku.
+Pierwsza z konfiguracji została oparta o środowisku chmurowe Azure, a druga AWS. Jakie usługi wybrano dla poszczególnych modułów można zaobserwować na rysunku \ref{fig:schemat_azure} i \ref{fig:schemat_aws}.
 
-\subsection{Konfiguracja 2- AWS}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{budowa_azure.png}
+	\caption{Podział systemu na usługi Azure}
+	\label{fig:schemat_azure}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{budowa_aws.png}
+	\caption{Podział systemu na usługi AWS}
+	\label{fig:schemat_aws}
+\end{figure}
 
