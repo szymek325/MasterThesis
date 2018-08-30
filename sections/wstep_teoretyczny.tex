@@ -81,7 +81,7 @@ Raspberry Pi Camera HD jest dedykowaną kamerą przeznaczoną tylko i wyłączni
 	\label{fig:picamera}
 \end{figure}
 
-\section{Open Cv}
+\section{Open Cv  \textcolor{red}{FINISH IT}}
 OpenCv (Open Source Computer Vision Library) jest open sourcową biblioteką napisaną w języku C. Udostępniono liczne interfejsy biblioteki pozwalające na pracę z nią miedzy innymi w języku C++ i Python. Biblioteka wspiera systemy operacyjne Linux oraz Windows. Biblioteka została ukierunkowana na przetwarzanie obrazu w czasie rzeczywistym. W licznie udostępnionych funkcjach można znaleźć moduły pozwalające na detekcję i rozpoznawanie twarzy na obrazie, które zostały szerzej opisane w kolejnym punkcie.
 
 \subsection{Detekcja twarzy}
@@ -126,10 +126,16 @@ The PCA method finds the directions with the greatest variance in the data, call
 \subsubsection{Fisherfaces} \label{fisher}
 \subsubsection{Local Binary Patterns Histograms} \label{lbph}
 
-\section{Azure \textcolor{red}{TODO}} \label{azure}
-\subsection{App Services}
-\subsection{Bazy danych SQL}
-\subsection{Maszyny wirtualne}
+\section{Azure} \label{azure}
+Azure jest platformą chmurową firmy Microsoft stworzoną w modelu Paas (Platform as a Service). Platforma zbudowana jest z grupy trzech technologii zapewniających specjalizowany zestaw możliwości dla programistów, które mogą być wykorzystywane zarówno przez aplikacje uruchamiane lokalnie na komputerach użytkowników oraz aplikacje uruchamiane w chmurze. W tej pracy wykorzystano:
+\begin{itemize}
+    \item App Services,
+    \item Azure Cognitive Services,
+    \item Bazy danych SQL,
+    \item Maszyny wirtualne.
+\end{itemize}
+\subsection{Web App Services}
+Web App Services jest usługą pozwalającą na hostowanie aplikacji internetowych napisanych w jednym z wybranych języków (między innymi .Net, Node.Js, Python) bez zarządzania infrastrukturą. Do największych zalet należy automatyczna skalowalność serwisu oraz wysoka dostępność. Podczas tworzenia środowiska istnieje możliwość wyboru preferowanego systemu operacyjnego. Dużą zaletą jest możliwość wdrożenia aplikacji za pomocą jednego kliknięcia bezpośrednio z Visual Studio. Sprawne korzystanie z usługi jest możliwe dzięki szerokiemu zakresowi dokumentacji i tutoriali udostepnionych przez producenta.
 \subsection{Azure Cognitive Services}
 Cognitive Services jest częścią platformy Azure stworzonej przez Microsoft. Usługa jest standardowo płatna, ale w przypadku użytku na potrzeby studenckie przyznawany jest darmowy dostęp na ograniczony czas. Cognitive Services zajmuje się rozwiązywaniem problemów biznesowych dzięki sztucznej inteligencji. Do dostępnych modułów między innymi należą:
 \begin{itemize}
@@ -139,9 +145,15 @@ Cognitive Services jest częścią platformy Azure stworzonej przez Microsoft. U
 \end{itemize}
 Na cele tego projektu wykorzystano moduł dotyczący przetwarzania obrazu, a dokładniej wykrywanie i rozpoznawanie twarzy w nim dostępne. Producent zadbał o prostą możliwość integracji z większością popularnych języków programistycznych poprzez udostępnienie paczek deweloperskich. W przypadku braku SDK dla wybranego języka istnieje możliwość skorzystania z udostępnionego REST Api. Na stronie producenta można znaleźć obszerną dokumentację oraz tutoriale.
 
-\section{AWS \textcolor{red}{TODO}} \label{aws}
+\section{AWS} \label{aws}
+Amazon Web Services jest platformą chmurową firmy Amazon stworzoną w modelu Paas (Platform as a Service). Jest to bardzo podobne rozwiązanie do bliźniaczego Azure. Platforma udostępnia obliczenia chmurowe na żądanie. Szeroki zakres usług dostępny jest w darmowej wersji demo, jedynym wymaganiem jest założenie konta w serwisie. Po wykorzystaniu darmowego okresu, opłaty naliczane są według zużycia danej usługi. Do podstawowych usług, które mogłyby zostać wykorzystane dla celów tej pracy należą:
+\begin{itemize}
+    \item Elastic Beanstalk,
+    \item Rekognition,
+    \item Bazy danych (RDS),
+    \item Maszyny wirtualne (EC2).
+\end{itemize}
 \subsection{Elastic Beanstalk}
-\subsection{EC2}
-\subsection{RDS}
+Elastic Beanstalk jest odpowiednikiem Azure Web App Services. Zakres dostępnych języków jest równie szeroki jak w przypadku Azure'a, ale w odróżnieniu od Microsoftu nie zawsze wspiera on najnowszych wersji produktów wymienionej firmy, a zakres możliwości konfiguracyjnych z poziomu strony internetowej jest uboższy. Podobnie jak w przypadku Azure istnieje możliwość wdrożenia aplikacji jednym kliknięciem po doinstalowaniu dedykowanego pluginu do Visual Studio.
 \subsection{Rekognition}
-
+Usługa Rekognition jest odpowiednikiem Azure Cognitive Services ograniczonym do rozwiązań związanych z przetwarzaniem obrazu i video. Do wielu dostępnych funkcji należy analiza obrazu, detekcja twarzy i tekstu, porównywanie oraz rozpoznawanie twarzy. Dla wybranych języków programistycznych udostępniono SDK oraz obszerną dokumentację z licznymi przykładami kodu.
