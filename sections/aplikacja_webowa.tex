@@ -117,6 +117,7 @@ Po zakończonym procesie identyfikacji opisanym w kolejnym podrozdziale, użytko
 \end{figure}
 
 \section{Readings \textcolor{red}{TODO}}
+Zakładka Readings powstała w celu czytelnej prezentacji odczytów zebranych z sensorów w dniach funkcjonowania systemu. Ze względu na znaczną ilość zebranych wartości w ciągu jednego dnia, po wejściu do zakładki ukazuje się strona pozwalająca na wybór dnia, którym jest zainteresowany użytkownik. Po wybraniu dnia, na rysunku \ref{fig:daily_readings} można zaobserwować wszystkie odczyty z tegoż dnia. Do dostępnych informacji należą temperatura, wilgotność powietrza oraz czas wykonania pomiaru.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{all_days.png}
@@ -131,9 +132,15 @@ Po zakończonym procesie identyfikacji opisanym w kolejnym podrozdziale, użytko
 \end{figure}
 
 \section{Notifications \textcolor{red}{TODO}}
+Ostatnią ze stworzonych zakładek są Powiadomienia. WIdok służy do wyświetlania wszystkich powiadomień utworzonych przez system, na które składają się:
+\begin{itemize}
+\item powiadomienia sensorów,
+\item wykrycia ruchu.
+\end{itemize}
+ Typy oraz sposób ich generowania został szerzej opisany w rozdziale \ref{aplikacja_zarzadzanie}. W powiadomieniach dotyczących wykonanych pomiarów jedyną istotną informacją jaką można zaobserwować jest czas oraz treść powiadomienia. W przypadku wykrycia ruchu, do powiadomienia zostaje załączone zdjęcie. Przykład opisanej sytuacji można zobaczyć na rysunku rysunku \ref{fig:notifications}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{notifications.png}
 	\caption{Widok wyświetlający wszystkie odczyty z wybranego dnia}
-	\label{fig:daily_readings}
+	\label{fig:notifications}
 \end{figure}
