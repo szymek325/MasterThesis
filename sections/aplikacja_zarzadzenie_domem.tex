@@ -1,5 +1,11 @@
-\section{Technologie}
-
+Aplikacja konsolowa do zarządzania domem służy jako aplikacja odpowiedzialna za wszystkie działania związane z Raspberry Pi oraz jego peryferiami. Na te zadania składają się 2 czynności:
+\begin{itemize}
+\item odczyt wartości sensorów,
+\item detekcja ruchu.
+\end{itemize}
+Obie czynności wykonywane są niezależnie od siebie. Funkcja wykrywania ruchu działa bez przerwy, w przypadku problemu zostanie ponownie uruchomiona po około minucie za pomocą zadania wpisanego do Crontab'a. Odczyt parametrów wskazywanych przez czujniki odbywa się cyklicznie co 1 minutę.
 \section{Odczyt wartości sensorów}
 
 \section{Detekcja ruchu}
+
+\subsection{Proces wykrywania ruchu}

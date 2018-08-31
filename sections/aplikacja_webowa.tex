@@ -116,8 +116,8 @@ Po zakończonym procesie identyfikacji opisanym w kolejnym podrozdziale, użytko
 	\label{fig:recognition}
 \end{figure}
 
-\section{Readings \textcolor{red}{TODO}}
-Zakładka Readings powstała w celu czytelnej prezentacji odczytów zebranych z sensorów w dniach funkcjonowania systemu. Ze względu na znaczną ilość zebranych wartości w ciągu jednego dnia, po wejściu do zakładki ukazuje się strona pozwalająca na wybór dnia, którym jest zainteresowany użytkownik. Po wybraniu dnia, na rysunku \ref{fig:daily_readings} można zaobserwować wszystkie odczyty z tegoż dnia. Do dostępnych informacji należą temperatura, wilgotność powietrza oraz czas wykonania pomiaru.
+\section{Readings}
+Zakładka Readings powstała w celu czytelnej prezentacji odczytów zebranych z sensorów w dniach funkcjonowania systemu. Odczyty zbierane są co minutę co generuje znaczną ilość wpisów do wyświetlenia. Z tego powodu po wejściu na stronę należy wybrać dzień, którym zainteresowany jest użytkownik. Przykładową listę zaprezentowano na rysunku \ref{fig:all_days}. Po wybraniu dnia ukazuje się widok, na którym przedstawiono wszystkie odczyty zebrane w wybranym okresie czasu.Do dostępnych informacji należą temperatura, wilgotność powietrza oraz czas wykonania pomiaru.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{all_days.png}
@@ -131,13 +131,13 @@ Zakładka Readings powstała w celu czytelnej prezentacji odczytów zebranych z 
 	\label{fig:daily_readings}
 \end{figure}
 
-\section{Notifications \textcolor{red}{TODO}}
+\section{Notifications}
 Ostatnią ze stworzonych zakładek są Powiadomienia. WIdok służy do wyświetlania wszystkich powiadomień utworzonych przez system, na które składają się:
 \begin{itemize}
 \item powiadomienia sensorów,
 \item wykrycia ruchu.
 \end{itemize}
- Typy oraz sposób ich generowania został szerzej opisany w rozdziale \ref{aplikacja_zarzadzanie}. W powiadomieniach dotyczących wykonanych pomiarów jedyną istotną informacją jaką można zaobserwować jest czas oraz treść powiadomienia. W przypadku wykrycia ruchu, do powiadomienia zostaje załączone zdjęcie. Przykład opisanej sytuacji można zobaczyć na rysunku rysunku \ref{fig:notifications}.
+ Typy oraz sposób ich generowania został szerzej opisany w rozdziale \ref{aplikacja_zarzadzanie}. Każde wyświetlane powiadomienie posiada wiadomość,typ oraz czas utworzenia. W przypadku wykrycia ruchu dodatkowo wyświetlone zostaje zdjęcie uchwyconego wydarzenia. Kilka przykładowych powiadomień można zaobserwować na rysunku \ref{fig:notifications}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{notifications.png}
