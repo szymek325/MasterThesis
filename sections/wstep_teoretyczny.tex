@@ -17,7 +17,27 @@ Strona internetowa powstała na bazie bardzo popularnego wśród programistów w
 Single Page Application (SPA) to aplikacja lub strona internetowa, która w całości wczytuje się za jednym razem. Cały potrzebny do działania strony kod (HTML, CSS, JavaScript) przesyłany jest na początku lub dodawany dynamicznie w kawałkach, zwykle w odpowiedzi na interakcje generowane przez użytkownika.
 Sposób działania takiej aplikacji jest zbliżony do odczuć towarzyszących korzystaniu z aplikacji desktopowej lub mobilnej.
 
-\section{Raspberry Pi}
+\subsection{Chmura obliczeniowa}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{cloud_computing.png}
+	\caption{Obliczenia chmurowe}
+	\label{fig:schemat_mvc}
+\end{figure}
+Chmura obliczeniowa jest określeniem oznaczającym model przetwarzania danych oparty na użytkowaniu usług dostarczonych przez usługodawcę. Użytkownik nie musi opłacać licencji, a płaci jedynie za użytkowanie danej usługi. W przypadku takich usług najpopularniejszym sposobem naliczania kosztów jest opłata od czasu użytkowania usługi.
+DO najpopularniejszych udostepnianych usług należą:
+\begin{itemize}
+\item bazy danych,
+\item maszyny wirtualne,
+\item serwery,
+\item hosting dla aplikacji webowych.
+\end{itemize}
+Przedstawicielami usługodawców udostępniających szeroki zakres usług, które zostały wykorzystane podczas tworzenia tej pracy magisterskiej jest Azure od Microsoft oraz AWS stworzony przez Amazon. Usługi obu podmiotów, które mogą być przydatne podczas tworzenia rozwiązania zostały szerzej opisane w podpunkcie \ref{azure} i \ref{aws}.
+\subsection{1-Wire} \label{1wire}
+One Wire to systemowa magistrala komunikacji elektronicznej pomiędzy urządzeniami, zapewniająca przesyłanie danych oraz zasilanie urządzenia przez pojedynczy kabel. Proces ten jest możliwy dzięki stopniowemu ładowaniu kondensatora znajdującego się w odbiorniku, a następnie wykorzystanie zgromadzonej energii do zasilenia urządzenia. Do magistrali może zostać podłączonych wiele urządzeń. Każdemu z nich przydzielany jest indywidualny adres 64-bitowy. Komunikację z urządzeniami inicjuje master, w tym przypadku Raspberry Pi.
+Przedstawiony protokół jest bardzo podobny do I2C, ale ze względu na wykorzystanie jedynie jednej linii danych, charakteryzuje się niższą prędkością przesyłania. Układ zazwyczaj zasilany jest napięciem o wartości 5V i służy do komunikacji pomiędzy niewielkimi urządzeniami, takimi jak np. termometr cyfrowy i mikrokontroler.
+
+\section{Raspberry Pi} \label{raspi}
 Raspberry Pi jest platformą komputerową stworzoną przez Raspberry Pi Foundation, na którą składa się pojedynczy obwód drukowany. Pierwsza wersja tego urządzenia została zaprezentowana w 2012 roku. Na potrzeby tej pracy wykorzystano nowszą wersję urządzanie w wersji 3 B, którą została wyposażona w 4 rdzeniowy procesor i 1 GB pamięci RAM. Raspberry pozwala na podłączenie wielu urządzeń peryferyjnych za pomocą 4 portów USB lub 40 pinów GPIO. Dodatkowe złącze pozwala na podłączenie dedykowanej kamery. Dzięki znacznej ilości portów GPIO istnieje możliwość komunikacji cyfrowej z sensorami. Budowa urządzenia nie pozwala na podłączenie czujników analogowych.
 \begin{figure}[H]
 	\centering
@@ -26,8 +46,86 @@ Raspberry Pi jest platformą komputerową stworzoną przez Raspberry Pi Foundati
 	\label{fig:raspberrypi}
 \end{figure}
 
-\section{Open Cv}
+\subsection{Czujnik DHT 11}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.2]{dht11.jpg}
+	\caption{Czujnik DHT11}
+	\label{fig:dht11}
+\end{figure}
+Czujnik temperatury i wilgotności powietrza DHT11 jest bardzo popularnym czujnikiem z interfejsem cyfrowym. Do komunikacji wykorzystuje on protokół 1-wire opisany w rozdziale \ref{1wire}.
+\begin{table}[H]
+	\centering
+	\caption{Parametry czujnika}
+	\begin{tabular}{|c|c|}
+  		\hline 
+  		\bfseries Parametr & \bfseries Wartość \\
+  		\hline
+  		Napięcie zasilania & 3,3V do 5,5V\\
+  		\hline
+  		Średni pobór prądu & 0,2 mA\\
+  		\hline 
+  		Zakres pomiaru temperatury & od - 20\si{\degree}C do +50\si{\degree}C\\
+  		\hline 
+  		Zakres pomiaru wilgotności & od 5\% do 95\% wilgotności względnej\\
+  		\hline 
+  	\end{tabular}
+\end{table}
+
+\subsection{Raspberry Pi Camera HD}
+Raspberry Pi Camera HD jest dedykowaną kamerą przeznaczoną tylko i wyłącznie do urządzenia Raspberry Pi w wersji 3, 2 oraz B+. Szybszy transfer danych niż przez port USB zapewnia dedykowane złącze minikomputera (w formie taśmy na zdjęciu \ref{fig:picamera}). Kamera posiada matrycę o rozdzielczości 8 Mpx, wspiera tryb HD 1090p, 720p oraz 640 x 480. Moduł umożliwia wykonywanie zdjęć w rozdzielczości nawet 3280 x 2464 px. Wymagane sterowniki są preinstalowane na kompatybilnych urządzeniach.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.05]{picamera.jpg}
+	\caption{Raspberry Pi Camera Hd}
+	\label{fig:picamera}
+\end{figure}
+
+\section{Open Cv  \textcolor{red}{FINISH IT}}
 OpenCv (Open Source Computer Vision Library) jest open sourcową biblioteką napisaną w języku C. Udostępniono liczne interfejsy biblioteki pozwalające na pracę z nią miedzy innymi w języku C++ i Python. Biblioteka wspiera systemy operacyjne Linux oraz Windows. Biblioteka została ukierunkowana na przetwarzanie obrazu w czasie rzeczywistym. W licznie udostępnionych funkcjach można znaleźć moduły pozwalające na detekcję i rozpoznawanie twarzy na obrazie, które zostały szerzej opisane w kolejnym punkcie.
+
+\subsection{Przetwarzanie obrazu \textcolor{red}{TODO}}
+
+\subsubsection{Thresholding}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{efekt_thresholdingu.jpg}
+	\caption{Efekt działania thresholdingu}
+	\label{fig:efekt_thresholdingu}
+\end{figure}
+Thresholding jest operacją polegającą na segmentacji obrazu. Segmentacja to proces podziału obrazu na części określane jako obszary, które są jednorodne pod względem pewnych wybranych własności. Podczas thresholdingu dochodzi do porównania wartości pixeli, tak by oddzielić ważne piksele od tych mniej interesujących. Przed operacją ustalana jest granica, która będzie stanowić o tym jak rozdzielone zostaną wartości.
+Zakładając, że obraz wejściowy z pikselami o różnych wartościach to $ src(x,y) $, a $thresh$ to przyjęta granica, to taką sytuację można przedstawić na rysunku \ref{fig:thresholding}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{thresholding.png}
+	\caption{Thresholding obrazu}
+	\label{fig:thresholding}
+\end{figure}
+W tej pracy zastosowano thresholding binarny dlatego przykład został przedstawiony właśnie dla tej metody. Gdyby przez $maxValue$ oznaczyć wartość maksymalną piksela, a przez $dst(x,y)$ obraz wyjściowy to sposób działania thresholdingu binarnego można by opisać poniższym wzorem.
+$$
+dst(x,y) = \left\{ \begin{array}{ll}
+maxValue & \textrm{gdy $src(x,y)>$thresh}\\
+0 & \textrm{pozostałe}
+\end{array} \right.
+$$
+W efekcie działania algorytmu uzyskany zostaje obraz posiadający piksele jedynie o dwóch skrajnych wartościach. Wartości obrazu z rysunku \ref{fig:thresholding} po operacji przedstawia wykres \ref{fig:thresholding_binarny}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{thresholding_binarny.png}
+	\caption{Thresholding binarny}
+	\label{fig:thresholding_binarny}
+\end{figure}
+
+\subsubsection{Dylatacja}
+Dylatacja jest operacją wykorzystywaną do przetwarzania obrazów binarnych, określaną rozszerzaniem. Proces dylatacji polega na przyłożeniu do każdego pixela na obrazie struktury o wybranym rozmiarze. Jeżeli choć jeden piksel sąsiadujący z punktem centralnym ma wartość jeden to punkt centralny również otrzymuje taką samą wartość. W przeciwnym wypadku punktowi przypisywana jest wartość zero. Najkorzystniejsze efekty przynosi dylatacja strukturą przypominającą kształt koła, np 3x3 px. W efekcie dylatacji dochodzi do zwiększenia się obiektu, zniknięcia detali oraz wypełnienia pustek w niespójnym obszarze.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{dylatacja.png}
+	\caption{Przebieg przykładowej dylatacji}
+	\label{fig:dylatacja}
+\end{figure}
+
+\subsubsection{Rozmycie gaussowskie filtr Gaussa \textcolor{red}{TODO}}
 
 \subsection{Detekcja twarzy}
 Głównym wykrywaczem twarzy wykorzystywanym przez OpenCv jest kaskadowy klasyfikator Haar'a ale poza nim istnieją również inne metody. Jedną z nich jest wykorzystanie głębokiej sieci neuronowej.
@@ -55,24 +153,50 @@ Wartość każdej cechy jest obliczana jako różnica sumy poziomów szarości p
 
 \subsubsection{Głęboka sieć neuronowa} \label{dnn}
 Pojęciem uczenia maszynowego określa się dziedzinę nauk związanych ze sztuczną inteligencją, zajmującą się badaniem algorytmów i systemów, które usprawniają swoje działanie wraz ze zdobywaniem nowej wiedzy lub też doświadczeniem. Wiedzą określamy dane uczące, które zostały wykorzystane do nauki. System może zostać usprawniony poprzez zwiększenie wiedzy systemu, które powinno pozwolić na usprawnienie procesu rozwiązywania podstawowych problemów.
-
-Algorytmy głębokiego uczenia maszynowego są jednymi z najbardziej zaawansowanych. Zbudowane są one w sposób przypominający biologiczne sieci neuronowe. Głęboka sieć neuronowa składa się z neuronów rozmieszczonych na warstwach. Wiele warstw jest powodem dla którego taki rodzaj algorytmu określa się mianem głębokiego. Przykładowa budowa głębokiej sieci neuronowej została przedstawiona na rysunku \ref{fig:budowa_dnn}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{schemat_dnn.png}
 	\caption{Budowa głębokiej sieci neuronowej}
 	\label{fig:budowa_dnn}
 \end{figure}
+Algorytmy głębokiego uczenia maszynowego są jednymi z najbardziej zaawansowanych. Zbudowane są one w sposób przypominający biologiczne sieci neuronowe. Głęboka sieć neuronowa składa się z neuronów rozmieszczonych na warstwach. Wiele warstw jest powodem dla którego taki rodzaj algorytmu określa się mianem głębokiego. Przykładowa budowa głębokiej sieci neuronowej została przedstawiona na rysunku \ref{fig:budowa_dnn}.
+
 Każdy z takich “sztucznych neuronów” jest tak naprawdę informacją, która jest przesyłana dalej do następnych neuronów i ich warstw. Poszczególne warstwy “uczą” się przetwarzać kolejne cechy obiektów/obrazów/dźwięków itp., dzięki czemu są w stanie odtwarzać całe obiekty w bardzo rzeczywisty sposób.
 
-\subsection{Rozpoznawanie twarzy}
+\subsection{Rozpoznawanie twarzy \textcolor{red}{TODO}}
 \subsubsection{Eigenfaces} \label{eigen}
 The PCA method finds the directions with the greatest variance in the data, called principal components.
 \subsubsection{Fisherfaces} \label{fisher}
 \subsubsection{Local Binary Patterns Histograms} \label{lbph}
 
-\section{Azure}
-\subsection{Cognitive Services} \label{cognitive_services}
+\section{Azure} \label{azure}
+Azure jest platformą chmurową firmy Microsoft stworzoną w modelu Paas (Platform as a Service). Platforma zbudowana jest z grupy trzech technologii zapewniających specjalizowany zestaw możliwości dla programistów, które mogą być wykorzystywane zarówno przez aplikacje uruchamiane lokalnie na komputerach użytkowników oraz aplikacje uruchamiane w chmurze. W tej pracy wykorzystano:
+\begin{itemize}
+    \item App Services,
+    \item Azure Cognitive Services,
+    \item Bazy danych SQL,
+    \item Maszyny wirtualne.
+\end{itemize}
+\subsection{Web App Services}
+Web App Services jest usługą pozwalającą na hostowanie aplikacji internetowych napisanych w jednym z wybranych języków (między innymi .Net, Node.Js, Python) bez zarządzania infrastrukturą. Do największych zalet należy automatyczna skalowalność serwisu oraz wysoka dostępność. Podczas tworzenia środowiska istnieje możliwość wyboru preferowanego systemu operacyjnego. Dużą zaletą jest możliwość wdrożenia aplikacji za pomocą jednego kliknięcia bezpośrednio z Visual Studio. Sprawne korzystanie z usługi jest możliwe dzięki szerokiemu zakresowi dokumentacji i tutoriali udostepnionych przez producenta.
+\subsection{Azure Cognitive Services}
+Cognitive Services jest częścią platformy Azure stworzonej przez Microsoft. Usługa jest standardowo płatna, ale w przypadku użytku na potrzeby studenckie przyznawany jest darmowy dostęp na ograniczony czas. Cognitive Services zajmuje się rozwiązywaniem problemów biznesowych dzięki sztucznej inteligencji. Do dostępnych modułów między innymi należą:
+\begin{itemize}
+\item obraz- algorytmy przetwarzania obrazów umożliwiające inteligentne identyfikowanie, podpisywanie i moderowanie grafik,
+\item mowa- konwertowanie wypowiedzi audio na tekst, weryfikacja głosowa,
+\item język- przetwarzanie języka naturalnego.
+\end{itemize}
+Na cele tego projektu wykorzystano moduł dotyczący przetwarzania obrazu, a dokładniej wykrywanie i rozpoznawanie twarzy w nim dostępne. Producent zadbał o prostą możliwość integracji z większością popularnych języków programistycznych poprzez udostępnienie paczek deweloperskich. W przypadku braku SDK dla wybranego języka istnieje możliwość skorzystania z udostępnionego REST Api. Na stronie producenta można znaleźć obszerną dokumentację oraz tutoriale.
 
-\section{AWS}
-
+\section{AWS} \label{aws}
+Amazon Web Services jest platformą chmurową firmy Amazon stworzoną w modelu Paas (Platform as a Service). Jest to bardzo podobne rozwiązanie do bliźniaczego Azure. Platforma udostępnia obliczenia chmurowe na żądanie. Szeroki zakres usług dostępny jest w darmowej wersji demo, jedynym wymaganiem jest założenie konta w serwisie. Po wykorzystaniu darmowego okresu, opłaty naliczane są według zużycia danej usługi. Do podstawowych usług, które mogłyby zostać wykorzystane dla celów tej pracy należą:
+\begin{itemize}
+    \item Elastic Beanstalk,
+    \item Rekognition,
+    \item Bazy danych (RDS),
+    \item Maszyny wirtualne (EC2).
+\end{itemize}
+\subsection{Elastic Beanstalk}
+Elastic Beanstalk jest odpowiednikiem Azure Web App Services. Zakres dostępnych języków jest równie szeroki jak w przypadku Azure'a, ale w odróżnieniu od Microsoftu nie zawsze wspiera on najnowszych wersji produktów wymienionej firmy, a zakres możliwości konfiguracyjnych z poziomu strony internetowej jest uboższy. Podobnie jak w przypadku Azure istnieje możliwość wdrożenia aplikacji jednym kliknięciem po doinstalowaniu dedykowanego pluginu do Visual Studio.
+\subsection{Rekognition}
+Usługa Rekognition jest odpowiednikiem Azure Cognitive Services ograniczonym do rozwiązań związanych z przetwarzaniem obrazu i video. Do wielu dostępnych funkcji należy analiza obrazu, detekcja twarzy i tekstu, porównywanie oraz rozpoznawanie twarzy. Dla wybranych języków programistycznych udostępniono SDK oraz obszerną dokumentację z licznymi przykładami kodu.

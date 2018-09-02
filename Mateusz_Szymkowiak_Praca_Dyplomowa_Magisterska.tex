@@ -33,6 +33,7 @@
 \pagestyle{fancy}
 \setcounter{tocdepth}{1}
 \usepackage[backend=bibtex]{biblatex}
+\usepackage{siunitx}
 \bibliography{bibliografia.bib}
 
 \lstdefinelanguage{JavaScript}{
@@ -62,7 +63,7 @@
 \null
 \thispagestyle{empty}
 \newpage
-\includepdf[pages={1}]{./pictures/karta_pracy.pdf}
+%\includepdf[pages={1}]{./pictures/karta_pracy.pdf}
 
 %%%%%%%%%%%%%%%%%%%%%%%%		STRESZCZENIE
 \input{sections/streszczenie.tex}
@@ -71,7 +72,7 @@
 \tableofcontents
 
 %%%%%%%%%%%%%%%%%%%%%%%%	WSTĘP
-\chapter{Wstęp}
+\chapter{Wstęp \textcolor{red}{TODO}}
 \input{sections/wstep.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%	CEL I ZAKRES PRAC
@@ -79,7 +80,7 @@
 \input{sections/celiZakresPrac.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%	Wstęp teoretyczny
-\chapter{Wstęp teoretyczny}
+%\chapter{Wstęp teoretyczny}
 \input{sections/wstep_teoretyczny.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%	Budowa systemu
@@ -94,10 +95,17 @@
 \chapter{Aplikacja konsolowa}
 \input{sections/aplikacja_konsolowa.tex}
 
-%%%%%%%%%%%%%%%%%%%%%%%%	Zastosowanie w IoT
-\chapter{Zastosowanie w IoT}
-\section{Zastosowanie}
-\section{Ocena przydatnosci}
+%%%%%%%%%%%%%%%%%%%%%%%%	Aplikacja konsolowa
+\chapter{Aplikacja konsolowa do zarządzania domem \textcolor{red}{TODO}} \label{aplikacja_zarzadzanie}
+\input{sections/aplikacja_zarzadzenie_domem.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%	Ocena/Badanie
+\chapter{Ocena skuteczności działania ... (wybranych metod) \textcolor{red}{TODO}}
+\section{Wykrywanie twarzy - różne przykłady}
+\section{Trenowanie- czas trwania itd}
+\section{Rozpoznawanie- skuteczność, porównanie wyników}
+\section{Ocena przydatności wybranych usług itd w IoT}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%	Podsumowanie
 \chapter{Podsumowanie}
@@ -106,7 +114,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%		BIBLIOGRAFIA
 \addcontentsline{toc}{chapter}{Bibliografia}
-\input{sections/bibliografia.tex}
+%\input{sections/bibliografia.tex}
 
 \nocite{*}
 \printbibliography 
