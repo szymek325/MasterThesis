@@ -87,7 +87,34 @@ OpenCv (Open Source Computer Vision Library) jest open sourcową biblioteką nap
 \subsection{Przetwarzanie obrazu \textcolor{red}{TODO}}
 
 \subsubsection{Thresholding}
-
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{efekt_thresholdingu.jpg}
+	\caption{Efekt działania thresholdingu}
+	\label{fig:efekt_thresholdingu}
+\end{figure}
+Thresholding jest operacją polegającą na segmentacji obrazu. Segmentacja to proces podziału obrazu na części określane jako obszary, które są jednorodne pod względem pewnych wybranych własności. Podczas thresholdingu dochodzi do porównania wartości pixeli, tak by oddzielić ważne piksele od tych mniej interesujących. Przed operacją ustalana jest granica, która będzie stanowić o tym jak rozdzielone zostaną wartości.
+Zakładając, że obraz wejściowy z pikselami o różnych wartościach to $ src(x,y) $, a $thresh$ to przyjęta granica, to taką sytuację można przedstawić na rysunku \ref{fig:thresholding}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{thresholding.png}
+	\caption{Thresholding obrazu}
+	\label{fig:thresholding}
+\end{figure}
+W tej pracy zastosowano thresholding binarny dlatego przykład został przedstawiony właśnie dla tej metody. Gdyby przez $maxValue$ oznaczyć wartość maksymalną piksela, a przez $dst(x,y)$ obraz wyjściowy to sposób działania thresholdingu binarnego można by opisać poniższym wzorem.
+$$
+dst(x,y) = \left\{ \begin{array}{ll}
+maxValue & \textrm{gdy $src(x,y)>$thresh}\\
+0 & \textrm{pozostałe}
+\end{array} \right.
+$$
+W efekcie działania algorytmu uzyskany zostaje obraz posiadający piksele jedynie o dwóch skrajnych wartościach. Wartości obrazu z rysunku \ref{fig:thresholding} po operacji przedstawia wykres \ref{fig:thresholding_binarny}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{thresholding_binarny.png}
+	\caption{Thresholding binarny}
+	\label{fig:thresholding_binarny}
+\end{figure}
 \subsubsection{Dylatacja}
 
 \subsection{Detekcja twarzy}
