@@ -228,6 +228,21 @@ f(d)=\frac{d^{T}W^{T}S_{B}d}{d^{T}S_{W}d}
 $$
 Znalezienie wektora $d$ pozwala na wyznaczenie optymalnego kierunku rozdzielającego dwie klasy obiektów.
 \subsubsection{Local Binary Patterns Histograms} \label{lbph}
+W odróżnieniu od holistycznego podejścia w dwóch poprzednich metodach, algorytm histogramów lokalnych binarnych wzorców wykorzystuje lokalne cechy przetwarzanych obiektów.
+Dla każdego piksela wyznaczany jest ciąg binarny na podstawie porównania wartości z każdym z sąsiadów. W przypadku, gdy jego wartośc jest większa wtedy przyjmuje wartość 1, a 0 w przypadku przeciwnym. Stąd dla każdego piksela wyznaczana jest wartość $p$-znakowego binarnego ciągu, nazywanego lokalnym binarnym wzorcem.  Wyznaczanie można przeprowadzić w otoczeniu o dowolnym promieniu. W ogólności wartość funkcji LBP dla piksela o współrzędnych $(x_{c},y_{c})$ wyznacza się następująco: 
+$$
+LBP(x_{c},y_{c})=\sum_{p=0}^{p-1}2^{p}S(i_{p}-i_{c})
+$$
+Gdzie $p$ jest rozmiarem rozpatrywanego sąsiedztwa o środku w punkcie $(x_{c},y_{c})$ i jasności o wartości $i_{c}$, a $i_{n}$ jest wartością jasności dla $n$- tego punktu sąsiedztwa.
+$S(x)$ jest funkcją znaku definiowaną następująco:
+$$
+S(x) = \left\{ \begin{array}{ll}
+1 & \textrm{ dla $x>0$}\\
+0 & \textrm{ w p.p.}
+\end{array} \right.
+$$
+Działanie algorytmu polega na podzieleniu obrazu wejściowego na $m$ różnych części i wyznaczenia dla niego wartości LBP jasności pikseli. Następnie dla każdego regionu wyznaczany jest histogram wyliczonych wartości. Tak wyznaczone wartości są konkatenowane do postaci wektora.
+Dla próbki wejściowej zostaje wyznaczony wektor histogramów, który następnie jest porównywany z wektorami obrazów użytych do uczenia sieci. Przewidywana etykieta jest wyznaczana na podstawie etykiety wektora najbliższego sąsiada.
 
 \section{Azure} \label{azure}
 Azure jest platformą chmurową firmy Microsoft stworzoną w modelu Paas (Platform as a Service). Platforma zbudowana jest z grupy trzech technologii zapewniających specjalizowany zestaw możliwości dla programistów, które mogą być wykorzystywane zarówno przez aplikacje uruchamiane lokalnie na komputerach użytkowników oraz aplikacje uruchamiane w chmurze. W tej pracy wykorzystano:
