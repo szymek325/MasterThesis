@@ -14,18 +14,19 @@ Obie czynności wykonywane są niezależnie od siebie. Funkcja wykrywania ruchu 
 \end{figure}
 Proces zbierania danych z sensorów rozpoczyna się od pobrania odczytów z czujnika DHT11. Raspberry komunikuje się z czujnikiem za pomocą protokołu 1-wire. Do pobrania wartości wykorzystano bibliotekę dedykowaną dla tego czujnika i języka Python. Po prawidłowym odczycie, każdy z parametrów (temperatura i wilgotność) zostaje zapisany w bazie danych z odpowiednim opisem. W kolejnym kroku odczytane wartości zostają porównane z wcześniej zdefiniowanym zakresem, który jest zapisany w bazie danych. W przypadku przekroczenia lub zbyt niskiej wartości system podejmie decyzję o utworzeniu nowego powiadomienia, które będzie widoczne an stronie opisanej w rozdziale \ref{notifications}
 
-\section{Detekcja ruchu}
+\section{Proces detekcji ruchu}
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{detekcja_ruchu.png}
 	\caption{Proces wykrywania ruchu}
-	\label{fig:wykrywanie_proces}
+	\label{fig:proces_detekcji}
 \end{figure}
+Proces detekcji ruchu rozpoczyna się od podstawowej rzeczy, którą jest uruchomienie kamery. Jeśli kamera została uruchomiana i daje możliwość pobierania pojedynczych klatek to zostaje uruchomiona nieskończona pętla, której pierwszym krokiem jest uchwycenie najnowszej klatki obrazu, który następnie zostaje przekazany specjalnej funkcji identyfikującej czy nastąpiły jakieś przemieszczenia względem klatki poprzedniej. Proces ten został dokładnie opisany w kolejnym podpunkcie. Jeśli moduł wykrył ruch to licznik detekcji zostaje zwiększony o 1. W przeciwnym wypadku licznik zostaje wyzerowany. Żadne dodatkowe funkcje nie są wykonywane, aż do czasu kiedy licznik osiągnie wartość 8. Liczba 8 została wyznaczona w celu ograniczenia ilości przechwytywanych ruchów do tych kilkukrotnie potwierdzonych. Po osiągnięciu tej wartości program ostatecznie stwierdza, że nastąpił ruch i przekazuje uchwycony moment do funkcji zapisującej, której działanie opisano w kolejnej części tego rozdziału. Po udanym wykryciu licznik zostaje wyzerowany. Proces ten powtarza się tak długo, aż nie zostanie ręcznie zatrzymany poprzez wciśnięcie klawisza 'q'.
 
-\subsection{Proces wykrywania ruchu}
+\subsection{Wykrywanie ruchu}
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{sprawdzenie_ruchu.png}
 	\caption{Proces sprawdzenia czy wystąpił ruch}
-	\label{fig:wykrywanie_proces}
+	\label{fig:wykrywanie)ruchu}
 \end{figure}

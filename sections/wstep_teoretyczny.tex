@@ -115,7 +115,15 @@ W efekcie działania algorytmu uzyskany zostaje obraz posiadający piksele jedyn
 	\caption{Thresholding binarny}
 	\label{fig:thresholding_binarny}
 \end{figure}
+
 \subsubsection{Dylatacja}
+Dylatacja jest operacją wykorzystywaną do przetwarzania obrazów binarnych, określaną rozszerzaniem. Proces dylatacji polega na przyłożeniu do każdego pixela na obrazie struktury o wybranym rozmiarze. Jeżeli choć jeden piksel sąsiadujący z punktem centralnym ma wartość jeden to punkt centralny również otrzymuje taką samą wartość. W przeciwnym wypadku punktowi przypisywana jest wartość zero. Najkorzystniejsze efekty przynosi dylatacja strukturą przypominającą kształt koła, np 3x3 px. W efekcie dylatacji dochodzi do zwiększenia się obiektu, zniknięcia detali oraz wypełnienia pustek w niespójnym obszarze.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{dylatacja.png}
+	\caption{Przebieg przykładowej dylatacji}
+	\label{fig:dylatacja}
+\end{figure}
 
 \subsection{Detekcja twarzy}
 Głównym wykrywaczem twarzy wykorzystywanym przez OpenCv jest kaskadowy klasyfikator Haar'a ale poza nim istnieją również inne metody. Jedną z nich jest wykorzystanie głębokiej sieci neuronowej.
