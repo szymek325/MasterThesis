@@ -22,4 +22,5 @@ class OpenCvFaceRecognizer():
             for (startX, startY, endX, endY) in detected_faces:
                 predict_image = self.imageConverter.convert_to_np_array(image[startY:endY, startX:endX])
                 nbr_predicted, confidence = face_recognizer.predict(predict_image)
+                self.logger.info(f"Recognized identity: {nbr_predicted} confidence:{confidence}")
                 self.recognitionResultRepo.add_recognition_result(nbr_predicted, request_id, confidence, file_id)
