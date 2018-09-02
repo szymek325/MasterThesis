@@ -23,6 +23,9 @@ class AzureFaceRecognizer():
     def __get_result_from_azure__(self, azure_file, image_file_path, request_id):
         dictionary = ast.literal_eval(azure_file.additional_data)
         face_ids = self.azureFaceClient.get_face_ids(image_file_path)
+        if len(face_ids) is 0:
+            self.recognitionResultRepo.add_recognition_result(0, request_id, 0, azure_file.id, "No faces found")
+            return
         recognized_azure_ids = self.azureFaceClient.get_faces_identity(face_ids, azure_file.neuralNetworkId)
         if len(recognized_azure_ids) is 0:
             self.recognitionResultRepo.add_recognition_result(0, request_id, 0, azure_file.id, "No faces found")
@@ -37,7 +40,7 @@ class AzureFaceRecognizer():
 
     def __get_person_id_from_dictionary__(self, azure_id, people_dictionary):
         for person_id, azure_person_id in people_dictionary.items():
-            if azure_person_id == azure_id:
-                return person_id, "", 1
+            if azure_person_id == azure_id['personId']:
+                return person_id, "", azure_id['confidence']
         if azure_id == 'Unknown':
             return 0, "Face found. Person is Unknown", 0

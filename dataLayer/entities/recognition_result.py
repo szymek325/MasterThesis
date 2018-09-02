@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, Date, ForeignKey
+from sqlalchemy import Column, String, Integer, Date, ForeignKey, Float
 
 from dataLayer.database_connection import Base
 
@@ -10,7 +10,7 @@ class RecognitionResult(Base):
     identified_person_id = Column('IdentifiedPersonId', Integer)
     confidence = Column('Confidence', Integer)
     neural_network_file_id = Column("NeuralNetworkFileId", Integer, ForeignKey("NeuralNetworkFile.Id"))
-    recognition_id = Column("RecognitionId", Integer, ForeignKey("Recognition.Id"))
+    recognition_id = Column("RecognitionId", Float, ForeignKey("Recognition.Id"))
     comments = Column('Comments', String)
 
     def __init__(self, identity, recognition_id, confidence, file_id, comments=""):
