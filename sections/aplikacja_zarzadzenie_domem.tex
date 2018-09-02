@@ -31,3 +31,6 @@ Proces określania czy nastąpił ruch w czasie od poprzedniego uchwycenia klatk
 	\caption{Proces sprawdzenia czy wystąpił ruch}
 	\label{fig:wykrywanie_ruchu}
 \end{figure}
+
+\subsection{Powiadomienie o wykryciu ruchu}
+Zgodnie z wcześniej opisanym algorytmem, wykryty ruch zostaje przekazany do zapisania. W zależności od typu aktualnie włączonych opcji, zdjęcie może zostać zapisane w nienaruszonym stanie lub z dodatkowo oznaczoną strefą, w której nastąpił ruch. W kolejnym etapie zostaje utworzony nowy wpis w bazie danych przechowującej informacje o wykrytych ruchach, a zdjęcie zostaje wgrane do odpowiedniego folderu w serwisie Dropbox. Efekt utworzenia nowego wykrycia ruchu można zaobserwować na zdjęciu \ref{fig:notifications}.
