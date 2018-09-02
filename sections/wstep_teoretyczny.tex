@@ -84,7 +84,7 @@ Raspberry Pi Camera HD jest dedykowaną kamerą przeznaczoną tylko i wyłączni
 \section{Open Cv  \textcolor{red}{FINISH IT}}
 OpenCv (Open Source Computer Vision Library) jest open sourcową biblioteką napisaną w języku C. Udostępniono liczne interfejsy biblioteki pozwalające na pracę z nią miedzy innymi w języku C++ i Python. Biblioteka wspiera systemy operacyjne Linux oraz Windows. Biblioteka została ukierunkowana na przetwarzanie obrazu w czasie rzeczywistym. W licznie udostępnionych funkcjach można znaleźć moduły pozwalające na detekcję i rozpoznawanie twarzy na obrazie, które zostały szerzej opisane w kolejnym punkcie.
 
-\subsection{Przetwarzanie obrazu \textcolor{red}{TODO}}
+\subsection{Przetwarzanie obrazu}
 
 \subsubsection{Thresholding}
 \begin{figure}[H]
@@ -172,8 +172,37 @@ Każdy z takich “sztucznych neuronów” jest tak naprawdę informacją, któr
 
 \subsection{Rozpoznawanie twarzy \textcolor{red}{TODO}}
 \subsubsection{Eigenfaces} \label{eigen}
-The PCA method finds the directions with the greatest variance in the data, called principal components.
+Eigenfaces, inaczej nazywany algorytmem twarzy własnych opiera się na metodzie analizy głównych składowych, która rozpoczyna się wyznaczeniem średniej wartości dla obrazów z tą samą etykietą identyfikującą daną osobę.
+Weźmy $n$ wektorów $x_{i}$ powstałych jako reprezentacje obrazów przedstawiających daną twarz. Dla tych wektorów wyznaczona zostaje wartość średnia $\mu$.
+$$
+\mu=\frac{1}{n}\sum_{i=1}^{n}x_{i}
+$$
+Następnie dla każdego wektora $x_{i}$ wyznaczana jest różnica od wartości średniej $\mu$.
+$$
+\psi= x_{i}-\mu
+$$
+Na podstawie wartości $\psi_{i}$ wyznacza się macierz kowariancji $C$.
+$$
+C=\frac{1}{n}\sum_{i=1}^{n}\psi_{i}\psi_{i}^{T}
+$$
+Kolejnym krokiem jest wyznaczenie wartości $\lambda_{i}$ oraz $\nu_{i}$ tak by spełniony był warunek:
+$$
+C\nu_{i}=\lambda_{i}\nu_{i} \textrm{ dla $i=$1,2,...,n}
+$$
+Wartość $\lambda_{i}$ nazywana wartością własną amcierzy $C$, a odpowiadający jej wektor $\nu_{i}$ wektorem własnym $C$.
+W przypadku algorytmu Eigenfaces branych jest pod uwagę $k$ głównych składowych $\lambda_{i}$, wyznaczonych na podstawie odrzucenia $n-k$ wartości najmniejszych. Dla każdego wektora wyznaczany jest wektor następujący:
+$$
+y_{i}=W^{T}(x_{i}-\mu) \textrm{ gdzie $W=(\nu_{1}, \nu_{2}, ..., \nu_{k})$}
+$$
+Identyfikacja twarzy algorytmem Eigenfaces polega na wykonaniu kroków:
+\begin{enumerate}
+\item Wartości głównych składowych zostają wyznaczone dla wszystkich obrazów uczących.
+\item Wartość głównych składowych zostaje wyznaczona dla badanego zdjęcia
+\item Dla obrazu wejściowego zostaje wyznaczony wektor najbliższy dla wartości obliczonych dla obrazów z bazy danych.
+\end{enumerate}
+
 \subsubsection{Fisherfaces} \label{fisher}
+
 \subsubsection{Local Binary Patterns Histograms} \label{lbph}
 
 \section{Azure} \label{azure}
