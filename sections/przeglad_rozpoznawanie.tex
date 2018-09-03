@@ -1,27 +1,31 @@
-Na rynku dostępna jest znaczna ilość rozwiązań darmowych jak i płatnych, pozwalających na analizę obrazu w celu detekcji i rozpoznania twarzy. W tym rozdziale porównano najciekawsze ze znalezionych solucji.
-\begin{table}[H]
+Przez ostatnie lata dziedzina cyfrowego przetwarzania obrazu bardzo prężnie rozwijała się. W wyniku tego aktualnie dostępnych jest wiele usług pozwalających na uzyskiwanie danych z obrazu. W przypadku tej pracy najbardziej interesującymi informacjami jest lokalizacja oraz identyfikacja twarzy.
+Na rysunku \ref{tab:systemy} przedstawiono cechy kilku wybranych systemów, stworzonych przez jedne z największych firm zajmujących się technologiami informatycznymi na świecie.
+
+\begin{table}[H]\label{tab:systemy}
 	\centering
-	\caption{Parametry czujnika}
-	\begin{tabular}{|c|c|c|c|c|}
+	\caption{Dostępne systemy przetwarzania obrazu}
+	\scalebox{0.8}{
+	\begin{tabular}{|c|c|c|c|c|c|c|}
   		\hline 
-  		\bfseries & \bfseries OpenCv & \bfseries Azure CS & \bfseries AWS Rekognition & \bfseries Google \\
+  		 & \bfseries OpenCv & \bfseries Azure CS & \bfseries AWS Rekognition & \bfseries Google & \bfseries face recognition & \bfseries open face\\
   		\hline
-  		\bfseries Detekcja twarzy &\\
+  		\bfseries Detekcja twarzy &tak&tak&tak&tak&tak&tak\\
   		\hline
-  		\bfseries Identyfikacja twarzy &\\
+  		\bfseries Identyfikacja twarzy &tak&tak&tak&nie&tak&tak\\
   		\hline
-  		\bfseries Rozpoznawanie emocji &\\
+  		\bfseries Rozpoznawanie emocji &nie&tak&nie&nie&nie&nie\\
   		\hline
-  		\bfseries SDK &\\
+  		\bfseries SDK &tak&tak&tak&tak&Python&Python\\
   		\hline
-  		\bfseries API &\\
+  		\bfseries API &nie&tak&tak&tak&nie&nie\\
   		\hline
-  		\bfseries licencja &\\
+  		\bfseries licencja &open source&płatna/demo&płatna/demo&płatna/demo&open source&open source\\
   		\hline
   	\end{tabular}
+  	}
 \end{table}
-
-Rozwiązania zaimplementowane w tej pracy oraz dodatkowo AWS Rekognition zostały szerzej opisany w kolejnych punktach.
+Zgodnie ze wzrostem popularności usług chmurowych, aktualnie dostępnych jest wiele usług rozpoznawania twarzy, które początkowo były dostępne za pomocą API. Na szczęście z czasem większość z nich udostępniła również SDK dla najbardziej popularnych języków (między innymi C\#, Java, Python).
+Ze względu na open sourcową licencję OpenCv zostało wybrane jako pierwszy i podstawowy kandydat do zastosowania w tej pracy magisterskiej.
 
 \begin{figure}[H]
 	\centering
