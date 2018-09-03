@@ -10,7 +10,7 @@ Obie czynności wykonywane są niezależnie od siebie. Funkcja wykrywania ruchu 
 	\centering
 	\includegraphics[scale=0.6]{odczyt_czujnikow.png}
 	\caption{Proces pobierania danych z sensorów}
-	\label{fig:wykrywanie_proces}
+	\label{fig:odczyt_sensorow}
 \end{figure}
 Proces zbierania danych z sensorów rozpoczyna się od pobrania odczytów z czujnika DHT11. Raspberry komunikuje się z czujnikiem za pomocą protokołu 1-wire. Do pobrania wartości wykorzystano bibliotekę dedykowaną dla tego czujnika i języka Python. Po prawidłowym odczycie, każdy z parametrów (temperatura i wilgotność) zostaje zapisany w bazie danych z odpowiednim opisem. W kolejnym kroku odczytane wartości zostają porównane z wcześniej zdefiniowanym zakresem, który jest zapisany w bazie danych. W przypadku przekroczenia lub zbyt niskiej wartości system podejmie decyzję o utworzeniu nowego powiadomienia, które będzie widoczne an stronie opisanej w rozdziale \ref{notifications}
 
