@@ -18,6 +18,6 @@ class HaarFaceDetector:
         """
 
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        faces = self.faceCascade.detectMultiScale(gray_image, scaleFactor=1.2, minNeighbors=1)
+        faces = self.faceCascade.detectMultiScale(gray_image, 1.3, 5)
         faces_in_required_return_format = [(x, y, x + w, y + h) for x, y, w, h in faces]
         return faces_in_required_return_format
