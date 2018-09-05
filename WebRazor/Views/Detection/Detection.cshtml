@@ -61,12 +61,13 @@
                 <thead>
                     <tr>
                         <th>Detection type</th>
-                        <th>faces found</th>
+                        <th>Faces found</th>
+                        <th>(seconds)<br>Processing time</th>
                         <th>startX</th>
                         <th>endX</th>
                         <th>startY</th>
                         <th>endY</th>
-                        <th>area</th>
+                        <th>Area</th>
                         <th>Image</th>
                     </tr>
                 </thead>
@@ -80,6 +81,9 @@
                             </td>
                             <td>
                                 <b>@result.FaceRectangles.Count()</b>
+                            </td>
+                            <td>
+                                <b>@result.ProcessingTime</b>
                             </td>
                             <td>
 

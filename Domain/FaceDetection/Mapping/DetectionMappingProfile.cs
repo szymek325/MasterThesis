@@ -30,6 +30,7 @@ namespace Domain.FaceDetection.Mapping
                 .ForMember(dest => dest.FaceRectangles, opts => opts.MapFrom(src => src.FaceRectangles))
                 .ForMember(dest => dest.DetectionTypeName, opts => opts.MapFrom(src => src.DetectionType.Name))
                 .ForMember(dest => dest.Image, opts => opts.MapFrom(src => src.Image))
+                .ForMember(dest => dest.ProcessingTime, opts => opts.MapFrom(src => src.ProcessingTime))
                 .ReverseMap();
         }
     }

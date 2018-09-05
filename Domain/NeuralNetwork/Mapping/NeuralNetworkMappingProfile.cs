@@ -21,6 +21,8 @@ namespace Domain.NeuralNetwork.Mapping
                 .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opts => opts.MapFrom(src => src.Name))
                 .ForMember(dest => dest.TypeName, opts => opts.MapFrom(src => src.NeuralNetworkType.Name))
+                .ForMember(dest => dest.ProcessingTime, opts => opts.MapFrom(src => src.ProcessingTime))
+                .ForMember(dest => dest.TrainingTime, opts => opts.MapFrom(src => src.TrainingTime))
                 .ReverseMap();
 
             CreateMap<DataLayer.Entities.NeuralNetwork, AllNeuralNetworksOutput>()

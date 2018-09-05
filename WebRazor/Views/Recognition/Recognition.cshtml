@@ -60,13 +60,14 @@
             <h3>Results</h3>
             <table class="table" *ngIf="request.results">
                 <thead>
-                <tr>
-                    <th>Recognised Identity</th>
-                    <th>Confidence</th>
-                    <th>Neural Network Name</th>
-                    <th>Neural Network Type</th>
-                    <th>Comments</th>
-                </tr>
+                    <tr>
+                        <th>Recognised Identity</th>
+                        <th>Confidence</th>
+                        <th>Neural Network Name</th>
+                        <th>Neural Network Type</th>
+                        <th>(seconds)<br>Processing time</th>
+                        <th>Comments</th>
+                    </tr>
                 </thead>
                 <tbody>
 
@@ -84,6 +85,9 @@
                         </td>
                         <td>
                             @result.NeuralNetworkTypeName
+                        </td>
+                        <td>
+                            @result.ProcessingTime
                         </td>
                         <td>
                             @result.Comments
