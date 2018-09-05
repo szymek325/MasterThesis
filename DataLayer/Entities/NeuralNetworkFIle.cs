@@ -11,7 +11,7 @@ namespace DataLayer.Entities
         public int NeuralNetworkTypeId { get; set; }
         public NeuralNetworkType NeuralNetworkType { get; set; }
         public string AdditionalData { get; set; }
-        public DateTime? TrainingTime { get; set; }
-        public DateTime? ProcessingTime { get; set; }
+        public string TrainingTime { get; set; }
+        public string ProcessingTime { get; set; }
     }
 }

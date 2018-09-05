@@ -12,6 +12,6 @@ namespace DataLayer.Entities
         public int RecognitionId { get; set; }
         public Recognition Recognition { get; set; }
         public string Comments { get; set; }
-        public DateTime? ProcessingTime { get; set; }
+        public string ProcessingTime { get; set; }
     }
 }
