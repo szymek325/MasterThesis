@@ -15,10 +15,12 @@ class DetectionResult(Base):
     detection = relationship("Detection")
     detection_type_id = Column("DetectionTypeId", Integer)
     image = relationship("ImageAttachment", uselist=False)
+    processing_time = Column('ProcessingTime', String)
     face_rectangles = relationship(DetectionRectangle)
 
-    def __init__(self, request_id, detection_type_id, image_attachment, face_coordinats):
+    def __init__(self, request_id, detection_type_id, image_attachment, face_coordinates, time=""):
         self.detection_id = request_id
         self.detection_type_id = detection_type_id
         self.image = image_attachment
-        self.face_rectangles = face_coordinats
+        self.face_rectangles = face_coordinates
+        self.processing_time = time

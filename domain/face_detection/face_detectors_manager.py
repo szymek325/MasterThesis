@@ -1,3 +1,4 @@
+import time
 import cv2
 
 from cognitive_face_client.clients.azure_face_client import AzureFaceClient
@@ -19,14 +20,16 @@ class FaceDetectorsManager():
 
     def get_faces_on_image_from_file_path(self, file_path):
         image = cv2.imread(file_path)
+        time_before = time.time()
         faces_detected_by_haar = self.haarDetector.run_detector(image)
+        time_after_haar = time.time()
         faces_detected_by_dnn = self.dnnDetector.run_detector(image)
+        time_after_dnn = time.time()
         faces_detected_by_azure = self.azureDetectionClient.get_face_rectangles(file_path)
-        result = [
-            [self.detectionTypes.haar, faces_detected_by_haar],
-            [self.detectionTypes.dnn, faces_detected_by_dnn],
-            [self.detectionTypes.azure, faces_detected_by_azure]
-        ]
+        time_after_azure = time.time()
+        result = [[self.detectionTypes.haar, faces_detected_by_haar, time_after_haar - time_before],
+                  [self.detectionTypes.dnn, faces_detected_by_dnn, time_after_dnn - time_after_haar],
+                  [self.detectionTypes.azure, faces_detected_by_azure, time_after_azure - time_after_dnn]]
         self.logger.info(f"Faces detected: \n {result}")
         return result
 
