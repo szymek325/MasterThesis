@@ -16,7 +16,7 @@ namespace WebRazor.Mapping
                 .ReverseMap();
 
             CreateMap<NeuralNetworkBaseInfoOutput, SelectListItem>()
-                .ForMember(dest => dest.Text, opts => opts.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Text, opts => opts.MapFrom(src => $"{src.Id} {src.Name}"))
                 .ForMember(dest => dest.Value, opts => opts.MapFrom(src => src.Id))
                 .ReverseMap();
         }
