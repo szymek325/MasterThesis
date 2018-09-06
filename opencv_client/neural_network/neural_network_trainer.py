@@ -58,5 +58,5 @@ class NeuralNetworkTrainer():
         if len(numpy.unique(people_ids)) > 1:
             self.create_fisher_face_recognizer(request_id, face_samples, people_ids)
             fisher_end = time.time()
-            training_times[NeuralNetworkTypes().eigen_id] = fisher_end - eigen_end + data_preparation_time
+            training_times[NeuralNetworkTypes().fisher_id] = fisher_end - eigen_end + data_preparation_time
         return training_times

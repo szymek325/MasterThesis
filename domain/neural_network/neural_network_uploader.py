@@ -29,7 +29,7 @@ class NeuralNetworkUploader():
     def __upload_single_file__(self, file_name, neural_network_id, nn_type_id, opened_file, process_time):
         self.logger.info(
             f"Upload of file {file_name} STARTED (possible timeout error on weak network and big file size)")
-        self.filesUploader.upload_neural_network(neural_network_id, opened_file.read(), file_name)
+        # self.filesUploader.upload_neural_network(neural_network_id, opened_file.read(), file_name)
         self.nnFilesRepo.add_neural_network_file(file_name, neural_network_id, nn_type_id, process_time)
         self.logger.info(f"Upload of file {file_name} FINISHED")
 

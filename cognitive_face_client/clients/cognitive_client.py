@@ -17,6 +17,10 @@ class CognitiveClient():
         res = CF.large_person_group.create(request_id, name)
         return res
 
+    def delete_large_person_group(self, group_id: int):
+        res = CF.large_person_group.delete(group_id)
+        return res
+
     def create_person_in_large_group(self, large_group_id, person_name):
         res = CF.large_person_group_person.create(large_group_id, person_name)
         return res
@@ -35,5 +39,4 @@ class CognitiveClient():
 
     def get_large_group_status(self, large_group_id):
         res = CF.large_person_group.get_status(large_group_id)
-        CF.large_person_group.get()
         return res
