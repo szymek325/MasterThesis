@@ -17,8 +17,8 @@ class NeuralNetworkFile(Base):
     processing_time = Column('ProcessingTime', String)
     training_time = Column('TrainingTime', String)
 
-    def __init__(self, name, neural_network_id, neural_network_type_id, proc_time="", train_time="",
-                 additional_data=""):
+    def __init__(self, name, neural_network_id, neural_network_type_id, proc_time="", additional_data="",
+                 train_time="", ):
         self.name = name
         self.neuralNetworkId = neural_network_id
         self.neuralNetworkTypeId = neural_network_type_id

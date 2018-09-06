@@ -7,10 +7,12 @@ class NeuralNetworkFileRepository():
     def __init__(self):
         self.nnTypes = NeuralNetworkTypes()
 
-    def add_neural_network_file(self, name, neural_network_id, neural_network_type_id, additional_info=""):
+    def add_neural_network_file(self, name, neural_network_id, neural_network_type_id, processing_time="",
+                                additional_info=""):
         Base.metadata.create_all(engine)
         session = Session()
-        neural_network_file = NeuralNetworkFile(name, neural_network_id, neural_network_type_id, additional_info)
+        neural_network_file = NeuralNetworkFile(name, neural_network_id, neural_network_type_id, processing_time,
+                                                additional_info)
         session.add(neural_network_file)
         session.commit()
         session.close()

@@ -17,18 +17,20 @@ class NeuralNetworkUploader():
         self.nnTypes = NeuralNetworkTypes()
         self.stringOperator = StringOperator()
 
-    def upload_files(self, neural_network_id):
+    def upload_files(self, neural_network_id, training_times):
         base_path = path.join(self.pathsProvider.local_neural_network_path(), str(neural_network_id))
         file_paths = [path.join(base_path, f) for f in listdir(base_path)]
         for file_path in file_paths:
             opened_file = open(file_path, 'rb')
             file_name, nn_type_id = self.__get_file_name_and_file_type_id(file_path)
-            self.__upload_single_file__(file_name, neural_network_id, nn_type_id, opened_file)
+            self.__upload_single_file__(file_name, neural_network_id, nn_type_id, opened_file,
+                                        training_times[nn_type_id])
 
-    def __upload_single_file__(self, file_name, neural_network_id, nn_type_id, opened_file):
-        self.logger.info(f"Upload of file {file_name} STARTED (possible timeout error on weak network and big file size)")
+    def __upload_single_file__(self, file_name, neural_network_id, nn_type_id, opened_file, process_time):
+        self.logger.info(
+            f"Upload of file {file_name} STARTED (possible timeout error on weak network and big file size)")
         self.filesUploader.upload_neural_network(neural_network_id, opened_file.read(), file_name)
-        self.nnFilesRepo.add_neural_network_file(file_name, neural_network_id, nn_type_id)
+        self.nnFilesRepo.add_neural_network_file(file_name, neural_network_id, nn_type_id, process_time)
         self.logger.info(f"Upload of file {file_name} FINISHED")
 
     def __get_file_name_and_file_type_id(self, file_path):

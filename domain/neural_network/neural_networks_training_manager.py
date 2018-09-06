@@ -1,3 +1,5 @@
+import time
+
 from configuration_global.logger_factory import LoggerFactory
 from dataLayer.repositories.neural_network_person_repository import NeuralNetworkPersonRepository
 from dataLayer.repositories.neural_network_repository import NeuralNetworkRepository
@@ -26,6 +28,11 @@ class NeuralNetworksTrainingManager():
         self.azureGroupTrainer.train_large_group(request_id, request_name, people_with_image_paths)
 
     def __create_open_cv_recognizer_neural_networks__(self, request_id, people_with_image_paths):
-        training_data = self.trainingDataProvider.get_training_data_for_neural_network(request_id, people_with_image_paths)
-        self.neuralNetworkTrainer.create_all_face_recognizers(request_id, training_data)
-        self.neuralNetworkResultUploader.upload_files(request_id)
+        start_data = time.time()
+        training_data = self.trainingDataProvider.get_training_data_for_neural_network(request_id,
+                                                                                       people_with_image_paths)
+        end_data = time.time()
+        data_preparation_time = end_data - start_data
+        training_times = self.neuralNetworkTrainer.create_all_face_recognizers(request_id, training_data,
+                                                                               data_preparation_time)
+        self.neuralNetworkResultUploader.upload_files(request_id,training_times)

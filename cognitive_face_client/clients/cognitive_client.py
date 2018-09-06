@@ -35,4 +35,5 @@ class CognitiveClient():
 
     def get_large_group_status(self, large_group_id):
         res = CF.large_person_group.get_status(large_group_id)
+        CF.large_person_group.get()
         return res
