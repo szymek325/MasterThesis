@@ -5,65 +5,104 @@
     ViewBag.Title = "New Neural Network";
 }
 
-<h2>@ViewData["Title"]</h2>
+@section Scripts {
+    <script type="text/javascript">
 
-@using (Html.BeginForm("Create", "NeuralNetwork", FormMethod.Post))
-{
-    <div class="container">
+        function toggleChecked(status) {
+            $("#checkboxes input").each(function() {
+                // Set the checked status of each to match the
+                // checked status of the check all checkbox:
+                $(this).prop("checked", status);
+            });
+        }
 
-        <div class="row">
-            <div class="col-md-3">
-                <label for="name">Name</label>
-            </div>
-            <div class="col-md-3">
-                @Html.TextBoxFor(model => model.Name)
-                <div class="row">
-                    @Html.ValidationMessageFor(m => m.Name, "", new {@class = "text-danger"})
-                </div>
-            </div>
-        </div>
+        $(document).ready(function() {
 
+            // Grab a reference to the check all box:
+            var checkAllBox = $("#checkall");
 
-        <div class="row">
-            <div class="col-md-3">
-                <label for="people">People included in neural network training</label>
-            </div>
-            <div class="col-md-3">
-                <div class="row">
-                    @Html.ValidationMessageFor(m => m.PeopleCheckboxes, "", new {@class = "text-danger"})
-                </div>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Include?</th>
-                        <th>Id</th>
-                        <th>Name</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @for (var i = 0; i < Model.PeopleCheckboxes.Count(); i++)
-                    {
-                        <tr>
-                            <td>
-                                @Html.CheckBoxFor(m => m.PeopleCheckboxes[i].IsChecked)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => m.PeopleCheckboxes[i].Id)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => m.PeopleCheckboxes[i].Name)
-                            </td>
-                            @Html.HiddenFor(m => m.PeopleCheckboxes[i].Id)
-                            @Html.HiddenFor(m => m.PeopleCheckboxes[i].Name)
-                            @Html.HiddenFor(m => m.PeopleCheckboxes[i].IsChecked)
-                        </tr>
-                    }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="row">
-            <input class="btn btn-success" type="submit" value="Submit"/>
-        </div>
-    </div>
+            //Set the default value of the global checkbox to true:
+            checkAllBox.prop('checked', true);
+
+            // Attach the call to toggleChecked to the
+            // click event of the global checkbox:
+            checkAllBox.click(function() {
+                var status = checkAllBox.prop('checked');
+                toggleChecked(status);
+            });
+        });
+    </script>
 }
+
+    <h2>@ViewData["Title"]</h2>
+
+    @using (Html.BeginForm("Create", "NeuralNetwork", FormMethod.Post))
+    {
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="name">Name</label>
+                </div>
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.Name)
+                    <div class="row">
+                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-3">
+                    <input type="checkbox" id="checkall" /><span>Check All People</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="people">People included in neural network training</label>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        @Html.ValidationMessageFor(m => m.PeopleCheckboxes, "", new { @class = "text-danger" })
+                    </div>
+                    <div id="checkboxes">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Include?</th>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @for (var i = 0; i < Model.PeopleCheckboxes.Count(); i++)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.CheckBoxFor(m => m.PeopleCheckboxes[i].IsChecked)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(m => m.PeopleCheckboxes[i].Id)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(m => m.PeopleCheckboxes[i].Name)
+                                        </td>
+                                        @Html.HiddenFor(m => m.PeopleCheckboxes[i].Id)
+                                        @Html.HiddenFor(m => m.PeopleCheckboxes[i].Name)
+                                        @Html.HiddenFor(m => m.PeopleCheckboxes[i].IsChecked)
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <input class="btn btn-success" type="submit" value="Submit" />
+            </div>
+        </div>
+    }
