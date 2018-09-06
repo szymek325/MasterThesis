@@ -34,13 +34,13 @@ namespace WebRazor
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
-                app.UseDeveloperExceptionPage();
+                
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
