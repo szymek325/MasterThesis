@@ -56,3 +56,13 @@ class AzureLargeGroupsClient():
         except Exception as ex:
             self.logger.error(f"Exception when checking large group status. Ex: {ex}")
             raise
+
+    def get_person_in_large_group_name(self, large_group_id, person_specific_number):
+        self.logger.info(f"Checking Name of person in large group :{large_group_id} under id :{person_specific_number}")
+        try:
+            res = self.cognitiveClient.get_person_name(large_group_id, person_specific_number)
+            self.logger.info(f"Person name :{res['name']}")
+            return res['name']
+        except Exception as ex:
+            self.logger.error(f"Exception when getting name of person in large group. Ex: {ex}")
+            raise

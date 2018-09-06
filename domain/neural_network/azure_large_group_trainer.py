@@ -28,6 +28,7 @@ class AzureLargeGroupTrainer():
             self.largeGroupClient.train_large_group(request_id)
             end = time.time()
             self.nnFilesRepo.add_neural_network_file(str(request_id), request_id, self.nnTypes.azure_large_group_id,
-                                                     end - start, str(people_dictionary))
+                                                     end - start, str(people_dictionary))# people dictionary may become problematic when group is very big
+
         except Exception as ex:
             self.logger.error(f"Exception when creating Azure Large Group. Exception: {ex}")
