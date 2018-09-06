@@ -29,6 +29,34 @@
     </div>
 
     <div>
+        <h3>Trained files</h3>
+        <table class="table" *ngIf="neuralNetwork.files">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>(seconds)<br>Processing time</th>
+                <th>(seconds)<br>Training time</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var file in Model.Files)
+            {
+                <tr>
+                    <td>@file.Id</td>
+                    <td>@file.Name</td>
+                    <td>@file.TypeName</td>
+                    <td>@file.ProcessingTime</td>
+                    <td>@file.TrainingTime</td>
+                </tr>
+            }
+
+            </tbody>
+        </table>
+    </div>
+
+    <div>
         <h3>People data used for training</h3>
         <table class="table">
             <thead>
@@ -48,33 +76,6 @@
                     </td>
                 </tr>
             }
-            </tbody>
-        </table>
-    </div>
-    <div>
-        <h3>Trained files</h3>
-        <table class="table" *ngIf="neuralNetwork.files">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>(seconds)<br>Processing time</th>
-                    <th>(seconds)<br>Training time</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach (var file in Model.Files)
-            {
-                <tr>
-                    <td>@file.Id</td>
-                    <td>@file.Name</td>
-                    <td>@file.TypeName</td>
-                    <td>@file.ProcessingTime</td>
-                    <td>@file.TrainingTime</td>
-                </tr>
-            }
-
             </tbody>
         </table>
     </div>
