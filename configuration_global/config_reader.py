@@ -20,3 +20,9 @@ class ConfigReader:
     @property
     def environment_to_use(self):
         return self.configuration["environment_to_use"]
+
+    @property
+    def how_many_files_per_person(self):
+        how_many_files = self.configuration["how_many_files_per_person"]
+        number = int(how_many_files)
+        return number
