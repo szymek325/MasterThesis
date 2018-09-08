@@ -11,5 +11,6 @@ namespace DataLayer.Entities
         public virtual DetectionType DetectionType { get; set; }
         public virtual ImageAttachment Image { get; set; }
         public IEnumerable<DetectionRectangle> FaceRectangles { get; set; }
+        public string ProcessingTime { get; set; }
     }
 }

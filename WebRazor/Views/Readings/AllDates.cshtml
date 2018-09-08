@@ -1,0 +1,26 @@
+﻿@model WebRazor.Models.Readings.AllDatesViewModel
+
+@{
+    ViewBag.Title = "Readings";
+    Layout = "_Layout";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Day</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var day in Model.Dates)
+    {
+        <tr>
+            <td class="col-md-2" onclick="location.href = '@Url.Action("DailyReadings", "Readings", new {day = day.Date})'">
+                @day.Date.ToString("dd/MM/yyyy")
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

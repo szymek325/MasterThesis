@@ -1,5 +1,4 @@
 ﻿using DataLayer.Entities;
-using DataLayer.Entities.Common;
 using DataLayer.Repositories.Base;
 using DataLayer.Repositories.Interface;
 

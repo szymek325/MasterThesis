@@ -24,12 +24,13 @@ namespace Domain.NeuralNetwork
             this.mapper = mapper;
         }
 
-        public Task<int> Create(string neuralNetworkName, string peopleIds)
+        public Task<int> Create(string neuralNetworkName, string peopleIds, int photosToTake)
         {
             var neuralNetwork = new DataLayer.Entities.NeuralNetwork
             {
                 Name = neuralNetworkName,
-                StatusId = 1
+                StatusId = 1,
+                MaxNumberOfPhotosPerPerson = photosToTake
             };
             foreach (var personId in peopleIds.Split(','))
             {

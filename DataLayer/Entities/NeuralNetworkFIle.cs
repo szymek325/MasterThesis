@@ -1,4 +1,5 @@
-﻿using DataLayer.Entities.Common;
+﻿using System;
+using DataLayer.Entities.Common;
 
 namespace DataLayer.Entities
 {
@@ -10,5 +11,8 @@ namespace DataLayer.Entities
         public int NeuralNetworkTypeId { get; set; }
         public NeuralNetworkType NeuralNetworkType { get; set; }
         public string AdditionalData { get; set; }
+        public string TrainingTime { get; set; }
+        public string ProcessingTime { get; set; }
+        public string FileSize { get; set; }
     }
 }

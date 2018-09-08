@@ -15,6 +15,8 @@ namespace DataLayer.Helpers
                 return $"{nameof(ImageTypes.Person)}/{image.PersonId}";
             if (image.ImageAttachmentTypeId == ImageTypes.Recognition)
                 return $"{nameof(ImageTypes.Recognition)}/{image.RecognitionId}";
+            if (image.ImageAttachmentTypeId == ImageTypes.Movement)
+                return $"{nameof(ImageTypes.Movement)}/{image.MovementId}";
             throw new ArgumentException("Wrong value of ImageAttachmentTypeId");
         }
     }

@@ -8,6 +8,6 @@ namespace Domain.SensorsReading.DTO
 
         public int Humidity { get; set; }
         public int Temperature { get; set; }
-        public DateTime CreationTime { get; set; }
+        public TimeSpan CreationTime { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataLayer.Migrations
 {
-    public partial class NewInitDb : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -51,6 +51,38 @@ namespace DataLayer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_NeuralNetworkType", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NotificationSettings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Min = table.Column<int>(nullable: false),
+                    Max = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NotificationSettings", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NotificationType",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NotificationType", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -101,6 +133,28 @@ namespace DataLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notification",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    Message = table.Column<string>(nullable: true),
+                    NotificationTypeId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notification", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notification_NotificationType_NotificationTypeId",
+                        column: x => x.NotificationTypeId,
+                        principalTable: "NotificationType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Detection",
                 columns: table => new
                 {
@@ -109,8 +163,6 @@ namespace DataLayer.Migrations
                     CreationTime = table.Column<DateTime>(nullable: false, defaultValueSql: "getutcdate()"),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    DnnFaces = table.Column<int>(nullable: false),
-                    HaarFaces = table.Column<int>(nullable: false),
                     StatusId = table.Column<int>(nullable: false),
                     CompletionTime = table.Column<DateTime>(nullable: true)
                 },
@@ -187,7 +239,8 @@ namespace DataLayer.Migrations
                     ModifiedDate = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     NeuralNetworkId = table.Column<int>(nullable: false),
-                    NeuralNetworkTypeId = table.Column<int>(nullable: false)
+                    NeuralNetworkTypeId = table.Column<int>(nullable: false),
+                    AdditionalData = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -302,7 +355,8 @@ namespace DataLayer.Migrations
                     DetectionId = table.Column<int>(nullable: true),
                     DetectionResultId = table.Column<int>(nullable: true),
                     RecognitionId = table.Column<int>(nullable: true),
-                    PersonId = table.Column<int>(nullable: true)
+                    PersonId = table.Column<int>(nullable: true),
+                    NotificationId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -325,6 +379,12 @@ namespace DataLayer.Migrations
                         principalTable: "ImageAttachmentType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ImageAttachment_Notification_NotificationId",
+                        column: x => x.NotificationId,
+                        principalTable: "Notification",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ImageAttachment_Person_PersonId",
                         column: x => x.PersonId,
@@ -350,7 +410,8 @@ namespace DataLayer.Migrations
                     IdentifiedPersonId = table.Column<int>(nullable: false),
                     Confidence = table.Column<int>(nullable: false),
                     NeuralNetworkFileId = table.Column<int>(nullable: false),
-                    RecognitionId = table.Column<int>(nullable: false)
+                    RecognitionId = table.Column<int>(nullable: false),
+                    Comments = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -367,6 +428,68 @@ namespace DataLayer.Migrations
                         principalTable: "Recognition",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "DetectionType",
+                columns: new[] { "Id", "CreationTime", "ModifiedDate", "Name" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "dnn" },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "haar" },
+                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "azure" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ImageAttachmentType",
+                columns: new[] { "Id", "CreationTime", "ModifiedDate", "Name" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Detection" },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "DetectionResult" },
+                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Recognition" },
+                    { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Person" },
+                    { 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Motion" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "NeuralNetworkType",
+                columns: new[] { "Id", "CreationTime", "ModifiedDate", "Name" },
+                values: new object[,]
+                {
+                    { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "AzureLargeGroup" },
+                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Fisher" },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Eigen" },
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "LBPH" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "NotificationSettings",
+                columns: new[] { "Id", "CreationTime", "Max", "Min", "ModifiedDate", "Name" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 30, 15, null, "Temperature" },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 60, 30, null, "Humidity" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "NotificationType",
+                columns: new[] { "Id", "CreationTime", "ModifiedDate", "Name" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Sensor Reading" },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Motion Detection" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Status",
+                columns: new[] { "Id", "CreationTime", "ModifiedDate", "Name" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "New" },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "In Progress" },
+                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Completed" },
+                    { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Error" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -409,6 +532,13 @@ namespace DataLayer.Migrations
                 column: "ImageAttachmentTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ImageAttachment_NotificationId",
+                table: "ImageAttachment",
+                column: "NotificationId",
+                unique: true,
+                filter: "[NotificationId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ImageAttachment_PersonId",
                 table: "ImageAttachment",
                 column: "PersonId");
@@ -439,6 +569,11 @@ namespace DataLayer.Migrations
                 name: "IX_NeuralNetworkPeople_NeuralNetworkId",
                 table: "NeuralNetworkPeople",
                 column: "NeuralNetworkId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notification_NotificationTypeId",
+                table: "Notification",
+                column: "NotificationTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Recognition_NeuralNetworkId",
@@ -473,6 +608,9 @@ namespace DataLayer.Migrations
                 name: "NeuralNetworkPeople");
 
             migrationBuilder.DropTable(
+                name: "NotificationSettings");
+
+            migrationBuilder.DropTable(
                 name: "RecognitionResult");
 
             migrationBuilder.DropTable(
@@ -483,6 +621,9 @@ namespace DataLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "ImageAttachmentType");
+
+            migrationBuilder.DropTable(
+                name: "Notification");
 
             migrationBuilder.DropTable(
                 name: "Person");
@@ -498,6 +639,9 @@ namespace DataLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "DetectionType");
+
+            migrationBuilder.DropTable(
+                name: "NotificationType");
 
             migrationBuilder.DropTable(
                 name: "NeuralNetworkType");

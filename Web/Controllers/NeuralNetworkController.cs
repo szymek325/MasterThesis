@@ -31,8 +31,10 @@ namespace Web.Controllers
             try
             {
                 collections.TryGetValue("name", out var neuralNetworkName);
+                collections.TryGetValue("photosPerPerson", out var photosMax);
                 collections.TryGetValue("people", out var peopleIds);
-                var nnId= await neuralNetworkService.Create(neuralNetworkName, peopleIds);
+                var photosPerPerson = int.Parse(photosMax);
+                var nnId= await neuralNetworkService.Create(neuralNetworkName, peopleIds, photosPerPerson);
                 return Ok(new {neuralNetworkId = nnId });
             }
             catch (Exception ex)
