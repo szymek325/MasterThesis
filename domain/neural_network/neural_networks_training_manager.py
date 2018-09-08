@@ -33,6 +33,5 @@ class NeuralNetworksTrainingManager():
                                                                                        people_with_image_paths)
         end_data = time.time()
         data_preparation_time = end_data - start_data
-        training_times = self.neuralNetworkTrainer.create_all_face_recognizers(request_id, training_data,
-                                                                               data_preparation_time)
-        self.neuralNetworkResultUploader.upload_files(request_id,training_times)
+        training_times = self.neuralNetworkTrainer.create_all_face_recognizers(request_id, training_data)
+        self.neuralNetworkResultUploader.upload_files(request_id, training_times, data_preparation_time)

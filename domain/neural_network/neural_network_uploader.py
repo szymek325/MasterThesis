@@ -2,6 +2,7 @@ from os import path, listdir
 
 from configuration_global.logger_factory import LoggerFactory
 from configuration_global.paths_provider import PathsProvider
+from dataLayer.entities.neural_network_file import NeuralNetworkFile
 from dataLayer.repositories.neural_network_file_repository import NeuralNetworkFileRepository
 from dataLayer.type_providers.neural_network_types import NeuralNetworkTypes
 from domain.string_operator import StringOperator
@@ -17,20 +18,25 @@ class NeuralNetworkUploader():
         self.nnTypes = NeuralNetworkTypes()
         self.stringOperator = StringOperator()
 
-    def upload_files(self, neural_network_id, training_times):
+    def upload_files(self, neural_network_id, training_times, data_preparation_time):
         base_path = path.join(self.pathsProvider.local_neural_network_path(), str(neural_network_id))
         file_paths = [path.join(base_path, f) for f in listdir(base_path)]
         for file_path in file_paths:
             opened_file = open(file_path, 'rb')
             file_name, nn_type_id = self.__get_file_name_and_file_type_id(file_path)
+            training_time_of_nn = training_times[nn_type_id]
             self.__upload_single_file__(file_name, neural_network_id, nn_type_id, opened_file,
-                                        training_times[nn_type_id])
+                                        training_time_of_nn + data_preparation_time, training_time_of_nn)
 
-    def __upload_single_file__(self, file_name, neural_network_id, nn_type_id, opened_file, process_time):
+    def __upload_single_file__(self, file_name, neural_network_id, nn_type_id, opened_file, process_time,
+                               training_time):
         self.logger.info(
             f"Upload of file {file_name} STARTED (possible timeout error on weak network and big file size)")
         # self.filesUploader.upload_neural_network(neural_network_id, opened_file.read(), file_name)
-        self.nnFilesRepo.add_neural_network_file(file_name, neural_network_id, nn_type_id, process_time)
+        # commented because files are now too big
+        neural_network_file_entity = NeuralNetworkFile(file_name, neural_network_id, nn_type_id, process_time,
+                                                       training_time)
+        self.nnFilesRepo.add_neural_network_file(neural_network_file_entity)
         self.logger.info(f"Upload of file {file_name} FINISHED")
 
     def __get_file_name_and_file_type_id(self, file_path):
