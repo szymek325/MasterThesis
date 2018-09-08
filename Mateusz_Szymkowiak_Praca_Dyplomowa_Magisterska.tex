@@ -34,6 +34,11 @@
 \setcounter{tocdepth}{1}
 \usepackage[backend=bibtex]{biblatex}
 \usepackage{siunitx}
+\usepackage{amsmath}
+%Uncomment when package repo is working
+%\usepackage{tocloft}    % for list of equations
+%\usepackage{ragged2e}   % to undo \centering
+%\usepackage{glossaries} 
 \bibliography{bibliografia.bib}
 
 \lstdefinelanguage{JavaScript}{
@@ -50,9 +55,23 @@
   morestring=[b]',
   morestring=[b]"
 }
-
+%define source in figures
 \newcommand{\captionsource}[2]{\caption {#1} {Źródło: {#2}} }
 
+%%define equeation list and numbering
+%% define list of equations
+%\newcommand{\listequationsname}{\Large{List of Equations}}
+%\newlistof{myequations}{equ}{\listequationsname}
+%\newcommand{\myequations}[1]{
+%   \addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}
+%}
+%\setlength{\cftmyequationsnumwidth}{2.3em}
+%\setlength{\cftmyequationsindent}{1.5em}
+%% command to box, label, reference, and 
+%% include noteworthy equation in list of equations
+%\newcommand{\noteworthy}[2]{
+%\begin{align} \label{#2} \ensuremath{\boxed{#1}} \end{align} 
+%\myequations{#2} \centering \small \textit{#2} \normalsize \justify }
 
 \begin{document}
 
@@ -139,6 +158,10 @@ Dodatek do niniejszej pracy stanowi płyta CD zawierająca:
 \newpage
 \addcontentsline{toc}{section}{Spis tablic}	
 \listoftables
+
+\newpage
+\addcontentsline{toc}{section}{Spis wzorów}	
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 

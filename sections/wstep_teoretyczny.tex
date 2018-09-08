@@ -82,35 +82,40 @@ Raspberry Pi Camera HD jest dedykowaną kamerą przeznaczoną tylko i wyłączni
 \end{figure}
 
 \section{Przetwarzanie obrazu}
-\subsection{Thresholding}
+\subsection{Thresholding \textcolor{red}{TODO}}
+Thresholding jest operacją polegającą na segmentacji obrazu. Segmentacja to proces podziału obrazu na części określane jako obszary, które są jednorodne pod względem pewnych wybranych własności. Podczas thresholdingu dochodzi do porównania wartości pixeli, tak by oddzielić ważne piksele od tych mniej interesujących. Przed operacją ustalana jest granica, która będzie stanowić o tym jak rozdzielone zostaną wartości.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{efekt_thresholdingu.jpg}
-	\caption{Efekt działania thresholdingu}
+	\caption{Efekt działania thresholdingu a) przed b) po}
 	\label{fig:efekt_thresholdingu}
 \end{figure}
-Thresholding jest operacją polegającą na segmentacji obrazu. Segmentacja to proces podziału obrazu na części określane jako obszary, które są jednorodne pod względem pewnych wybranych własności. Podczas thresholdingu dochodzi do porównania wartości pixeli, tak by oddzielić ważne piksele od tych mniej interesujących. Przed operacją ustalana jest granica, która będzie stanowić o tym jak rozdzielone zostaną wartości.
-Zakładając, że obraz wejściowy z pikselami o różnych wartościach to $ src(x,y) $, a $thresh$ to przyjęta granica, to taką sytuację można przedstawić na rysunku \ref{fig:thresholding}.
+Zakładając, że obraz wejściowy to $src$, wartość danego piksela oznaczono jako $src(x,y) $, a przyjętą granicę jako $thresh$. Na rysunku \ref{fig:thresholding} niebieską linią oznaczono $thresh$, a czerwonym kolorem obszar oznaczający wartość piksela. 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8]{thresholding.png}
-	\caption{Thresholding obrazu}
+	\caption{Wykres wartości obrazu $src$ przed thresholdingiem}
 	\label{fig:thresholding}
 \end{figure}
-W tej pracy zastosowano thresholding binarny dlatego przykład został przedstawiony właśnie dla tej metody. Gdyby przez $maxValue$ oznaczyć wartość maksymalną piksela, a przez $dst(x,y)$ obraz wyjściowy to sposób działania thresholdingu binarnego można by opisać poniższym wzorem.
-$$
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{thresholding_binarny.png}
+	\caption{Wykres wartości pikseli obrazu $dst$}
+	\label{fig:thresholding_binarny}
+\end{figure}
+W tej pracy zastosowano thresholding binarny konwertujący wartość każdego piksela do minimalnej lub maksymalnej. Działanie funkcji przedstawiono za pomocą poniższego wzoru.
+ \begin{equation}
+ \label{eq:thresholding}
+ \begin{aligned}
 dst(x,y) = \left\{ \begin{array}{ll}
 maxValue & \textrm{gdy $src(x,y)>$thresh}\\
 0 & \textrm{pozostałe}
 \end{array} \right.
-$$
-W efekcie działania algorytmu uzyskany zostaje obraz posiadający piksele jedynie o dwóch skrajnych wartościach. Wartości obrazu z rysunku \ref{fig:thresholding} po operacji przedstawia wykres \ref{fig:thresholding_binarny}.
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.8]{thresholding_binarny.png}
-	\caption{Thresholding binarny}
-	\label{fig:thresholding_binarny}
-\end{figure}
+ \end{aligned}
+\end{equation}
+ \\ \textcolor{red}{POPRAWIĆ WZÓR I OPIS}gdzie maxValue- wartość maksymalna piksela
+ \\ dst- plik wyjściowy \\
+Porównując rysunki \ref{fig:thresholding} oraz \ref{fig:thresholding_binarny} można zaobserwować że zgodnie ze wzorem 3.1 każdy piksel obrazu wejściowego poniżej wartości $thresh$ (niebieska linia), na obrazie wyjściowym ma wartość 0, a powyżej linii ma wartość maksymalną.
 
 \subsection{Dylatacja}
 Dylatacja jest operacją wykorzystywaną do przetwarzania obrazów binarnych, określaną rozszerzaniem. Proces dylatacji polega na przyłożeniu do każdego pixela na obrazie struktury o wybranym rozmiarze. Jeżeli choć jeden piksel sąsiadujący z punktem centralnym ma wartość jeden to punkt centralny również otrzymuje taką samą wartość. W przeciwnym wypadku punktowi przypisywana jest wartość zero. Najkorzystniejsze efekty przynosi dylatacja strukturą przypominającą kształt koła, np 3x3 px. W efekcie dylatacji dochodzi do zwiększenia się obiektu, zniknięcia detali oraz wypełnienia pustek w niespójnym obszarze.
