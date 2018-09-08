@@ -126,7 +126,7 @@ Dylatacja jest operacją wykorzystywaną do przetwarzania obrazów binarnych, ok
 	\label{fig:dylatacja}
 \end{figure}
 
-\subsection{Rozmycie gaussowskie}
+\subsection{Rozmycie gaussowskie \textcolor{red}{DODAĆ wzór i więcej opisu}}
 Rozmycie gaussowskie inaczej nazywane wygładzaniem gaussowskim to operacja przetwarzania obrazu polegająca na modyfikacji go z użyciem filtru Gaussa. Rozmycie wykorzystywane jest w celu zmniejszenia szumów oraz zakłóceń w obrazie oraz w celu zamazania detali.
 \begin{figure}[H]
 	\centering
@@ -138,23 +138,22 @@ Rozmycie gaussowskie inaczej nazywane wygładzaniem gaussowskim to operacja prze
 \subsection{Klasyfikator kaskad Haar'a} \label{haar}
 Detekcja obiektów klasyfikatorem kaskad Haar'a została oparta o metodę Paul'a Viola i Michael'a Jones'a– w skrócie Viola-Jones.
 
-\subsection{Algorytm Viola-Jones}
-Jest to jeden z pierwszych algorytmów pozwalających na osiągnięcie zadowalających wyników w detekcji obiektów na obrazie. Został on zaproponowany w 2001 roku i został przemyślany z głównym przeznaczeniem dla detekcji twarzy. Na kluczowe koncepcje tej metody składają się:
+Algorytm Viola-Jones jest jednym z pierwszych algorytmów pozwalających na osiągnięcie zadowalających wyników w detekcji obiektów na obrazie. Został on zaproponowany w 2001 roku i został przemyślany z głównym przeznaczeniem dla detekcji twarzy. Na kluczowe koncepcje tej metody składają się:
 \begin{itemize}
 \item wyszukiwanie cech Haar'a,
 \item integralność obrazu,
 \item metoda uczenia AdaBoost (podstawowy algorytm do boostingu, metoda dzięki której z dużej liczby słabych klasyfikatorów można otrzymać jeden lepszy )
 \end{itemize}
 
-\subsection{Cechy Haar'a}
-Cechy wykorzystywane w metodzie Viola-Jones opierają się na falkach Haara. Falki Haara są to sekwencje przeskalowanych kwadrato-podobnych funkcji, które razem tworzą falę(falo-podobną oscylację), podstawę z której można zbudować kwadrat. W dwóch wymiarach, fala kwadratu jest parą przylegających do siebie prostokątów, gdzie jeden jest jaśniejszy, a drugi ciemniejszy.
+Cechy wykorzystywane w metodzie Viola-Jones opierają się na falkach Haara. Falki Haara są to sekwencje przeskalowanych kwadrato-podobnych funkcji, które razem tworzą falę(falo-podobną oscylację), podstawę z której można zbudować kwadrat. W dwóch wymiarach, fala kwadratu jest parą przylegających do siebie prostokątów, gdzie jeden jest jaśniejszy, a drugi ciemniejszy. Podstawowe szablony przedstawiono na rysunku \ref{fig:szablon_cech_haara}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{szablon_cech_haara.png}
-	\caption{Szablony cech Haar'a}
+	\caption{Szablony cech Haar'a a) dwuprostokątny b) trójprostokątny c) czteroprostokątny d) centralny}
 	\label{fig:szablon_cech_haara}
 \end{figure}
 Wartość każdej cechy jest obliczana jako różnica sumy poziomów szarości pikseli pokrywanych przez biały oraz czarny prostokąt oraz sumy poziomów szarości pikseli pokrywanych przez czarny prostokąt. Składniki tej różnicy posiadają wagi odwrotnie proporcjonalne do rozmiarów, dzięki czemu różnice wielkości dwóch obszarów są kompensowane.
+\colortex{red}{MOŻE JESZCZE WZÓR?}
 
 \subsection{Głęboka sieć neuronowa} \label{dnn}
 Pojęciem uczenia maszynowego określa się dziedzinę nauk związanych ze sztuczną inteligencją, zajmującą się badaniem algorytmów i systemów, które usprawniają swoje działanie wraz ze zdobywaniem nowej wiedzy lub też doświadczeniem. Wiedzą określamy dane uczące, które zostały wykorzystane do nauki. System może zostać usprawniony poprzez zwiększenie wiedzy systemu, które powinno pozwolić na usprawnienie procesu rozwiązywania podstawowych problemów.
@@ -166,15 +165,15 @@ Pojęciem uczenia maszynowego określa się dziedzinę nauk związanych ze sztuc
 \end{figure}
 Algorytmy głębokiego uczenia maszynowego są jednymi z najbardziej zaawansowanych. Zbudowane są one w sposób przypominający biologiczne sieci neuronowe. Głęboka sieć neuronowa składa się z neuronów rozmieszczonych na warstwach. Wiele warstw jest powodem dla którego taki rodzaj algorytmu określa się mianem głębokiego. Przykładowa budowa głębokiej sieci neuronowej została przedstawiona na rysunku \ref{fig:budowa_dnn}.
 
-Każdy z takich “sztucznych neuronów” jest tak naprawdę informacją, która jest przesyłana dalej do następnych neuronów i ich warstw. Poszczególne warstwy “uczą” się przetwarzać kolejne cechy obiektów/obrazów/dźwięków itp., dzięki czemu są w stanie odtwarzać całe obiekty w bardzo rzeczywisty sposób.
+Każdy z takich “sztucznych neuronów” jest tak naprawdę informacją, która jest przesyłana dalej do następnych neuronów i ich warstw. Poszczególne warstwy “uczą” się przetwarzać kolejne cechy obiektów/obrazów/dźwięków itp., dzięki czemu są w stanie odtwarzać całe obiekty w bardzo rzeczywisty sposób. W tej pracy wykorzystano głęboką sieć neuronową do zadania wykrywania twarzy na obrazie.
 
 \section{Azure} \label{azure}
 Azure jest platformą chmurową firmy Microsoft stworzoną w modelu Paas (Platform as a Service). Platforma zbudowana jest z grupy trzech technologii zapewniających specjalizowany zestaw możliwości dla programistów, które mogą być wykorzystywane zarówno przez aplikacje uruchamiane lokalnie na komputerach użytkowników oraz aplikacje uruchamiane w chmurze. W tej pracy wykorzystano:
 \begin{itemize}
     \item App Services,
     \item Azure Cognitive Services,
-    \item Bazy danych SQL,
-    \item Maszyny wirtualne.
+    \item bazy danych SQL oraz NoSQL (MSSQL, MySql, CosmicDB)
+    \item maszyny wirtualne oparte o system Windows oraz kilka popularnych dystrybucji Linuxa.
 \end{itemize}
 \subsection{Web App Services}
 Web App Services jest usługą pozwalającą na hostowanie aplikacji internetowych napisanych w jednym z wybranych języków (między innymi .Net, Node.Js, Python) bez zarządzania infrastrukturą. Do największych zalet należy automatyczna skalowalność serwisu oraz wysoka dostępność. Podczas tworzenia środowiska istnieje możliwość wyboru preferowanego systemu operacyjnego. Dużą zaletą jest możliwość wdrożenia aplikacji za pomocą jednego kliknięcia bezpośrednio z Visual Studio. Sprawne korzystanie z usługi jest możliwe dzięki szerokiemu zakresowi dokumentacji i tutoriali udostepnionych przez producenta.
@@ -184,8 +183,8 @@ Amazon Web Services jest platformą chmurową firmy Amazon stworzoną w modelu P
 \begin{itemize}
     \item Elastic Beanstalk,
     \item Rekognition,
-    \item Bazy danych (RDS),
-    \item Maszyny wirtualne (EC2).
+    \item bazy danych (RDS),
+    \item maszyny wirtualne (EC2).
 \end{itemize}
 \subsection{Elastic Beanstalk}
 Elastic Beanstalk jest odpowiednikiem Azure Web App Services. Zakres dostępnych języków jest równie szeroki jak w przypadku Azure'a, ale w odróżnieniu od Microsoftu nie zawsze wspiera on najnowszych wersji produktów wymienionej firmy, a zakres możliwości konfiguracyjnych z poziomu strony internetowej jest uboższy. Podobnie jak w przypadku Azure istnieje możliwość wdrożenia aplikacji jednym kliknięciem po doinstalowaniu dedykowanego pluginu do Visual Studio.
