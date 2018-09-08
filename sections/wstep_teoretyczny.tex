@@ -118,11 +118,11 @@ maxValue & \textrm{gdy $src(x,y)>$thresh}\\
 Porównując rysunki \ref{fig:thresholding} oraz \ref{fig:thresholding_binarny} można zaobserwować że zgodnie ze wzorem 3.1 każdy piksel obrazu wejściowego poniżej wartości $thresh$ (niebieska linia), na obrazie wyjściowym ma wartość 0, a powyżej linii ma wartość maksymalną.
 
 \subsection{Dylatacja}
-Dylatacja jest operacją wykorzystywaną do przetwarzania obrazów binarnych, określaną rozszerzaniem. Proces dylatacji polega na przyłożeniu do każdego pixela na obrazie struktury o wybranym rozmiarze. Jeżeli choć jeden piksel sąsiadujący z punktem centralnym ma wartość jeden to punkt centralny również otrzymuje taką samą wartość. W przeciwnym wypadku punktowi przypisywana jest wartość zero. Najkorzystniejsze efekty przynosi dylatacja strukturą przypominającą kształt koła, np 3x3 px. W efekcie dylatacji dochodzi do zwiększenia się obiektu, zniknięcia detali oraz wypełnienia pustek w niespójnym obszarze.
+Dylatacja jest operacją wykorzystywaną do przetwarzania obrazów binarnych, określaną rozszerzaniem. Proces dylatacji polega na przyłożeniu do każdego pixela na obrazie struktury o wybranym rozmiarze. Jeżeli choć jeden piksel sąsiadujący z punktem centralnym wybranej struktury ma wartość jeden to punkt centralny również otrzymuje taką samą wartość. W przeciwnym wypadku punktowi przypisywana jest wartość zero. Najkorzystniejsze efekty przynosi dylatacja strukturą przypominającą kształt koła, np 3x3 px. W efekcie dylatacji dochodzi do zwiększenia się obiektu, zniknięcia detali oraz wypełnienia pustek w niespójnym obszarze. Na rysunku \ref{fig:dylatacja} b) do obrazu przyłożono strukturę 3x3 px. W jej obszarze znaleziono jeden piksel o wartości maksymalnej(oznaczony szarym kolorem), dlatego pikselowi oznaczonemu kolorem zielonym zostaje przydzielona ta sama wartość. Przeprowadzenie operacji na całym obrazie, powoduje uzyskanie rysunku \ref{fig:dylatacja} c).
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{dylatacja.png}
-	\caption{Przebieg przykładowej dylatacji}
+	\captionsource{Przebieg przykładowej dylatacji a) przed b) w trakcie c) po}{https://pl.wikipedia.org/wiki/Cyfrowe\_ przetwarzanie\_ obrazów\_ binarnych}
 	\label{fig:dylatacja}
 \end{figure}
 
