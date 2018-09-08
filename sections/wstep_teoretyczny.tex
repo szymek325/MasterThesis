@@ -1,31 +1,25 @@
 \section{Technologie}
-\subsection{Wzorzec projektowy MVC}
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.8]{mvc.png}
-	\caption{Schemat klasycznego wzorca MVC}
-	\label{fig:schemat_mvc}
-\end{figure}
-Strona internetowa powstała na bazie bardzo popularnego wśród programistów wzorca projektowego MVC. Założenia wzorca Model-Widok-Kontroler są bardzo proste, ich składowymi są:
+\subsection{Wzorzec projektowy MVC (Model-View-Controller)}
+Strona internetowa powstała na bazie bardzo popularnego wśród programistów wzorca projektowego MVC. Założenia wzorca Model-Widok-Kontroler przedstawionego na rysunku \ref{fig:schemat_mvc} są bardzo proste, ich składowymi są:
 \begin{itemize}
 \item Model- reprezentuje logikę biznesową. Tutaj znajdują się wszelkie obiekty, które służą do wykonywania zaimplementowanej funkcjonalności danej aplikacji,
 \item Widok- jest warstwą prezentacji. Odpowiada za prezentację logiki biznesowej (Modelu) użytkownikowi w przystępny sposób,
 \item Kontroler- obsługuje żądania użytkownika. Odebrane zadania oddelegowuje do odpowiednich modeli.
 \end{itemize}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{mvc.png}
+	\caption{Schemat klasycznego wzorca MVC}
+	\label{fig:schemat_mvc}
+\end{figure}
 
 \subsection{Single Page Application}
 Single Page Application (SPA) to aplikacja lub strona internetowa, która w całości wczytuje się za jednym razem. Cały potrzebny do działania strony kod (HTML, CSS, JavaScript) przesyłany jest na początku lub dodawany dynamicznie w kawałkach, zwykle w odpowiedzi na interakcje generowane przez użytkownika.
 Sposób działania takiej aplikacji jest zbliżony do odczuć towarzyszących korzystaniu z aplikacji desktopowej lub mobilnej.
 
 \subsection{Chmura obliczeniowa}
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.8]{cloud_computing.png}
-	\caption{Obliczenia chmurowe}
-	\label{fig:chmura_obliczeniowa}
-\end{figure}
-Chmura obliczeniowa jest określeniem oznaczającym model przetwarzania danych oparty na użytkowaniu usług dostarczonych przez usługodawcę. Użytkownik nie musi opłacać licencji, a płaci jedynie za użytkowanie danej usługi. W przypadku takich usług najpopularniejszym sposobem naliczania kosztów jest opłata od czasu użytkowania usługi.
-DO najpopularniejszych udostepnianych usług należą:
+Chmura obliczeniowa jest określeniem oznaczającym model przetwarzania danych oparty na użytkowaniu usług dostarczonych przez usługodawcę. Reprezentację budowy takiego systemu przedstawiono na rysunku \ref{fig:chmura_obliczeniowa}. Użytkownik nie musi opłacać licencji, a płaci jedynie za użytkowanie danej usługi. W przypadku takich usług najpopularniejszym sposobem naliczania kosztów jest opłata od czasu użytkowania usługi.
+Do najpopularniejszych udostepnianych usług należą:
 \begin{itemize}
 \item bazy danych,
 \item maszyny wirtualne,
@@ -33,16 +27,22 @@ DO najpopularniejszych udostepnianych usług należą:
 \item hosting dla aplikacji webowych.
 \end{itemize}
 Przedstawicielami usługodawców udostępniających szeroki zakres usług, które zostały wykorzystane podczas tworzenia tej pracy magisterskiej jest Azure od Microsoft oraz AWS stworzony przez Amazon. Usługi obu podmiotów, które mogą być przydatne podczas tworzenia rozwiązania zostały szerzej opisane w podpunkcie \ref{azure} i \ref{aws}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{cloud_computing.png}
+	\captionsource{Obliczenia chmurowe}{http://www.justscience.in}
+	\label{fig:chmura_obliczeniowa}
+\end{figure}
 \subsection{1-Wire} \label{1wire}
 One Wire to systemowa magistrala komunikacji elektronicznej pomiędzy urządzeniami, zapewniająca przesyłanie danych oraz zasilanie urządzenia przez pojedynczy kabel. Proces ten jest możliwy dzięki stopniowemu ładowaniu kondensatora znajdującego się w odbiorniku, a następnie wykorzystanie zgromadzonej energii do zasilenia urządzenia. Do magistrali może zostać podłączonych wiele urządzeń. Każdemu z nich przydzielany jest indywidualny adres 64-bitowy. Komunikację z urządzeniami inicjuje master, w tym przypadku Raspberry Pi.
 Przedstawiony protokół jest bardzo podobny do I2C, ale ze względu na wykorzystanie jedynie jednej linii danych, charakteryzuje się niższą prędkością przesyłania. Układ zazwyczaj zasilany jest napięciem o wartości 5V i służy do komunikacji pomiędzy niewielkimi urządzeniami, takimi jak np. termometr cyfrowy i mikrokontroler.
 
 \section{Raspberry Pi} \label{raspi}
-Raspberry Pi jest platformą komputerową stworzoną przez Raspberry Pi Foundation, na którą składa się pojedynczy obwód drukowany. Pierwsza wersja tego urządzenia została zaprezentowana w 2012 roku. Na potrzeby tej pracy wykorzystano nowszą wersję urządzanie w wersji 3 B, którą została wyposażona w 4 rdzeniowy procesor i 1 GB pamięci RAM. Raspberry pozwala na podłączenie wielu urządzeń peryferyjnych za pomocą 4 portów USB lub 40 pinów GPIO. Dodatkowe złącze pozwala na podłączenie dedykowanej kamery. Dzięki znacznej ilości portów GPIO istnieje możliwość komunikacji cyfrowej z sensorami. Budowa urządzenia nie pozwala na podłączenie czujników analogowych.
+Raspberry Pi jest platformą komputerową stworzoną przez Raspberry Pi Foundation, na którą składa się pojedynczy obwód drukowany widoczny na zdjęciu \ref{fig:raspberrypi}. Pierwsza wersja tego urządzenia została zaprezentowana w 2012 roku. Na potrzeby tej pracy wykorzystano nowszą wersję urządzanie w wersji 3 B, którą została wyposażona w 4 rdzeniowy procesor i 1 GB pamięci RAM. Raspberry pozwala na podłączenie wielu urządzeń peryferyjnych za pomocą 4 portów USB lub 40 pinów GPIO. Dodatkowe złącze pozwala na podłączenie dedykowanej kamery. Dzięki znacznej ilości portów GPIO istnieje możliwość komunikacji cyfrowej z sensorami. Budowa urządzenia nie pozwala na podłączenie czujników analogowych.
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.7]{raspberrypi.jpg}
-	\caption{Raspberry Pi 3 B}
+	\includegraphics[scale=0.6]{raspberrypi.jpg}
+	\captionsource{Raspberry Pi 3 B}{https://www.amazon.ca}
 	\label{fig:raspberrypi}
 \end{figure}
 
