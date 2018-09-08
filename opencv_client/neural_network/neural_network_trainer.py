@@ -1,4 +1,5 @@
 import os
+import time
 
 import cv2
 import numpy
@@ -19,24 +20,43 @@ class NeuralNetworkTrainer():
         self.requestPath = "path"
 
     def create_lbph_face_recognizer(self, request_id, face_samples, people_ids: [int]):
-        recognizer = cv2.face.LBPHFaceRecognizer_create()
-        recognizer.train(face_samples, people_ids)
-        recognizer.write(f'{self.requestPath}/{request_id}_{self.nnTypes.lbph}.xml')
+        try:
+            recognizer = cv2.face.LBPHFaceRecognizer_create()
+            recognizer.train(face_samples, people_ids)
+            recognizer.write(f'{self.requestPath}/{request_id}_{self.nnTypes.lbph}.xml')
+        except Exception as ex:
+            self.logger.error(f"Exception when creating LBPH neural network. Ex: {ex}")
 
     def create_eigen_face_recognizer(self, request_id, face_samples, people_ids: [int]):
-        recognizer = cv2.face.EigenFaceRecognizer_create()
-        recognizer.train(face_samples, people_ids)
-        recognizer.write(f'{self.requestPath}/{request_id}_{self.nnTypes.eigen}.xml')
+        try:
+            recognizer = cv2.face.EigenFaceRecognizer_create()
+            recognizer.train(face_samples, people_ids)
+            recognizer.write(f'{self.requestPath}/{request_id}_{self.nnTypes.eigen}.xml')
+        except Exception as ex:
+            self.logger.error(f"Exception when creating Eigen neural network. Ex: {ex}")
 
     def create_fisher_face_recognizer(self, request_id, face_samples, people_ids: [int]):
-        recognizer = cv2.face.FisherFaceRecognizer_create()
-        recognizer.train(face_samples, people_ids)
-        recognizer.write(f'{self.requestPath}/{request_id}_{self.nnTypes.fisher}.xml')
+        try:
+            recognizer = cv2.face.FisherFaceRecognizer_create()
+            recognizer.train(face_samples, people_ids)
+            recognizer.write(f'{self.requestPath}/{request_id}_{self.nnTypes.fisher}.xml')
+        except Exception as ex:
+            self.logger.error(f"Exception when creating Fisher neural network. Ex: {ex}")
 
-    def create_all_face_recognizers(self, request_id, face_samples, people_ids: [int]):
+    def create_all_face_recognizers(self, request_id, training_data):
+        face_samples = training_data[0]
+        people_ids = training_data[1]
         self.requestPath = os.path.join(self.pathsProvider.local_neural_network_path(), str(request_id))
         self.directoryManager.create_directory_if_doesnt_exist(self.requestPath)
+        start = time.time()
         self.create_lbph_face_recognizer(request_id, face_samples, people_ids)
+        lbph_end = time.time()
         self.create_eigen_face_recognizer(request_id, face_samples, people_ids)
+        eigen_end = time.time()
+        training_times = {NeuralNetworkTypes().lbph_id: lbph_end - start,
+                          NeuralNetworkTypes().eigen_id: eigen_end - lbph_end}
         if len(numpy.unique(people_ids)) > 1:
             self.create_fisher_face_recognizer(request_id, face_samples, people_ids)
+            fisher_end = time.time()
+            training_times[NeuralNetworkTypes().fisher_id] = fisher_end - eigen_end
+        return training_times

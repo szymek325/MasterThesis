@@ -23,14 +23,14 @@ class NeuralNetworkRepository():
         session.commit()
         session.close()
 
-    def get_completed_neural_networks_ids_with_files_count(self):
+    def get_completed_neural_networks_ids_with_downloadable_files_count(self):
         result = []
         Base.metadata.create_all(engine)
         session = Session()
         neural_networks = session.query(NeuralNetwork).filter_by(statusId=3)
         session.close()
         for nn in neural_networks:
-            result.append([nn.id, len(nn.files)])
+            result.append([nn.id, len([x for x in nn.files if x.neuralNetworkTypeId < 4])])
         return result
 
     def complete_with_error(self, id):

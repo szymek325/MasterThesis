@@ -12,4 +12,5 @@ class NeuralNetwork(Base):
     name = Column('Name', String)
     statusId = Column('StatusId', Integer)
     completionTime = Column('CompletionTime', Date)
+    maxNumberOfPhotosPerPerson = Column('MaxNumberOfPhotosPerPerson', Integer)
     files = relationship(NeuralNetworkFile)

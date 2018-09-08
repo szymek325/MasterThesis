@@ -13,14 +13,12 @@ class FaceDetectionRepository():
         session.close()
         return requests
 
-    def complete_request(self, id, haar_len, dnn_len):
+    def complete_request(self, id):
         Base.metadata.create_all(engine)
         session = Session()
         requests = session.query(Detection).filter_by(id=id)
         for req in requests:
             req.statusId = 3
-            req.dnnFaces = dnn_len
-            req.haarFaces = haar_len
             req.completionTime = datetime.datetime.now()
         session.commit()
         session.close()
