@@ -39,8 +39,12 @@
     @using (Html.BeginForm("Create", "NeuralNetwork", FormMethod.Post))
     {
         <div class="container">
+            <div class="row">
+                
+            </div>
 
             <div class="row">
+                <input class="btn btn-success" type="submit" value="Submit" style="float: right;" />
                 <div class="col-md-3">
                     <label for="name">Name</label>
                 </div>
@@ -112,9 +116,6 @@
                         </table>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <input class="btn btn-success" type="submit" value="Submit" />
             </div>
         </div>
     }
