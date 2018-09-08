@@ -21,7 +21,6 @@ class AzureFaceRecognizer():
             self.__get_result_from_azure__(azure_file, image_file_path, request_id)
 
     def __get_result_from_azure__(self, azure_file, image_file_path, request_id):
-        dictionary = ast.literal_eval(azure_file.additional_data)
         face_ids = self.azureFaceClient.get_face_ids(image_file_path)
         if len(face_ids) is 0:
             self.recognitionResultRepo.add_recognition_result(0, request_id, 0, azure_file.id, "No faces found")
@@ -31,16 +30,10 @@ class AzureFaceRecognizer():
             self.recognitionResultRepo.add_recognition_result(0, request_id, 0, azure_file.id, "No faces found")
             return
         for face_id, rec_az_id in recognized_azure_ids.items():
-            self.__add_results_for_recognized_faces__(azure_file, dictionary, rec_az_id, request_id)
+            self.__add_results_for_recognized_faces__(azure_file, rec_az_id, request_id)
 
-    def __add_results_for_recognized_faces__(self, azure_file, dictionary, rec_az_id, request_id):
-        person_identity = self.__get_person_id_from_dictionary__(rec_az_id, dictionary)
-        self.recognitionResultRepo.add_recognition_result(person_identity[0], request_id, person_identity[2],
-                                                          azure_file.id, person_identity[1])
-
-    def __get_person_id_from_dictionary__(self, azure_id, people_dictionary):
-        for person_id, azure_person_id in people_dictionary.items():
-            if azure_person_id == azure_id['personId']:
-                return person_id, "", azure_id['confidence']
-        if azure_id == 'Unknown':
-            return 0, "Face found. Person is Unknown", 0
+    def __add_results_for_recognized_faces__(self, azure_file, rec_az_id, request_id):
+        person_identity = self.azureNnClient.get_person_in_large_group_name(azure_file.neuralNetworkId,
+                                                                            rec_az_id['personId'])
+        self.recognitionResultRepo.add_recognition_result(person_identity, request_id, rec_az_id['confidence'],
+                                                          azure_file.id, "")
