@@ -24,6 +24,4 @@ class ResultsConverter:
             if entry['candidates']:
                 candidate = entry['candidates'][0]
                 face_identities[face_id] = candidate
-            else:
-                face_identities[face_id] = 'Unknown'
         return face_identities
