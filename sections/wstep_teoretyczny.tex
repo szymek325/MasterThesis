@@ -22,7 +22,7 @@ Sposób działania takiej aplikacji jest zbliżony do odczuć towarzyszących ko
 	\centering
 	\includegraphics[scale=0.8]{cloud_computing.png}
 	\caption{Obliczenia chmurowe}
-	\label{fig:schemat_mvc}
+	\label{fig:chmura_obliczeniowa}
 \end{figure}
 Chmura obliczeniowa jest określeniem oznaczającym model przetwarzania danych oparty na użytkowaniu usług dostarczonych przez usługodawcę. Użytkownik nie musi opłacać licencji, a płaci jedynie za użytkowanie danej usługi. W przypadku takich usług najpopularniejszym sposobem naliczania kosztów jest opłata od czasu użytkowania usługi.
 DO najpopularniejszych udostepnianych usług należą:
@@ -81,12 +81,8 @@ Raspberry Pi Camera HD jest dedykowaną kamerą przeznaczoną tylko i wyłączni
 	\label{fig:picamera}
 \end{figure}
 
-\section{Open Cv  \textcolor{red}{FINISH IT}}
-OpenCv (Open Source Computer Vision Library) jest open sourcową biblioteką napisaną w języku C. Udostępniono liczne interfejsy biblioteki pozwalające na pracę z nią miedzy innymi w języku C++ i Python. Biblioteka wspiera systemy operacyjne Linux oraz Windows. Biblioteka została ukierunkowana na przetwarzanie obrazu w czasie rzeczywistym. W licznie udostępnionych funkcjach można znaleźć moduły pozwalające na detekcję i rozpoznawanie twarzy na obrazie, które zostały szerzej opisane w kolejnym punkcie.
-
-\subsection{Przetwarzanie obrazu}
-
-\subsubsection{Thresholding}
+\section{Przetwarzanie obrazu}
+\subsection{Thresholding}
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{efekt_thresholdingu.jpg}
@@ -116,7 +112,7 @@ W efekcie działania algorytmu uzyskany zostaje obraz posiadający piksele jedyn
 	\label{fig:thresholding_binarny}
 \end{figure}
 
-\subsubsection{Dylatacja}
+\subsection{Dylatacja}
 Dylatacja jest operacją wykorzystywaną do przetwarzania obrazów binarnych, określaną rozszerzaniem. Proces dylatacji polega na przyłożeniu do każdego pixela na obrazie struktury o wybranym rozmiarze. Jeżeli choć jeden piksel sąsiadujący z punktem centralnym ma wartość jeden to punkt centralny również otrzymuje taką samą wartość. W przeciwnym wypadku punktowi przypisywana jest wartość zero. Najkorzystniejsze efekty przynosi dylatacja strukturą przypominającą kształt koła, np 3x3 px. W efekcie dylatacji dochodzi do zwiększenia się obiektu, zniknięcia detali oraz wypełnienia pustek w niespójnym obszarze.
 \begin{figure}[H]
 	\centering
@@ -125,22 +121,19 @@ Dylatacja jest operacją wykorzystywaną do przetwarzania obrazów binarnych, ok
 	\label{fig:dylatacja}
 \end{figure}
 
-\subsubsection{Rozmycie gaussowskie}
+\subsection{Rozmycie gaussowskie}
 Rozmycie gaussowskie inaczej nazywane wygładzaniem gaussowskim to operacja przetwarzania obrazu polegająca na modyfikacji go z użyciem filtru Gaussa. Rozmycie wykorzystywane jest w celu zmniejszenia szumów oraz zakłóceń w obrazie oraz w celu zamazania detali.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{rozmycie_gaussowskie.png}
 	\caption{Przykład zastosowania rozmycia gaussowskiego na zdjęciu}
-	\label{fig:dylatacja}
+	\label{fig:rozmycie_gaussowskie}
 \end{figure}
 
-\subsection{Detekcja twarzy}
-Głównym wykrywaczem twarzy wykorzystywanym przez OpenCv jest kaskadowy klasyfikator Haar'a ale poza nim istnieją również inne metody. Jedną z nich jest wykorzystanie głębokiej sieci neuronowej.
-
-\subsubsection{Klasyfikator kaskad Haar'a} \label{haar}
+\subsection{Klasyfikator kaskad Haar'a} \label{haar}
 Detekcja obiektów klasyfikatorem kaskad Haar'a została oparta o metodę Paul'a Viola i Michael'a Jones'a– w skrócie Viola-Jones.
 
-\subsubsection{Algorytm Viola-Jones}
+\subsection{Algorytm Viola-Jones}
 Jest to jeden z pierwszych algorytmów pozwalających na osiągnięcie zadowalających wyników w detekcji obiektów na obrazie. Został on zaproponowany w 2001 roku i został przemyślany z głównym przeznaczeniem dla detekcji twarzy. Na kluczowe koncepcje tej metody składają się:
 \begin{itemize}
 \item wyszukiwanie cech Haar'a,
@@ -148,7 +141,7 @@ Jest to jeden z pierwszych algorytmów pozwalających na osiągnięcie zadowalaj
 \item metoda uczenia AdaBoost (podstawowy algorytm do boostingu, metoda dzięki której z dużej liczby słabych klasyfikatorów można otrzymać jeden lepszy )
 \end{itemize}
 
-\subsubsection{Cechy Haar'a}
+\subsection{Cechy Haar'a}
 Cechy wykorzystywane w metodzie Viola-Jones opierają się na falkach Haara. Falki Haara są to sekwencje przeskalowanych kwadrato-podobnych funkcji, które razem tworzą falę(falo-podobną oscylację), podstawę z której można zbudować kwadrat. W dwóch wymiarach, fala kwadratu jest parą przylegających do siebie prostokątów, gdzie jeden jest jaśniejszy, a drugi ciemniejszy.
 \begin{figure}[H]
 	\centering
@@ -158,7 +151,7 @@ Cechy wykorzystywane w metodzie Viola-Jones opierają się na falkach Haara. Fal
 \end{figure}
 Wartość każdej cechy jest obliczana jako różnica sumy poziomów szarości pikseli pokrywanych przez biały oraz czarny prostokąt oraz sumy poziomów szarości pikseli pokrywanych przez czarny prostokąt. Składniki tej różnicy posiadają wagi odwrotnie proporcjonalne do rozmiarów, dzięki czemu różnice wielkości dwóch obszarów są kompensowane.
 
-\subsubsection{Głęboka sieć neuronowa} \label{dnn}
+\subsection{Głęboka sieć neuronowa} \label{dnn}
 Pojęciem uczenia maszynowego określa się dziedzinę nauk związanych ze sztuczną inteligencją, zajmującą się badaniem algorytmów i systemów, które usprawniają swoje działanie wraz ze zdobywaniem nowej wiedzy lub też doświadczeniem. Wiedzą określamy dane uczące, które zostały wykorzystane do nauki. System może zostać usprawniony poprzez zwiększenie wiedzy systemu, które powinno pozwolić na usprawnienie procesu rozwiązywania podstawowych problemów.
 \begin{figure}[H]
 	\centering
@@ -170,80 +163,6 @@ Algorytmy głębokiego uczenia maszynowego są jednymi z najbardziej zaawansowan
 
 Każdy z takich “sztucznych neuronów” jest tak naprawdę informacją, która jest przesyłana dalej do następnych neuronów i ich warstw. Poszczególne warstwy “uczą” się przetwarzać kolejne cechy obiektów/obrazów/dźwięków itp., dzięki czemu są w stanie odtwarzać całe obiekty w bardzo rzeczywisty sposób.
 
-\subsection{Rozpoznawanie twarzy \textcolor{red}{TODO}}
-\subsubsection{Eigenfaces} \label{eigen}
-Eigenfaces, inaczej nazywany algorytmem twarzy własnych opiera się na metodzie analizy głównych składowych, która rozpoczyna się wyznaczeniem średniej wartości dla obrazów z tą samą etykietą identyfikującą daną osobę.
-Weźmy $n$ wektorów $x_{i}$ powstałych jako reprezentacje obrazów przedstawiających daną twarz. Dla tych wektorów wyznaczona zostaje wartość średnia $\mu$.
-$$
-\mu=\frac{1}{n}\sum_{i=1}^{n}x_{i}
-$$
-Następnie dla każdego wektora $x_{i}$ wyznaczana jest różnica od wartości średniej $\mu$.
-$$
-\psi= x_{i}-\mu
-$$
-Na podstawie wartości $\psi_{i}$ wyznacza się macierz kowariancji $C$.
-$$
-C=\frac{1}{n}\sum_{i=1}^{n}\psi_{i}\psi_{i}^{T}
-$$
-Kolejnym krokiem jest wyznaczenie wartości $\lambda_{i}$ oraz $\nu_{i}$ tak by spełniony był warunek:
-$$
-C\nu_{i}=\lambda_{i}\nu_{i} \textrm{ dla $i=$1,2,...,n}
-$$
-Wartość $\lambda_{i}$ nazywana wartością własną amcierzy $C$, a odpowiadający jej wektor $\nu_{i}$ wektorem własnym $C$.
-W przypadku algorytmu Eigenfaces branych jest pod uwagę $k$ głównych składowych $\lambda_{i}$, wyznaczonych na podstawie odrzucenia $n-k$ wartości najmniejszych. Dla każdego wektora wyznaczany jest wektor następujący:
-$$
-y_{i}=W^{T}(x_{i}-\mu) \textrm{ gdzie $W=(\nu_{1}, \nu_{2}, ..., \nu_{k})$}
-$$
-Identyfikacja twarzy algorytmem Eigenfaces polega na wykonaniu kroków:
-\begin{enumerate}
-\item Wartości głównych składowych zostają wyznaczone dla wszystkich obrazów uczących.
-\item Wartość głównych składowych zostaje wyznaczona dla badanego zdjęcia
-\item Dla obrazu wejściowego zostaje wyznaczony wektor najbliższy dla wartości obliczonych dla obrazów z bazy danych.
-\end{enumerate}
-
-\subsubsection{Fisherfaces} \label{fisher}
-Algorytm Fisherfaces opiera się na liniowej analizie dyskryminacyjnej (LDA) i polega na wyznaczeniu wektora cech pozwalającego na rozdzielenie obiektów przynależnych do różnych klas. W przypadku problemu rozpoznawania twarzy, przez klasy obiektów rozumiane są zbiory obrazów przedstawiające tego samego użytkownika. Problem sprowadza się do wyznaczenia wektora, który stanowi przybliżoną granicę między dwiema klasami obiektów, jednak można go uogólnić do problemu wieloklasowego.
-Wyznaczanie poszukiwanego wektora rozpoczyna się od wyznaczenia wartości średniej $\nu$ wszystkich obiektów znajdujących się w rozpatrywanym zbiorze, oraz wartości średniej $\nu_{i}$ wewnątrz poszczególnych klas. 
-$$
-\mu=\frac{1}{N}\sum_{i=1}^{N}x_{i}
-$$
-Gdzie $N$ oznacza liczebność rozpatrywanego zbioru $x_{i}$
-$$
-\mu_{i}=\frac{1}{|X_{i}|}\sum_{x_{j}eX_{i}}x_{j}
-$$
-Gdzie $X_{i}$ jest klasą obiektów o indeksie $i$, dla $i=1,2,...,n$ dla $n$ oznaczającego liczbę klas. Następnie wyznaczana jest macierz rozproszenia wewnątrzklasowego $S_{B}$ oraz macierz średniego rozproszenia wewnątrzklasowego $S_{W}$.
-$$
-S_{B}=\sum_{i=1}^{n}N_{i}(\mu-\mu_{i})(\mu-\mu_{i})^{T}
-$$
-$$
-S_{W}=\sum_{i=1}^{n}\sum_{x_{j}eX_{i}}(x_{j}-\mu_{i})(x_{j}-\mu_{i})^{T}
-$$
-Rozwiązanie problemu sprowadza się do znalezienia danych, które pozwolą na otrzymanie największej wartości określającej stosunek rozproszenia wewnątrzklasowego do średniego wewnętrznego rozproszenia klas. Stąd algorytm poszukuje wektora $d$, dla którego poniższa funkcja osiąga maksimum.
-$$
-f(d)=\frac{d^{T}S_{B}d}{d^{T}S_{W}d}
-$$
-W celu zmniejszenia złożoności problemu, stosuje się modyfikację powyższego kryterium, wykorzystując macierz $W$ złożona z $k$ głównych wektorów własnych wyznaczonych dla macierzy kowariancji $C$ wszystkich elementów zbioru.
-$$
-f(d)=\frac{d^{T}W^{T}S_{B}d}{d^{T}S_{W}d}
-$$
-Znalezienie wektora $d$ pozwala na wyznaczenie optymalnego kierunku rozdzielającego dwie klasy obiektów.
-\subsubsection{Local Binary Patterns Histograms} \label{lbph}
-W odróżnieniu od holistycznego podejścia w dwóch poprzednich metodach, algorytm histogramów lokalnych binarnych wzorców wykorzystuje lokalne cechy przetwarzanych obiektów.
-Dla każdego piksela wyznaczany jest ciąg binarny na podstawie porównania wartości z każdym z sąsiadów. W przypadku, gdy jego wartośc jest większa wtedy przyjmuje wartość 1, a 0 w przypadku przeciwnym. Stąd dla każdego piksela wyznaczana jest wartość $p$-znakowego binarnego ciągu, nazywanego lokalnym binarnym wzorcem.  Wyznaczanie można przeprowadzić w otoczeniu o dowolnym promieniu. W ogólności wartość funkcji LBP dla piksela o współrzędnych $(x_{c},y_{c})$ wyznacza się następująco: 
-$$
-LBP(x_{c},y_{c})=\sum_{p=0}^{p-1}2^{p}S(i_{p}-i_{c})
-$$
-Gdzie $p$ jest rozmiarem rozpatrywanego sąsiedztwa o środku w punkcie $(x_{c},y_{c})$ i jasności o wartości $i_{c}$, a $i_{n}$ jest wartością jasności dla $n$- tego punktu sąsiedztwa.
-$S(x)$ jest funkcją znaku definiowaną następująco:
-$$
-S(x) = \left\{ \begin{array}{ll}
-1 & \textrm{ dla $x>0$}\\
-0 & \textrm{ w p.p.}
-\end{array} \right.
-$$
-Działanie algorytmu polega na podzieleniu obrazu wejściowego na $m$ różnych części i wyznaczenia dla niego wartości LBP jasności pikseli. Następnie dla każdego regionu wyznaczany jest histogram wyliczonych wartości. Tak wyznaczone wartości są konkatenowane do postaci wektora.
-Dla próbki wejściowej zostaje wyznaczony wektor histogramów, który następnie jest porównywany z wektorami obrazów użytych do uczenia sieci. Przewidywana etykieta jest wyznaczana na podstawie etykiety wektora najbliższego sąsiada.
-
 \section{Azure} \label{azure}
 Azure jest platformą chmurową firmy Microsoft stworzoną w modelu Paas (Platform as a Service). Platforma zbudowana jest z grupy trzech technologii zapewniających specjalizowany zestaw możliwości dla programistów, które mogą być wykorzystywane zarówno przez aplikacje uruchamiane lokalnie na komputerach użytkowników oraz aplikacje uruchamiane w chmurze. W tej pracy wykorzystano:
 \begin{itemize}
@@ -254,14 +173,6 @@ Azure jest platformą chmurową firmy Microsoft stworzoną w modelu Paas (Platfo
 \end{itemize}
 \subsection{Web App Services}
 Web App Services jest usługą pozwalającą na hostowanie aplikacji internetowych napisanych w jednym z wybranych języków (między innymi .Net, Node.Js, Python) bez zarządzania infrastrukturą. Do największych zalet należy automatyczna skalowalność serwisu oraz wysoka dostępność. Podczas tworzenia środowiska istnieje możliwość wyboru preferowanego systemu operacyjnego. Dużą zaletą jest możliwość wdrożenia aplikacji za pomocą jednego kliknięcia bezpośrednio z Visual Studio. Sprawne korzystanie z usługi jest możliwe dzięki szerokiemu zakresowi dokumentacji i tutoriali udostepnionych przez producenta.
-\subsection{Azure Cognitive Services}
-Cognitive Services jest częścią platformy Azure stworzonej przez Microsoft. Usługa jest standardowo płatna, ale w przypadku użytku na potrzeby studenckie przyznawany jest darmowy dostęp na ograniczony czas. Cognitive Services zajmuje się rozwiązywaniem problemów biznesowych dzięki sztucznej inteligencji. Do dostępnych modułów między innymi należą:
-\begin{itemize}
-\item obraz- algorytmy przetwarzania obrazów umożliwiające inteligentne identyfikowanie, podpisywanie i moderowanie grafik,
-\item mowa- konwertowanie wypowiedzi audio na tekst, weryfikacja głosowa,
-\item język- przetwarzanie języka naturalnego.
-\end{itemize}
-Na cele tego projektu wykorzystano moduł dotyczący przetwarzania obrazu, a dokładniej wykrywanie i rozpoznawanie twarzy w nim dostępne. Producent zadbał o prostą możliwość integracji z większością popularnych języków programistycznych poprzez udostępnienie paczek deweloperskich. W przypadku braku SDK dla wybranego języka istnieje możliwość skorzystania z udostępnionego REST Api. Na stronie producenta można znaleźć obszerną dokumentację oraz tutoriale.
 
 \section{AWS} \label{aws}
 Amazon Web Services jest platformą chmurową firmy Amazon stworzoną w modelu Paas (Platform as a Service). Jest to bardzo podobne rozwiązanie do bliźniaczego Azure. Platforma udostępnia obliczenia chmurowe na żądanie. Szeroki zakres usług dostępny jest w darmowej wersji demo, jedynym wymaganiem jest założenie konta w serwisie. Po wykorzystaniu darmowego okresu, opłaty naliczane są według zużycia danej usługi. Do podstawowych usług, które mogłyby zostać wykorzystane dla celów tej pracy należą:
@@ -273,5 +184,3 @@ Amazon Web Services jest platformą chmurową firmy Amazon stworzoną w modelu P
 \end{itemize}
 \subsection{Elastic Beanstalk}
 Elastic Beanstalk jest odpowiednikiem Azure Web App Services. Zakres dostępnych języków jest równie szeroki jak w przypadku Azure'a, ale w odróżnieniu od Microsoftu nie zawsze wspiera on najnowszych wersji produktów wymienionej firmy, a zakres możliwości konfiguracyjnych z poziomu strony internetowej jest uboższy. Podobnie jak w przypadku Azure istnieje możliwość wdrożenia aplikacji jednym kliknięciem po doinstalowaniu dedykowanego pluginu do Visual Studio.
-\subsection{Rekognition}
-Usługa Rekognition jest odpowiednikiem Azure Cognitive Services ograniczonym do rozwiązań związanych z przetwarzaniem obrazu i video. Do wielu dostępnych funkcji należy analiza obrazu, detekcja twarzy i tekstu, porównywanie oraz rozpoznawanie twarzy. Dla wybranych języków programistycznych udostępniono SDK oraz obszerną dokumentację z licznymi przykładami kodu.
