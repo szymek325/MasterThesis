@@ -12,5 +12,6 @@ class NeuralNetworkRequestsManager():
 
     def process_request(self, request: NeuralNetwork):
         self.logger.info(f"Working on creating neural network for request with {request.id} id")
-        self.neuralNetworksTrainingManager.create_all_neural_networks(request.id, request.name)
+        self.neuralNetworksTrainingManager.create_all_neural_networks(request.id, request.name,
+                                                                      request.maxNumberOfPhotosPerPerson)
         self.neuralNetworkRepo.complete_request(request.id)

@@ -28,9 +28,10 @@ class AzureLargeGroupTrainer():
                 self.largeGroupClient.add_face_to_person_in_large_group(group_person_id, request_id, image_path)
             self.largeGroupClient.train_large_group(request_id)
             end = time.time()
+            file_size = 0
             neural_network_file_entity = NeuralNetworkFile(str(request_id), request_id,
                                                            self.nnTypes.azure_large_group_id, end - start, '1>',
-                                                           str(people_dictionary))
+                                                           file_size, str(people_dictionary))
             # people dictionary may become problematic when group is very big
             self.nnFilesRepo.add_neural_network_file(neural_network_file_entity)
 
