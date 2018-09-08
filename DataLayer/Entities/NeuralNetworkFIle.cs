@@ -13,5 +13,6 @@ namespace DataLayer.Entities
         public string AdditionalData { get; set; }
         public string TrainingTime { get; set; }
         public string ProcessingTime { get; set; }
+        public string FileSize { get; set; }
     }
 }

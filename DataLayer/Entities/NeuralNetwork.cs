@@ -16,6 +16,7 @@ namespace DataLayer.Entities
 
         public string Name { get; set; }
         public string Description { get; set; }
+        public int MaxNumberOfPhotosPerPerson { get; set; }
         public int? StatusId { get; set; }
         public Status Status { get; set; }
         public DateTime? CompletionTime { get; set; }

@@ -51,6 +51,18 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="name">Photos per person used</label>
+                </div>
+                <div class="col-md-3">
+                    @Html.TextBoxFor(m => m.PhotosPerPerson, new { @type = "number" })
+                    <div class="row">
+                        @Html.ValidationMessageFor(m => m.PhotosPerPerson, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-md-3">

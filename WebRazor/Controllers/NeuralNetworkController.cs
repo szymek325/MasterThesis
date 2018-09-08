@@ -62,10 +62,8 @@ namespace WebRazor.Controllers
                 var checkedPeople = model.PeopleCheckboxes.Where(x => x.IsChecked);
                 var peopleString = "";
                 foreach (var checkedPerson in checkedPeople)
-                {
                     peopleString = peopleString + $",{checkedPerson.Id}";
-                }
-                var response = await neuralNetworkService.Create(model.Name, peopleString);
+                var response = await neuralNetworkService.Create(model.Name, peopleString, model.PhotosPerPerson);
             }
             catch (Exception ex)
             {

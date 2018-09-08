@@ -20,6 +20,13 @@
         </div>
         <div class="col-md-3">@Model.Name</div>
     </div>
+    
+    <div class="row">
+        <div class="col-md-3">
+            <label>Photos per person</label>
+        </div>
+        <div class="col-md-3">@Model.PhotosPerPerson</div>
+    </div>
 
     <div class="row">
         <div class="col-md-3">
@@ -36,6 +43,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Type</th>
+                <th>File size</th>
                 <th>(seconds)<br>Processing time</th>
                 <th>(seconds)<br>Training time</th>
             </tr>
@@ -47,6 +55,7 @@
                     <td>@file.Id</td>
                     <td>@file.Name</td>
                     <td>@file.TypeName</td>
+                    <td>@file.FileSize</td>
                     <td>@file.ProcessingTime</td>
                     <td>@file.TrainingTime</td>
                 </tr>

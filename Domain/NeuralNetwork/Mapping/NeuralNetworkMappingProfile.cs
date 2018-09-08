@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using AutoMapper;
 using DataLayer.Entities;
 using Domain.NeuralNetwork.DTO;
@@ -23,6 +20,7 @@ namespace Domain.NeuralNetwork.Mapping
                 .ForMember(dest => dest.TypeName, opts => opts.MapFrom(src => src.NeuralNetworkType.Name))
                 .ForMember(dest => dest.ProcessingTime, opts => opts.MapFrom(src => src.ProcessingTime))
                 .ForMember(dest => dest.TrainingTime, opts => opts.MapFrom(src => src.TrainingTime))
+                .ForMember(dest => dest.FileSize, opts => opts.MapFrom(src => src.FileSize))
                 .ReverseMap();
 
             CreateMap<DataLayer.Entities.NeuralNetwork, AllNeuralNetworksOutput>()
@@ -43,6 +41,7 @@ namespace Domain.NeuralNetwork.Mapping
                 .ForMember(dest => dest.CreationTime, opts => opts.MapFrom(src => src.CreationTime))
                 .ForMember(dest => dest.CompletionTime, opts => opts.MapFrom(src => src.CompletionTime))
                 .ForMember(dest => dest.Files, opts => opts.MapFrom(src => src.Files))
+                .ForMember(dest => dest.PhotosPerPerson, opts => opts.MapFrom(src => src.MaxNumberOfPhotosPerPerson))
                 .ReverseMap();
         }
     }
