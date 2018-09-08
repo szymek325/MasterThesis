@@ -41,6 +41,10 @@ class CognitiveClient():
         res = CF.large_person_group.get_status(large_group_id)
         return res
 
+    def get_large_group(self, large_group_id):
+        res = CF.large_person_group.get(large_group_id)
+        return res
+
     def get_person_name(self, large_group_id, person_id):
         res = CF.large_person_group_person.get(large_group_id, person_id)
         return res

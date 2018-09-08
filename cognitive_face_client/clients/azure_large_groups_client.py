@@ -1,3 +1,5 @@
+import datetime
+
 from cognitive_face_client.clients.cognitive_client import CognitiveClient
 from cognitive_face_client.results_converter import ResultsConverter
 from configuration_global.logger_factory import LoggerFactory
@@ -10,7 +12,8 @@ class AzureLargeGroupsClient():
         self.resultsConverter = ResultsConverter()
 
     def create_large_group(self, request_id: int, name: str):
-        self.logger.info(f"Creating Azure LargePersonGroup with id: {request_id}, name : {name}")
+        self.logger.info(
+            f"Creating Azure LargePersonGroup with id: {request_id}, name : {name} at {datetime.datetime.now()}")
         try:
             self.cognitiveClient.create_large_group(request_id, name)
         except Exception as ex:
@@ -40,7 +43,7 @@ class AzureLargeGroupsClient():
             raise
 
     def train_large_group(self, large_group_id):
-        self.logger.info(f"Starting training of azure large group id: {large_group_id}")
+        self.logger.info(f"Starting training of azure large group id: {large_group_id} at: {datetime.datetime.now()}")
         try:
             self.cognitiveClient.train_large_group(large_group_id)
         except Exception as ex:

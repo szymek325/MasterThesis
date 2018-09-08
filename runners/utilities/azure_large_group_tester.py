@@ -2,7 +2,7 @@ from cognitive_face_client.clients.cognitive_client import CognitiveClient
 from configuration_global.logger_factory import LoggerFactory
 
 
-class AzureLargeGroupCleaner:
+class AzureLargeGroupTester:
     def __init__(self):
         self.logger = LoggerFactory()
         self.cfClient = CognitiveClient()
@@ -22,11 +22,23 @@ class AzureLargeGroupCleaner:
 
     def check_name(self):
         self.logger.info("START CleanUp")
-        res=self.cfClient.get_person_name(4,'f6a55407-1bb7-49f2-976d-a1fc58d52127')
+        res = self.cfClient.get_person_name(4, 'f6a55407-1bb7-49f2-976d-a1fc58d52127')
         self.logger.info(res)
         self.logger.info("END CleanUp")
 
+    def check_status(self):
+        self.logger.info("START checkstatus")
+        res = self.cfClient.get_large_group_status(8)
+        self.logger.info(res)
+        self.logger.info("END checkstatus")
+
+    def get_azure_group(self):
+        self.logger.info("START checkstatus")
+        res = self.cfClient.get_large_group(6)
+        self.logger.info(res)
+        self.logger.info("END checkstatus")
+
 
 if __name__ == "__main__":
-    program = AzureLargeGroupCleaner()
-    program.check_name()
+    program = AzureLargeGroupTester()
+    program.check_status()
