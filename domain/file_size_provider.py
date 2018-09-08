@@ -12,4 +12,4 @@ def get_human_readable_file_size(size, precision=2):
     while size > 1024:
         suffixIndex += 1  # increment the index of the suffix
         size = size / 1024.0  # apply the division
-    return "%.*f %d" % (precision, size, suffixes[suffixIndex])
+    return "%.*f %s" % (precision, size, suffixes[suffixIndex])
