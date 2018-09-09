@@ -1,4 +1,4 @@
-Przez ostatnie lata dziedzina cyfrowego przetwarzania obrazu bardzo prężnie rozwijała się. W wyniku tego aktualnie dostępnych jest wiele usług pozwalających na uzyskiwanie danych z obrazu. W przypadku tej pracy najbardziej interesującymi informacjami jest lokalizacja oraz identyfikacja twarzy.
+Przez ostatnie lata dziedzina cyfrowego przetwarzania obrazu bardzo prężnie rozwijała się. W wyniku tego aktualnie dostępnych jest wiele usług pozwalających na uzyskiwanie danych z obrazu. W przypadku tej pracy najbardziej użytecznymi informacjami jest lokalizacja oraz identyfikacja twarzy.
 Na rysunku \ref{tab:systemy} przedstawiono cechy kilku wybranych systemów, stworzonych przez jedne z największych firm zajmujących się technologiami informatycznymi na świecie.
 
 \begin{table}[H]\label{tab:systemy}
@@ -24,9 +24,16 @@ Na rysunku \ref{tab:systemy} przedstawiono cechy kilku wybranych systemów, stwo
   	\end{tabular}
   	}
 \end{table}
-Zgodnie ze wzrostem popularności usług chmurowych, aktualnie dostępnych jest wiele usług rozpoznawania twarzy, które początkowo były dostępne za pomocą API. Na szczęście z czasem większość z nich udostępniła również SDK dla najbardziej popularnych języków (między innymi C\#, Java, Python). Ciężko o inną niż OpenCv open sourcową bibliotekę pozwalającą na identyfikację twarzy. Większość darmowych rozwiązań dostępnych jest na platformie GitHub, ale niestety żadna z nich nie mogła równać się dojrzałością podobną do OpenCv, a na dodatek większość z nich dostępna jest jedynie dla Pythona (face recognition oraz open face).
+Zgodnie ze wzrostem popularności usług chmurowych, aktualnie dostępnych jest wiele usług rozpoznawania twarzy, które początkowo były dostępne za pomocą API(Application Programming Interface). Z czasem większość z nich udostępniła również SDK(Software Development Kit) dla najbardziej popularnych języków (między innymi C\#, Java, Python). OpenCv jest podstawową open sourcową bibliotekę pozwalającą na identyfikację twarzy. Większość darmowych rozwiązań dostępnych jest na platformie GitHub:
+\begin{itemize}
+\item face\_ recognition (źródło: \href{https://github.com/ageitgey/face\_ recognition}{https://github.com/ageitgey/face\_ recognition})
+\item open face (źródło: \href{https://github.com/cmusatyalab/openface}{https://github.com/ageitgey/face\_ recognition})
+\end{itemize}
+, ale niestety żadna z nich nie mogła równać się dojrzałością podobną do OpenCv, a na dodatek większość z nich
+można wykorzystać jedynie tworząc oprogramowanie w języku Python.
+ dostępna jest jedynie dla Pythona (face recognition oraz open face).
 
-Poza usługami przedstawionymi w powyższej tabeli, równie ciekawym rozwiązaniem, aczkolwiek znacznie bardziej rozbudowanym i czasochłonnym jest wykorzystanie Tensorflow (framework do machine learningu) w celu zbudowanie własnej implementacji sieci neuronowej rozpoznającej twarze. Ze względu na ilość wymaganej dodatkowej pracy jaką trzeba by włożyć w celu stworzenia sprawnego rozwiązania, zrezygnowano z implementacji tego rozwiązania na potrzeby tej pracy.
+Poza usługami przedstawionymi w powyższej tabeli, równie ciekawym rozwiązaniem, aczkolwiek znacznie bardziej rozbudowanym i czasochłonnym jest wykorzystanie Tensorflow (framework do machine learningu) w celu zbudowanie własnej implementacji sieci neuronowej rozpoznającej twarze.
 Podstawowym frameworkiem, o którego użyciu zadecydowano zostało OpenCv. Przemawiała za tym open sourcowa licencja, dojrzałość frameworku oraz liczne źródła wiedzy o implementacji. Podstawowe dostępne funkcje i zastosowania opisano w rozdziale \ref{s:open_cv}.
 
 W celu możliwości porównania rozwiązań lokalnych i chmurowych za drugi obiekt badań obrano usługę Azure Cognitive Services, którą szerzej opisano w rozdziale \ref{azurecs}. O wyborze tego rozwiązania zadecydowała rozbudowana dokumentacja usługi oraz licencja studencka umożliwiająca darmowe wykorzystanie usługi przy zwiększonych limitach zapytań.
@@ -34,10 +41,8 @@ W celu możliwości porównania rozwiązań lokalnych i chmurowych za drugi obie
 \section{Open Cv} \label{s:open_cv}
 OpenCv (Open Source Computer Vision Library) jest open sourcową biblioteką napisaną w języku C. Udostępniono liczne interfejsy biblioteki pozwalające na pracę z nią miedzy innymi w języku C++ i Python. Biblioteka wspiera systemy operacyjne Linux oraz Windows. Biblioteka została ukierunkowana na przetwarzanie obrazu w czasie rzeczywistym. W licznie udostępnionych funkcjach można znaleźć moduły pozwalające na detekcję i rozpoznawanie twarzy na obrazie, które zostały szerzej opisane w kolejnym punkcie.
 
-\subsection{Detekcja twarzy}
-Podstawowym sposobem detekcji twarzy wykorzystywanym przez OpenCv jest kadkadowy klasyfikator Haar'a opierty o cechy Haar'a opisane we wstępie teoretycznym. Do innych dostępnych rozwiązań wykorzystanych do stworzenia aplikacji jest wytrenowany model głębokiej sieci neuronowej przygotowany przez twórców frameworka.
-
-\subsection{Rozpoznawanie twarzy}
+\subsection{Rozpoznawanie twarzy \colortext{red}{ZRODŁA WZORY I CYTOWANIA}}
+Przed zidentyfikowaniem tożsamości, należy najpierw rozwiązać problem detekcji twarzy. Podstawowym sposobem detekcji twarzy wykorzystywanym przez OpenCv jest kaskadowy klasyfikator Haar'a oparty o cechy Haar'a opisane w rozdziale \ref{haar}. Do innych dostępnych rozwiązań wykorzystanych do stworzenia aplikacji należy wytrenowany model głębokiej sieci neuronowej przygotowany przez autorów OpenCv.
 \subsubsection{Eigenfaces} \label{eigen}
 Eigenfaces, inaczej nazywany algorytmem twarzy własnych opiera się na metodzie analizy głównych składowych, która rozpoczyna się wyznaczeniem średniej wartości dla obrazów z tą samą etykietą identyfikującą daną osobę.
 Weźmy $n$ wektorów $x_{i}$ powstałych jako reprezentacje obrazów przedstawiających daną twarz. Dla tych wektorów wyznaczona zostaje wartość średnia $\mu$.
