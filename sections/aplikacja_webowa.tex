@@ -2,15 +2,17 @@ Aplikacja webowa jest jedyną częścią systemu, do której użytkownik może m
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{aplikacja_webowa_razor_widok.png}
-	\caption{Wygląd strony głównej}
+	\caption{Wygląd strony głównej aplikacji internetowej (rozwiązanie 1)}
 	\label{fig:strona_glowna_razor}
 \end{figure}
+\pagebreak
 Zgodnie z interfejsem przedstawionym na rysunku \ref{fig:strona_glowna_razor}, strona została podzielona na 5 głównych sekcji:
 \begin{itemize}
+\item Notifications- powiadomienia,
 \item Detections- detekcje,
-\item People- ludzie,
+\item People- profile,
 \item Neural Networks- sieci neuronowe,
-\item Recognition- rozpoznawanie,
+\item Recognitions- identyfikacja tożsamości,
 \item Sensor Readings- odczyty sensorów.
 \end{itemize}
 
@@ -25,7 +27,7 @@ Druga wersja widoku aplikacji oferuje dostęp do tych samych możliwości co pie
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{aplikacja_webowa_angular_widok.png}
-	\caption{Strona główna widoku utworzonym w Angular 4}
+	\caption{Wygląd strony głównej aplikacji internetowej (rozwiązanie 2)}
 	\label{fig:strona_glowna_angular}
 \end{figure}
 
@@ -47,48 +49,58 @@ Przycisk 'New' widoczny na \ref{fig:detections} pozwala na stworzenie nowego zad
 Użycie przycisku 'Show' widocznego przy każdym zadaniu detekcji na rysunku \ref{fig:detections}, pozwoli na wyświetlenie szczegółów związanych z requestem, w tym wyników jeśli zadanie zostało zakończone.
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.6]{detekcja_z_wynikami.png}
+	\includegraphics[scale=0.5]{detekcja_z_wynikami.png}
 	\caption{Widok zakończonej detekcji}
 	\label{fig:detekcja_zakonczona}
 \end{figure}
-Strona ze zdjęcia \ref{fig:detekcja_zakonczona} pozwala sprawdzić datę utworzenia oraz zakończenia zadania, obraz wejściowy, szczegółowe informacje o obszarze zidentyfikowanym jako twarz oraz sposobie jej wykrycia.
-\section{Ludzie}
-Strona 'People' służy do tworzenia nowych znanych tożsamości, które później mogą zostać wykorzystane jako dane uczące podczas trenowania sieci neuronowych. Do każdej osoby musi zostać przypisany zasób minimum 2 zdjęć. W przypadku braku możliwości wykrycia twarzy na zdjęciu, zostanie ono zignorowane podczas procesu nauczania.
+
+\pagebreak
+
+Strona ze zdjęcia \ref{fig:detekcja_zakonczona} pozwala sprawdzić datę utworzenia oraz zakończenia zadania, obraz wejściowy oraz tabelę z informacjami o wynikach detekcji, na które składają się:
+\begin{itemize}
+\item detection type- typ detekcji (haar, głęboka sieć neuronowa, azure),
+\item faces found- ilość wykrytych twarzy,
+\item processing time- czas potrzebny na wykrycie twarzy daną metodą,
+\item startX, endX, startY, endY- współrzędne lewego dolnego oraz prawego górnego wierzchołka prostokąta obejmującego wykrytą twarz,
+\item Area- rozmiar obszaru obejmującego twarz w pikselach.
+\end{itemize}
+
+\section{Profile}
+Strona 'People' służy do tworzenia nowych profili, które później mogą zostać wykorzystane jako dane uczące podczas trenowania sieci neuronowych. Do każdego profilu osoby musi zostać przypisany zasób minimum 2 zdjęć. W przypadku braku możliwości wykrycia twarzy na zdjęciu, zostanie ono zignorowane podczas procesu nauczania.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{people.png}
-	\caption{Lista utworzonych ludzi}
+	\caption{Lista utworzonych profili}
 	\label{fig:people}
 \end{figure}
 Nowa osoba może zostać utworzona w podobny sposób jak request detekcji twarzy. Jedyną różnicą jest wymóg wyboru kilku obrazów.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{person.png}
-	\caption{Widok osoby}
+	\caption{Widok profilu}
 	\label{fig:person}
 \end{figure}
 Utworzona osoba nie może być modyfikowana. Pierwsze załadowanie widoku osoby może trwać wydłużony czas z powodu procesu generowania linków do plików magazynowanych w usłudze Dropbox.
 
 \section{Sieci neuronowe}
+W zakładce 'Neural Networks' użytkownik może utworzyć zadanie trenowania sieci neuronowych (OpenCv: Fisherfaces, Eigenfaces, LBPH, Azure: Cognitive Services) wybranymi profilami utworzonymi w zakładce 'People'. Użytkownik nie ma możliwości wyboru typu sieci, która zostanie nauczona, domyślnie wszystkie dostępne rozwiązania (wymienione powyżej) zostaną wykorzystane.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{neural_networks.png}
 	\caption{Strona przedstawiająca istniejące grupy usług rozpoznawania tożsamości}
 	\label{fig:sieci_neuronowe}
 \end{figure}
-W zakładce 'Neural Networks' użytkownik ma możliwość stworzenia grupy wybranych usług i sieci neuronowych, które zostaną nauczone rozpoznawać tożsamości utworzone w zakładce 'People'.
+Podczas tworzenia nowej sieci każdy istniejący profil zostanie wyświetlony jako checkbox, który należy zaznaczyć jeśli dany profil ma zostać wykorzystany w procesie nauczania. W wyniku szybkiego rozrostu bazy profili dodano checkbox 'Check all' pozwalający na wybranie wszystkich profili poprzez jedno kliknięcie. Kolejnym parametrem, który musi zostać wypełniony jest 'Photos per person used' określający maksymalną ilość zdjęć przypisanych do danego profilu, które mogą zostać wykorzystane do nauki sieci. Podana wartość powinna znajdować się w przedziale od 2 do 20. W przypadku gdy niedostępna będzie określana ilość zdjęć w danym profilu, to wykorzystane zostanie tyle zdjęć ile jest dostępnych.
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.6]{nowa_siec.png}
+	\includegraphics[scale=0.5]{nowa_siec.png}
 	\caption{Tworzenie nowej grupy sieci neuronowych}
 	\label{fig:nowa_siec}
 \end{figure}
-Każda istniejąca osoba zostanie wyświetlona jako checkbox, który należy zaznaczyć jeśli użytkownik chce by dana osoba została wykorzystana podczas procesu trenowania. Należy wybrać minimum 2 osoby, w przypadku wyboru mniejszej ilości osób, użytkownik zostanie poinformowany o tej konieczności.
-
-Widok ukazany na rysunku \ref{fig:sieci_neuronowe} pozwala sprawdzić ile osób zostało użytych w procesie nauki oraz ile sieci neuronowych zostało utworzonych. Wyświetlenie jednej z grup pozwoli na uzyskanie bardziej szczegółowych informacji na temat wykorzystanych osób i utworzonych sieci, patrz rysunek \ref{fig:siec_neuronowa}.
+Wykorzystując przycisk 'Show' z widoku na rysunku \ref{fig:sieci_neuronowe} można wyświetlić szczegółowe informacje o wybranej grupie sieci neuronowych. Dostępny widok ukazano na rysunku \ref{fig:siec_neuronowa}. Widoczne są na nim wszystkie parametry grupy,na które składają się: ilość wykorzystanych zdjęć i profili oraz tabela z informacjami o przygotowanych sieciach. Informacje dostępne w tabeli to nazwa i typ sieci, rozmiar utworzonego modelu, czas potrzebny na wytrenowanie oraz pełny czas(czas trenowania + przygotowanie danych wejściowych) potrzebny na stworzenie sieci.
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.6]{siec_neuronowa.png}
+	\includegraphics[scale=0.5]{siec_neuronowa.png}
 	\caption{Szczegółowe informacje o grupie sieci neuronowych}
 	\label{fig:siec_neuronowa}
 \end{figure}
