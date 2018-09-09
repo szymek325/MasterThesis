@@ -6,17 +6,24 @@
 \subsection{Wnioski}
 
 \section{Dane treningowe}
-Wybierz jakas baze, delikatnie opisz i ile probek bierzesz per osoba
-teraz mam: thumbnails features deduped sample
+Za dane wejściowe do procesu trenowania sieci neuronowych wybrano \fnurl{Glasgow Unfamiliar Face Database (GUFD)}{http://www.facevar.com/glasgow-unfamiliar-face-database}, która dostępna jest za darmo i można jej używać na potrzeby badań uczelnianych oraz publikacji. Jedynym warunkiem użycia jest zacytowanie jednej z publikacji właściciela bazy.
+
+Baza zawiera 303 tożsamości. Na każdą z tożsamości składa się 20 zdjęć jednej osoby wykonanych w różnych warunkach np. różniące się kąty ujęcia, wyrazy twarzy oraz z dodatkowymi akcesoriami(okulary, kaptur, czapka). 
 
 \section{Trenowanie sieci neuronowych}
-dodać czas w pythonie
+Podczas badania sieci neuronowych postanowiono sprawdzić kilka podstawowych czynników, na które składa się wpływ ilości wybranych tożsamości oraz wpływ ilości zdjęć przydzielonych tożsamości na:
+\begin{itemize}
+\item czas potrzebny na preprocessing danych uczących,
+\item czas trwania trenowania modelu,
+\item rozmiar pliku zawierającego model (jeśli istnieje).
+\end{itemize}
+W rozdziale \ref{b:rozpoznawanie} omówiono wpływ wyżej wymienionych parametrów na czas oraz pewność identyfikowania tożsamości.
 \subsection{Wpływ ilości próbek na czas tworzenia modelu}
 kilka testów
 \subsection{Wpływ ilości próbek na rozmiar modelu}
 kilka testów
 
-\section{Rozpoznawanie twarzy}
+\section{Rozpoznawanie twarzy} \label{b:rozpoznawanie}
 \subsection{Wpływ ilości próbek na pewność rozpoznania}
 
 \subsection{Porównanie wyników}
