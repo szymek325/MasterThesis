@@ -35,6 +35,8 @@
 \usepackage[backend=bibtex]{biblatex}
 \usepackage{siunitx}
 \usepackage{amsmath}
+\usepackage[bottom]{footmisc}
+
 %Uncomment when package repo is working
 %\usepackage{tocloft}    % for list of equations
 %\usepackage{ragged2e}   % to undo \centering
@@ -57,6 +59,11 @@
 }
 %define source in figures
 \newcommand{\captionsource}[2]{\caption {#1} {Źródło: {#2}} }
+
+%footnote with link
+\newcommand\fnurl[2]{%
+\href{#2}{#1}\footnote{\url{#2}}%
+}
 
 %%define equeation list and numbering
 %% define list of equations
