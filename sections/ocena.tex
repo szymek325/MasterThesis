@@ -1,11 +1,8 @@
 \section{Detekcja}
-\begin{table}[H]\label{tab:systemy}
-	\centering
-	\caption{Porównanie wyników detekcji}
-	\scalebox{1.0}{
-	\begin{tabular}{|c|c|c|c|c|c|}
-  		\hline 
-  		 \bfseries Wejście & \bfseries Haar & \bfseries Dnn & \bfseries Azure \\
+
+\begin{longtable}{|c|c|c|c|c|c|} 
+\hline
+  		& \bfseries Wejście & \bfseries Haar & \bfseries Dnn & \bfseries Azure \\
   		\hline
   		1&		\begin{minipage}{.2\textwidth}
       	\includegraphics[width=\linewidth, height=20mm]{detekcja/3_input.jpg}
@@ -158,12 +155,11 @@
 		\begin{minipage}{.2\textwidth}
       	\includegraphics[width=\linewidth, height=20mm]{detekcja/12_azure.jpg}
     	\end{minipage}	
-		\\
-  		\hline \\
-  	\end{tabular}
-  	}
-\end{table}
-
+    	\\
+  		\hline 
+\caption{Your caption here} % needs to go inside longtable environment
+\label{tab:myfirstlongtable}
+\end{longtable}
 
 \subsection{Wnioski}
 
