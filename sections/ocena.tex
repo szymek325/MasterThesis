@@ -20,7 +20,7 @@
       	\includegraphics[width=\linewidth, height=20mm]{detekcja/3_azure.jpg}
     	\end{minipage}	
 		\\
-  		\hline \\
+  		\hline
   		2&		\begin{minipage}{.2\textwidth}
       	\includegraphics[width=\linewidth, height=20mm]{detekcja/4_input.jpg}
     	\end{minipage}
@@ -37,7 +37,7 @@
       	\includegraphics[width=\linewidth, height=20mm]{detekcja/4_azure.jpg}
     	\end{minipage}	
 		\\
-  		\hline \\
+  		\hline
   		3& 		\begin{minipage}{.2\textwidth}
       	\includegraphics[width=\linewidth, height=20mm]{detekcja/5_input.jpg}
     	\end{minipage}
@@ -54,7 +54,7 @@
       	\includegraphics[width=\linewidth, height=20mm]{detekcja/5_azure.jpg}
     	\end{minipage}	
 		\\
-  		\hline \\
+  		\hline
   		4&  		\begin{minipage}{.2\textwidth}
       	\includegraphics[width=\linewidth, height=20mm]{detekcja/6_input.jpg}
     	\end{minipage}
@@ -71,7 +71,7 @@
       	\includegraphics[width=\linewidth, height=20mm]{detekcja/6_azure.jpg}
     	\end{minipage}	
 		\\
-  		\hline \\
+  		\hline
   		5&  		\begin{minipage}{.2\textwidth}
       	\includegraphics[width=\linewidth, height=20mm]{detekcja/7_input.jpg}
     	\end{minipage}
@@ -88,7 +88,7 @@
       	\includegraphics[width=\linewidth, height=20mm]{detekcja/7_azure.jpg}
     	\end{minipage}	
 		\\
-  		\hline \\
+  		\hline
   		6&  		\begin{minipage}{.2\textwidth}
       	\includegraphics[width=\linewidth, height=20mm]{detekcja/8_input.jpg}
     	\end{minipage}
@@ -105,7 +105,7 @@
       	\includegraphics[width=\linewidth, height=20mm]{detekcja/8_azure.jpg}
     	\end{minipage}	
 		\\
-  		\hline \\
+  		\hline
   		7&  		\begin{minipage}{.2\textwidth}
       	\includegraphics[width=\linewidth, height=20mm]{detekcja/9_input.jpg}
     	\end{minipage}
@@ -122,7 +122,7 @@
       	\includegraphics[width=\linewidth, height=20mm]{detekcja/9_azure.jpg}
     	\end{minipage}	
 		\\
-  		\hline \\
+  		\hline
   		8&  		  		\begin{minipage}{.2\textwidth}
       	\includegraphics[width=\linewidth, height=20mm]{detekcja/11_input.jpg}
     	\end{minipage}
@@ -139,7 +139,7 @@
       	\includegraphics[width=\linewidth, height=20mm]{detekcja/11_azure.jpg}
     	\end{minipage}	
 		\\
-  		\hline \\
+  		\hline
   		9&  		  		\begin{minipage}{.2\textwidth}
       	\includegraphics[width=\linewidth, height=20mm]{detekcja/12_input.jpg}
     	\end{minipage}
@@ -157,9 +157,23 @@
     	\end{minipage}	
     	\\
   		\hline 
-\caption{Your caption here} % needs to go inside longtable environment
-\label{tab:myfirstlongtable}
+\caption{Porównanie działania detektorów w wybranych warunkach}
+\label{tab:porownanie_detektorow}
 \end{longtable}
+
+\begin{table}[H]\label{tab:systemy}
+	\centering
+	\caption{Średni czas przetwarzania zadania detekcji twarzy}
+	\scalebox{1.0}{
+	\begin{tabular}{|c|c|c|c|}
+  		\hline 
+  		 & \bfseries Haar & \bfseries Dnn & \bfseries ACS\\
+  		\hline
+  		\bfseries Średni czas odpowiedzi [s]& 0,023127109 &0,018201053 &0,465438843 \\
+  		\hline
+  	\end{tabular}
+  	}
+\end{table}
 
 \subsection{Wnioski}
 
@@ -177,55 +191,58 @@ Podczas badania sieci neuronowych postanowiono sprawdzić kilka podstawowych czy
 \end{itemize}
 W rozdziale \ref{b:rozpoznawanie} omówiono wpływ wyżej wymienionych parametrów na czas oraz pewność identyfikowania tożsamości.
 
+\subsection{Wpływ parametrów na czas trwania przygotowania danych uczących}
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{czas_przygotowania_a_ilosc_profili.png}
-	\caption{Schemat klasycznego wzorca MVC}
-	\label{fig:schemat_mvc}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=1.0]{czas_trenowania_a_ilosc_profili.png}
-	\caption{Schemat klasycznego wzorca MVC}
-	\label{fig:schemat_mvc}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=1.0]{rozmiar_modelu_a_ilosc_profili.png}
-	\caption{Schemat klasycznego wzorca MVC}
-	\label{fig:schemat_mvc}
+	\caption{Wpływ ilości profili użytych podczas treningu na czas przygotowania danych uczących}
+	\label{fig:czas_p_profile}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{czas_przygotowania_a_ilosc_zdjec.png}
-	\caption{Schemat klasycznego wzorca MVC}
-	\label{fig:schemat_mvc}
+	\caption{Wpływ ilości zdjęć przydzielonych profilowi na czas przygotowania danych uczących}
+	\label{fig:czas_p_zdjecia}
+\end{figure}
+
+\subsection{Wpływ parametrów na czas trwania treningu}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.0]{czas_trenowania_a_ilosc_profili.png}
+	\caption{Wpływ ilości profili użytych podczas treningu na czas trenowania sieci}
+	\label{fig:czas_t_profile}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{czas_trenowania_a_ilosc_zdjec.png}
-	\caption{Schemat klasycznego wzorca MVC}
-	\label{fig:schemat_mvc}
+	\caption{Wpływ ilości zdjęć przydzielonych profilowi na czas trenowania sieci}
+	\label{fig:czas_t_zdjecia}
+\end{figure}
+
+\subsection{Wpływ parametrów na rozmiar modelu sieci}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.0]{rozmiar_modelu_a_ilosc_profili.png}
+	\caption{Wpływ ilości profili użytych podczas treningu na rozmiar utworzonego modelu}
+	\label{fig:rozmiar_profile}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{rozmiar_modelu_a_ilosc_zdjec.png}
-	\caption{Schemat klasycznego wzorca MVC}
-	\label{fig:schemat_mvc}
+	\caption{Wpływ ilości zdjęć przydzielonych profilowi na rozmiar utworzonego modelu}
+	\label{fig:rozmiar_zdjecia}
 \end{figure}
 
-\subsection{Wpływ ilości próbek na czas tworzenia modelu}
-kilka testów
+
 \subsection{Wpływ ilości próbek na rozmiar modelu}
 kilka testów
 
 \section{Rozpoznawanie twarzy} \label{b:rozpoznawanie}
-\subsection{Wpływ ilości próbek na pewność rozpoznania}
+\subsection{Wpływ ilości zdjęć przypisanych profilowi na pewność rozpoznania}
+\subsection{Wpływ ilości profili użytych podczas treningu na pewność rozpoznania}
 
 \subsection{Porównanie wyników}
 \subsection{Czas przetwarzania zapytania}
