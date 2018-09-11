@@ -1,4 +1,4 @@
-\section{Detekcja}
+\section{Detekcja twarzy}
 W rozdziale tym opisano testy przeprowadzone w celu oceniania skuteczności działania wybranych detektorów twarzy. Podjęto decyzję o wykonaniu kilku zdjęć przedstawiających twarz w różnych pozycjach, częściowo zasłoniętą oraz w zmiennym oświetleniu. Wizualizację wyników przeprowadzonych testów zawarto w tabeli \ref{tab:porownanie_detektorow}.
 \begin{longtable}{|c|c|c|c|c|c|} 
 \hline
@@ -184,8 +184,6 @@ Zbadano, że wysoka skuteczność detekcji twarzy metodą DNN wiąże się z wi�
   	}
 \end{table}
 
-\subsection{Wnioski}
-
 \section{Dane treningowe}
 Za dane wejściowe do procesu trenowania sieci neuronowych wybrano \fnurl{Glasgow Unfamiliar Face Database (GUFD)}{http://www.facevar.com/glasgow-unfamiliar-face-database}, która dostępna jest za darmo i można jej używać na potrzeby badań uczelnianych oraz publikacji. Jedynym warunkiem użycia jest zacytowanie jednej z publikacji właściciela bazy.
 
@@ -203,13 +201,16 @@ Podczas badania sieci neuronowych postanowiono sprawdzić kilka podstawowych czy
 W rozdziale \ref{b:rozpoznawanie} omówiono wpływ wyżej wymienionych parametrów na czas oraz pewność identyfikowania tożsamości.
 
 \subsection{Wpływ wybranych parametrów na czas trwania przygotowania danych uczących}
+Zgodnie z oczekiwaniami, preprocessing danych wymagany przed trenowaniem identyfikatorów powiązanych z biblioteką OpenCv jest znacznie szybszy od Azure. Największą wadą wynikającą z chmurowości  ACS(Azure Cognitive Services) jest konieczność wykonania tysięcy zapytań, w tym większość z nich odpowiadających za przekazanie zdjęć do chmury. Prędkość dodawania danych jest ograniczana przez jakość połączenia z serwerem. Na przygotowanie 19 zdjęć dla 100 profili, system potrzebował około 15 minut, które może się wydawać astronomiczne w porównaniu z 24 sekundami potrzebnymi do przygotowania danych uczących lokalnie.
+
+Na rysunku \ref{fig:czas_p_profile} można zaobserwować że czas potrzebny na przygotowanie danych w przypadku OpenCv rósł liniowo. Podobny efekt był oczekiwany dla ACS. Brak liniowości może wynikać z różnych rozmiarów plików oraz chwilowej lepszej/gorszej jakości połączenia z serwerem.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{czas_przygotowania_a_ilosc_profili.png}
 	\caption{Wpływ ilości profili użytych podczas treningu na czas przygotowania danych uczących}
 	\label{fig:czas_p_profile}
 \end{figure}
-
+Wyniki uzyskane podczas drugiego testu, które przedstawiono na grafie \ref{fig:czas_p_zdjecia} potwierdzają tezę o niestabilności połączenia z serwisem chmurowym. Dla tego testu udało się uzyskać zależność ilości zdjęć od czasu zbliżoną do liniowej.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{czas_przygotowania_a_ilosc_zdjec.png}
