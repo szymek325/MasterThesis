@@ -27,7 +27,8 @@ namespace Domain.FaceRecognition.Mapping
                 .ForMember(dest => dest.Thumbnail,
                     opts => opts.MapFrom(src => src.Image.Thumbnail))
                 .ForMember(dest => dest.FileLink, opts => opts.MapFrom(src => src.Image))
-                .ForMember(dest => dest.Results, opts => opts.MapFrom(src => src.RecognitionResults));
+                .ForMember(dest => dest.Results, opts => opts.MapFrom(src => src.RecognitionResults))
+                .ForMember(dest => dest.NeuralNetworkInfo, opts => opts.MapFrom(src => $"{src.NeuralNetworkId}: {src.NeuralNetwork.Name}"));
         }
     }
 }
