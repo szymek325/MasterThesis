@@ -36,8 +36,8 @@ class Tester:
                 eigen_result = self.openCvRecognizer.recognize_with_single_recognizer(eigen, person_image)
                 lbph_result = self.openCvRecognizer.recognize_with_single_recognizer(lbph, person_image)
             except Exception as exception:
-                self.logger.error("exception")
-            if person_id == azure_result:
+                self.logger.error(exception)
+            if person_id == int(azure_result):
                 azure_counter = azure_counter + 1
             if person_id == fisher_result:
                 fisher_counter = fisher_counter + 1
