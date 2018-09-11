@@ -182,6 +182,8 @@ Za dane wejściowe do procesu trenowania sieci neuronowych wybrano \fnurl{Glasgo
 
 Baza zawiera 303 tożsamości. Na każdą z tożsamości składa się 20 zdjęć jednej osoby wykonanych w różnych warunkach np. różniące się kąty ujęcia, wyrazy twarzy oraz z dodatkowymi akcesoriami(okulary, kaptur, czapka). 
 
+Do materiałów uczących dodatkowo dodano profil autora tej pracy magisterskiej.
+
 \section{Trenowanie sieci neuronowych}
 Podczas badania sieci neuronowych postanowiono sprawdzić kilka podstawowych czynników, na które składa się wpływ ilości wybranych tożsamości oraz wpływ ilości zdjęć przydzielonych tożsamości na:
 \begin{itemize}
@@ -191,7 +193,7 @@ Podczas badania sieci neuronowych postanowiono sprawdzić kilka podstawowych czy
 \end{itemize}
 W rozdziale \ref{b:rozpoznawanie} omówiono wpływ wyżej wymienionych parametrów na czas oraz pewność identyfikowania tożsamości.
 
-\subsection{Wpływ parametrów na czas trwania przygotowania danych uczących}
+\subsection{Wpływ wybranych parametrów na czas trwania przygotowania danych uczących}
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{czas_przygotowania_a_ilosc_profili.png}
@@ -206,7 +208,7 @@ W rozdziale \ref{b:rozpoznawanie} omówiono wpływ wyżej wymienionych parametr�
 	\label{fig:czas_p_zdjecia}
 \end{figure}
 
-\subsection{Wpływ parametrów na czas trwania treningu}
+\subsection{Wpływ wybranych parametrów na czas trwania treningu}
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{czas_trenowania_a_ilosc_profili.png}
@@ -221,7 +223,7 @@ W rozdziale \ref{b:rozpoznawanie} omówiono wpływ wyżej wymienionych parametr�
 	\label{fig:czas_t_zdjecia}
 \end{figure}
 
-\subsection{Wpływ parametrów na rozmiar modelu sieci}
+\subsection{Wpływ wybranych parametrów na rozmiar modelu sieci}
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{rozmiar_modelu_a_ilosc_profili.png}
@@ -236,13 +238,42 @@ W rozdziale \ref{b:rozpoznawanie} omówiono wpływ wyżej wymienionych parametr�
 	\label{fig:rozmiar_zdjecia}
 \end{figure}
 
-
-\subsection{Wpływ ilości próbek na rozmiar modelu}
-kilka testów
-
 \section{Rozpoznawanie twarzy} \label{b:rozpoznawanie}
 \subsection{Wpływ ilości zdjęć przypisanych profilowi na pewność rozpoznania}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.0]{azure_pewnosc_a_ilosc_zdjec.png}
+	\caption{Wpływ ilości zdjęć przydzielonych profilowi na pewność identyfikacji Azure. Użyto 100 profili}
+	\label{fig:azure_zdjecia}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.0]{opencv_pewnosc_a_ilosc_zdjec.png}
+	\caption{Wpływ ilości zdjęć przydzielonych profilowi na pewność identyfikacji OpenCv. Użyto 100 profili}
+	\label{fig:opencv_zdjecia}
+\end{figure}
+
 \subsection{Wpływ ilości profili użytych podczas treningu na pewność rozpoznania}
+Przy 19 zdjeciach na profil, twarzy identyfikowane były bardzo dobrze i nie bylo widac roznicy w pewnosci identyfikacji.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.0]{10_azure_pewnosc_a_ilosc_profili.png}
+	\caption{Wpływ ilości profili użytych podczas nauki na pewność identyfikacji Azure. Użyto 10 zdjęć dla każdego profilu}
+	\label{fig:azure_10__profile}
+\end{figure}
+Przy 10 zdjęciach nie bylo roznicy dla metod OpenCv
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.0]{5_azure_pewnosc_a_ilosc_profili.png}
+	\caption{Wpływ ilości profili użytych podczas nauki na pewność identyfikacji Azure. Użyto 5 zdjęć dla każdego profilu}
+	\label{fig:azure_5__profile}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.0]{5_opencv_pewnosc_a_ilosc_profili.png}
+	\caption{Wpływ ilości profili użytych podczas nauki na pewność identyfikacji OpenCv. Użyto 5 zdjęć dla każdego profilu}
+	\label{fig:azure_5__profile}
+\end{figure}
 
 \subsection{Porównanie wyników}
 \subsection{Czas przetwarzania zapytania}
