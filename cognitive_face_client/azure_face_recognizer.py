@@ -24,7 +24,7 @@ class AzureFaceRecognizer():
     def recognize_face_without_db(self, neural_network_id, image_file_path):
         azure_file = self.neuralNetworkFilesRepo.get_azure_file_connected_to_neural_network(neural_network_id)
         if azure_file is not null and azure_file is not None:
-            self.__get_result_from_azure__(azure_file, image_file_path)
+            return self.__get_result_from_azure_without_db__(azure_file, image_file_path)
 
     def __get_result_from_azure_without_db__(self, azure_file, image_file_path):
         start_time = time.time()
