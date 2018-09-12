@@ -264,20 +264,24 @@ W przypadku badania wpływu ilości zdjęć przypisanych do profilu na rozmiar p
 \section{Rozpoznawanie twarzy} \label{b:rozpoznawanie}
 Kolejnym etapem badań było przetestowanie działania identyfikatorów twarzy, Testy podzielono na 3 kategorie:
 \begin{itemize}
-\item wpływ ilości zdjęc przypisanych do profilu na pewność rozpoznania
-\item wpływ ilości profili użytych podczas treningu na pewność rozpoznania
+\item wpływ ilości zdjęc przypisanych do profilu na pewność rozpoznania,
+\item wpływ ilości profili użytych podczas treningu na pewność rozpoznania,
+\item wpływ atrybutów oraz błędna identyfikacja,
 \item test wszystkich próbek
 \end{itemize}
 \subsection{Wpływ ilości zdjęć przypisanych do profilu na pewność rozpoznania}
 Metody dostępne w bibliotece OpenCv różnią się od Azure sposobem określania pewności identyfikacji. ACS (Azure Cognitive Services) zwraca pewność w postaci procentowej, a OpenCv jako wektor oddalenia od najbliższej próbki, którego im wartość jest mniejsza tym lepiej.
 
 W pierwszym etapie wykorzystano sieci nauczone podczas badań z rozdziału poprzedniego do identyfikacji jednego ze zdjęć. Wybrane zdjęcie zostało poprawnie zidentyfikowane przez każdą z metod.
+
+Dla Azure, którego wyniki przedstawiono na rysunku \ref{fig:azure_zdjecia}. Dla wybranego zdjęcia jedynie 2 próbki dla każdego ze 100 profili zapewniły wysoki poziom pewności równy około 93\%. Największe zmiany w pewności identyfikacji zaszły przy zmianie ilości próbek od 2 do 10 na profil. Po przekroczeniu tej wartości pewność ustabilizowała się w okolicy 96%. 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{azure_pewnosc_a_ilosc_zdjec.png}
 	\caption{Wpływ ilości zdjęć przydzielonych profilowi na pewność identyfikacji Azure. Użyto 100 profili}
 	\label{fig:azure_zdjecia}
 \end{figure}
+Podobną sytuację zaobserwowano dla sieci z biblioteki OpenCv przedstawionych na rysunku \ref{fig:opencv_zdjecia}. Wraz ze wzrostem ilości zdjęć malała wartość wektora odległości, którego wartość ustaliła się na 0 po przekroczeniu 10 zdjęć dla każdej z metod. Niewyjaśnionym zjawiskiem pozostaje chwilowy wzrost niepewności dla metody Eigen między ilością zdjęć 2, a 3. Najmniej pewną metodą okazał się algorytm Eigen, którego niepewność w szczytowych momentach była nawet 1,5 raza większa od algorytmu Fishera. Niezależnie od ilości zdjęć, dla testowanego obrazu metoda LBHP była pewna lub wartość wektora oddalenia był zbliżona do zera.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{opencv_pewnosc_a_ilosc_zdjec.png}
@@ -286,26 +290,24 @@ W pierwszym etapie wykorzystano sieci nauczone podczas badań z rozdziału poprz
 \end{figure}
 
 \subsection{Wpływ ilości profili użytych podczas treningu na pewność rozpoznania}
-Przy 19 zdjeciach na profil, twarzy identyfikowane były bardzo dobrze i nie bylo widac roznicy w pewnosci identyfikacji.
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=1.0]{10_azure_pewnosc_a_ilosc_profili.png}
-	\caption{Wpływ ilości profili użytych podczas nauki na pewność identyfikacji Azure. Użyto 10 zdjęć dla każdego profilu}
-	\label{fig:azure_10__profile}
-\end{figure}
-Przy 10 zdjęciach nie bylo roznicy dla metod OpenCv
+Z powodu zbyt dużej pewności identyfikacji każdej z metod dla ilości zdjęć przypisanych profilowi powyżej 10, podczas tego badania wykorzystano sieci podczas treningu, których wykorzystano maksymalnie 5 zdjęć na profil. 
+
+Początkowe wyniki uzyskane dla Azure były na tyle zaskakujące, że wykonano test dla dwóch próbek. Dane przedstawiono na rysunku \ref{fig:azure_5__profile}. Azure Cognitive Services wykazało, że jest odporne na poszerzanie zbioru o kolejne profile. Zmiana ilości profili z pięciu na sto nie wywołała żadnej zmiany w pewności identyfikacji.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{5_azure_pewnosc_a_ilosc_profili.png}
 	\caption{Wpływ ilości profili użytych podczas nauki na pewność identyfikacji Azure. Użyto 5 zdjęć dla każdego profilu}
 	\label{fig:azure_5__profile}
 \end{figure}
+Większość metod udostępnionych przez OpenCv nie wykazała się cechami zbliżonymi do Azure. Wraz ze wzrostem ilości użytych profili, niepewność identyfikacji wzrastała. Wyniki są widoczne na rysunku \ref{fig:opencv_5__profile}. Największy wzrost zaobserwowano dla metody Eigen. W przypadku algorymu Fishera widoczny jest znaczny skok niepewności podczas zmiany ilości profili z 5 na 10 ale przy kolejnych zmianach nie dochodziło do równie gwałtownych zmian. Test metody LBPH wykazał zerową wartość wektora odległości dla każdej ilości profili.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{5_opencv_pewnosc_a_ilosc_profili.png}
 	\caption{Wpływ ilości profili użytych podczas nauki na pewność identyfikacji OpenCv. Użyto 5 zdjęć dla każdego profilu}
-	\label{fig:azure_5__profile}
+	\label{fig:opencv_5__profile}
 \end{figure}
+
+\subsection{Wpływ dodatkowych atrybutów oraz błędna identyfikacja}
 
 \subsection{Porównanie wyników}
 \begin{figure}[H]
