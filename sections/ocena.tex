@@ -209,8 +209,8 @@ Podczas badania sieci neuronowych postanowiono sprawdzić kilka podstawowych czy
 \end{itemize}
 W rozdziale \ref{b:rozpoznawanie} omówiono wpływ wyżej wymienionych parametrów na czas oraz pewność identyfikowania tożsamości.
 
-\subsection{Wpływ wybranych parametrów na czas trwania przygotowania danych uczących}
-Zgodnie z oczekiwaniami, preprocessing danych wymagany przed trenowaniem identyfikatorów powiązanych z biblioteką OpenCv jest znacznie szybszy od Azure. Największą wadą wynikającą z chmurowości  ACS(Azure Cognitive Services) jest konieczność wykonania tysięcy zapytań, w tym większość z nich odpowiadających za przekazanie zdjęć do chmury. Prędkość dodawania danych jest ograniczana przez jakość połączenia z serwerem. Na przygotowanie 19 zdjęć dla 100 profili, system potrzebował około 15 minut, które może się wydawać astronomiczne w porównaniu z 24 sekundami potrzebnymi do przygotowania danych uczących lokalnie.
+\subsection{Wpływ wybranych parametrów na przygotowanie danych uczących}
+Zgodnie z oczekiwaniami, preprocessing danych wymagany przed trenowaniem identyfikatorów powiązanych z biblioteką OpenCv jest znacznie szybszy od Azure. Największą wadą wynikającą z chmurowości  ACS(Azure Cognitive Services) jest konieczność wykonania tysięcy zapytań, w tym większość z nich odpowiadających za przekazanie zdjęć do chmury. Prędkość dodawania danych jest ograniczana przez jakość połączenia z serwerem. Na przygotowanie 19 zdjęć dla 100 profili, system potrzebował około 15 minut, które może się wydawać astronomiczne w porównaniu z 24 sekundami potrzebnymi na przygotowanie danych dla metod trenowanych lokalnie.
 
 Na rysunku \ref{fig:czas_p_profile} można zaobserwować że czas potrzebny na przygotowanie danych w przypadku OpenCv rósł liniowo. Podobny efekt był oczekiwany dla ACS. Brak liniowości może wynikać z różnych rozmiarów plików oraz chwilowej lepszej/gorszej jakości połączenia z serwerem.
 \begin{figure}[H]
@@ -228,13 +228,14 @@ Wyniki uzyskane podczas drugiego testu, które przedstawiono na grafie \ref{fig:
 \end{figure}
 
 \subsection{Wpływ wybranych parametrów na czas trwania treningu}
+Kolejnym interesującym testem, który przeprowadzona było zbadanie wpływu ilości użytych profili oraz ilości zdjęć przypisanych profilowi na czas trwania nauki. Zgodnie z oczekiwaniami wraz z przyrostem danych zwiększał się czas wymagany na wytrenowanie sieci. Wyniki przedstawiono na rysunku \ref{fig:czas_t_profile}. Wyjątkiem pozostało rozwiązanie chmurowe Azure, które niezależnie od ilości danych zawsze trwało sekundę (najmniejsza jednostka czasu, którą można uzyskać od usługi). Podobnym zachowaniem wykazał się algorytm LBPH (\ref{lbph}), w przypadku którego czas treningu wydłuż się od 0,7s do maksymalnie 12s. W przypadku pozostałych metod czas treningu wzrósł z początkowej wartości maksymalnie kilku sekund do nawet kilku minut
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{czas_trenowania_a_ilosc_profili.png}
 	\caption{Wpływ ilości profili użytych podczas treningu na czas trenowania sieci}
 	\label{fig:czas_t_profile}
 \end{figure}
-
+Bliźniaczy test przeprowadzony dla zmiennej ilości zdjęć przypisanej do profilu zakończył się wynikami zbliżonymi do poprzedniego badania. Przyrost czasu pozostał nieliniowy.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{czas_trenowania_a_ilosc_zdjec.png}
@@ -243,13 +244,16 @@ Wyniki uzyskane podczas drugiego testu, które przedstawiono na grafie \ref{fig:
 \end{figure}
 
 \subsection{Wpływ wybranych parametrów na rozmiar modelu sieci}
+Wyniki uzyskane podczas badaniu wpływu parametrów na rozmiar utworzonego modelu przedstawiono na rysunku \ref{fig:rozmiar_profile} oraz \ref{fig:rozmiar_zdjecia}. Ze względu na brak dostępu do informacji o rozmiarze modelu, Azure Cognitve Services został pominięty podczas tego testu.
+
+W badaniu z poprzedniego rozdziału okazało się, że proces trenowania algorytmu Eigen jest najbardziej czasochłonny. Ta informacja ma swoje odzwierciedlenie w rozmiarze modelu. Rozmiar modelu uzyskany dla maksymalnej ilości wykorzystanych profili osiągnął wartość aż 3GB, które w porównaniu do 163MB dla LBPH oraz 197MB dla metody Fishera jest ogromną wartością. W uproszczeniu można by powiedzieć że wzrost rozmiaru pliku był liniowy i zwiększał się dwukrotnie wraz z dwukrotnym zwiększeniem się ilości wykorzystanych profili. 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{rozmiar_modelu_a_ilosc_profili.png}
 	\caption{Wpływ ilości profili użytych podczas treningu na rozmiar utworzonego modelu}
 	\label{fig:rozmiar_profile}
 \end{figure}
-
+W przypadku badania wpływu ilości zdjęć przypisanych do profilu na rozmiar pliku, wystąpił problem z uzyskaniem pierwszej próbki dla metody Fishera, która jak się okazało wymaga minimalnie 3 zdjęć przypisanych do profilu. Podobnie jak w poprzednim teście algorytm Eigen oraz LBPH zachowywał się liniowo co jest dobrze widoczne na rysunku \ref{fig:rozmiar_zdjecia}. Interesującym zachowaniem wykazał się model utworzony dla metody Fishera, który już przy 5 zdjęciach osiągnął wartość minimalnie różniącą się od maksymalnej. Dodawanie kolejnych zdjęć każdemu z profili powodowało minimalne zmiany w rozmiarze pliku. Uzyskane zachowanie znacznie różniło się od wyników z testu poprzedniego (rysunek \ref{fig:rozmiar_profile}).
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{rozmiar_modelu_a_ilosc_zdjec.png}
@@ -258,7 +262,16 @@ Wyniki uzyskane podczas drugiego testu, które przedstawiono na grafie \ref{fig:
 \end{figure}
 
 \section{Rozpoznawanie twarzy} \label{b:rozpoznawanie}
-\subsection{Wpływ ilości zdjęć przypisanych profilowi na pewność rozpoznania}
+Kolejnym etapem badań było przetestowanie działania identyfikatorów twarzy, Testy podzielono na 3 kategorie:
+\begin{itemize}
+\item wpływ ilości zdjęc przypisanych do profilu na pewność rozpoznania
+\item wpływ ilości profili użytych podczas treningu na pewność rozpoznania
+\item test wszystkich próbek
+\end{itemize}
+\subsection{Wpływ ilości zdjęć przypisanych do profilu na pewność rozpoznania}
+Metody dostępne w bibliotece OpenCv różnią się od Azure sposobem określania pewności identyfikacji. ACS (Azure Cognitive Services) zwraca pewność w postaci procentowej, a OpenCv jako wektor oddalenia od najbliższej próbki, którego im wartość jest mniejsza tym lepiej.
+
+W pierwszym etapie wykorzystano sieci nauczone podczas badań z rozdziału poprzedniego do identyfikacji jednego ze zdjęć. Wybrane zdjęcie zostało poprawnie zidentyfikowane przez każdą z metod.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{azure_pewnosc_a_ilosc_zdjec.png}
