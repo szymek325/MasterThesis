@@ -1,5 +1,5 @@
-\section{Detekcja}
-
+\section{Detekcja twarzy}
+W rozdziale tym opisano testy przeprowadzone w celu oceniania skuteczności działania wybranych detektorów twarzy. Podjęto decyzję o wykonaniu kilku zdjęć przedstawiających twarz w różnych pozycjach, częściowo zasłoniętą oraz w zmiennym oświetleniu. Wizualizację wyników przeprowadzonych testów zawarto w tabeli \ref{tab:porownanie_detektorow}.
 \begin{longtable}{|c|c|c|c|c|c|} 
 \hline
   		& \bfseries Wejście & \bfseries Haar & \bfseries Dnn & \bfseries Azure \\
@@ -160,6 +160,15 @@
 \caption{Porównanie działania detektorów w wybranych warunkach}
 \label{tab:porownanie_detektorow}
 \end{longtable}
+Pierwszą różnicą, którą można zaobserwować w sposobie działania detektorów jest rozmiar obszaru twarzy oznaczany przez algorytmy. Najmniejszym z nich jest twarz wykrywana metodą Haara, oznaczany obszar zaczyna się na wysokości brwi i kończy niewiele poniżej ust. W przypadku detekcji twarzy z wykorzystaniem głębokiej sieci neuronowej prostokąt obejmuje także całe czoło oraz podbródek przedstawionej osoby. Rozmiar obszaru uzyskanego przez ACS(Azure Cognitive Services) mieści się pomiędzy metodą Haara a DNN(Deep Neural Network), obejmuję częściowo czoło i podbródek.
+
+Każda z metod dobrze poradziła sobie w przypadku centralnego zdjęcia twarzy przy dobrym jak i słabym oświetleniu. Najskuteczniejszą z metod okazała się metoda DNN, która wykryła twarz na każdym z dziewięciu zdjęć. Metoda wykorzystująca platformę Azure okazała się nieskuteczna w przypadku zdjęcia przedstawiającego częściowo zakrytą twarz oraz z odchyloną głową. 
+
+Najwrażliwszym na jakoś zdjęcia okazała się metoda Haara, która nie była w stanie sobie poradzić choćby z najmniejszymi zmianami w układzie twarzy na zdjęciu. Używając tego detektora nie udało się wykryć twarzy na obrazach, które nie sprawiły problemu pozostałym metodą. Między innymi nie wykryto twarzy na obrazie przedstawiającym profil oraz głowę przechyloną na bok.
+
+Zbadano, że wysoka skuteczność detekcji twarzy metodą DNN wiąże się z większą ilością fałszywych detekcji w porównaniu z pozostałymi metodami. Z tego powodu wyniki uzyskane tą metodą należy filtrować,a jest to możliwe poprzez ustawienie pewności powyżej, której algorytm ma zwracać odpowiedzi.
+
+Średnie czasy odpowiedzi detektorów przedstawiono w tabeli \ref{tab:systemy}. W najkrótszym czasie uzyskano odpowiedź od sieci neuronowej, a najwolniejsza zgodnie z oczekiwania była metoda wykorzystująca ACS. Znacznie dłuższy czas trwania wynika z konieczności skontaktowania się z serwerem z innego kraju.
 
 \begin{table}[H]\label{tab:systemy}
 	\centering
@@ -174,8 +183,6 @@
   	\end{tabular}
   	}
 \end{table}
-
-\subsection{Wnioski}
 
 \section{Dane treningowe}
 Za dane wejściowe do procesu trenowania sieci neuronowych wybrano \fnurl{Glasgow Unfamiliar Face Database (GUFD)}{http://www.facevar.com/glasgow-unfamiliar-face-database}, która dostępna jest za darmo i można jej używać na potrzeby badań uczelnianych oraz publikacji. Jedynym warunkiem użycia jest zacytowanie jednej z publikacji właściciela bazy.
@@ -194,13 +201,16 @@ Podczas badania sieci neuronowych postanowiono sprawdzić kilka podstawowych czy
 W rozdziale \ref{b:rozpoznawanie} omówiono wpływ wyżej wymienionych parametrów na czas oraz pewność identyfikowania tożsamości.
 
 \subsection{Wpływ wybranych parametrów na czas trwania przygotowania danych uczących}
+Zgodnie z oczekiwaniami, preprocessing danych wymagany przed trenowaniem identyfikatorów powiązanych z biblioteką OpenCv jest znacznie szybszy od Azure. Największą wadą wynikającą z chmurowości  ACS(Azure Cognitive Services) jest konieczność wykonania tysięcy zapytań, w tym większość z nich odpowiadających za przekazanie zdjęć do chmury. Prędkość dodawania danych jest ograniczana przez jakość połączenia z serwerem. Na przygotowanie 19 zdjęć dla 100 profili, system potrzebował około 15 minut, które może się wydawać astronomiczne w porównaniu z 24 sekundami potrzebnymi do przygotowania danych uczących lokalnie.
+
+Na rysunku \ref{fig:czas_p_profile} można zaobserwować że czas potrzebny na przygotowanie danych w przypadku OpenCv rósł liniowo. Podobny efekt był oczekiwany dla ACS. Brak liniowości może wynikać z różnych rozmiarów plików oraz chwilowej lepszej/gorszej jakości połączenia z serwerem.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{czas_przygotowania_a_ilosc_profili.png}
 	\caption{Wpływ ilości profili użytych podczas treningu na czas przygotowania danych uczących}
 	\label{fig:czas_p_profile}
 \end{figure}
-
+Wyniki uzyskane podczas drugiego testu, które przedstawiono na grafie \ref{fig:czas_p_zdjecia} potwierdzają tezę o niestabilności połączenia z serwisem chmurowym. Dla tego testu udało się uzyskać zależność ilości zdjęć od czasu zbliżoną do liniowej.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{czas_przygotowania_a_ilosc_zdjec.png}
