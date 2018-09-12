@@ -320,6 +320,9 @@ Jedyną metodą, która prawidłowo rozpoznała twarz bez zarostu jest Azure. In
 Znacznie korzystniej rozwiązano problem błędnej identyfikacji w usłudze Azure. Podczas problemów z identyfikacją serwis zwróci informację o tym, że twarz nie została rozpoznana.
 
 \subsection{Porównanie wyników}
+Na koniec przygotowano test polegający na przetestowaniu 2000 zdjęć przydzielonych profilem sieciami wytrenowanymi odpowiednio 5,10,19 zdjęciami przydzielonymi dla każdego ze stu profili. Wyniki uzyskane podczas testu detektorów (patrz rysunek \ref{fig:porownanie_detektorow}) wskazywały, na to że sieć używająca Dnn do detekcji twarzy będzie miała możliwość prawidłowego rozpoznania największej ilości twarzy.
+
+Sieci OpenCv rozbito na 2 kategorie, jedną używającą do detekcji twarzy Algorytmu Haara oraz drugiej używającej głębokiej sieci neuronowej.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{porownanie_identyfikacji.png}
