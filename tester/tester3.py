@@ -16,7 +16,7 @@ class Tester:
         self.openCvRecognizer = OpenCvFaceRecognizer()
         self.azureRecognizer = AzureFaceRecognizer()
         self.faceDetector = FaceDetectorsManager()
-        self.neuralNetworkToUse = 18
+        self.neuralNetworkToUse = 31
 
     def test_all_photos(self):
         azure_counter = 0
