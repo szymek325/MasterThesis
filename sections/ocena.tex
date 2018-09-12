@@ -184,6 +184,15 @@ Zbadano, że wysoka skuteczność detekcji twarzy metodą DNN wiąże się z wi�
   	}
 \end{table}
 
+W celu potwierdzenia uzyskanych wniosków przeprowadzono końcowy test polegający na uruchomieniu każdego z detektorów na bazie profili składającej się z 2000 zdjęć. Wyniki przedstawiono na rysunku \ref{fig:porownanie_detektorow}. Detektor oparty o głęboką siec neuronową wykrył twarz na 94,6\% zdjęć, Azure 90,1\%, a Haar 88,7\%. Wyniki potwierdziły, że sieć neuronowa, w tym przypadku daje najlepsze rezultaty, korzystniejsze o nawet 6\% od pozostałych metod.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.0]{porownanie_detektorow.png}
+	\caption{Porównanie działania detektorów na bazie 2000 zdjęć}
+	\label{fig:porownanie_detektorow}
+\end{figure}
+
 \section{Dane treningowe}
 Za dane wejściowe do procesu trenowania sieci neuronowych wybrano \fnurl{Glasgow Unfamiliar Face Database (GUFD)}{http://www.facevar.com/glasgow-unfamiliar-face-database}, która dostępna jest za darmo i można jej używać na potrzeby badań uczelnianych oraz publikacji. Jedynym warunkiem użycia jest zacytowanie jednej z publikacji właściciela bazy.
 
@@ -286,6 +295,14 @@ Przy 10 zdjęciach nie bylo roznicy dla metod OpenCv
 \end{figure}
 
 \subsection{Porównanie wyników}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.0]{porownanie_identyfikacji.png}
+	\caption{Porównanie działania usług rozpoznających na bazie 2000 zdjęć}
+	\label{fig:porownanie_identyfikator}
+\end{figure}
+
+
 \subsection{Czas przetwarzania zapytania}
 
 \section{Ocena przydatności wybranych usług IoT}
