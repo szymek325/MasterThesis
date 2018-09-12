@@ -308,6 +308,16 @@ Większość metod udostępnionych przez OpenCv nie wykazała się cechami zbli�
 \end{figure}
 
 \subsection{Wpływ dodatkowych atrybutów oraz błędna identyfikacja}
+Na potrzeby testu wszystkie sieci zostały nauczone profilami, którym przypisano 5 zdjęć. Podczas treningu dołączono dodatkowy profil zawierający osobę z zarostem przedstawioną w tabeli \ref{tab:porownanie_detektorow}. W celu utrudnienia poprawnej identyfikacji sieci zostały przetestowane obrazem bez zarostu widocznym na rysunku \ref{fig:bledna_identyfikacja}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{bledna_identyfikacja.png}
+	\caption{Wyniki uzyskane podczas testu dodatkowego atrybutu w postaci zarostu}
+	\label{fig:bledna_identyfikacja}
+\end{figure}
+Jedyną metodą, która prawidłowo rozpoznała twarz bez zarostu jest Azure. Interesującą informacją, którą można uzyskać z tego testu jest potwierdzenie różnic w sposobie działania każdej z metod identyfikacji. Każdy algorytm OpenCv rozpoznał zdjęcie jako całkiem inną tożsamość. Jest to pierwszy przypadek,w której uzyskano niepewność większą od zera dla metody LBPH. Pozostałe wartości niepewności znacznie się zwiększyły względem wartości wektorów odległości, które uzyskano w poprzednich testach podczas poprawnej identyfikacji.
+
+Znacznie korzystniej rozwiązano problem błędnej identyfikacji w usłudze Azure. Podczas problemów z identyfikacją serwis zwróci informację o tym, że twarz nie została rozpoznana.
 
 \subsection{Porównanie wyników}
 \begin{figure}[H]
