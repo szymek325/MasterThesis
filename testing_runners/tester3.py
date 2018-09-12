@@ -5,7 +5,7 @@ from configuration_global.logger_factory import LoggerFactory
 from domain.face_detection.face_detectors_manager import FaceDetectorsManager
 from domain.face_recognition.face_recognizer_provider import FaceRecognizerProvider
 from domain.people.people_images_provider import PeopleImagesProvider
-from opencv_client.face_recognition.open_cv_face_recognizer import OpenCvFaceRecognizer
+from testing_runners.OpenCvFaceRecognizerForTesting import OpenCvFaceRecognizerForTesting
 
 
 class Tester:
@@ -13,10 +13,10 @@ class Tester:
         self.logger = LoggerFactory()
         self.imagesProvider = PeopleImagesProvider()
         self.recognizersProvider = FaceRecognizerProvider()
-        self.openCvRecognizer = OpenCvFaceRecognizer()
+        self.openCvRecognizer = OpenCvFaceRecognizerForTesting()
         self.azureRecognizer = AzureFaceRecognizer()
         self.faceDetector = FaceDetectorsManager()
-        self.neuralNetworkToUse = 38
+        self.neuralNetworkToUse = 44
 
     def test_all_photos(self):
         azure_counter = 0
@@ -29,7 +29,7 @@ class Tester:
             self.neuralNetworkToUse)
         self.logger.info("test")
         for person_id, person_image in all_photos_with_people:
-            found_faces = self.faceDetector.get_face_by_haar_with_load_image(person_image)
+            found_faces = self.faceDetector.get_face_by_dnn_with_load_image(person_image)
             if found_faces == 0 or len(found_faces) == 0:
                 continue
             else:
@@ -39,10 +39,10 @@ class Tester:
             eigen_result = 0
             lbph_result = 0
             try:
-                azure_result = self.azureRecognizer.recognize_face_without_db(self.neuralNetworkToUse, person_image)
-                fisher_result = self.openCvRecognizer.recognize_with_single_recognizer(fisher, person_image)
-                eigen_result = self.openCvRecognizer.recognize_with_single_recognizer(eigen, person_image)
-                lbph_result = self.openCvRecognizer.recognize_with_single_recognizer(lbph, person_image)
+                azure_result = self.azureRecognizer.recognize_face_without_db(18, person_image)
+                fisher_result = self.openCvRecognizer.recognize_with_single_recognizer_with_dnn(fisher, person_image)
+                eigen_result = self.openCvRecognizer.recognize_with_single_recognizer_with_dnn(eigen, person_image)
+                lbph_result = self.openCvRecognizer.recognize_with_single_recognizer_with_dnn(lbph, person_image)
             except Exception as exception:
                 self.logger.error(exception)
             if person_id == int(azure_result):
