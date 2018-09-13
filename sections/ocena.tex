@@ -333,15 +333,41 @@ Zgodnie z przypuszczeniami sieci neuronowe OpenCv wykorzystujące Dnn osiągnę�
 Zwiększenie ilości próbek do 10 przyniosło wzrost skuteczności identyfikacji każdej sieci. Dla tego przypadku testowego, każda sieć wykorzystujące detektor Dnn była lepsza od używających detektora Haara. Największy przyrost skuteczności osiągnięto dla sieci neuronowych wywodzących się z biblioteki OpenCv w połączeniu z detekcją wykorzystującą głęboką sieć neuronową.
 
 Test przeprowadzony dla 19 próbek przypisanych do każdego ze stu profili wywołał  wzrost skuteczności identyfikacji w większym lub mniejszym stopniu dla każdej metody. Zgodnie z oczekiwaniami wykorzystanie Dnn do detekcji twarzy pozwoliło na osiągnięcie wyników lepszych niż Azure Cognitive Services.
-
-Procentowe porównanie skuteczności algorytmów dla najmniejszej i największej próbki zamieszczono w tabeli 
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{porownanie_identyfikacji.png}
 	\caption{Porównanie działania usług rozpoznających na bazie 2000 zdjęć}
 	\label{fig:porownanie_identyfikator}
 \end{figure}
+Dane z wykresu \ref{fig:porownanie_identyfikator} przedstawiono w postaci procentowej w tabeli:
+
+\begin{table}[H]\label{tab:systemy}
+	\centering
+	\caption{Skuteczność identyfikacji wybranych metod}
+	\scalebox{1.0}{
+	\begin{tabular}{|c|c|c|c|}
+  		\hline 
+  		 & \bfseries 5 & \bfseries 19\\
+  		\hline
+  		\bfseries Azure& 88,7\% & 90,2\% \\
+  		\hline
+  		\bfseries Fisher (Haar)& 63,65\% & 76,5\% \\
+  		\hline
+  		\bfseries Fisher (Dnn)& 63,85\% & 93,5\% \\
+  		\hline
+  		\bfseries Eigen (Haar)& 63,95\% & 78,65\% \\
+  		\hline
+  		\bfseries Eigen (Dnn)& 72,9\% & 94,35\% \\
+  		\hline
+  		\bfseries Lbph (Haar)& 67,5\% & 78,65\% \\
+  		\hline
+  		\bfseries Lbph (Dnn)& 75,5 & 94,35 \\
+  		\hline
+  	\end{tabular}
+  	}
+\end{table}
+
+
 
 
 \subsection{Czas przetwarzania zapytania}
