@@ -322,33 +322,19 @@ Znacznie korzystniej rozwiązano problem błędnej identyfikacji w usłudze Azur
 \subsection{Porównanie wyników}
 Na koniec przygotowano test polegający na przetestowaniu 2000 zdjęć przydzielonych profilem sieciami wytrenowanymi odpowiednio 5,10,19 zdjęciami przydzielonymi dla każdego ze stu profili. 
 
-Wyniki uzyskane podczas testu detektorów (patrz rysunek \ref{fig:porownanie_detektorow}) pokazały, że najmniejsza ilość wykrywanych twarzy algorytmem Haara może mieć negatywny wpływ na ilość rozpoznanych twarzy metodami dostępnymi w bibliotece OpenCv. Z tego powodu wytrenowano dodatkowe sieci wykorzystujące do detekcji Dnn (Deep neural network). 
+Wyniki uzyskane podczas testu detektorów (patrz rysunek \ref{fig:porownanie_detektorow}) pokazały, że ilość twarzy wykrywanych metodą Haara jest znacznie mniejsza od pozostałych metod, co mogłoby przynieść niezadowalające wyniki dla metod open sourcowych, w wyniku których wyciągnięto by nieprawidłowe wnioski. W związku z tym problemem podjęto decyzję o wytrenowaniu dodatkowych sieci neuronowych z biblioteki OpenCv, które do treningu oraz detekcji twarzy podczas identyfikacji wykorzystują głęboką sieć neuronową.
 
-Testy przeprowadzone dla Azure umieszczono na rysunku \ref{fig:azure_final_test}, sieci OpenCv z użyciem Haara na \ref{fig:opencv_haar_final_test}, a sieci OpenCv wykorzystujące Dnn na obrazie \ref{fig:opencv_dnn_final_test}. Wszystkie wyniki podsumowano na grafie \ref{fig:porownanie_identyfikator}.
+Wszystkie przeprowadzone testy umieszczono na wykresie \ref{fig:porownanie_identyfikator} w celu łatwiejszej interpretacji danych.
 
-Przeprowadzony test usługi ACS (Azure Cognitive Services) potwierdził, że w tym przypadku do poprawnej identyfikacji większości wykrytych twarzy (97,5\%) wystarczający jest zasób danych trenujących ograniczony do tylko 5 zdjęć na profil. Zwiększenie ilości próbek do 10, a potem 19 próbek na osobę przyniosło minimalny wzrost skuteczności rozpoznawaniu. Finalna skuteczność identyfikacji tożsamości na zdjęciach, na których Azure wykrył twarz wyniosła 99,2\%. W sumie wykryto i rozpoznano twarz na 90,2\% przetestowanych zdjęć.
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=1.0]{pictures/azure_final_test.png}
-	\caption{Wpływ ilości próbek profilu na ilość poprawnych identyfikacji metodą wykorzystującą Azure}
-	\label{fig:azure_final_test}
-\end{figure}
-Test sieci neuronowych OpenCv w połączeniu z metodą Haara wykazał, że zwiększenie ilości zdjęć przypisanych profilowi ma wyraźny wpływ na jakość identyfikacji każdą z metod. Każde zwiększenie ilości zdjęć podniosło ilość poprawnych identyfikacji o około 100. Niezmiennie podczas każdego testu, najgorsze wyniki przyniósł algorytm Fishera, a najlepsze Lbph. Dla maksymalnej ilości próbek Eigen okazał się równie skuteczny jak i Lbph.
+Przeprowadzony test usługi ACS (Azure Cognitive Services) potwierdził, że w tym przypadku do poprawnej identyfikacji większości obrazów wystarczający jest zasób danych trenujących ograniczony do tylko 5 zdjęć na profil. Zwiększenie ilości próbek do 10, a potem 19 próbek na osobę przyniosło minimalny wzrost skuteczności w rozpoznawaniu. Warto zauważyć, że dla pierwszego testu różnica poprawnych identyfikacji między ACS, a najlepszą siecią neuronową z biblioteki OpenCv wyniosła około 300. W przypadku najgorszej z nich różnica była bliska 600.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=1.0]{pictures/opencv_haar_final_test.png}
-	\caption{Wpływ ilości próbek profilu na ilość poprawnych identyfikacji metodami OpenCv wykorzystującymi detektor Haara}
-	\label{fig:opencv_haar_final_test}
-\end{figure}
-Przeprowadzony test tych samych sieci neuronowych nauczonych twarzami wykrytymi głęboką siecią neuronową ponownie wykazał, że przy niskiej ilości próbek najlepiej sprawdza się algorytm Lbph, a najgorzej Fisher. Zaskakujący wynik uzyskano dla maksymalnej ilości próbek. Na wykresie \ref{fig:opencv_dnn_final_test} można zauważyć, że każda z metod rozpoznała prawie tą samą ilość osób.
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=1.0]{pictures/opencv_dnn_final_test.png}
-	\caption{Wpływ ilości próbek profilu na ilość poprawnych identyfikacji metodami OpenCv wykorzystującymi detektor Dnn}
-	\label{fig:opencv_dnn_final_test}
-\end{figure}
+Zgodnie z przypuszczeniami sieci neuronowe OpenCv wykorzystujące Dnn osiągnęły lepsze wyniki od tych korzystających z metody Haara. Jedynie algorytm Fisher(Dnn) nie rozpoznał więcej twarzy niż wszystkie metody wykorzystujące drugi sposób jej detekcji.
 
+Zwiększenie ilości próbek do 10 przyniosło wzrost skuteczności identyfikacji każdej sieci. Dla tego przypadku testowego, każda sieć wykorzystujące detektor Dnn była lepsza od używających detektora Haara. Największy przyrost skuteczności osiągnięto dla sieci neuronowych wywodzących się z biblioteki OpenCv w połączeniu z detekcją wykorzystującą głęboką sieć neuronową.
+
+Test przeprowadzony dla 19 próbek przypisanych do każdego ze stu profili wywołał  wzrost skuteczności identyfikacji w większym lub mniejszym stopniu dla każdej metody. Zgodnie z oczekiwaniami wykorzystanie Dnn do detekcji twarzy pozwoliło na osiągnięcie wyników lepszych niż Azure Cognitive Services.
+
+Procentowe porównanie skuteczności algorytmów dla najmniejszej i największej próbki zamieszczono w tabeli 
 
 \begin{figure}[H]
 	\centering
