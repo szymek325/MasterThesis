@@ -319,29 +319,30 @@ Jedyną metodą, która prawidłowo rozpoznała twarz bez zarostu jest Azure. In
 
 Znacznie korzystniej rozwiązano problem błędnej identyfikacji w usłudze Azure. Podczas problemów z identyfikacją serwis zwróci informację o tym, że twarz nie została rozpoznana.
 
-\subsection{Porównanie wyników}
-Na koniec przygotowano test polegający na przetestowaniu 2000 zdjęć przydzielonych profilem sieciami wytrenowanymi odpowiednio 5,10,19 zdjęciami przydzielonymi dla każdego ze stu profili. 
+\subsection{Wpływ ilości zdjęć przypisanych do profilu na skuteczność działania}
+W tym rozdziale opisano końcowy test polegający na przetestowaniu 100 profili po 20 zdjęć każdy sieciami wytrenowanymi odpowiednio 5,10,19 zdjęciami z zasobu dwudziestu.
 
-Wyniki uzyskane podczas testu detektorów (patrz rysunek \ref{fig:porownanie_detektorow}) pokazały, że ilość twarzy wykrywanych metodą Haara jest znacznie mniejsza od pozostałych metod, co mogłoby przynieść niezadowalające wyniki dla metod open sourcowych, w wyniku których wyciągnięto by nieprawidłowe wnioski. W związku z tym problemem podjęto decyzję o wytrenowaniu dodatkowych sieci neuronowych z biblioteki OpenCv, które do treningu oraz detekcji twarzy podczas identyfikacji wykorzystują głęboką sieć neuronową.
+Wyniki uzyskane podczas testu detektorów (patrz rysunek \ref{fig:porownanie_detektorow}) pokazały, że ilość twarzy wykrywanych metodą Haara jest znacznie mniejsza od pozostałych metod, co mogłoby przynieść niezadowalające wyniki dla metod oparty o bibliotekę OpenCv, w wyniku których wyciągnięto by nieprawidłowe wnioski. W związku z tym problemem podjęto decyzję o wytrenowaniu dodatkowych sieci neuronowych z biblioteki OpenCv, które do detekcji twarzy podczas treningu oraz identyfikacji wykorzystują głęboką sieć neuronową.
 
 Wszystkie przeprowadzone testy umieszczono na wykresie \ref{fig:porownanie_identyfikator} w celu łatwiejszej interpretacji danych.
 
-Przeprowadzony test usługi ACS (Azure Cognitive Services) potwierdził, że w tym przypadku do poprawnej identyfikacji większości obrazów wystarczający jest zasób danych trenujących ograniczony do tylko 5 zdjęć na profil. Zwiększenie ilości próbek do 10, a potem 19 próbek na osobę przyniosło minimalny wzrost skuteczności w rozpoznawaniu. Warto zauważyć, że dla pierwszego testu różnica poprawnych identyfikacji między ACS, a najlepszą siecią neuronową z biblioteki OpenCv wyniosła około 300. W przypadku najgorszej z nich różnica była bliska 600.
+Przeprowadzony test usługi ACS (Azure Cognitive Services) potwierdził, że w tym przypadku do poprawnej identyfikacji większości obrazów wystarczający jest zasób danych trenujących ograniczony do tylko 5 zdjęć na profil. Warto zauważyć, że dla pierwszego testu różnica poprawnych identyfikacji między ACS, a najlepszą siecią neuronową z biblioteki OpenCv wyniosła około 300. W przypadku najgorszej z nich różnica była bliska 600.
 
-Zgodnie z przypuszczeniami sieci neuronowe OpenCv wykorzystujące Dnn osiągnęły lepsze wyniki od tych korzystających z metody Haara. Jedynie algorytm Fisher(Dnn) nie rozpoznał więcej twarzy niż wszystkie metody wykorzystujące drugi sposób jej detekcji.
+Zgodnie z przypuszczeniami sieci neuronowe OpenCv wykorzystujące Dnn osiągnęły lepsze wyniki od tych korzystających z detektora Haara. Jedynie algorytm Fisher(Dnn) przy 5 próbkach nie rozpoznał więcej twarzy niż wszystkie metody wykorzystujące drugi sposób jej detekcji.
 
-Zwiększenie ilości próbek do 10 przyniosło wzrost skuteczności identyfikacji każdej sieci. Dla tego przypadku testowego, każda sieć wykorzystujące detektor Dnn była lepsza od używających detektora Haara. Największy przyrost skuteczności osiągnięto dla sieci neuronowych wywodzących się z biblioteki OpenCv w połączeniu z detekcją wykorzystującą głęboką sieć neuronową.
+Zwiększenie ilości próbek do 10 przyniosło wzrost skuteczności identyfikacji każdej sieci. Dla tego przypadku testowego, każda sieć wykorzystujące detektor Dnn była lepsza od używających detektora Haara. Największy przyrost skuteczności osiągnięto dla sieci neuronowych wywodzących się z biblioteki OpenCv w połączeniu z detekcją wykorzystującą głęboką sieć neuronową, ale żadna z nich nie przekroczyła poziomu osiągniętego przez ACS
 
-Test przeprowadzony dla 19 próbek przypisanych do każdego ze stu profili wywołał  wzrost skuteczności identyfikacji w większym lub mniejszym stopniu dla każdej metody. Zgodnie z oczekiwaniami wykorzystanie Dnn do detekcji twarzy pozwoliło na osiągnięcie wyników lepszych niż Azure Cognitive Services.
+Test przeprowadzony dla 19 próbek przypisanych do każdego ze stu profili wywołał  wzrost skuteczności identyfikacji w większym lub mniejszym stopniu dla każdej metody. Zgodnie z oczekiwaniami wykorzystanie Dnn do detekcji twarzy pozwoliło na osiągnięcie lepszych wyników końcowych niż Azure Cognitive Services.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{porownanie_identyfikacji.png}
 	\caption{Porównanie działania usług rozpoznających na bazie 2000 zdjęć}
 	\label{fig:porownanie_identyfikator}
 \end{figure}
-Dane z wykresu \ref{fig:porownanie_identyfikator} przedstawiono w postaci procentowej w tabeli:
+Dane z wykresu \ref{fig:porownanie_identyfikator} dla próbki o rozmiarze 5 i 19 zdjęć przedstawiono w postaci procentowej w tabeli \ref{tab:skutecznosc_identyfikacji}.
+Największa skuteczność identyfikacji osiągnęła sieć neuronowa typu Lbph(Dnn) i Eigen(Dnn). Największy wzrost skuteczności wraz ze wzrostem ilości próbek zanotowano dla metody Fisher(Dnn). Ilość próbek miała najmniejszy wpływ na skuteczność identyfikacji opartej o Azure Cognitive Services. Najniższą skutecznością działania wykazał się algorytm Fisher(Haar).
 
-\begin{table}[H]\label{tab:systemy}
+\begin{table}[H]\label{tab:skutecznosc_identyfikacji}
 	\centering
 	\caption{Skuteczność identyfikacji wybranych metod}
 	\scalebox{1.0}{
@@ -349,7 +350,7 @@ Dane z wykresu \ref{fig:porownanie_identyfikator} przedstawiono w postaci procen
   		\hline 
   		 & \bfseries 5 & \bfseries 19\\
   		\hline
-  		\bfseries Azure& 88,7\% & 90,2\% \\
+  		\bfseries Azure Cognitive Services& 88,7\% & 90,2\% \\
   		\hline
   		\bfseries Fisher (Haar)& 63,65\% & 76,5\% \\
   		\hline
@@ -367,10 +368,10 @@ Dane z wykresu \ref{fig:porownanie_identyfikator} przedstawiono w postaci procen
   	}
 \end{table}
 
-
-
-
 \subsection{Czas przetwarzania zapytania}
+
+\subsection{Przydatność w zastosowaniu dla IoT}
+
 
 \section{Ocena przydatności wybranych usług IoT}
 
