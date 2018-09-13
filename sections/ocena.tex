@@ -369,6 +369,28 @@ Największa skuteczność identyfikacji osiągnęła sieć neuronowa typu Lbph(D
 \end{table}
 
 \subsection{Czas przetwarzania zapytania}
+Dane dotyczące czasu wymaganego na uzyskanie odpowiedzi od każdej z z metod identyfikacji umieszczono w tabeli \ref{tab:szybkosc_identyfikacji}. Ponownie Azure okazał się najwolniejszy, prawdopodobnie z powodu potrzeby łączenia się z zewnętrznym serwerem. Najszybszą odpowiedź można uzyskać wykorzystując metodę Eigen.
+
+Porównując dane z tabeli z rysunkiem \ref{fig:rozmiar_zdjecia} można zauważyć że prędkość odpowiedzi powiązana jest z rozmiarem utworzonego modelu. Metoda posiadająca największy model odpowiada najszybciej, a najmniejszy najwolniej.
+\begin{table}[H]\label{tab:szybkosc_identyfikacji}
+	\centering
+	\caption{Średni czas przetwarzania zadania identyfikacji twarzy}
+	\scalebox{1.0}{
+	\begin{tabular}{|c|c|}
+	  	\hline 
+	  	 &\bfseries Średni czas odpowiedzi [s]\\
+  		\hline 
+	  	\bfseries Lbph&1,07648058255514\\
+  		\hline 
+	  	\bfseries Eigen&0,0814295546213786\\
+  		\hline 
+	  	\bfseries Fisher&0,576785226662954\\
+  		\hline 
+	  	\bfseries Azure Cognitive Services&1,1062401757724\\
+  		\hline 
+  	\end{tabular}
+  	}
+\end{table}
 
 \subsection{Przydatność w zastosowaniu dla IoT}
 
