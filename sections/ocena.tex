@@ -392,13 +392,11 @@ Porównując dane z tabeli z rysunkiem \ref{fig:rozmiar_zdjecia} można zauważy
   	}
 \end{table}
 
-\subsection{Przydatność w zastosowaniu dla IoT}
+\section{Ocena przydatności wybranych usług dla IoT}
+W tym rozdziale porównano kilka usług chmurowych dostępnych w Azure oraz Amazon WebServices, które wykorzystano na potrzeby tej pracy.
 
+Podstawową wykorzystaną usługą były bazy danych MSSQL oraz maszyny wirtualne oparte o system operacyjny Windows. Konfiguracja bazy danych oraz maszyny wirtualnej okazała się równie prosta w każdym ze środowisk. Proces konfiguracji odbywał się poprzez wypełnienie kilku formularzy niewymagających wprowadzania dużej ilości informacji (ze względu na ograniczenia studenckiej licencji). Na końcu procesu uzyskany zostaje connection string oraz konto za pomocą, którego można zalogować się na serwer. W przypadku każdego rozwiązania chmurowego połączenie było stabilne i szybkie mimo ograniczeń dla wersji testowej/studenckiej.
 
-\section{Ocena przydatności wybranych usług IoT}
+Największa różnica między dwoma dostawcami wystąpiła w przypadku usług hostujących aplikację webową czyli Azure App Service oraz AWS Elastic Beanstalk. Podczas pierwszych testów konfiguracji aplikacja internetowa istniała jedynie w rozwiązaniu przygotowanym w języku Angular 4. Jak się okazało taka konfiguracja przerosła możliwości AWS co wymusiło powstanie rozwiązania nr 2 opisanego w rozdziale \ref{s:web_technologie}. Podczas konfiguracji usługi z platformy Azure podobne problemy nie pojawiły się, prawdopodobnie dlatego, że oba rozwiązania przygotowała jedna firma - Microsoft. Po utworzeniu aplikacji opartej o Razor zamiast Angular 4, problemy ustały i oba hostingi dostarczały wartość na podobnym poziomie jakościowym. Oba środowiska pozwalały na wgranie najnowszej wersji aplikacji jednym kliknięciem z poziomu Visual Studio.
 
-
-
-Konfiguracja bazy danych oraz maszyny wirtualnej okazała się równie prosta w każdym ze środowisk. Proces konfiguracji odbywał się poprzez wypełnienie kilku formularzy niewymagających wprowadzania dużej ilości informacji (ze względu na ograniczenia studenckiej licencji). Na końcu procesu uzyskany zostaje connection string oraz konto za pomocą, którego można zalogować się na serwer.
-
-Największa różnica między dwoma dostawcami wystąpiła w przypadku usług hostujących aplikację webową czyli Azure App Service oraz AWS Elastic Beanstalk. Podczas pierwszych testów konfiguracji aplikacja internetowa istniała jedynie w rozwiązaniu przygotowanym w języku Angular 4. Struktura aplikacji została przygotowana na podstawie wzoru przygotowanego przez Microsoft. Azure App Service bezproblemowo wspierał nawet najnowsze wersje rozwiązań przygotowanych dla .NET Core 2. Niestety AWS nie był przygotowany 
+Do dodatkowych usług, których nie udało się wykorzystać w tej pracy należą \fnurl{AWS IoT}{https://aws.amazon.com/iot/} pozwalający na połączenie wielu urządzeń we wspólnej sieci chmurowej oraz bliźniacza usługa od Azure o nazwie \fnurl{IoT Hub}{https://azure.microsoft.com/pl-pl/services/iot-hub/}.
