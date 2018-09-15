@@ -17,24 +17,29 @@
 \endgroup
 
 \datalist[entry]{nty/global//global/global}
-  \entry{_angular-chart.js_????}{online}{}
+  \entry{acs_doc}{misc}{}
+    \list{language}{1}{%
+      {en-us}%
+    }
     \field{labeltitlesource}{title}
     \field{sortinit}{A}
     \field{sortinithash}{A}
-    \field{title}{angular-chart.js - beautiful, reactive, responsive charts for
-  Angular.{JS} using Chart.js}
+    \field{abstract}{%
+    In this quickstart, you detect faces in an image using the Face service
+  with Python in Cognitive Services.%
+    }
+    \field{title}{Azure Cognitive Services Face Api Documentation}
     \verb{url}
-    \verb https://jtblin.github.io/angular-chart.js/
+    \verb https://docs.microsoft.com/en-us/azure/cognitive-services/face/quicks
+    \verb tarts/python
     \endverb
     \verb{file}
-    \verb angular-chart.js - beautiful, reactive, responsive charts for Angular
-    \verb .JS using Chart.js:C\:\\Users\\matsz\\AppData\\Roaming\\Mozilla\\Fire
-    \verb fox\\Profiles\\uzex6uf6.default\\zotero\\storage\\V2EH6U5U\\angular-c
-    \verb hart.html:text/html
+    \verb Snapshot:C\:\\Users\\matsz\\Zotero\\storage\\DFJGP5KD\\Python.html:te
+    \verb xt/html
     \endverb
-    \field{urlday}{21}
-    \field{urlmonth}{01}
-    \field{urlyear}{2017}
+    \field{urlday}{15}
+    \field{urlmonth}{09}
+    \field{urlyear}{2018}
   \endentry
 
   \entry{373563}{inproceedings}{}
@@ -76,6 +81,36 @@
     \warn{\item Invalid format of field 'month'}
   \endentry
 
+  \entry{face_reco_github}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=GA}{%
+         family={Geitgey},
+         familyi={G\bibinitperiod},
+         given={Adam},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GA1}
+    \strng{fullhash}{GA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{note}{original-date: 2017-03-03T21:52:39Z}
+    \field{shorttitle}{The world's simplest facial recognition api for {Python}
+  and the command line}
+    \field{title}{The world's simplest facial recognition api for {Python} and
+  the command line: ageitgey/face\_recognition}
+    \verb{url}
+    \verb https://github.com/ageitgey/face_recognition
+    \endverb
+    \field{month}{09}
+    \field{year}{2018}
+    \field{urlday}{15}
+    \field{urlmonth}{09}
+    \field{urlyear}{2018}
+  \endentry
+
   \entry{_latex_????}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{L}
@@ -94,19 +129,36 @@
     \field{urlyear}{2017}
   \endentry
 
+  \entry{opencv_doc}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{O}
+    \field{sortinithash}{O}
+    \field{title}{{OpenCV}: {OpenCV} modules}
+    \verb{url}
+    \verb https://docs.opencv.org/3.4.2/
+    \endverb
+    \verb{file}
+    \verb OpenCV\: OpenCV modules:C\:\\Users\\matsz\\Zotero\\storage\\K4D6ARI6\
+    \verb \3.4.html:text/html
+    \endverb
+    \field{urlday}{15}
+    \field{urlmonth}{09}
+    \field{urlyear}{2018}
+  \endentry
+
   \entry{gauss1}{inproceedings}{}
     \name{author}{1}{}{%
-      {{hash=SGCLS}{%
+      {{hash=SGLS}{%
          family={Shapiro},
          familyi={S\bibinitperiod},
          suffix={L.G.\bibnamedelima Stockman},
          suffixi={L\bibinitperiod\bibinitdelim S\bibinitperiod},
-         given={G.\bibnamedelima C},
-         giveni={G\bibinitperiod\bibinitdelim C},
+         given={G.C.},
+         giveni={G\bibinitperiod},
       }}%
     }
-    \strng{namehash}{SLSGC1}
-    \strng{fullhash}{SLSGC1}
+    \strng{namehash}{SLSG1}
+    \strng{fullhash}{SLSG1}
     \field{labelnamesource}{author}
     \field{sortinit}{S}
     \field{sortinithash}{S}
@@ -114,24 +166,6 @@
     \field{issn}{Prentice Hall}
     \field{pages}{137\bibrangedash 150}
     \field{year}{2001}
-  \endentry
-
-  \entry{_zotero_????}{online}{}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{Z}
-    \field{sortinithash}{Z}
-    \field{title}{Zotero {\textbar} Home}
-    \verb{url}
-    \verb https://www.zotero.org/
-    \endverb
-    \verb{file}
-    \verb Zotero | Home:C\:\\Users\\matsz\\AppData\\Roaming\\Mozilla\\Firefox\\
-    \verb Profiles\\uzex6uf6.default\\zotero\\storage\\52UJ2XTI\\www.zotero.org
-    \verb .html:text/html
-    \endverb
-    \field{urlday}{21}
-    \field{urlmonth}{01}
-    \field{urlyear}{2017}
   \endentry
 \enddatalist
 \endinput
