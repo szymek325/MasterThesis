@@ -125,7 +125,7 @@ Dylatacja jest operacją wykorzystywaną do przetwarzania obrazów binarnych, ok
 \end{figure}
 
 \subsection{Rozmycie gaussowskie \textcolor{red}{DODAĆ wzór i więcej opisu}}
-Rozmycie gaussowskie inaczej nazywane wygładzaniem gaussowskim to operacja przetwarzania obrazu polegająca na modyfikacji go z użyciem filtru Gaussa. Rozmycie wykorzystywane jest w celu zmniejszenia szumów oraz zakłóceń w obrazie oraz w celu zamazania detali.
+Rozmycie gaussowskie inaczej nazywane wygładzaniem gaussowskim to operacja przetwarzania obrazu polegająca na modyfikacji go z użyciem funkcji gaussowskiej. Wygładzanie gaussowskie jest bardzo popularnym efektem zmniejszającym szum i ilość detali obrazu w dziedzinie grafiki i przetwarzania obrazu. Przykładowy efekt zastosowania rozmycia gaussowskiego przedstawiono na rysunku \ref{fig:rozmycie_gaussowskie}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{rozmycie_gaussowskie.png}
@@ -135,8 +135,12 @@ Rozmycie gaussowskie inaczej nazywane wygładzaniem gaussowskim to operacja prze
 
 \subsubsection{Filtry gaussowskie}
 Filtry gaussowskie należą do klasy filtrów dolnoprzepustowych, które odfiltrowują sygnały o wysokiej częstotliwości czyli np. szumy.
-\cite{2}
-
+Funkcję \cite{gauss1} przedstawiono w postaci wzoru \ref{eq:funkcja_gaussa}.
+\begin{equation} \label{eq:funkcja_gaussa}
+G(x,y) = e \frac{-(x^{2}+y^{2}}{2\sigma^{2}}
+\end{equation}
+Symbolem $\sigma$ oznaczono odchylenie standardowe charakteryzujące rozkład Gaussa.
+\cite{373563}
 \subsection{Klasyfikator kaskad Haar'a} \label{haar}
 Detekcja obiektów klasyfikatorem kaskad Haar'a została oparta o metodę Paul'a Viola i Michael'a Jones'a– w skrócie Viola-Jones.
 

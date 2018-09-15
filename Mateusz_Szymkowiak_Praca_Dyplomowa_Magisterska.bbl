@@ -94,6 +94,28 @@
     \field{urlyear}{2017}
   \endentry
 
+  \entry{gauss1}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=SGCLS}{%
+         family={Shapiro},
+         familyi={S\bibinitperiod},
+         suffix={L.G.\bibnamedelima Stockman},
+         suffixi={L\bibinitperiod\bibinitdelim S\bibinitperiod},
+         given={G.\bibnamedelima C},
+         giveni={G\bibinitperiod\bibinitdelim C},
+      }}%
+    }
+    \strng{namehash}{SLSGC1}
+    \strng{fullhash}{SLSGC1}
+    \field{labelnamesource}{author}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{booktitle}{Computer Vision}
+    \field{issn}{Prentice Hall}
+    \field{pages}{137\bibrangedash 150}
+    \field{year}{2001}
+  \endentry
+
   \entry{_zotero_????}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{Z}
