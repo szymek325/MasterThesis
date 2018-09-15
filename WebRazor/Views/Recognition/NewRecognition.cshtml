@@ -23,10 +23,10 @@
 
         <div class="row">
             <div class="col-md-3">
-                <label for="name">Neural Network</label>
+                <label for="name">Face Recognizer</label>
             </div>
             <div class="col-md-3">
-                @Html.DropDownListFor(m => m.NeuralNetworkId, Model.NeuralNetworks, "Select Neural Network")
+                @Html.DropDownListFor(m => m.NeuralNetworkId, Model.NeuralNetworks, "Select alghoritm")
                 <div class="row">
                     @Html.ValidationMessageFor(m => m.NeuralNetworkId, "", new {@class = "text-danger"})
                 </div>
