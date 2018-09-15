@@ -10,10 +10,10 @@ Zgodnie z interfejsem przedstawionym na rysunku \ref{fig:strona_glowna_razor}, s
 \begin{itemize}
 \item Notifications- powiadomienia,
 \item Detections- detekcje,
-\item People- profile,
-\item Neural Networks- sieci neuronowe,
+\item Profiles- profile tożsamości,
+\item Face Recognizers- algorytmy rozpoznawania twarzy,
 \item Recognitions- identyfikacja tożsamości,
-\item Sensor Readings- odczyty sensorów.
+\item Readings- odczyty sensorów.
 \end{itemize}
 
 \section{Technologie}\label{s:web_technologie}
@@ -66,7 +66,7 @@ Strona ze zdjęcia \ref{fig:detekcja_zakonczona} pozwala sprawdzić datę utworz
 \end{itemize}
 
 \section{Profile}
-Strona 'People' służy do tworzenia nowych profili, które później mogą zostać wykorzystane jako dane uczące podczas trenowania sieci neuronowych. Do każdego profilu osoby musi zostać przypisany zasób minimum 2 zdjęć. W przypadku braku możliwości wykrycia twarzy na zdjęciu, zostanie ono zignorowane podczas procesu nauczania.
+Strona 'Profiles' służy do tworzenia nowych profili, które później mogą zostać wykorzystane jako dane uczące podczas trenowania wybranymi algorytmami. Do każdego profilu osoby musi zostać przypisany zasób minimum 2 zdjęć. W przypadku braku możliwości wykrycia twarzy na zdjęciu, zostanie ono zignorowane podczas procesu nauczania.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{people.png}
@@ -82,8 +82,8 @@ Nowa osoba może zostać utworzona w podobny sposób jak request detekcji twarzy
 \end{figure}
 Utworzona osoba nie może być modyfikowana. Pierwsze załadowanie widoku osoby może trwać wydłużony czas z powodu procesu generowania linków do plików magazynowanych w usłudze Dropbox.
 
-\section{Sieci neuronowe}
-W zakładce 'Neural Networks' użytkownik może utworzyć zadanie trenowania sieci neuronowych (OpenCv: Fisherfaces, Eigenfaces, LBPH, Azure: Cognitive Services) wybranymi profilami utworzonymi w zakładce 'People'. Użytkownik nie ma możliwości wyboru typu sieci, która zostanie nauczona, domyślnie wszystkie dostępne rozwiązania (wymienione powyżej) zostaną wykorzystane.
+\section{Algorytmy rozpoznawania twarzy}
+W zakładce 'Face Recognizers' użytkownik może utworzyć zadanie trenowania modelu wybranym algorytmem (OpenCv: Fisherfaces, Eigenfaces, LBPH, Azure: Cognitive Services) używając wybranej grupy profili z zakładki 'Profiles'. Użytkownik nie ma możliwości wyboru typu sieci, która zostanie nauczona. Domyślnie wszystkie dostępne rozwiązania (wymienione powyżej) zostaną wykorzystane.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{neural_networks.png}
@@ -94,26 +94,26 @@ Podczas tworzenia nowej sieci każdy istniejący profil zostanie wyświetlony ja
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{nowa_siec.png}
-	\caption{Tworzenie nowej grupy sieci neuronowych}
+	\caption{Tworzenie nowej grupy algorytmów identyfikacji twarzy}
 	\label{fig:nowa_siec}
 \end{figure}
 Wykorzystując przycisk 'Show' z widoku na rysunku \ref{fig:sieci_neuronowe} można wyświetlić szczegółowe informacje o wybranej grupie sieci neuronowych. Dostępny widok ukazano na rysunku \ref{fig:siec_neuronowa}. Widoczne są na nim wszystkie parametry grupy,na które składają się: ilość wykorzystanych zdjęć i profili oraz tabela z informacjami o przygotowanych sieciach. Informacje dostępne w tabeli to nazwa i typ sieci, rozmiar utworzonego modelu, czas potrzebny na wytrenowanie oraz pełny czas(czas trenowania + przygotowanie danych wejściowych) potrzebny na stworzenie sieci.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{siec_neuronowa.png}
-	\caption{Szczegółowe informacje o grupie sieci neuronowych}
+	\caption{Szczegółowe informacje o utworzonej grupie}
 	\label{fig:siec_neuronowa}
 \end{figure}
 
 \section{Rozpoznawanie tożsamości}
-W sekcji 'Recognitions' użytkownik ma możliwość wykorzystać wcześniej utworzone zbiory sieci neuronowych w celu identyfikacji tożsamości na zdjęciu przedstawiającym pojedynczą osobę.
+W sekcji 'Recognitions' użytkownik ma możliwość wykorzystać wcześniej utworzone zbiory identyfikatorów w celu rozpoznania tożsamości na zdjęciu przedstawiającym pojedynczą osobę.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{recognitions.png}
 	\caption{Lista zadań identyfikacji osoby}
 	\label{fig:recognitions}
 \end{figure}
-Podobnie jak na pozostałych stronach, podczas tworzenia nowego zadania użytkownik będzie musiał uzupełnić prosty formularz. W formularzu przedstawionym na rysunku \ref{fig:new_recognition} należy załączyć jedno zdjęcie oraz wybrać grupę sieci neuronowych, która ma zostać wykorzystana do identyfikacji tożsamości osoby.
+Podobnie jak na pozostałych stronach, podczas tworzenia nowego zadania użytkownik będzie musiał uzupełnić prosty formularz. W formularzu przedstawionym na rysunku \ref{fig:new_recognition} należy załączyć jedno zdjęcie oraz wybrać grupę algorytmów trenowaną tymi samymi danymi, która ma zostać wykorzystana do identyfikacji tożsamości osoby.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{new_recognition.png}

@@ -194,14 +194,14 @@ W celu potwierdzenia uzyskanych wniosków przeprowadzono końcowy test polegają
 \end{figure}
 
 \section{Dane treningowe}
-Za dane wejściowe do procesu trenowania sieci neuronowych wybrano \fnurl{Glasgow Unfamiliar Face Database (GUFD)}{http://www.facevar.com/glasgow-unfamiliar-face-database}, która dostępna jest za darmo i można jej używać na potrzeby badań uczelnianych oraz publikacji. Jedynym warunkiem użycia jest zacytowanie jednej z publikacji właściciela bazy.
+Za dane wejściowe do procesu trenowania sieci wybrano \fnurl{Glasgow Unfamiliar Face Database (GUFD)}{http://www.facevar.com/glasgow-unfamiliar-face-database}, która dostępna jest za darmo i można jej używać na potrzeby badań uczelnianych oraz publikacji. Jedynym warunkiem użycia jest zacytowanie jednej z publikacji właściciela bazy.
 
 Baza zawiera 303 tożsamości. Na każdą z tożsamości składa się 20 zdjęć jednej osoby wykonanych w różnych warunkach np. różniące się kąty ujęcia, wyrazy twarzy oraz z dodatkowymi akcesoriami(okulary, kaptur, czapka). 
 
 Do materiałów uczących dodatkowo dodano profil autora tej pracy magisterskiej.
 
-\section{Trenowanie sieci neuronowych}
-Podczas badania sieci neuronowych postanowiono sprawdzić kilka podstawowych czynników, na które składa się wpływ ilości wybranych tożsamości oraz wpływ ilości zdjęć przydzielonych tożsamości na:
+\section{Trenowanie sieci}
+Podczas badania algorytmów rozpoznawania twarzy postanowiono sprawdzić kilka podstawowych czynników, na które składa się wpływ ilości wybranych tożsamości oraz wpływ ilości zdjęć przydzielonych tożsamości na:
 \begin{itemize}
 \item czas potrzebny na preprocessing danych uczących,
 \item czas trwania trenowania modelu,
@@ -322,15 +322,15 @@ Znacznie korzystniej rozwiązano problem błędnej identyfikacji w usłudze Azur
 \subsection{Wpływ ilości zdjęć przypisanych do profilu na skuteczność działania}
 W tym rozdziale opisano końcowy test polegający na przetestowaniu 100 profili po 20 zdjęć każdy sieciami wytrenowanymi odpowiednio 5,10,19 zdjęciami z zasobu dwudziestu.
 
-Wyniki uzyskane podczas testu detektorów (patrz rysunek \ref{fig:porownanie_detektorow}) pokazały, że ilość twarzy wykrywanych metodą Haara jest znacznie mniejsza od pozostałych metod, co mogłoby przynieść niezadowalające wyniki dla metod oparty o bibliotekę OpenCv, w wyniku których wyciągnięto by nieprawidłowe wnioski. W związku z tym problemem podjęto decyzję o wytrenowaniu dodatkowych sieci neuronowych z biblioteki OpenCv, które do detekcji twarzy podczas treningu oraz identyfikacji wykorzystują głęboką sieć neuronową.
+Wyniki uzyskane podczas testu detektorów (patrz rysunek \ref{fig:porownanie_detektorow}) pokazały, że ilość twarzy wykrywanych metodą Haara jest znacznie mniejsza od pozostałych metod, co mogłoby przynieść niezadowalające wyniki dla metod oparty o bibliotekę OpenCv, w wyniku których wyciągnięto by nieprawidłowe wnioski. W związku z tym problemem podjęto decyzję o wytrenowaniu dodatkowych modeli dla algorytmów z biblioteki OpenCv, które do detekcji twarzy podczas treningu oraz identyfikacji wykorzystują głęboką sieć neuronową.
 
 Wszystkie przeprowadzone testy umieszczono na wykresie \ref{fig:porownanie_identyfikator} w celu łatwiejszej interpretacji danych.
 
 Przeprowadzony test usługi ACS (Azure Cognitive Services) potwierdził, że w tym przypadku do poprawnej identyfikacji większości obrazów wystarczający jest zasób danych trenujących ograniczony do tylko 5 zdjęć na profil. Warto zauważyć, że dla pierwszego testu różnica poprawnych identyfikacji między ACS, a najlepszą siecią neuronową z biblioteki OpenCv wyniosła około 300. W przypadku najgorszej z nich różnica była bliska 600.
 
-Zgodnie z przypuszczeniami sieci neuronowe OpenCv wykorzystujące Dnn osiągnęły lepsze wyniki od tych korzystających z detektora Haara. Jedynie algorytm Fisher(Dnn) przy 5 próbkach nie rozpoznał więcej twarzy niż wszystkie metody wykorzystujące drugi sposób jej detekcji.
+Zgodnie z przypuszczeniami algorytmy OpenCv wykorzystujące Dnn osiągnęły lepsze wyniki od tych korzystających z detektora Haara. Jedynie algorytm Fisher(Dnn) przy 5 próbkach nie rozpoznał więcej twarzy niż wszystkie metody wykorzystujące drugi sposób jej detekcji.
 
-Zwiększenie ilości próbek do 10 przyniosło wzrost skuteczności identyfikacji każdej sieci. Dla tego przypadku testowego, każda sieć wykorzystujące detektor Dnn była lepsza od używających detektora Haara. Największy przyrost skuteczności osiągnięto dla sieci neuronowych wywodzących się z biblioteki OpenCv w połączeniu z detekcją wykorzystującą głęboką sieć neuronową, ale żadna z nich nie przekroczyła poziomu osiągniętego przez ACS
+Zwiększenie ilości próbek do 10 przyniosło wzrost skuteczności identyfikacji każdej sieci. Dla tego przypadku testowego, każda sieć wykorzystujące detektor Dnn była lepsza od używających detektora Haara. Największy przyrost skuteczności osiągnięto dla algorytmów wywodzących się z biblioteki OpenCv w połączeniu z detekcją wykorzystującą głęboką sieć neuronową, ale żadna z nich nie przekroczyła poziomu osiągniętego przez ACS.
 
 Test przeprowadzony dla 19 próbek przypisanych do każdego ze stu profili wywołał  wzrost skuteczności identyfikacji w większym lub mniejszym stopniu dla każdej metody. Zgodnie z oczekiwaniami wykorzystanie Dnn do detekcji twarzy pozwoliło na osiągnięcie lepszych wyników końcowych niż Azure Cognitive Services.
 \begin{figure}[H]
