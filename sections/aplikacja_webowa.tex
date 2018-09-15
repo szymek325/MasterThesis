@@ -1,7 +1,7 @@
 Aplikacja webowa jest jedyną częścią systemu, do której użytkownik może mieć bezpośredni dostęp. Strona powstała w celu maksymalnego uproszczenia procesu badania kolejnych algorytmów i usług, które różniły się sposobem podawania danych wejściowych, sposobem uczenia oraz formatem zwracanych odpowiedzi. Do pozostałych zalet takiego rozwiązania należy ułatwienie przechowywania danych, poprzez umieszczenie ich we wspólnym miejscu co pomaga, w późniejszej interpretacji wyników.
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.7]{aplikacja_webowa_razor_widok.png}
+	\includegraphics[scale=0.6]{aplikacja_webowa_razor_widok.png}
 	\caption{Wygląd strony głównej aplikacji internetowej (rozwiązanie 1)}
 	\label{fig:strona_glowna_razor}
 \end{figure}
@@ -26,7 +26,7 @@ Pierwsza wersja została oparta o strony tworzone w technologi Razor Pages opart
 Druga wersja widoku aplikacji oferuje dostęp do tych samych możliwości co pierwsze rozwiązanie, ale powstała przy pomocy frameworka webowego- Angular 4. Strona główna widoczna jest na rysunku \ref{fig:strona_glowna_angular}. Angular jest open sourcowym frameworkiem używanym do tworzenia aplikacji SPA (Single Page Application), napisany w języku TypeScript i wspierany oraz rozwijany przez Google.
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.6]{aplikacja_webowa_angular_widok.png}
+	\includegraphics[scale=0.55]{aplikacja_webowa_angular_widok.png}
 	\caption{Wygląd strony głównej aplikacji internetowej (rozwiązanie 2)}
 	\label{fig:strona_glowna_angular}
 \end{figure}
@@ -35,7 +35,7 @@ Druga wersja widoku aplikacji oferuje dostęp do tych samych możliwości co pie
 Detections jest stroną odpowiedzialną za wykrywanie twarzy na obrazach przesłanych do systemu. Na głównej stronie możemy zobaczyć wszystkie zlecone detekcje, zarówno nowe jak i już zakończone.
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.6]{detections.png}
+	\includegraphics[scale=0.5]{detections.png}
 	\caption{Widok detekcji twarzy}
 	\label{fig:detections}
 \end{figure}
@@ -86,7 +86,7 @@ Utworzona osoba nie może być modyfikowana. Pierwsze załadowanie widoku osoby 
 W zakładce 'Face Recognizers' użytkownik może utworzyć zadanie trenowania modelu wybranym algorytmem (OpenCv: Fisherfaces, Eigenfaces, LBPH, Azure: Cognitive Services) używając wybranej grupy profili z zakładki 'Profiles'. Użytkownik nie ma możliwości wyboru typu sieci, która zostanie nauczona. Domyślnie wszystkie dostępne rozwiązania (wymienione powyżej) zostaną wykorzystane.
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.6]{neural_networks.png}
+	\includegraphics[scale=0.5]{neural_networks.png}
 	\caption{Strona przedstawiająca istniejące grupy usług rozpoznawania tożsamości}
 	\label{fig:sieci_neuronowe}
 \end{figure}
@@ -109,21 +109,21 @@ Wykorzystując przycisk 'Show' z widoku na rysunku \ref{fig:sieci_neuronowe} mo�
 W sekcji 'Recognitions' użytkownik ma możliwość wykorzystać wcześniej utworzone zbiory identyfikatorów w celu rozpoznania tożsamości na zdjęciu przedstawiającym pojedynczą osobę.
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.6]{recognitions.png}
+	\includegraphics[scale=0.5]{recognitions.png}
 	\caption{Lista zadań identyfikacji osoby}
 	\label{fig:recognitions}
 \end{figure}
 Podobnie jak na pozostałych stronach, podczas tworzenia nowego zadania użytkownik będzie musiał uzupełnić prosty formularz. W formularzu przedstawionym na rysunku \ref{fig:new_recognition} należy załączyć jedno zdjęcie oraz wybrać grupę algorytmów trenowaną tymi samymi danymi, która ma zostać wykorzystana do identyfikacji tożsamości osoby.
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.6]{new_recognition.png}
+	\includegraphics[scale=0.5]{new_recognition.png}
 	\caption{Formularz tworzenia zadania identyfikacji}
 	\label{fig:new_recognition}
 \end{figure}
 Po zakończonym procesie identyfikacji opisanym w kolejnym podrozdziale, użytkownik może wyświetlić wynik uzyskany przez każdą sieć dostępną w grupie. Przykładowy rezultat widoczny jest na zdjęciu \ref{fig:recognition}.
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.6]{recognition.png}
+	\includegraphics[scale=0.5]{recognition.png}
 	\caption{Zakończony request identyfikacji}
 	\label{fig:recognition}
 \end{figure}
