@@ -129,6 +129,25 @@
     \field{urlyear}{2017}
   \endentry
 
+  \entry{open_face}{misc}{}
+    \list{publisher}{1}{%
+      {cmusatyalab}%
+    }
+    \field{labeltitlesource}{title}
+    \field{sortinit}{O}
+    \field{sortinithash}{O}
+    \field{note}{original-date: 2015-09-16T12:47:27Z}
+    \field{title}{Open face. Face recognition with deep neural networks}
+    \verb{url}
+    \verb https://github.com/cmusatyalab/openface
+    \endverb
+    \field{month}{09}
+    \field{year}{2018}
+    \field{urlday}{15}
+    \field{urlmonth}{09}
+    \field{urlyear}{2018}
+  \endentry
+
   \entry{opencv_doc}{misc}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{O}

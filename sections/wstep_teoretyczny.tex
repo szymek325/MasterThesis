@@ -94,13 +94,13 @@ Zakładając, że obraz wejściowy to $src$, wartość danego piksela oznaczono 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8]{thresholding.png}
-	\caption{Wykres wartości obrazu $src$ przed thresholdingiem}
+	\captionsource{Wykres wartości obrazu $src$ przed thresholdingiem}{Dokumentacja OpenCv \cite{opencv_doc}}
 	\label{fig:thresholding}
 \end{figure}
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8]{thresholding_binarny.png}
-	\caption{Wykres wartości pikseli obrazu $dst$}
+		\captionsource{Wykres wartości pikseli obrazu $dst$}{Dokumentacja OpenCv \cite{opencv_doc}}
 	\label{fig:thresholding_binarny}
 \end{figure}
 W tej pracy zastosowano thresholding binarny konwertujący wartość każdego piksela do minimalnej lub maksymalnej. Działanie funkcji przedstawiono za pomocą poniższego wzoru.
@@ -129,7 +129,7 @@ Rozmycie gaussowskie inaczej nazywane wygładzaniem gaussowskim to operacja prze
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{rozmycie_gaussowskie.png}
-	\caption{Przykład zastosowania rozmycia gaussowskiego na zdjęciu}
+	\captionsource{Przykład zastosowania rozmycia gaussowskiego na zdjęciu}{https://www.raywenderlich.com}
 	\label{fig:rozmycie_gaussowskie}
 \end{figure}
 
@@ -139,7 +139,6 @@ Funkcję \cite{gauss1} przedstawiono w postaci wzoru \ref{eq:funkcja_gaussa}.
 G(x,y) = e \frac{-(x^{2}+y^{2})}{2\sigma^{2}}
 \end{equation}
 Symbolem $\sigma$ oznaczono odchylenie standardowe charakteryzujące rozkład Gaussa.
-\cite{373563}
 \subsection{Klasyfikator kaskad Haar'a} \label{haar}
 Detekcja obiektów klasyfikatorem kaskad Haar'a została oparta o metodę Paul'a Viola i Michael'a Jones'a– w skrócie Viola-Jones.
 
@@ -154,7 +153,7 @@ Cechy wykorzystywane w metodzie Viola-Jones opierają się na falkach Haara. Fal
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{szablon_cech_haara.png}
-	\caption{Szablony cech Haar'a a) dwuprostokątny b) trójprostokątny c) czteroprostokątny d) centralny}
+		\captionsource{Szablony cech Haar'a a) dwuprostokątny b) trójprostokątny c) czteroprostokątny d) centralny}{Dokumentacja OpenCv \cite{opencv_doc}}
 	\label{fig:szablon_cech_haara}
 \end{figure}
 Wartość każdej cechy jest obliczana jako różnica sumy poziomów szarości pikseli pokrywanych przez biały oraz czarny prostokąt oraz sumy poziomów szarości pikseli pokrywanych przez czarny prostokąt. Składniki tej różnicy posiadają wagi odwrotnie proporcjonalne do rozmiarów, dzięki czemu różnice wielkości dwóch obszarów są kompensowane.
@@ -164,7 +163,7 @@ Pojęciem uczenia maszynowego określa się dziedzinę nauk związanych ze sztuc
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{schemat_dnn.png}
-	\caption{Budowa głębokiej sieci neuronowej}
+	\captionsource{Budowa głębokiej sieci neuronowej}{http://www.deltami.edu.pl}
 	\label{fig:budowa_dnn}
 \end{figure}
 Algorytmy głębokiego uczenia maszynowego są jednymi z najbardziej zaawansowanych. Zbudowane są one w sposób przypominający biologiczne sieci neuronowe. Głęboka sieć neuronowa składa się z neuronów rozmieszczonych na warstwach. Wiele warstw jest powodem dla którego taki rodzaj algorytmu określa się mianem głębokiego. Przykładowa budowa głębokiej sieci neuronowej została przedstawiona na rysunku \ref{fig:budowa_dnn}.
