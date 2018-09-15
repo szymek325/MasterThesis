@@ -37,6 +37,45 @@
     \field{urlyear}{2017}
   \endentry
 
+  \entry{373563}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=DG}{%
+         family={Deng},
+         familyi={D\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=CLW}{%
+         family={Cahill},
+         familyi={C\bibinitperiod},
+         given={L.\bibnamedelima W.},
+         giveni={L\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+    }
+    \keyw{edge detection;adaptive filters;image processing;computer
+  vision;adaptive Gaussian filter;noise reduction;edge detection;noise
+  suppression;preprocessing;signal local variance;edge position
+  displacement;vanishing edges;phantom edges;Adaptive filters;Noise
+  reduction;Image edge detection;Gaussian noise;Imaging phantoms;Filtering
+  algorithms;Digital filters;Image processing;Computer vision;Distortion}
+    \strng{namehash}{DGCLW1}
+    \strng{fullhash}{DGCLW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{booktitle}{1993 IEEE Conference Record Nuclear Science Symposium and
+  Medical Imaging Conference}
+    \verb{doi}
+    \verb 10.1109/NSSMIC.1993.373563
+    \endverb
+    \field{pages}{1615\bibrangedash 1619 vol.3}
+    \field{title}{An adaptive Gaussian filter for noise reduction and edge
+  detection}
+    \field{year}{1993}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
   \entry{_latex_????}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{L}

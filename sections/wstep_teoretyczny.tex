@@ -82,7 +82,7 @@ Raspberry Pi Camera HD jest dedykowaną kamerą przeznaczoną tylko i wyłączni
 \end{figure}
 
 \section{Przetwarzanie obrazu}
-\subsection{Thresholding \textcolor{red}{TODO}}
+\subsection{Thresholding}
 Thresholding jest operacją polegającą na segmentacji obrazu. Segmentacja to proces podziału obrazu na części określane jako obszary, które są jednorodne pod względem pewnych wybranych własności. Podczas thresholdingu dochodzi do porównania wartości pixeli, tak by oddzielić ważne piksele od tych mniej interesujących. Przed operacją ustalana jest granica, która będzie stanowić o tym jak rozdzielone zostaną wartości.
 \begin{figure}[H]
 	\centering
@@ -90,7 +90,7 @@ Thresholding jest operacją polegającą na segmentacji obrazu. Segmentacja to p
 	\caption{Efekt działania thresholdingu a) przed b) po}
 	\label{fig:efekt_thresholdingu}
 \end{figure}
-Zakładając, że obraz wejściowy to $src$, wartość danego piksela oznaczono jako $src(x,y) $, a przyjętą granicę jako $thresh$. Na rysunku \ref{fig:thresholding} niebieską linią oznaczono $thresh$, a czerwonym kolorem obszar oznaczający wartość piksela. 
+Zakładając, że obraz wejściowy to $src$, wartość danego piksela oznaczono jako $src(x,y) $, a przyjętą granicę jako $thresh$. Na rysunku \ref{fig:thresholding} niebieską linią oznaczono $thresh$, a czerwonym kolorem obszar oznaczający wartość piksela. Poprzez $dst$ oznaczono obraz wyjściowy, więc $dst(x,y)$ oznacza wartość piksela o współrzednych $x,y$
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8]{thresholding.png}
@@ -113,9 +113,7 @@ maxValue & \textrm{gdy $src(x,y)>$thresh}\\
 \end{array} \right.
  \end{aligned}
 \end{equation}
- \\ \textcolor{red}{POPRAWIĆ WZÓR I OPIS}gdzie maxValue- wartość maksymalna piksela
- \\ dst- plik wyjściowy \\
-Porównując rysunki \ref{fig:thresholding} oraz \ref{fig:thresholding_binarny} można zaobserwować że zgodnie ze wzorem 3.1 każdy piksel obrazu wejściowego poniżej wartości $thresh$ (niebieska linia), na obrazie wyjściowym ma wartość 0, a powyżej linii ma wartość maksymalną.
+Porównując rysunki \ref{fig:thresholding} oraz \ref{fig:thresholding_binarny} można zaobserwować że zgodnie ze wzorem \ref{eq:thresholding} każdy piksel obrazu wejściowego poniżej wartości $thresh$ (niebieska linia), na obrazie wyjściowym ma wartość 0, a powyżej linii ma wartość maksymalną.
 
 \subsection{Dylatacja}
 Dylatacja jest operacją wykorzystywaną do przetwarzania obrazów binarnych, określaną rozszerzaniem. Proces dylatacji polega na przyłożeniu do każdego pixela na obrazie struktury o wybranym rozmiarze. Jeżeli choć jeden piksel sąsiadujący z punktem centralnym wybranej struktury ma wartość jeden to punkt centralny również otrzymuje taką samą wartość. W przeciwnym wypadku punktowi przypisywana jest wartość zero. Najkorzystniejsze efekty przynosi dylatacja strukturą przypominającą kształt koła, np 3x3 px. W efekcie dylatacji dochodzi do zwiększenia się obiektu, zniknięcia detali oraz wypełnienia pustek w niespójnym obszarze. Na rysunku \ref{fig:dylatacja} b) do obrazu przyłożono strukturę 3x3 px. W jej obszarze znaleziono jeden piksel o wartości maksymalnej(oznaczony szarym kolorem), dlatego pikselowi oznaczonemu kolorem zielonym zostaje przydzielona ta sama wartość. Przeprowadzenie operacji na całym obrazie, powoduje uzyskanie rysunku \ref{fig:dylatacja} c).
@@ -134,6 +132,10 @@ Rozmycie gaussowskie inaczej nazywane wygładzaniem gaussowskim to operacja prze
 	\caption{Przykład zastosowania rozmycia gaussowskiego na zdjęciu}
 	\label{fig:rozmycie_gaussowskie}
 \end{figure}
+
+\subsubsection{Filtry gaussowskie}
+Filtry gaussowskie należą do klasy filtrów dolnoprzepustowych, które odfiltrowują sygnały o wysokiej częstotliwości czyli np. szumy.
+\cite{2}
 
 \subsection{Klasyfikator kaskad Haar'a} \label{haar}
 Detekcja obiektów klasyfikatorem kaskad Haar'a została oparta o metodę Paul'a Viola i Michael'a Jones'a– w skrócie Viola-Jones.
