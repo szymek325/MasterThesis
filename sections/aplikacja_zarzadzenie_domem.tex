@@ -19,7 +19,7 @@ Proces detekcji ruchu rozpoczyna się od podstawowej rzeczy, którą jest urucho
 
 Jeśli moduł wykrył ruch to licznik detekcji zostaje zwiększony o 1, a w przeciwnym wypadku licznik zostaje wyzerowany. Żadne dodatkowe funkcje nie są wykonywane, aż do czasu osiągnięcia wartości równej 8 przez licznik. Liczba 8 została wyznaczona w celu ograniczenia ilości przechwytywanych ruchów do tych kilkukrotnie potwierdzonych.
 
-Po osiągnięciu tej wartości program ostatecznie stwierdza, że nastąpił ruch i przekazuje uchwycony moment do funkcji zapisującej, której działanie opisano w kolejnej części tego rozdziału. Po udanym wykryciu licznik zostaje wyzerowany. Proces ten powtarza się tak długo, aż nie zostanie ręcznie zatrzymany poprzez wciśnięcie klawisza 'q'.
+Po osiągnięciu tej wartości program ostatecznie stwierdza, że nastąpił ruch i przekazuje uchwycony moment do funkcji zapisującej, której działanie opisano w kolejnej części tego rozdziału. Po udanym wykryciu licznik zostaje wyzerowany. Proces ten powtarza się, aż do momentu zatrzymania programu.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{detekcja_ruchu.png}
@@ -35,7 +35,7 @@ Na początku wczytane zdjęcie zostaje przeskalowane do szerokości 500px z zach
 W wyniku tej operacji uzyskany zostaje obraz, na którym widoczne są jedynie obszary różniące się między aktualną klatą, a średnią. Następnie wszelkie braki/wypustki w obrazie zostają wypełnione dzięki dwukrotnie zastosowanej dylatacji strukturą o wymiarach 3x3 px. Ostatnim krokiem jest znalezienie konturów na przetworzonym obrazie, które są końcowym rezultatem działania funkcji.
  \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.6]{sprawdzenie_ruchu.png}
+	\includegraphics[scale=0.55]{sprawdzenie_ruchu.png}
 	\caption{Proces sprawdzenia czy wystąpił ruch zaimplementowany w aplikacji konsolowej do zarządzania domem}
 	\label{fig:wykrywanie_ruchu}
 \end{figure}
