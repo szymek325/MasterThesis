@@ -42,34 +42,36 @@ OpenCv (Open Source Computer Vision Library) jest open sourcową biblioteką nap
 
 \subsection{Rozpoznawanie twarzy \textcolor{red}{ZRODŁA WZORY I CYTOWANIA}}
 Przed zidentyfikowaniem tożsamości, należy najpierw rozwiązać problem detekcji twarzy. Podstawowym sposobem detekcji twarzy wykorzystywanym przez OpenCv jest kaskadowy klasyfikator Haar'a oparty o cechy Haar'a opisane w rozdziale \ref{haar}. Do innych dostępnych rozwiązań wykorzystanych do stworzenia aplikacji należy wytrenowany model głębokiej sieci neuronowej przygotowany przez autorów biblioteki.
+
 \subsubsection{Eigenfaces} \label{eigen}
-Eigenfaces, inaczej nazywany algorytmem twarzy własnych opiera się na metodzie analizy głównych składowych, która rozpoczyna się wyznaczeniem średniej wartości dla obrazów z tą samą etykietą identyfikującą daną osobę.
-Weźmy $n$ wektorów $x_{i}$ powstałych jako reprezentacje obrazów przedstawiających daną twarz. Dla tych wektorów wyznaczona zostaje wartość średnia $\mu$.
-$$
+Eigenfaces nazywany jest również algorytmem twarzy własnych. Głównym postanowieniem algorytmu jest to że nie wszystkie wymiary w zbiorze danych są równie ważne, więc należy znaleźć elementy, w których występuje największa zmienność bo to one mają największą wartość informacyjną. Obraz o wymiarze $p$x$q$ tworzy wektor o wymiarze $m=pq$, więc przykładowo dla wymiarów 100x100 uzyskuje się wektor o wymiarze 10 000. W celu ekstrakcji głównych składowych wykorzystano analizę głównych składowych (ang principal component analysis,PCA), która potrafi przekształcić wielowymiarowy zbiór danych skorelowanych w mniejszy zbiór danych nieskorelowanych. Informację o sposobie działania algorytmu zaczerpnięto z dokumentacji \cite{opencv_doc}.
+
+Działanie algorytmu:
+\begin{enumerate}
+\item Wyznaczenie wartości średniej $\mu$. Weźmy $n$ wektorów $x_{i}$ reprezentujących obrazy przedstawiające twarz.
+\begin{equation}
 \mu=\frac{1}{n}\sum_{i=1}^{n}x_{i}
-$$
-Następnie dla każdego wektora $x_{i}$ wyznaczana jest różnica od wartości średniej $\mu$.
-$$
-\psi= x_{i}-\mu
-$$
-Na podstawie wartości $\psi_{i}$ wyznacza się macierz kowariancji $C$.
-$$
-C=\frac{1}{n}\sum_{i=1}^{n}\psi_{i}\psi_{i}^{T}
-$$
-Kolejnym krokiem jest wyznaczenie wartości $\lambda_{i}$ oraz $\nu_{i}$ tak by spełniony był warunek:
-$$
-C\nu_{i}=\lambda_{i}\nu_{i} \textrm{ dla $i=$1,2,...,n}
-$$
-Wartość $\lambda_{i}$ nazywana wartością własną amcierzy $C$, a odpowiadający jej wektor $\nu_{i}$ wektorem własnym $C$.
-W przypadku algorytmu Eigenfaces branych jest pod uwagę $k$ głównych składowych $\lambda_{i}$, wyznaczonych na podstawie odrzucenia $n-k$ wartości najmniejszych. Dla każdego wektora wyznaczany jest wektor następujący:
-$$
-y_{i}=W^{T}(x_{i}-\mu) \textrm{ gdzie $W=(\nu_{1}, \nu_{2}, ..., \nu_{k})$}
-$$
+\end{equation}
+\item Obliczenie wartości macierzy kowariancji $S$
+\begin{equation}
+S=\frac{1}{n}\sum^{n}_{i=1}(x_{i}-\mu)(x_{i}-\mu)^{T}
+\end{equation}
+\item Oblicz wartości eigena $\lambda_{i}$ i wektory eigena $\nu_{i}$ z \begin{equation}
+S\nu_{i}=\lambda_{i}\nu_{i},i=1,2,...,n
+\end{equation}
+\item Posortuj wektory eigena według ich wartości eigena. Główne składowe $k$ są wektorami eigena odpowiadającymi $k$ największym wartościom eigena.
+\item Oblicz macierz zawierającą $k$ głównych składowych obserwowanych wektorów $x$.
+\begin{equation}
+y=W^{T}(x-\mu)
+\end{equation}
+gdzie $W=(\mu_{1},\mu_{2},...,\mu_{l})$
+\end{enumerate}
+
 Identyfikacja twarzy algorytmem Eigenfaces polega na wykonaniu kroków:
 \begin{enumerate}
-\item Wartości głównych składowych zostają wyznaczone dla wszystkich obrazów uczących.
-\item Wartość głównych składowych zostaje wyznaczona dla badanego zdjęcia
-\item Dla obrazu wejściowego zostaje wyznaczony wektor najbliższy dla wartości obliczonych dla obrazów z bazy danych.
+\item Wyznaczenie głównych składowych dla wszystkich obrazów uczących.
+\item Wartość głównych składowych zostaje wyznaczona dla badanego zdjęcia.
+\item Dla obrazu wejściowego zostaje wyznaczony wektor najbliższy do wartości obliczonych podczas trenowania..
 \end{enumerate}
 
 \subsubsection{Fisherfaces} \label{fisher}
