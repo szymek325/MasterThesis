@@ -47,7 +47,7 @@ Podczas detekcji twarzy przy pomocy Azure Cognitive Services wszystkie operacje 
 	\label{fig:wykrywanie_azure}
 \end{figure}
 
-\section{Proces trenowania modelu dla wybranych algorytmów \textcolor{red}{cos o tej sieci napisac lub omowic jej zrodla}}
+\section{Proces trenowania modelu dla wybranych algorytmów}
 Uproszczony proces trenowania grupy identyfikatorów twarzy przedstawiono na grafie \ref{fig:trenowanie_proces}. Po jego zakończeniu użytkownik otrzymuję grupę z wytrenowanymi modelami gotową do wykorzystania w zakładce 'Recognitions'.
 Proces zaczyna się od sprawdzenia jakie dane uczące (profile utworzone w zakładce 'Profiles' aplikacji webowej) są dostępne lokalnie. Repozytorium zostaje porównane z danymi dostępny w bazie, a następnie zaktualizowane o brakujące profile.
 \begin{figure}[H]
@@ -87,9 +87,9 @@ Ze względu na setki zapytań HTTP, które muszą zostać wykonane do zewnętrzn
 \section{Proces rozpoznawania twarzy}\label{s:proces_rozpoznawania}
 Ogólny proces rozpoznawania twarzy przedstawiony na rysunku \ref{fig:rozpoznawanie_proces} jest zbliżony do wcześniej opisywanych procesów detekcji i trenowania. 
 
-Proces rozpoczyna się od pobrania wszystkich wytrenowanych modeli, których aktualnie nie ma w lokalnym katalogu. W kolejnym etapie zostają wczytane wszystkie nowe zadania rozpoznania twarzy. Dla każdego z requestów na liście wykonywane są te same czynności, a pierwszą z nich jest pobranie pliku wejściowego z usługi Dropbox. Następnie twarz zostaje rozpoznana za pomocą każdego dostępnego algorytmu identyfikacji. 
+Proces rozpoczyna się od pobrania wszystkich wytrenowanych modeli, których aktualnie nie ma w lokalnym katalogu. W kolejnym etapie wczytane zostają wszystkie nowe zadania rozpoznania twarzy. Dla każdego z requestów na liście wykonywane są te same czynności, a pierwszą z nich jest pobranie pliku wejściowego z usługi Dropbox. Następnie twarz zostaje rozpoznana za pomocą każdego dostępnego algorytmu identyfikacji z biblioteki OpenCv oraz AzureLargeGroup. 
 
-Poszczególne metody zostały szerzej opisane w kolejnych podrozdziałach. Po ukończeniu identyfikacji tożsamości, wszystkie uzyskane wyniki zostają wprowadzone do bazy danych, a zadanie oznaczone jako ukończone. Gdy zadania na liście skończą się to dochodzi do zakończenia procesu.
+Identyfikację przy użyciu OpenCv opisano w rozdziale \ref{{s:identyfikacja_opencv}}, a wykorzystując AzureLargeGroup. Po ukończeniu identyfikacji tożsamości zadanie zmienia status na ukończone. Proces powtarza się w pętli aż do ukończenia wszystkich zadań z początkowo wczytanej listy.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{rozpoznawanie_twarzy.png}
@@ -97,27 +97,28 @@ Poszczególne metody zostały szerzej opisane w kolejnych podrozdziałach. Po uk
 	\label{fig:rozpoznawanie_proces}
 \end{figure}
 
-\subsection{Identyfikacja tożsamości metodami dostępnymi w OpenCv}
-Niezależnie od typu FaceRecognizera, proces rozpoznawania twarzy z użyciem algorytmów OpenCv wygląda identycznie. Przykładowe zastosowanie zostało opisane w dokumentacji \cite{opencv_doc}. 
-
-Obraz zostaje wczytany do programu, a następnie zostaje podjęta próba detekcji twarzy metodą Haara. W przypadku nie wykrycia żadnej twarzy do zadania zostaje dodany pusty rezultat z komentarzem informującej o braku twarzy na przekazanym obrazie. 
-Jeśli na zdjęciu zostanie wykryta twarz to proces przechodzi do kolejnego kroku, którym jest wczytanie modelu odpowiadającego typowi identyfikatora i numerowi wybranej grupy sieci. Przed identyfikacją wycinek obrazu zawierający twarz zostaje przekonwertowany do numpy array, który jest formatem wymaganym przez FaceRecognizer. W rezultacie uzyskana zostaje tożsamość osoby ze zdjęcia prezentowana w postaci numeru Id z bazy oraz wartość wektora oddalenia od najbliższego obiektu w modelu (0.0 oznacza idealne dopasowanie, im większa wartość tym mniejsza pewność). 
+\subsection{Identyfikacja tożsamości metodami dostępnymi w OpenCv}\label{s:identyfikacja_opencv}
+Proces rozpoznania twarzy metodami dostępnymi w bibliotece OpenCv został skonstruowany na podstawie przykładu przedstawionego w dokumentacji \cite{opencv_doc}. Zmodyfikowany na potrzeby programu przebieg procesu ukazano na rysunku \ref{fig:rozpoznawanie_open_cv}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{rozpoznawanie_open_cv.png}
 	\caption{Proces identyfikacji osoby wykorzystując identyfikatory OpenCv zaimplementowany w aplikacji konsolowej}
 	\label{fig:rozpoznawanie_open_cv}
 \end{figure}
+Obraz zostaje wczytany do programu, a następnie zostaje podjęta próba detekcji twarzy metodą Haara lub Dnn (Deep neural network). W przypadku nie wykrycia żadnej twarzy do zadania zostaje dodany pusty rezultat z komentarzem informującej o braku twarzy na przekazanym obrazie. 
+Jeśli na zdjęciu zostanie wykryta twarz to proces przechodzi do kolejnego kroku, którym jest utworzenie FaceRecognizera dla każdego dostępnego modelu przypisanego do zadania. Przed identyfikacją wycinek obrazu zawierający twarz zostaje przekonwertowany do numpy array, który jest formatem wymaganym przez FaceRecognizer. W rezultacie uzyskana zostaje tożsamość osoby ze zdjęcia prezentowana w postaci numeru Id z bazy oraz wartość wektora oddalenia od najbliższego obiektu w modelu. Wartość 0,0 oznacza idealne dopasowanie. Im większa wartość tym mniejsza pewność identyfikacji. 
 
-\subsection{Identyfikacja tożsamości przy użyciu Azure Cognitive Services}
-Proces rozpoznawania twarzy przy pomocy Azure Cognitive Services jest mniej obciążający dla platformy, na której uruchomiono program, ale za to może być wolniejszy od pozostałych rozwiązań ze względu na ograniczenia jakości połączenia.
 
-Kroki procesu identyfikacji zaimplementowano zgodnie z przykładowym procesem przedstawionym w dokumentacji \cite{acs_doc}, a pierwszym z nich jest wczytanie słownika tożsamości przypisanych do AzureLargeGroup. W kolejnym etapie zdjęcie wejściowe zostaje wysłane do usługi detekcji opisanej w \ref{detekcja_azure} ale ze zmodyfikowanymi parametrami. Każdej wykrytej twarzy zostaje nadany numer identyfikacyjny Azure. 
+\subsection{Identyfikacja tożsamości przy użyciu Azure Cognitive Services}\label{s:identyfikacja_azure}
+Proces rozpoznawania twarzy przy pomocy Azure Cognitive Services jest mniej obciążający dla platformy, na której uruchomiono program. Największą wadą rozwiązania jest uzależnienie szybkości identyfikacji od jakości połączenia z serwisem Azure oraz rozmiaru zdjęcia, a raczej prędkości przesyłania go protokołem HTTP.
 
-Jeśli jakaś twarz została znaleziona to kolejnym etapem jest wysłanie żądania identyfikacji uzyskanej twarzy przy pomocy AzureLargeGroup, która została przypisana do tego requesta. Tożsamość rozpoznana przez CS zostaje zwrócona w postaci numera identyfikacyjnego usługi, dlatego musi ona zostać porównana z wcześniej wczytanym słownikiem, który pozwala na odczytanie Id osoby istniejącej w bazie danych programu.
+Kroki procesu identyfikacji zaimplementowano zgodnie z przykładem przedstawionym w dokumentacji \cite{acs_doc}. Pierwszym z nich jest wczytanie ścieżki do pliku, który następnie zostaje przesłany do usługi Azure w celu detekcji twarzy. Proces detekcji opisano w rozdziale \ref{detekcja_azure}. Zapytanie zostaje zmodyfikowane i zamiast obszaru wykrycia zwrócony zostaje numer identyfikacyjny przypisany do wykrytej twarzy przechowywanej w chmurze.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{rozpoznawanie_azure.png}
 	\caption{Proces identyfikacji osoby wykorzystując Azure Cognitive Servces zaimplementowany w aplikacji konsolowej}
 	\label{fig:rozpoznawanie_azure}
 \end{figure}
+W przypadku nie wykrycia twarzy informacja o problemie z detekcją zostaje zapisana w bazie danych i proces się kończy. W sytuacji gdy twarz została wykryta pomyślnie to wykonane zostaje zapytanie do AzureLargeGroup o numerze przypisanym do zadania identyfikacji. Jedynym parametrem przekazanym podczas zapytania jest unikalny numer twarzy nadany w poprzednim kroku. Odpowiedź systemu ma postać wiadomości w formacie JSON zawierającej tożsamość w postaci numeru guid nadanego osobie przez Azure oraz pewność identyfikacji w postaci wartości z zakresu 0 do 1. W celu poznania numeru Id istniejącego w bazie danych aplikacji wykonywane jest kolejne zapytanie do chmury, w wyniku którego uzyskuje się numer Id użyty podczas dodawania osoby do AzureLargeGroup. W ostatnim kroku uzyskany wynik zostaje zapisany do bazy danych.
+
+
