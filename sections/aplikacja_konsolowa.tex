@@ -1,4 +1,4 @@
-Aplikacja konsolowa powstała w celu przetwarzania czasochłonnych zadań w tle, tak by użytkownik aplikacji webowej nie doświadczał długich czasów ładowania oraz ewentualnych błędów podczas przerwania sesji lub połączenia internetowego ze stroną. Aplikacja konsolowa uruchamiana jest co 5 minut i przetwarza zadania trzech typów w kolejności widocznej na rysunku \ref{fig:worker_proces}. Poszczególne procesy zostały szerzej opisane w kolejnych podrozdziałach.
+Aplikacja konsolowa powstała w celu przetwarzania czasochłonnych zadań w tle, tak by użytkownik aplikacji webowej nie doświadczał długich czasów ładowania oraz ewentualnych błędów podczas przerwania sesji. Aplikacja konsolowa uruchamiana jest co 5 minut i przetwarza zadania trzech typów w kolejności widocznej na rysunku \ref{fig:worker_proces}. Poszczególne procesy zostały szerzej opisane w kolejnych podrozdziałach.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{worker_proces.png}
@@ -7,11 +7,12 @@ Aplikacja konsolowa powstała w celu przetwarzania czasochłonnych zadań w tle,
 \end{figure}
 
 \section{Technologie}
-Aplikacja konsolowa powstała w języku programowania Python w wersji trzeciej. W początkowej fazie projektu za wyborem tego języka przemawiała wieloplatformowość, możliwości wprowadzania szybkich zmian w kodzie i brak potrzeby go kompilowania. C\#, który został wybrany do stworzenia aplikacji webowej okazał się nie przystosowany do uruchomienia na platformie Raspberry Pi z powodu braku dostępnego .NET Core SDK na procesory ARM oraz wymaganiu znacznie większej ilości zasobów niż Python. Ostatecznie aplikacja konsolowa została przeniesiona na zewnętrzny serwer, ale popularność Pythona pozwoliła na szybką integrację z usługami firm trzecich, dzięki przygotowanym przez firmy paczki deweloperskie.
+Aplikacja konsolowa powstała w języku programowania Python w wersji trzeciej. W początkowej fazie projektu za wyborem tego języka przemawiała wieloplatformowość, możliwości wprowadzania szybkich zmian w kodzie i brak potrzeby go kompilowania. C\#, który został wybrany do stworzenia aplikacji webowej okazał się nie przystosowany do modyfikowania kodu na platformie Raspberry Pi z powodu braku dostępnego .NET Core SDK na procesory ARM, a uruchomienie programu wymagało znacznie większej ilości zasobów obliczeniowych niż Python. Ostatecznie aplikacja konsolowa została przeniesiona na zewnętrzny serwer. Popularność Pythona pozwoliła na
+integrację z wybranymi usługami dzięki dostępności SDK (Software Developmnet Kit).
 
 \section{Proces wykrywania twarzy}
 Uogólniony proces detekcji twarzy na obrazie został przedstawiony na grafie \ref{fig:wykrywanie_proces}.
-Proces przetwarzania zadań detekcji rozpoczyna się od pobrania z bazy wszystkich żądań o statusie 'New'. Następnie każde zadanie przetwarzane jest osobno. Dla aktualnie procesowanego zadania pobierany jest obraz wejściowy z usługi Dropbox i zapisywany w lokalnym folderze. Następnym krokiem jest wywołanie procesu odpowiedzialnego za odpowiednie przygotowanie zdjęcia, a następnie pozyskanie oczekiwanych wyników, w sposób odpowiedni dla danego sposobu. Krok ten został szerzej opisany w podrozdziałach \ref{detekcja_haar}, \ref{detekcja_dnn} i \ref{detekcja_azure}. po uzyskaniu wyników każdą dostępną w programie metodą, zostaje utworzony obraz wyjściowy dla każdej metody (haar, azure, ..), które zostaje wgrany do odpowiedniego folderu w usłudze Dropbox. Po poprawnym wgraniu plików wynikowych informacja o rezultatach zostaje dodana do bazy danych. Po wykonaniu zadania bez żadnych błędów, request zostaje oznaczony jako zakończony, w innym przypadku zostaje nadany mu status 'Error'. Proces powtarzany jest dla każdego wpisu pozyskanego z bazy.
+Proces przetwarzania zadań detekcji rozpoczyna się od pobrania z bazy wszystkich żądań o statusie 'New'. Następnie każde zadanie przetwarzane jest osobno. Dla aktualnie procesowanego zadania pobierany jest obraz wejściowy z usługi Dropbox i zapisywany w lokalnym folderze. Następnym krokiem jest wywołanie procesu odpowiedzialnego za preprocessing zdjęcia i pozyskanie oczekiwanych wyników detekcji. Krok ten został szerzej opisany w podrozdziałach \ref{detekcja_haar}, \ref{detekcja_dnn} i \ref{detekcja_azure}. Po uzyskaniu wyników każdą dostępną w programie metodą, utworzony zostaje obraz wyjściowy dla każdej metody (haar, azure, ..), który program uploaduje do odpowiedniego folderu w usłudze Dropbox. Po poprawnym wgraniu plików wynikowych następuje zapisanie informacji o rezultatach w bazie danych. Po wykonaniu zadania bez żadnych błędów request zostaje oznaczony jako zakończony. W innym przypadku status zostaje zmieniony na 'Error'. Proces powtarzany jest dla każdego wpisu pozyskanego z bazy.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{wykrywanie_twarzy.png}
@@ -20,7 +21,7 @@ Proces przetwarzania zadań detekcji rozpoczyna się od pobrania z bazy wszystki
 \end{figure}
 
 \subsection{OpenCv Haar} \label{detekcja_haar}
-Pierwszą z metod detekcji twarz, która została zintegrowana z programem jest detekcja metodą Haar'a. Algorytm został opisany w rozdziale \ref{haar}. Przed uruchomieniem detekcji twarzy, obraz wejściowy należy odpowiednio przygotować. W tym celu wcześniej pobrany obraz zostaje wczytany do programu i przekonwertowany do odcieni szarości. Tak przygotowany obraz można poddać detekcji. Detektor zwraca współrzędne obszarów zawierających w sobie twarze. Tak uzyskane dane należy przekonwertować do formatu, który został przyjęty jako wspólny dla wszystkich metod.
+Pierwszą z metod detekcji twarzy, która została zintegrowana z programem jest detekcja metodą Haar'a. Algorytm został opisany w rozdziale \ref{haar}. Przed uruchomieniem detekcji obraz wejściowy należy odpowiednio przygotować. W tym celu wcześniej pobrany obraz zostaje wczytany do programu i przekonwertowany do odcieni szarości. Tak przygotowany obraz można poddać detekcji. Detektor zwraca współrzędne obszarów zawierających w sobie twarz. Tak uzyskane dane należy przekonwertować do formatu, który został przyjęty jako wspólny dla wszystkich metod.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{detekcja_haar.png}
@@ -29,7 +30,7 @@ Pierwszą z metod detekcji twarz, która została zintegrowana z programem jest 
 \end{figure}
 
 \subsection{OpenCv DNN (Deep Neural Network)} \label{detekcja_dnn}
-Proces detekcji z wykorzystaniem głęboko uczonej sieci neuronowej nie wymaga formatowania obrazu do skali szarości, ale za to obraz musi zostać przeskalowany do odpowiedniego, wcześniej przyjętego rozmiaru. Dodatkową zaletą tej metody jest format odpowiedzi detektora, który oprócz obszaru zawierającego twarz zwraca również 'pewność' z jaką twarz została wykryta, co pozwala na odfiltrowanie niezadowalających użytkownika wyników.
+Proces detekcji z wykorzystaniem głęboko uczonej sieci neuronowej nie wymaga formatowania obrazu do skali szarości, ale za to obraz musi zostać przeskalowany do odpowiedniego, wcześniej przyjętego rozmiaru. Dodatkową zaletą tej metody jest format odpowiedzi detektora, który oprócz obszaru zawierającego twarz zwraca również 'pewność' z jaką twarz została wykryta, co pozwala na odfiltrowanie wyników poniżej pewnego poziomu.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{detekcja_dnn.png}
@@ -38,14 +39,13 @@ Proces detekcji z wykorzystaniem głęboko uczonej sieci neuronowej nie wymaga f
 \end{figure}
 
 \subsection{Azure Cognitive Services} \label{detekcja_azure}
-Kolejna wykorzystana metoda detekcji twarzy, korzysta z usługi dostępnej na platformie Azure, dzięki czemu środowisko rozruchowe zostaje odciążone z obliczeń związanych z przetwarzaniem obrazu. Proces wykrycia twarzy ogranicza się do przesłania wybranego obrazu do Cognitive Services Api. W odpowiedzi klient uzyskuje JSON zawierający parametry, które podano jako wymagane podczas wykonywania zapytania. JSON zostaje zparsowany na obiekt, którego wartości zostają przekonwertowane do wymaganego formatu [startX, startY, endX, endY].
+Podczas detekcji twarzy przy pomocy Azure Cognitive Services wszystkie operacje przetwarzania obrazu wykonywane są w chmurze co pozwala odciążyć środowisko rozruchowe. Proces wykrycia twarzy ogranicza się do przesłania wybranego obrazu do ACS Api (Application programming interface). Lokalnie nie jest wykonywany żaden preprocessing. W odpowiedzi klient Api uzyskuje wiadomość JSON zawierającą skonfigurowane podczas zapytania parametry. JSON zostaje zparsowany do postaci obiektu ze wszystkimi informacjami. Wartości zostają przekonwertowane do formatu [startX, startY, endX, endY].
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{detekcja_azure.png}
 	\caption{Wykrywanie twarzy używając Azure Cognitive Services zaimplementowane w aplikacji konsolowej}
 	\label{fig:wykrywanie_azure}
 \end{figure}
-
 
 \section{Proces trenowania modelu dla wybranych algorytmów \textcolor{red}{cos o tej sieci napisac lub omowic jej zrodla}}
 Proces trenowania sieci został przedstawiono na grafie \ref{fig:trenowanie_proces}. Po jego zakończeniu użytkownik otrzymuje grupę wytrenowanych modeli zawierającą gotowe do użycia metody rozpoznawania twarzy przedstawione w rozdziale \ref{s:open_cv} oraz \ref{azurecs}.
