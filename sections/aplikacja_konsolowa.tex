@@ -85,7 +85,7 @@ Ze względu na setki zapytań, które muszą zostać wykonane do zewnętrznego s
 	\label{fig:trenowanie_azure}
 \end{figure}
 
-\section{Proces rozpoznawania twarzy}
+\section{Proces rozpoznawania twarzy}\label{s:proces_rozpoznawania}
 Ogólny proces rozpoznawania twarzy przedstawiony na rysunku \ref{fig:rozpoznawanie_proces} jest zbliżony do wcześniej opisywanych procesów detekcji i trenowania. 
 
 Proces rozpoczyna się od pobrania wszystkich wytrenowanych modeli, których aktualnie nie ma w lokalnym katalogu. W kolejnym etapie zostają wczytane wszystkie nowe zadania rozpoznania twarzy. Dla każdego z requestów na liście wykonywane są te same czynności, a pierwszą z nich jest pobranie pliku wejściowego z usługi Dropbox. Następnie twarz zostaje rozpoznana za pomocą każdego dostępnego algorytmu identyfikacji. 

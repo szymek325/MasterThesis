@@ -56,7 +56,7 @@ Użycie przycisku 'Show' widocznego przy każdym zadaniu detekcji na rysunku \re
 
 \pagebreak
 
-Strona ze zdjęcia \ref{fig:detekcja_zakonczona} pozwala sprawdzić datę utworzenia oraz zakończenia zadania, obraz wejściowy oraz tabelę z informacjami o wynikach detekcji, na które składają się:
+Strona ze zdjęcia \ref{fig:detekcja_zakonczona} pozwala sprawdzić datę utworzenia oraz zakończenia zadania, obraz wejściowy i tabelę z informacjami o wynikach detekcji, na które składają się:
 \begin{itemize}
 \item detection type- typ detekcji (haar, głęboka sieć neuronowa, azure),
 \item faces found- ilość wykrytych twarzy,
@@ -66,38 +66,38 @@ Strona ze zdjęcia \ref{fig:detekcja_zakonczona} pozwala sprawdzić datę utworz
 \end{itemize}
 
 \section{Profile}
-Strona 'Profiles' służy do tworzenia nowych profili, które później mogą zostać wykorzystane jako dane uczące podczas trenowania wybranymi algorytmami. Do każdego profilu osoby musi zostać przypisany zasób minimum 2 zdjęć. W przypadku braku możliwości wykrycia twarzy na zdjęciu, zostanie ono zignorowane podczas procesu nauczania.
+Strona 'Profiles' służy do tworzenia nowych profili, które później mogą zostać wykorzystane jako dane uczące podczas trenowania algorytmów rozpoznawania twarzy. Nowy profil można utworzyć za pomocą przycisku 'New' widocznego na rysunku \ref{fig:people}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{people.png}
 	\caption{Lista utworzonych profili}
 	\label{fig:people}
 \end{figure}
-Nowa osoba może zostać utworzona w podobny sposób jak request detekcji twarzy. Jedyną różnicą jest wymóg wyboru kilku obrazów.
+Nowy profil wymaga podania nazwy i przypisania minimum 2 zdjęć. W przypadku braku możliwości wykrycia twarzy na zdjęciu, zostanie ono zignorowane podczas procesu nauczania.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{person.png}
 	\caption{Widok profilu}
 	\label{fig:person}
 \end{figure}
-Utworzona osoba nie może być modyfikowana. Pierwsze załadowanie widoku osoby może trwać wydłużony czas z powodu procesu generowania linków do plików magazynowanych w usłudze Dropbox.
+Utworzona osoba nie może być modyfikowana. Pierwsze wyświetlenie profilu może być czasochłonne ze względu na proces tworzenia łącz url do obrazów z usługi Dropbox. Kolejne uruchomienia nie będą wymagały wykonania tego procesu.
 
-\section{Algorytmy rozpoznawania twarzy}
-W zakładce 'Face Recognizers' użytkownik może utworzyć zadanie trenowania modelu wybranym algorytmem (OpenCv: Fisherfaces, Eigenfaces, LBPH, Azure: Cognitive Services) używając wybranej grupy profili z zakładki 'Profiles'. Użytkownik nie ma możliwości wyboru typu sieci, która zostanie nauczona. Domyślnie wszystkie dostępne rozwiązania (wymienione powyżej) zostaną wykorzystane.
+\section{Identyfikatory twarzy}
+Strona 'Face Recognizers' umożliwia stworzenie zadania trenowania wszystkich sieci zintegrowanych z aplikacją wybranym zestawem danych uczących- profili. Użytkownik nie ma możliwości wyboru typu sieci, który zostanie wykorzystany. Domyślnie zostaną utworzone modele dla algorytmów OpenCv (Fisherfaces, Eigenfaces, LBPH) oraz Azure (Cognitive Services).
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{neural_networks.png}
 	\caption{Strona przedstawiająca istniejące grupy usług rozpoznawania tożsamości}
 	\label{fig:sieci_neuronowe}
 \end{figure}
-Podczas tworzenia nowej sieci każdy istniejący profil zostanie wyświetlony jako checkbox, który należy zaznaczyć jeśli dany profil ma zostać wykorzystany w procesie nauczania. W wyniku szybkiego rozrostu bazy profili dodano checkbox 'Check all' pozwalający na wybranie wszystkich profili poprzez jedno kliknięcie. Kolejnym parametrem, który musi zostać wypełniony jest 'Photos per person used' określający maksymalną ilość zdjęć przypisanych do danego profilu, które mogą zostać wykorzystane do nauki sieci. Podana wartość powinna znajdować się w przedziale od 2 do 20. W przypadku gdy niedostępna będzie określana ilość zdjęć w danym profilu, to wykorzystane zostanie tyle zdjęć ile jest dostępnych.
+Podczas tworzenia nowej sieci każdy istniejący profil zostanie wyświetlony jako checkbox, który należy zaznaczyć jeśli dany profil ma zostać wykorzystany w procesie nauczania. W wyniku szybkiego rozrostu bazy profili dodano checkbox 'Check all' pozwalający na wybranie wszystkich profili poprzez jedno kliknięcie. Kolejnym parametrem, który musi zostać wypełniony jest 'Photos per person used' określający maksymalną ilość zdjęć jednego profilu jaka może zostać wykorzystana w procesie nauki. Podana wartość powinna znajdować się w przedziale od 2 do 20. W przypadku gdy niedostępna będzie określana ilość zdjęć w danym profilu to wykorzystane zostanie tyle zdjęć ile jest dostępnych.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{nowa_siec.png}
 	\caption{Tworzenie nowej grupy algorytmów identyfikacji twarzy}
 	\label{fig:nowa_siec}
 \end{figure}
-Wykorzystując przycisk 'Show' z widoku na rysunku \ref{fig:sieci_neuronowe} można wyświetlić szczegółowe informacje o wybranej grupie sieci neuronowych. Dostępny widok ukazano na rysunku \ref{fig:siec_neuronowa}. Widoczne są na nim wszystkie parametry grupy,na które składają się: ilość wykorzystanych zdjęć i profili oraz tabela z informacjami o przygotowanych sieciach. Informacje dostępne w tabeli to nazwa i typ sieci, rozmiar utworzonego modelu, czas potrzebny na wytrenowanie oraz pełny czas(czas trenowania + przygotowanie danych wejściowych) potrzebny na stworzenie sieci.
+Wykorzystując przycisk 'Show' z widoku na rysunku \ref{fig:sieci_neuronowe} można wyświetlić szczegółowe informacje o wybranej grupie identyfikatorów twarzy. Widok ukazano na rysunku \ref{fig:siec_neuronowa}. Widoczne są na nim wszystkie parametry grupy, na które składają się: ilość wykorzystanych zdjęć i profili oraz tabela z informacjami o przygotowanych sieciach. Informacje dostępne w tabeli to nazwa i typ sieci, rozmiar utworzonego modelu, czas potrzebny na wytrenowanie oraz pełny czas(czas trenowania + przygotowanie danych uczących) potrzebny na stworzenie modelu.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{siec_neuronowa.png}
@@ -113,14 +113,17 @@ W sekcji 'Recognitions' użytkownik ma możliwość wykorzystać wcześniej utwo
 	\caption{Lista zadań identyfikacji osoby}
 	\label{fig:recognitions}
 \end{figure}
-Podobnie jak na pozostałych stronach, podczas tworzenia nowego zadania użytkownik będzie musiał uzupełnić prosty formularz. W formularzu przedstawionym na rysunku \ref{fig:new_recognition} należy załączyć jedno zdjęcie oraz wybrać grupę algorytmów trenowaną tymi samymi danymi, która ma zostać wykorzystana do identyfikacji tożsamości osoby.
+Podobnie jak na pozostałych stronach, podczas tworzenia nowego zadania użytkownik będzie musiał uzupełnić prosty formularz. W formularzu przedstawionym na rysunku \ref{fig:new_recognition} należy załączyć jedno zdjęcie oraz wybrać grupę algorytmów, którą użytkownik chce wykorzystać w procesie rozpoznawania.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{new_recognition.png}
 	\caption{Formularz tworzenia zadania identyfikacji}
 	\label{fig:new_recognition}
 \end{figure}
-Po zakończonym procesie identyfikacji opisanym w kolejnym podrozdziale, użytkownik może wyświetlić wynik uzyskany przez każdą sieć dostępną w grupie. Przykładowy rezultat widoczny jest na zdjęciu \ref{fig:recognition}.
+Po zakończonym procesie identyfikacji opisanym w rozdziale \ref{{s:proces_rozpoznawania}} użytkownik może wyświetlić wynik uzyskany przez każdą sieć dostępną w grupie. Przykładowy rezultat widoczny jest na zdjęciu \ref{fig:recognition}. 
+
+Do dostępnych informacji należy informacja o rozpoznanej tożsamości, typie i nazwie użytego identyfikatora, czasie potrzebnym na wykonanie zadania oraz pewności rozpoznania. 
+OpenCv jako pewność przyjmuje wektor odległości do najbliższej wartości z nauczonego modelu- im mniejsza wartość, tym rozpoznanie jest pewniejsze. W przypadku AzureLargeGroup otrzymana zostaje wartość z przedziału od 0 do 1. 1 oznacza stu procentową pewność. Pole 'Comments' zostaje wypełnione jedynie w sytuacji gdy nie uda się wykryć twarzy na zdjęciu lub gdy Azure nie był w stanie rozpoznać osoby.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{recognition.png}
