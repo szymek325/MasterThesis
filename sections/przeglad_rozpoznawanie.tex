@@ -75,6 +75,38 @@ Identyfikacja twarzy algorytmem Eigenfaces polega na wykonaniu kroków:
 \end{enumerate}
 
 \subsubsection{Fisherfaces} \label{fisher}
+
+
+Działanie algorytmu:
+\begin{enumerate}
+\item Weźmy wektor $X$ złożony z próbek należących do $c$ klas
+\begin{equation}
+X=\{X_{1},X_{1},...,X_{c}\}
+X_{i}=\{x_{1},x_{1},...,x_{c}\}
+\end{equation}
+\item Oblicz macierz rozproszenia wewnątrzklasowego $S_{B}$ i macierz średniego rozproszenia wewnątrzklasowego $S_{W}$
+\begin{equation}
+S_{B}=\sum_{i=1}^{n}N_{i}(\mu_{i}-\mu)(\mu_{i}-\mu)^{T}
+\end{equation}
+\begin{equation}
+S_{W}=\sum_{i=1}^{n}\sum_{x_{j}\in X_{i}}(x_{j}-\mu_{i})(x_{j}-\mu_{i})^{T}
+\end{equation}
+gdzie $\mu$ oznacza całkowitą średnią:
+\begin{equation}
+\mu=\frac{1}{N}\sum_{i=1}^{N}x_{i}
+\end{equation}
+a $\mu_{i}$ średnią klasy $i\in \{1,...c\}$
+\begin{equation}
+\mu_{i}=\frac{1}{|X_{i}|}\sum_{x_{j}\in X_{i}}x_{j}
+\end{equation}
+\item Znajdź wektory bazowe $V$ gdzie $S_{W}$ jest zminimalizowane a $S_{B}$ zmaksymalizowane, gdzie $V$ jest macierzą, której kolumny $\nu_{i}$ są wektorami podstawowymi definiującymi podprzestrzeń
+\begin{equation}
+J(V)=\frac{\vert V^{T}S_{B}V\vert }{\vert V^{T}S_{W}V\vert }
+\end{equation}
+\end{enumerate}
+
+
+
 Algorytm Fisherfaces opiera się na liniowej analizie dyskryminacyjnej (LDA) i polega na wyznaczeniu wektora cech pozwalającego na rozdzielenie obiektów przynależnych do różnych klas. W przypadku problemu rozpoznawania twarzy, przez klasy obiektów rozumiane są zbiory obrazów przedstawiające tego samego użytkownika. Problem sprowadza się do wyznaczenia wektora, który stanowi przybliżoną granicę między dwiema klasami obiektów, jednak można go uogólnić do problemu wieloklasowego.
 Wyznaczanie poszukiwanego wektora rozpoczyna się od wyznaczenia wartości średniej $\nu$ wszystkich obiektów znajdujących się w rozpatrywanym zbiorze, oraz wartości średniej $\nu_{i}$ wewnątrz poszczególnych klas. 
 $$
