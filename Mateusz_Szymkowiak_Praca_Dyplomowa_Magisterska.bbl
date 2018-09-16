@@ -129,6 +129,25 @@
     \field{urlyear}{2017}
   \endentry
 
+  \entry{raspberry}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=MS}{%
+         family={Monk},
+         familyi={M\bibinitperiod},
+         given={Simon},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MS1}
+    \strng{fullhash}{MS1}
+    \field{labelnamesource}{author}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{booktitle}{Raspberry Pi. Receptury}
+    \field{pages}{61\bibrangedash 95, 302}
+    \field{year}{2014}
+  \endentry
+
   \entry{open_face}{misc}{}
     \list{publisher}{1}{%
       {cmusatyalab}%
@@ -163,6 +182,25 @@
     \field{urlday}{15}
     \field{urlmonth}{09}
     \field{urlyear}{2018}
+  \endentry
+
+  \entry{image_proc}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=PJR}{%
+         family={Parker},
+         familyi={P\bibinitperiod},
+         given={J.\bibnamedelima R.},
+         giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{PJR1}
+    \strng{fullhash}{PJR1}
+    \field{labelnamesource}{author}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{booktitle}{Algorithms for Image Processing and Computer Vision}
+    \field{pages}{49\bibrangedash 50, 88\bibrangedash 92}
+    \field{year}{2010}
   \endentry
 
   \entry{gauss1}{inproceedings}{}
