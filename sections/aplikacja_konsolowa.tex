@@ -60,28 +60,29 @@ W kolejnym kroku następuje pobranie z bazy wszystkich requestów, które nie zo
 W przypadku braku komplikacji, request zostaje oznaczony jako zakończony. Proces zostaje powtórzony dla każdego zadania wczytanego do listy na początku grafu \ref{fig:trenowanie_proces}.
 
 \subsection{Trenowanie identyfikatorów OpenCv} \label{trenowanie_open_cv}
-Ogólny schemat procesu trenowania identyfikatorów twarzy OpenCv (Eigenfaces, Fisherfaces, LHGP) został przedstawiony na rysunku \ref{fig:trenowanie_open_cv}. Zalecany proces trenowania udostępniony w dokumentacji \cite{opencv_doc} został poddany zmianą wymaganym przez aplikację konsolową i zaimplementowany.
-
-Proces rozpoczyna się od stworzenia listy zawierającej wszystkie przypisane do sieci profile oraz załączone do nich obrazy. Następnie dla każdego zdjęcia z listy zostaje wykonany preprocessing. Pierwszym krokiem jest próba wykrycia twarzy na obrazie. W przypadku nie znalezienia twarzy, obraz zostaje zignorowany i program przechodzi do przetwarzania kolejnego obrazu. Jeśli na zdjęciu zostanie zlokalizowana twarz, to obszar ją zawierający zostaje przeskalowany do odcieni szarości, a następnie przekonwertowany do postaci numpy array. Wektor zawierający informację o twarzy zostaje dodany do listy uczącej wraz z odpowiadającym mu ID profilu, do którego należy zdjęcie. Po przetworzeniu wszystkich obrazów na liście, zostaje utworzone i nauczone wszystkie wcześniej wymienione identyfikatory dostępne w OpenCv.
+Ogólny schemat procesu trenowania identyfikatorów twarzy OpenCv (Eigenfaces, Fisherfaces, LBPH) został przedstawiony na rysunku \ref{fig:trenowanie_open_cv}. Zalecany proces trenowania udostępniony w dokumentacji \cite{opencv_doc} został poddany zmianom wymaganym przez aplikację konsolową i zaimplementowany.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{trenowanie_open_cv.png}
 	\caption{Trenowanie algorytmów z biblioteki OpenCv zaimplementowane w aplikacji konsolowej}
 	\label{fig:trenowanie_open_cv}
 \end{figure}
+Proces rozpoczyna się od stworzenia listy zawierającej wszystkie przypisane do sieci profile oraz załączone do nich obrazy. Następnie dla każdego zdjęcia z listy zostaje wykonany preprocessing. Pierwszym krokiem jest próba wykrycia twarzy na obrazie. W przypadku nie znalezienia twarzy, obraz zostaje zignorowany i program przechodzi do przetwarzania kolejnego obrazu. Jeśli na zdjęciu zostanie zlokalizowana twarz, to obszar ją zawierający zostaje przeskalowany do odcieni szarości, a następnie przekonwertowany do postaci numpy array. Wektor zawierający informację o twarzy zostaje dodany do listy uczącej wraz z ID profilu, do którego należy zdjęcie. 
+
+Po przetworzeniu wszystkich obrazów na liście, następuje utworzenie FaceRecognizera dla wszystkich 3 metod dostępnych w bibliotece OpenCv. W kolejnym kroku następuje wytrenowanie modeli danymi z przygotowanej w poprzednich krokach listy uczącej. Trenowanie wykonywane jest w kolejności LBPH, Eigen, a na końcu Fisher. Ostatnim krokiem jest utworzenie plików modelu dla każdego z algorytmów, które następnie zostają wgrane do folderu w usłudze Dropbox.
+
 
 \subsection{Trenowanie identyfikatora Azure} \label{trenowanie_azure}
-Proces rozpoczyna się od wczytania wszystkich osób oraz ich zdjęć, które zostały przypisane do zadania trenowania sieci. Na diagramie \ref{fig:trenowanie_azure} niebieskim kolorem oznaczono zapytania do Azure Cognitive Services API(Application Programming Interface).
-
-Zgodnie z dokumentacją \cite{acs_doc} pierwszym i najważniejszym krokiem jest utworzenie nowej AzureLargeGroup, do której w kolejnym kroku zostaną dodane id/nazwy wszystkich profili znajdujących się na wczytanej liście.  Następnie każdy obraz z listy zostaje przypisany odpowiedniej osobie w AzureLargeGroup. W tym rozwiązaniu klient nie musi martwić się detekcją twarzy na obrazie, bo jest ona wykonywana przez usługę Azure po przesłaniu obrazu. W przypadku problemów z wykryciem twarzy na obrazie, zostanie zwrócona informacja mówiąca o tym że plik zostanie zignorowany podczas procesu nauczania. Po dodaniu wszystkich zdjęć, program wywołuje funkcję trenowania nowej sieci na podstawie danych dołączonych do AzureLargeGroup. Już po około sekundzie, identyfikator tożsamości udostępniony przez usługę Azure jest gotowy do działania.
-
-Ze względu na setki zapytań, które muszą zostać wykonane do zewnętrznego serwisu Azure, proces przygotowania danych przed trenowaniem może wydłużyć się nawet do kilku minut w przypadku wybrania dużej ilości profili i zdjęć.
+Proces rozpoczyna się od wczytania wszystkich profili oraz ich zdjęć, które zostały przypisane do zadania trenowania sieci. Na diagramie \ref{fig:trenowanie_azure} niebieskim kolorem oznaczono zapytania do Azure Cognitive Services API(Application Programming Interface).
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.55]{trenowanie_azure.png}
 	\caption{Trenowanie usługi Azure Cognitive Services zaimplementowane w aplikacji konsolowej}
 	\label{fig:trenowanie_azure}
 \end{figure}
+Zgodnie z dokumentacją \cite{acs_doc} pierwszym i najważniejszym krokiem jest utworzenie AzureLargeGroup, do której w kolejnym kroku zostaną dodane id/nazwy wszystkich profili znajdujących się na wczytanej liście.  Następnie każdy obraz z listy zostaje przypisany odpowiedniej osobie w AzureLargeGroup. W tym rozwiązaniu klient nie musi martwić się detekcją twarzy na obrazie, bo jest ona wykonywana przez usługę Azure po przesłaniu obrazu. W przypadku problemów z detekcją twarzy Api Azure'a zwróci błąd, który jest logowany w aplikacji. W takiej sytuacji obraz zostanie potraktowany jako zignorowany i proces wgrywania kolejnych zdjęć będzie kontynuowany. Po dodaniu wszystkich zdjęć, program wywołuje funkcję trenowania. Danymi uczącymi są osoby, które utworzono w AzureLargeGroup. Nawet dla 2 tysięcy zdjęć proces trenowania jest wyjątkowo krótki i kończy się po około jednej sekundzie.
+
+Ze względu na setki zapytań HTTP, które muszą zostać wykonane do zewnętrznego serwisu Azure proces przygotowania danych przed trenowaniem może wydłużyć się nawet do kilku minut w przypadku wybrania szerokiego zakresu danych uczących.
 
 \section{Proces rozpoznawania twarzy}\label{s:proces_rozpoznawania}
 Ogólny proces rozpoznawania twarzy przedstawiony na rysunku \ref{fig:rozpoznawanie_proces} jest zbliżony do wcześniej opisywanych procesów detekcji i trenowania. 
