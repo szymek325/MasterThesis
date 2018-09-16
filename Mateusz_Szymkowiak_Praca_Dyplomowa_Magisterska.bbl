@@ -81,6 +81,28 @@
     \warn{\item Invalid format of field 'month'}
   \endentry
 
+  \entry{dnn}{misc}{}
+    \list{language}{1}{%
+      {pl}%
+    }
+    \field{labeltitlesource}{title}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{title}{Głębokie uczenie maszyn}
+    \verb{url}
+    \verb http://www.deltami.edu.pl/temat/informatyka/sztuczna_inteligencja/201
+    \verb 7/12/28/Glebokie_uczenie_maszyn/
+    \endverb
+    \verb{file}
+    \verb Snapshot:C\:\\Users\\Mateusz\\Zotero\\storage\\U7KNWE5U\\Glebokie_ucz
+    \verb enie_maszyn.html:text/html
+    \endverb
+    \field{journaltitle}{DeltaMi}
+    \field{urlday}{16}
+    \field{urlmonth}{09}
+    \field{urlyear}{2018}
+  \endentry
+
   \entry{face_reco_github}{misc}{}
     \name{author}{1}{}{%
       {{hash=GA}{%
@@ -223,6 +245,30 @@
     \field{issn}{Prentice Hall}
     \field{pages}{137\bibrangedash 150}
     \field{year}{2001}
+  \endentry
+
+  \entry{tensorflow}{misc}{}
+    \list{language}{1}{%
+      {en}%
+    }
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{abstract}{%
+    An open source machine learning framework for everyone%
+    }
+    \field{title}{{TensorFlow}}
+    \verb{url}
+    \verb https://www.tensorflow.org/
+    \endverb
+    \verb{file}
+    \verb Snapshot:C\:\\Users\\Mateusz\\Zotero\\storage\\Q5CKRJVX\\www.tensorfl
+    \verb ow.org.html:text/html
+    \endverb
+    \field{journaltitle}{TensorFlow}
+    \field{urlday}{16}
+    \field{urlmonth}{09}
+    \field{urlyear}{2018}
   \endentry
 \enddatalist
 \endinput
