@@ -48,18 +48,16 @@ Podczas detekcji twarzy przy pomocy Azure Cognitive Services wszystkie operacje 
 \end{figure}
 
 \section{Proces trenowania modelu dla wybranych algorytmów \textcolor{red}{cos o tej sieci napisac lub omowic jej zrodla}}
-Proces trenowania sieci został przedstawiono na grafie \ref{fig:trenowanie_proces}. Po jego zakończeniu użytkownik otrzymuje grupę wytrenowanych modeli zawierającą gotowe do użycia metody rozpoznawania twarzy przedstawione w rozdziale \ref{s:open_cv} oraz \ref{azurecs}.
-Proces zaczyna się od sprawdzenia jakie dane uczące (profile utworzone w zakładce 'People' aplikacji webowej) są dostępne lokalnie. Repozytorium zostaje porównane z danymi dostępny w bazie, a następnie zostają pobrane zdjęcia wszystkich brakujących osób.
-
-Kolejnym krokiem jest pobrania z bazy wszystkich nowych grup algorytmów rozpoznawania twarzy, które nie zostały jeszcze zakończone. Następnie dla każdego zgłoszenia z listy wykonywany jest proces przygotowania danych uczących na podstawie zdjęć osób, które wybrano podczas tworzenia zadania w aplikacji webowej. Po odpowiednim przygotowaniu danych grupa sieci zostaje nauczona i dla metod tego wymagających zostaje utworzony plik w formacie xml przechowujący wytrenowany model. Taki plik zostaje zapisany w bazie danych oraz wysłany do odpowiedniego folderu w Dropboxie.
-
-W przypadku braku komplikacji, request zostaje oznaczony jako zakończony. Proces zostaje powtórzony dla każdego zadania wczytanego do listy na początku grafu \ref{fig:trenowanie_proces}. Sposób przygotowania danych oraz nauczania dla poszczególnych metod został opisany w kolejnych podrozdziałach.
+Uproszczony proces trenowania grupy identyfikatorów twarzy przedstawiono na grafie \ref{fig:trenowanie_proces}. Po jego zakończeniu użytkownik otrzymuję grupę z wytrenowanymi modelami gotową do wykorzystania w zakładce 'Recognitions'.
+Proces zaczyna się od sprawdzenia jakie dane uczące (profile utworzone w zakładce 'Profiles' aplikacji webowej) są dostępne lokalnie. Repozytorium zostaje porównane z danymi dostępny w bazie, a następnie zaktualizowane o brakujące profile.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{proces_nauczania.png}
 	\caption{Proces trenowania sieci zaimplementowany w aplikacji konsolowej}
 	\label{fig:trenowanie_proces}
 \end{figure}
+W kolejnym kroku następuje pobranie z bazy wszystkich requestów, które nie zostały jeszcze zakończone. Następnie dla każdego zgłoszenia z listy wykonywany jest proces przygotowania listy danych uczących, które wybrano podczas tworzenia zadania w aplikacji webowej. Kolejne dwa kroki są specyficzne dla danego algorytmu dlatego 'trenuj OpenCv FaceRecognizers' opisano w rozdziale \ref{trenowanie_open_cv}, a 'trenuj AzureLargeGroup' w \ref{trenowanie_azure}. Po zakończeniu trenowania zintegrowanych algorytmów następuje proces zapisu danych o utworzonych modelach sieci w bazie danych.
+W przypadku braku komplikacji, request zostaje oznaczony jako zakończony. Proces zostaje powtórzony dla każdego zadania wczytanego do listy na początku grafu \ref{fig:trenowanie_proces}.
 
 \subsection{Trenowanie identyfikatorów OpenCv} \label{trenowanie_open_cv}
 Ogólny schemat procesu trenowania identyfikatorów twarzy OpenCv (Eigenfaces, Fisherfaces, LHGP) został przedstawiony na rysunku \ref{fig:trenowanie_open_cv}. Zalecany proces trenowania udostępniony w dokumentacji \cite{opencv_doc} został poddany zmianą wymaganym przez aplikację konsolową i zaimplementowany.
