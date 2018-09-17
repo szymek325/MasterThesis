@@ -124,21 +124,26 @@ Dylatacja jest operacją wykorzystywaną do przetwarzania obrazów binarnych, ok
 	\label{fig:dylatacja}
 \end{figure}
 
-\subsection{Rozmycie gaussowskie \textcolor{red}{DODAĆ wzór i więcej opisu}}
-Rozmycie gaussowskie inaczej nazywane wygładzaniem gaussowskim to operacja przetwarzania obrazu polegająca na modyfikacji go z użyciem funkcji gaussowskiej  \cite{image_proc}. Wygładzanie gaussowskie jest bardzo popularnym efektem zmniejszającym szum i ilość detali obrazu w dziedzinie grafiki i przetwarzania obrazu. Przykładowy efekt zastosowania rozmycia gaussowskiego przedstawiono na rysunku \ref{fig:rozmycie_gaussowskie}.
+\subsection{Rozmycie gaussowskie}
+Rozmycie gaussowskie inaczej nazywane wygładzaniem gaussowskim to operacja przetwarzania obrazu polegająca na modyfikacji go z użyciem funkcji gaussowskiej  \cite{image_proc}. Wygładzanie gaussowskie jest bardzo popularnym efektem zmniejszającym szum i ilość detali obrazu w dziedzinie grafiki i przetwarzania obrazu. Przykładowy efekt zastosowania rozmycia gaussowskiego ze strukturą 3x3 px oraz 16x16 px przedstawiono na rysunku \ref{fig:rozmycie_gaussowskie}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{rozmycie_gaussowskie.png}
 	\captionsource{Przykład zastosowania rozmycia gaussowskiego na zdjęciu}{https://www.raywenderlich.com}
 	\label{fig:rozmycie_gaussowskie}
 \end{figure}
-\textcolor{red}{DODAĆ wzór i więcej opisu}
-Rozmycie gaussowskie należy do klasy filtrów dolnoprzepustowych, które odfiltrowują sygnały o wysokiej częstotliwości czyli np. szumy.
-Funkcję \cite{gauss1} przedstawiono w postaci wzoru \ref{eq:funkcja_gaussa}.
-\begin{equation} \label{eq:funkcja_gaussa}
-G(x,y) = e \frac{-(x^{2}+y^{2})}{2\sigma^{2}}
+Funkcję Gaussa dla jednej przestrzeni można zapisać w postaci wzory \ref{eq:funkcja_gaussa_poj}.
+\begin{equation} \label{eq:funkcja_gaussa_poj}
+G(x) =\frac{1}{\sqrt{2 \pi \sigma^{2}}}e^{- \frac{x^{2}}{2 \sigma^{2}}}
 \end{equation}
-Symbolem $\sigma$ oznaczono odchylenie standardowe charakteryzujące rozkład Gaussa.
+gdzie $\sigma$ oznacza odchylenie standardowe charakteryzujące rozkład Gaussa. Zakłada się że rozłożenie ma wartość średnią równą 0.
+
+Obrazy składają się z dwóch płaszczyzn $x,y$ dlatego wzór \ref{eq:funkcja_gaussa_poj} wymaga rozszerzenia do postaci \ref{eq:funkcja_gaussa_dwa}. $(x,y)$ oznacza współrzędne piksela na obrazie.
+\begin{equation} \label{eq:funkcja_gaussa_dwa}
+G(x,y) = \frac{1}{2\pi \sigma^{2}}e^{- \frac{x^{2}+y^{2}}{2 \sigma^{2}}}
+\end{equation}
+W ten sposób uzyskuje się funkcję, która pozwala na obliczenie wagi każdego punktu obrazu.
+
 \subsection{Klasyfikator kaskad Haar'a} \label{haar}
 Detekcja obiektów klasyfikatorem kaskad Haar'a została oparta o metodę Paul'a Viola i Michael'a Jones'a– w skrócie Viola-Jones.
 
