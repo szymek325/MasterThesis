@@ -44,7 +44,7 @@ OpenCv (Open Source Computer Vision Library) jest open sourcową biblioteką nap
 Przed zidentyfikowaniem tożsamości, należy najpierw rozwiązać problem detekcji twarzy. Podstawowym sposobem detekcji twarzy wykorzystywanym przez OpenCv jest kaskadowy klasyfikator Haar'a oparty o cechy Haar'a opisane w rozdziale \ref{haar}. Do innych dostępnych rozwiązań wykorzystanych do stworzenia aplikacji należy wytrenowany model głębokiej sieci neuronowej przygotowany przez autorów biblioteki.
 
 \subsubsection{Eigenfaces} \label{s:eigen}
-Eigenfaces nazywany jest również algorytmem twarzy własnych. Głównym postanowieniem algorytmu jest to że nie wszystkie wymiary w zbiorze danych są równie ważne, więc należy znaleźć elementy, w których występuje największa zmienność bo to one mają największą wartość informacyjną. Obraz o wymiarze $p$x$q$ tworzy wektor o wymiarze $m=pq$, więc przykładowo dla wymiarów 100x100 uzyskuje się wektor o wymiarze 10 000. W celu ekstrakcji głównych składowych wykorzystano analizę głównych składowych (ang principal component analysis,PCA), która potrafi przekształcić wielowymiarowy zbiór danych skorelowanych w mniejszy zbiór danych nieskorelowanych. Informację o sposobie działania algorytmu zaczerpnięto z dokumentacji \cite{opencv_doc}.
+Eigenfaces \cite{opencv_doc} nazywany jest również algorytmem twarzy własnych. Głównym postanowieniem algorytmu jest to że nie wszystkie wymiary w zbiorze danych są równie ważne, więc należy znaleźć elementy, w których występuje największa zmienność bo to one mają największą wartość informacyjną. Obraz o wymiarze $p$x$q$ tworzy wektor o wymiarze $m=pq$, więc przykładowo dla wymiarów 100x100 uzyskuje się wektor o wymiarze 10 000. W celu ekstrakcji głównych składowych wykorzystano analizę głównych składowych (ang principal component analysis, PCA \cite{pca_lda}), która potrafi przekształcić wielowymiarowy zbiór danych skorelowanych w mniejszy zbiór danych nieskorelowanych. Informację o sposobie działania algorytmu zaczerpnięto z dokumentacji \cite{opencv_doc}.
 
 Działanie algorytmu:
 \begin{enumerate}
@@ -75,7 +75,7 @@ Identyfikacja twarzy algorytmem Eigenfaces polega na wykonaniu kroków:
 \end{enumerate}
 
 \subsubsection{Fisherfaces} \label{fisher}
-Algorytm Fisherfaces opiera się na liniowej analizie dyskryminacyjnej (ang. latent dirichlet allocation, LDA) i polega na wyznaczeniu wektora cech pozwalającego na rozdzielenie obiektów przynależnych do różnych klas. Przez klasę rozumie się zbiór obrazów przedstawiających tego samego użytkownika. Problem sprowadza się do wyznaczenia wektora, który stanowi przybliżoną granicę między dwiema klasami obiektów, jednak można go uogólnić do problemu wieloklasowego. W efekcie podobne klasy powinny być ze sobą ściśle połączone, podczas gdy różne klasy znajdują się jak najdalej od siebie.
+Algorytm Fisherfaces \cite{opencv_doc} opiera się na liniowej analizie dyskryminacyjnej (ang. latent dirichlet allocation, LDA \cite{pca_lda}) i polega na wyznaczeniu wektora cech pozwalającego na rozdzielenie obiektów przynależnych do różnych klas. Przez klasę rozumie się zbiór obrazów przedstawiających tego samego użytkownika. Problem sprowadza się do wyznaczenia wektora, który stanowi przybliżoną granicę między dwiema klasami obiektów, jednak można go uogólnić do problemu wieloklasowego. W efekcie podobne klasy powinny być ze sobą ściśle połączone, podczas gdy różne klasy znajdują się jak najdalej od siebie. Opis działania algorytmu zaczerpnięto z dokumentacji \cite{opencv_ref}.
 
 Działanie algorytmu:
 \begin{enumerate}

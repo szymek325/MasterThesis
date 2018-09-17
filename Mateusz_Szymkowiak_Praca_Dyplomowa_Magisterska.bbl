@@ -225,6 +225,49 @@
     \field{year}{2010}
   \endentry
 
+  \entry{pca_lda}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=SH}{%
+         family={Sahoolizadeh},
+         familyi={S\bibinitperiod},
+         given={H.},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=GYA}{%
+         family={Ghassabeh},
+         familyi={G\bibinitperiod},
+         given={Y.\bibnamedelima Aliyari},
+         giveni={Y\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \keyw{eigenvalues and eigenfunctions;face recognition;feature
+  extraction;image classification;neural nets;principal component
+  analysis;visual databases;face recognition;eigen-faces;Fisher-faces;principal
+  component analysis;PCA;linear discriminant analysis;LDA;feature
+  extraction;neural network classifier;Yale face database;Face
+  recognition;Neural networks;Principal component analysis;Linear discriminant
+  analysis;Feature extraction;Discrete cosine transforms;Pattern
+  recognition;Image databases;Hidden Markov models;Support vector machines;Face
+  recognition;Linear discriminant analysis;Neural networks;Principal component
+  analysis}
+    \strng{namehash}{SHGYA1}
+    \strng{fullhash}{SHGYA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{booktitle}{2008 7th IEEE International Conference on Cybernetic
+  Intelligent Systems}
+    \verb{doi}
+    \verb 10.1109/UKRICIS.2008.4798953
+    \endverb
+    \field{pages}{1\bibrangedash 6}
+    \field{title}{Face recognition using eigen-faces, fisher-faces and neural
+  networks}
+    \field{year}{2008}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
   \entry{gauss1}{inproceedings}{}
     \name{author}{1}{}{%
       {{hash=SGLS}{%
