@@ -313,5 +313,56 @@
     \field{urlmonth}{09}
     \field{urlyear}{2018}
   \endentry
+
+  \entry{lbph}{inproceedings}{}
+    \name{author}{4}{}{%
+      {{hash=XG}{%
+         family={Xiang},
+         familyi={X\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=QZ}{%
+         family={Qiuyu},
+         familyi={Q\bibinitperiod},
+         given={Z.},
+         giveni={Z\bibinitperiod},
+      }}%
+      {{hash=HW}{%
+         family={Hui},
+         familyi={H\bibinitperiod},
+         given={W.},
+         giveni={W\bibinitperiod},
+      }}%
+      {{hash=YC}{%
+         family={Yan},
+         familyi={Y\bibinitperiod},
+         given={C.},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \keyw{computational complexity;face recognition;feature
+  extraction;regression analysis;facial feature extraction;local binary pattern
+  histogram;computational complexity;LBPH;local binary feature
+  regression;LBPH;face recognition;Face;Face recognition;Histograms;Feature
+  extraction;Facial features;Shape;Image recognition;face alignment;LBP;face
+  recognition;landmark}
+    \strng{namehash}{XG+1}
+    \strng{fullhash}{XGQZHWYC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{X}
+    \field{sortinithash}{X}
+    \field{booktitle}{2016 International Conference on Audio, Language and
+  Image Processing (ICALIP)}
+    \verb{doi}
+    \verb 10.1109/ICALIP.2016.7846668
+    \endverb
+    \field{pages}{414\bibrangedash 417}
+    \field{title}{Face recognition based on LBPH and regression of Local Binary
+  features}
+    \field{year}{2016}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
 \enddatalist
 \endinput

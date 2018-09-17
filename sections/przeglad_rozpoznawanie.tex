@@ -35,12 +35,12 @@ można wykorzystać jedynie tworząc oprogramowanie w języku Python.
 Poza usługami przedstawionymi w tabeli \ref{tab:systemy}, równie ciekawym rozwiązaniem, aczkolwiek znacznie bardziej rozbudowanym i czasochłonnym jest wykorzystanie Tensorflow \cite{tensorflow} (framework do machine learningu) w celu zbudowanie własnej implementacji sieci neuronowej rozpoznającej twarze.
 Podstawowym frameworkiem, o którego użyciu zadecydowano zostało OpenCv. Za wyborem tej biblioteki przemawiała licencja open source, dojrzałość frameworku oraz liczne źródła wiedzy o implementacji. Podstawowe dostępne funkcje i zastosowania opisano w rozdziale \ref{s:open_cv}.
 
-W celu możliwości porównania rozwiązań lokalnych i chmurowych za drugi obiekt badań obrano usługę Azure Cognitive Services \cite{azure}, którą szerzej opisano w rozdziale \ref{azurecs}. O wyborze tego rozwiązania zadecydowała rozbudowana dokumentacja usługi oraz licencja studencka umożliwiająca darmowe wykorzystanie usługi przy zwiększonych limitach zapytań.
+W celu możliwości porównania rozwiązań lokalnych i chmurowych za drugi obiekt badań obrano usługę Azure Cognitive Services \cite{acs_doc}, którą szerzej opisano w rozdziale \ref{azurecs}. O wyborze tego rozwiązania zadecydowała rozbudowana dokumentacja usługi oraz licencja studencka umożliwiająca darmowe wykorzystanie usługi przy zwiększonych limitach zapytań.
 
 \section{Open Cv} \label{s:open_cv}
 OpenCv (Open Source Computer Vision Library) jest open sourcową biblioteką napisaną w języku C. Udostępniono liczne interfejsy biblioteki pozwalające na pracę z nią miedzy innymi w języku C++ i Python. Biblioteka wspiera systemy operacyjne Linux oraz Windows. Biblioteka została ukierunkowana na przetwarzanie obrazu w czasie rzeczywistym. W licznie udostępnionych funkcjach można znaleźć moduły pozwalające na detekcję i rozpoznawanie twarzy na obrazie, które zostały szerzej opisane w kolejnym punkcie.
 
-\subsection{Rozpoznawanie twarzy \textcolor{red}{ZRODŁA WZORY I CYTOWANIA}}
+\subsection{Rozpoznawanie twarzy}
 Przed zidentyfikowaniem tożsamości, należy najpierw rozwiązać problem detekcji twarzy. Podstawowym sposobem detekcji twarzy wykorzystywanym przez OpenCv jest kaskadowy klasyfikator Haar'a oparty o cechy Haar'a opisane w rozdziale \ref{haar}. Do innych dostępnych rozwiązań wykorzystanych do stworzenia aplikacji należy wytrenowany model głębokiej sieci neuronowej przygotowany przez autorów biblioteki.
 
 \subsubsection{Eigenfaces} \label{s:eigen}
@@ -75,7 +75,7 @@ Identyfikacja twarzy algorytmem Eigenfaces polega na wykonaniu kroków:
 \end{enumerate}
 
 \subsubsection{Fisherfaces} \label{fisher}
-Algorytm Fisherfaces \cite{opencv_doc} opiera się na liniowej analizie dyskryminacyjnej (ang. latent dirichlet allocation, LDA \cite{pca_lda}) i polega na wyznaczeniu wektora cech pozwalającego na rozdzielenie obiektów przynależnych do różnych klas. Przez klasę rozumie się zbiór obrazów przedstawiających tego samego użytkownika. Problem sprowadza się do wyznaczenia wektora, który stanowi przybliżoną granicę między dwiema klasami obiektów, jednak można go uogólnić do problemu wieloklasowego. W efekcie podobne klasy powinny być ze sobą ściśle połączone, podczas gdy różne klasy znajdują się jak najdalej od siebie. Opis działania algorytmu zaczerpnięto z dokumentacji \cite{opencv_ref}.
+Algorytm Fisherfaces \cite{opencv_doc} opiera się na liniowej analizie dyskryminacyjnej (ang. latent dirichlet allocation, LDA \cite{pca_lda}) i polega na wyznaczeniu wektora cech pozwalającego na rozdzielenie obiektów przynależnych do różnych klas. Przez klasę rozumie się zbiór obrazów przedstawiających tego samego użytkownika. Problem sprowadza się do wyznaczenia wektora, który stanowi przybliżoną granicę między dwiema klasami obiektów, jednak można go uogólnić do problemu wieloklasowego. W efekcie podobne klasy powinny być ze sobą ściśle połączone, podczas gdy różne klasy znajdują się jak najdalej od siebie. Opis działania algorytmu zaczerpnięto z dokumentacji \cite{opencv_doc}.
 
 Działanie algorytmu:
 \begin{enumerate}
@@ -119,21 +119,34 @@ Identyfikacja twarzy algorytmem FisherFaces polega na wykonaniu kroków:
 \end{enumerate}
 
 \subsubsection{Local Binary Patterns Histograms} \label{lbph}
-W odróżnieniu od holistycznego podejścia w dwóch poprzednich metodach, algorytm histogramów lokalnych binarnych wzorców wykorzystuje lokalne cechy przetwarzanych obiektów.
-Dla każdego piksela wyznaczany jest ciąg binarny na podstawie porównania wartości z każdym z sąsiadów. W przypadku, gdy jego wartośc jest większa wtedy przyjmuje wartość 1, a 0 w przypadku przeciwnym. Stąd dla każdego piksela wyznaczana jest wartość $p$-znakowego binarnego ciągu, nazywanego lokalnym binarnym wzorcem.  Wyznaczanie można przeprowadzić w otoczeniu o dowolnym promieniu. W ogólności wartość funkcji LBP dla piksela o współrzędnych $(x_{c},y_{c})$ wyznacza się następująco: 
-$$
+Algorytm LBPH \cite{opencv_doc}\cite{lbph} (ang. Local Binary Patterns Histograms, lokalne histogramy binarne) w odróżnieniu od holsitycznego podejścia w Eigenfaces i Fisherfaces algorytm lbph wykorzystuje lokalne cechy przetwarzanych obiektów. Głównym założeniem algorytmu jest wyznaczenie ciągu binarnego dla każdego piksela zdjęcia. Proces zaczyna się przez przyjęcie rozmiaru struktury o wymiarze $X$x$X$ px (np. 3x3 px). Weź piksel jako centralny punkt struktury i zastosuj thresholding binarny dla sąsiadujących z nim pikseli mieszczących się w strukturze. Jeśli wartość piksela jest większa lub równa wartości centralnego piksela to jego nowa wartość to 1. W przeciwnym przypadku piksel otrzymuje wartość 0. Przykładową operację przedstawiono na rysunku \ref{fig:lbph_thresh}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.0]{lbph_threshold.png}
+		\captionsource{Wyznaczenie lokalnego binarnego wzorca piksela dla struktury 3x3 px}{Dokumentacja OpenCv \cite{opencv_doc}}
+	\label{fig:lbph_thresh}
+\end{figure}
+W ten sposób dla każdego piksela wyznaczana jest wartość $p$ znakowego binarnego ciągu nazywanego lokalnym binarnym wzorcem.
+
+W ogólności wartość funkcji LBP dla piksela o współrzędnych $(x_{c},y_{c})$ wyznacza się następująco:
+\begin{equation}
 LBP(x_{c},y_{c})=\sum_{p=0}^{p-1}2^{p}S(i_{p}-i_{c})
-$$
-Gdzie $p$ jest rozmiarem rozpatrywanego sąsiedztwa o środku w punkcie $(x_{c},y_{c})$ i jasności o wartości $i_{c}$, a $i_{n}$ jest wartością jasności dla $n$- tego punktu sąsiedztwa.
-$S(x)$ jest funkcją znaku definiowaną następująco:
-$$
-S(x) = \left\{ \begin{array}{ll}
+\end{equation}
+gdzie $p$ jest rozmiarem rozpatrywanego sąsiedztwa o środku w punkcie $(x_{c},y_{c})$, jasności o wartości $i_{c}$ i jasności dla $n$-tego piksela $i_{n}$. $s(x)$ jest funkcją znaku zdefiniowaną jako:
+\begin{equation}
+s(x) = \left\{ \begin{array}{ll}
 1 & \textrm{ dla $x>0$}\\
-0 & \textrm{ w p.p.}
+0 & \textrm{ pozostałe}
 \end{array} \right.
-$$
-Działanie algorytmu polega na podzieleniu obrazu wejściowego na $m$ różnych części i wyznaczenia dla niego wartości LBP jasności pikseli. Następnie dla każdego regionu wyznaczany jest histogram wyliczonych wartości. Tak wyznaczone wartości są konkatenowane do postaci wektora.
-Dla próbki wejściowej zostaje wyznaczony wektor histogramów, który następnie jest porównywany z wektorami obrazów użytych do uczenia sieci. Przewidywana etykieta jest wyznaczana na podstawie etykiety wektora najbliższego sąsiada.
+\end{equation}
+Implementacja algorytmu sprowadza się do podzielenia obrazu wejściowego na $m$ regionów i wyznaczenie wartości LBP dla każdego z nich. Następnie wyznaczany jest histogram wyliczonych wartości.
+
+Identyfikacja twarzy algorytmem LBPH polega na wykonaniu kroków:
+\begin{enumerate}
+\item Wyznacz wektora histogramów dla próbki wejściowej.
+\item Porównaj wektor z wektorami obrazów użytych podczas uczenia sieci.
+\item Odpowiedź to etykieta wektora najbliższego sąsiada.
+\end{enumerate}
 
 \section{Azure Cognitive Services}\label{azurecs}
 Cognitive Services jest częścią platformy Azure stworzonej przez Microsoft. Usługa jest płatna, ale w przypadku użytku na potrzeby studenckie przyznawany jest darmowy dostęp na ograniczony czas. Cognitive Services zajmuje się rozwiązywaniem problemów biznesowych dzięki sztucznej inteligencji. Do dostępnych modułów między innymi należą:
@@ -151,4 +164,4 @@ Detekcja twarzy opiera się o pojedyncze zapytane do Api Azure'a. Dobierając od
 Na potrzeby rozpoznawania twarzy stworzono funkcja LargeGroup, która odpowiada za zarządzanie grupami ludzi/profili. Użytkownik może dodać dowolną ilość osób do grupy, a następnie przypisać wybrane zdjęcia do tożsamości.Na podstawie utworzonej grupy zostaje stworzony model umożliwiający rozpoznawania tożsamości osób w niej zawartej. Sposób wykorzystania tej usługi został znacznie szerzej opisany w rozdziale \ref{trenowanie_azure}. Sposób działania usługi bazuje nauczeniu maszynowym.
 
 \section{AWS Rekognition}
-Usługa Rekognition jest odpowiednikiem Azure Cognitive Services ograniczonym do rozwiązań związanych z przetwarzaniem obrazu i video. Do wielu dostępnych funkcji należy analiza obrazu, detekcja twarzy i tekstu, porównywanie oraz rozpoznawanie twarzy. Dla wybranych języków programistycznych udostępniono SDK oraz obszerną dokumentację z licznymi przykładami kodu.
+Usługa Rekognition jest odpowiednikiem Azure Cognitive Services ograniczonym do rozwiązań związanych z przetwarzaniem obrazu i video. Do wielu dostępnych funkcji należy analiza obrazu, detekcja twarzy i tekstu, porównywanie oraz rozpoznawanie twarzy. Dla wybranych języków programistycznych udostępniono SDK(Software Development Kit) oraz obszerną dokumentację z licznymi przykładami kodu.
