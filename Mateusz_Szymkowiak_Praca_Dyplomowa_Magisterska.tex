@@ -80,6 +80,8 @@
 %\newcommand{\noteworthy}[2]{
 %\begin{align} \label{#2} \ensuremath{\boxed{#1}} \end{align} 
 %\myequations{#2} \centering \small \textit{#2} \normalsize \justify }
+
+\numberwithin{equation}{section}
 \raggedbottom
 \begin{document}
 
@@ -94,26 +96,26 @@
 \newpage
 %\includepdf[pages={1}]{./pictures/karta_pracy.pdf}
 
-%%%%%%%%%%%%%%%%%%%%%%%%		STRESZCZENIE
+%%%%%%%%%%%%%%%%%%%%%%%%		STRESZCZENIE  %%%%OK
 \input{sections/streszczenie.tex}
 %%%%%%%%%%%%%%%%%%%%%%%%		SPIS TREŚCI
 
 \tableofcontents
 
-%%%%%%%%%%%%%%%%%%%%%%%%	WSTĘP
+%%%%%%%%%%%%%%%%%%%%%%%%	WSTĘP  %%%%OK
 \chapter{Wstęp}
 \input{sections/wstep.tex}
 
-%%%%%%%%%%%%%%%%%%%%%%%%	CEL I ZAKRES PRAC
+%%%%%%%%%%%%%%%%%%%%%%%%	CEL I ZAKRES PRAC  %%%%OK
 \chapter{Cel i zakres prac}
 \input{sections/celiZakresPrac.tex}
 
-%%%%%%%%%%%%%%%%%%%%%%%%	Wstęp teoretyczny
+%%%%%%%%%%%%%%%%%%%%%%%%	Wstęp teoretyczny %%%%POPRAWKI
 \chapter{Wstęp teoretyczny}
 \input{sections/wstep_teoretyczny.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%	Przegląd dostępnych metod rozpoznawania twarzy
-\chapter{Przegląd dostępnych metod rozpoznawania twarzy}
+\chapter{Przegląd dostępnych metod rozpoznawania twarzy} %%%%POPRAWKI
 \input{sections/przeglad_rozpoznawanie.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%	Budowa systemu
@@ -148,7 +150,6 @@
 
 \nocite{*}
 \printbibliography 
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%		Dodatki
 \chapter*{Dodatki}

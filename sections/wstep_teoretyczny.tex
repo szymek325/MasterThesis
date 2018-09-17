@@ -34,11 +34,11 @@ Przedstawicielami usługodawców udostępniających szeroki zakres usług, któr
 	\label{fig:chmura_obliczeniowa}
 \end{figure}
 \subsection{1-Wire} \label{1wire}
-One Wire to systemowa magistrala komunikacji elektronicznej pomiędzy urządzeniami, zapewniająca przesyłanie danych oraz zasilanie urządzenia przez pojedynczy kabel. Proces ten jest możliwy dzięki stopniowemu ładowaniu kondensatora znajdującego się w odbiorniku, a następnie wykorzystanie zgromadzonej energii do zasilenia urządzenia. Do magistrali może zostać podłączonych wiele urządzeń. Każdemu z nich przydzielany jest indywidualny adres 64-bitowy. Komunikację z urządzeniami inicjuje master, w tym przypadku Raspberry Pi.
+One Wire \cite{raspberry} to systemowa magistrala komunikacji elektronicznej pomiędzy urządzeniami, zapewniająca przesyłanie danych oraz zasilanie urządzenia przez pojedynczy kabel. Proces ten jest możliwy dzięki stopniowemu ładowaniu kondensatora znajdującego się w odbiorniku, a następnie wykorzystanie zgromadzonej energii do zasilenia urządzenia. Do magistrali może zostać podłączonych wiele urządzeń. Każdemu z nich przydzielany jest indywidualny adres 64-bitowy. Komunikację z urządzeniami inicjuje master, w tym przypadku Raspberry Pi.
 Przedstawiony protokół jest bardzo podobny do I2C, ale ze względu na wykorzystanie jedynie jednej linii danych, charakteryzuje się niższą prędkością przesyłania. Układ zazwyczaj zasilany jest napięciem o wartości 5V i służy do komunikacji pomiędzy niewielkimi urządzeniami, takimi jak np. termometr cyfrowy i mikrokontroler.
 
 \section{Raspberry Pi} \label{raspi}
-Raspberry Pi jest platformą komputerową stworzoną przez Raspberry Pi Foundation, na którą składa się pojedynczy obwód drukowany widoczny na zdjęciu \ref{fig:raspberrypi}. Pierwsza wersja tego urządzenia została zaprezentowana w 2012 roku. Na potrzeby tej pracy wykorzystano nowszą wersję urządzanie w wersji 3 B, którą została wyposażona w 4 rdzeniowy procesor i 1 GB pamięci RAM. Raspberry pozwala na podłączenie wielu urządzeń peryferyjnych za pomocą 4 portów USB lub 40 pinów GPIO. Dodatkowe złącze pozwala na podłączenie dedykowanej kamery. Dzięki znacznej ilości portów GPIO istnieje możliwość komunikacji cyfrowej z sensorami. Budowa urządzenia nie pozwala na podłączenie czujników analogowych.
+Raspberry Pi \cite{raspberry} jest platformą komputerową stworzoną przez Raspberry Pi Foundation, na którą składa się pojedynczy obwód drukowany widoczny na zdjęciu \ref{fig:raspberrypi}. Pierwsza wersja tego urządzenia została zaprezentowana w 2012 roku. Na potrzeby tej pracy wykorzystano nowszą wersję urządzanie w wersji 3 B, którą została wyposażona w 4 rdzeniowy procesor i 1 GB pamięci RAM. Raspberry pozwala na podłączenie wielu urządzeń peryferyjnych za pomocą 4 portów USB lub 40 pinów GPIO. Dodatkowe złącze pozwala na podłączenie dedykowanej kamery. Dzięki znacznej ilości portów GPIO istnieje możliwość komunikacji cyfrowej z sensorami. Budowa urządzenia nie pozwala na podłączenie czujników analogowych.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{raspberrypi.jpg}
@@ -73,7 +73,7 @@ Czujnik temperatury i wilgotności powietrza DHT11 jest bardzo popularnym czujni
 \end{table}
 
 \subsection{Raspberry Pi Camera HD}
-Raspberry Pi Camera HD jest dedykowaną kamerą przeznaczoną tylko i wyłącznie do urządzenia Raspberry Pi w wersji 3, 2 oraz B+. Szybszy transfer danych niż przez port USB zapewnia dedykowane złącze minikomputera (w formie taśmy na zdjęciu \ref{fig:picamera}). Kamera posiada matrycę o rozdzielczości 8 Mpx, wspiera tryb HD 1090p, 720p oraz 640 x 480. Moduł umożliwia wykonywanie zdjęć w rozdzielczości nawet 3280 x 2464 px. Wymagane sterowniki są preinstalowane na kompatybilnych urządzeniach.
+Raspberry Pi Camera HD jest dedykowaną kamerą przeznaczoną tylko i wyłącznie do urządzenia Raspberry Pi w wersji 3, 2 oraz B+. Szybszy transfer danych niż przez port USB zapewnia dedykowane złącze minikomputera (w formie taśmy na zdjęciu \ref{fig:picamera}). Kamera posiada matrycę o rozdzielczości 8 Mpx, wspiera tryb HD 1080p, 720p oraz 640 x 480. Moduł umożliwia wykonywanie zdjęć w rozdzielczości nawet 3280 x 2464 px. Wymagane sterowniki są preinstalowane na kompatybilnych urządzeniach.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.05]{picamera.jpg}
@@ -82,25 +82,25 @@ Raspberry Pi Camera HD jest dedykowaną kamerą przeznaczoną tylko i wyłączni
 \end{figure}
 
 \section{Przetwarzanie obrazu}
-\subsection{Thresholding \textcolor{red}{TODO}}
+\subsection{Thresholding}
 Thresholding jest operacją polegającą na segmentacji obrazu. Segmentacja to proces podziału obrazu na części określane jako obszary, które są jednorodne pod względem pewnych wybranych własności. Podczas thresholdingu dochodzi do porównania wartości pixeli, tak by oddzielić ważne piksele od tych mniej interesujących. Przed operacją ustalana jest granica, która będzie stanowić o tym jak rozdzielone zostaną wartości.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{efekt_thresholdingu.jpg}
-	\caption{Efekt działania thresholdingu a) przed b) po}
+		\captionsource{Efekt działania thresholdingu a) przed b) po}{Dokumentacja OpenCv \cite{opencv_doc}}
 	\label{fig:efekt_thresholdingu}
 \end{figure}
-Zakładając, że obraz wejściowy to $src$, wartość danego piksela oznaczono jako $src(x,y) $, a przyjętą granicę jako $thresh$. Na rysunku \ref{fig:thresholding} niebieską linią oznaczono $thresh$, a czerwonym kolorem obszar oznaczający wartość piksela. 
+Zakładając, że obraz wejściowy to $src$, wartość danego piksela oznaczono jako $src(x,y) $, a przyjętą granicę jako $thresh$. Na rysunku \ref{fig:thresholding} niebieską linią oznaczono $thresh$, a czerwonym kolorem obszar oznaczający wartość piksela. Poprzez $dst$ oznaczono obraz wyjściowy, więc $dst(x,y)$ oznacza wartość piksela o współrzednych $x,y$
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8]{thresholding.png}
-	\caption{Wykres wartości obrazu $src$ przed thresholdingiem}
+	\captionsource{Wykres wartości obrazu $src$ przed thresholdingiem}{Dokumentacja OpenCv \cite{opencv_doc}}
 	\label{fig:thresholding}
 \end{figure}
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8]{thresholding_binarny.png}
-	\caption{Wykres wartości pikseli obrazu $dst$}
+		\captionsource{Wykres wartości pikseli obrazu $dst$}{Dokumentacja OpenCv \cite{opencv_doc}}
 	\label{fig:thresholding_binarny}
 \end{figure}
 W tej pracy zastosowano thresholding binarny konwertujący wartość każdego piksela do minimalnej lub maksymalnej. Działanie funkcji przedstawiono za pomocą poniższego wzoru.
@@ -113,12 +113,10 @@ maxValue & \textrm{gdy $src(x,y)>$thresh}\\
 \end{array} \right.
  \end{aligned}
 \end{equation}
- \\ \textcolor{red}{POPRAWIĆ WZÓR I OPIS}gdzie maxValue- wartość maksymalna piksela
- \\ dst- plik wyjściowy \\
-Porównując rysunki \ref{fig:thresholding} oraz \ref{fig:thresholding_binarny} można zaobserwować że zgodnie ze wzorem 3.1 każdy piksel obrazu wejściowego poniżej wartości $thresh$ (niebieska linia), na obrazie wyjściowym ma wartość 0, a powyżej linii ma wartość maksymalną.
+Porównując rysunki \ref{fig:thresholding} oraz \ref{fig:thresholding_binarny} można zaobserwować że zgodnie ze wzorem \ref{eq:thresholding} każdy piksel obrazu wejściowego poniżej wartości $thresh$ (niebieska linia), na obrazie wyjściowym ma wartość 0, a powyżej linii ma wartość maksymalną.
 
 \subsection{Dylatacja}
-Dylatacja jest operacją wykorzystywaną do przetwarzania obrazów binarnych, określaną rozszerzaniem. Proces dylatacji polega na przyłożeniu do każdego pixela na obrazie struktury o wybranym rozmiarze. Jeżeli choć jeden piksel sąsiadujący z punktem centralnym wybranej struktury ma wartość jeden to punkt centralny również otrzymuje taką samą wartość. W przeciwnym wypadku punktowi przypisywana jest wartość zero. Najkorzystniejsze efekty przynosi dylatacja strukturą przypominającą kształt koła, np 3x3 px. W efekcie dylatacji dochodzi do zwiększenia się obiektu, zniknięcia detali oraz wypełnienia pustek w niespójnym obszarze. Na rysunku \ref{fig:dylatacja} b) do obrazu przyłożono strukturę 3x3 px. W jej obszarze znaleziono jeden piksel o wartości maksymalnej(oznaczony szarym kolorem), dlatego pikselowi oznaczonemu kolorem zielonym zostaje przydzielona ta sama wartość. Przeprowadzenie operacji na całym obrazie, powoduje uzyskanie rysunku \ref{fig:dylatacja} c).
+Dylatacja jest operacją wykorzystywaną do przetwarzania obrazów binarnych, określaną rozszerzaniem. Proces dylatacji polega na przyłożeniu do każdego pixela na obrazie struktury o wybranym rozmiarze. Jeżeli choć jeden piksel sąsiadujący z punktem centralnym wybranej struktury ma wartość jeden to punkt centralny również otrzymuje taką samą wartość. W przeciwnym wypadku punktowi przypisywana jest wartość zero. Najkorzystniejsze efekty przynosi dylatacja strukturą przypominającą kształt koła, np 3x3 px  \cite{image_proc}. W efekcie dylatacji dochodzi do zwiększenia się obiektu, zniknięcia detali oraz wypełnienia pustek w niespójnym obszarze. Na rysunku \ref{fig:dylatacja} b) do obrazu przyłożono strukturę 3x3 px. W jej obszarze znaleziono jeden piksel o wartości maksymalnej(oznaczony szarym kolorem), dlatego pikselowi oznaczonemu kolorem zielonym zostaje przydzielona ta sama wartość. Przeprowadzenie operacji na całym obrazie, powoduje uzyskanie rysunku \ref{fig:dylatacja} c).
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{dylatacja.png}
@@ -126,14 +124,25 @@ Dylatacja jest operacją wykorzystywaną do przetwarzania obrazów binarnych, ok
 	\label{fig:dylatacja}
 \end{figure}
 
-\subsection{Rozmycie gaussowskie \textcolor{red}{DODAĆ wzór i więcej opisu}}
-Rozmycie gaussowskie inaczej nazywane wygładzaniem gaussowskim to operacja przetwarzania obrazu polegająca na modyfikacji go z użyciem filtru Gaussa. Rozmycie wykorzystywane jest w celu zmniejszenia szumów oraz zakłóceń w obrazie oraz w celu zamazania detali.
+\subsection{Rozmycie gaussowskie}
+Rozmycie gaussowskie inaczej nazywane wygładzaniem gaussowskim to operacja przetwarzania obrazu polegająca na modyfikacji go z użyciem funkcji gaussowskiej  \cite{image_proc}. Wygładzanie gaussowskie jest bardzo popularnym efektem zmniejszającym szum i ilość detali obrazu w dziedzinie grafiki i przetwarzania obrazu. Przykładowy efekt zastosowania rozmycia gaussowskiego ze strukturą 3x3 px oraz 16x16 px przedstawiono na rysunku \ref{fig:rozmycie_gaussowskie}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{rozmycie_gaussowskie.png}
-	\caption{Przykład zastosowania rozmycia gaussowskiego na zdjęciu}
+	\captionsource{Przykład zastosowania rozmycia gaussowskiego na zdjęciu}{https://www.raywenderlich.com}
 	\label{fig:rozmycie_gaussowskie}
 \end{figure}
+Funkcję Gaussa dla jednej przestrzeni można zapisać w postaci wzory \ref{eq:funkcja_gaussa_poj}.
+\begin{equation} \label{eq:funkcja_gaussa_poj}
+G(x) =\frac{1}{\sqrt{2 \pi \sigma^{2}}}e^{- \frac{x^{2}}{2 \sigma^{2}}}
+\end{equation}
+gdzie $\sigma$ oznacza odchylenie standardowe charakteryzujące rozkład Gaussa. Zakłada się że rozłożenie ma wartość średnią równą 0.
+
+Obrazy składają się z dwóch płaszczyzn $x,y$ dlatego wzór \ref{eq:funkcja_gaussa_poj} wymaga rozszerzenia do postaci \ref{eq:funkcja_gaussa_dwa}. $(x,y)$ oznacza współrzędne piksela na obrazie.
+\begin{equation} \label{eq:funkcja_gaussa_dwa}
+G(x,y) = \frac{1}{2\pi \sigma^{2}}e^{- \frac{x^{2}+y^{2}}{2 \sigma^{2}}}
+\end{equation}
+W ten sposób uzyskuje się funkcję, która pozwala na obliczenie wagi każdego punktu obrazu.
 
 \subsection{Klasyfikator kaskad Haar'a} \label{haar}
 Detekcja obiektów klasyfikatorem kaskad Haar'a została oparta o metodę Paul'a Viola i Michael'a Jones'a– w skrócie Viola-Jones.
@@ -149,18 +158,17 @@ Cechy wykorzystywane w metodzie Viola-Jones opierają się na falkach Haara. Fal
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{szablon_cech_haara.png}
-	\caption{Szablony cech Haar'a a) dwuprostokątny b) trójprostokątny c) czteroprostokątny d) centralny}
+		\captionsource{Szablony cech Haar'a a) dwuprostokątny b) trójprostokątny c) czteroprostokątny d) centralny}{Dokumentacja OpenCv \cite{opencv_doc}}
 	\label{fig:szablon_cech_haara}
 \end{figure}
 Wartość każdej cechy jest obliczana jako różnica sumy poziomów szarości pikseli pokrywanych przez biały oraz czarny prostokąt oraz sumy poziomów szarości pikseli pokrywanych przez czarny prostokąt. Składniki tej różnicy posiadają wagi odwrotnie proporcjonalne do rozmiarów, dzięki czemu różnice wielkości dwóch obszarów są kompensowane.
-\textcolor{red}{MOŻE JESZCZE WZÓR?}
 
 \subsection{Głęboka sieć neuronowa} \label{dnn}
-Pojęciem uczenia maszynowego określa się dziedzinę nauk związanych ze sztuczną inteligencją, zajmującą się badaniem algorytmów i systemów, które usprawniają swoje działanie wraz ze zdobywaniem nowej wiedzy lub też doświadczeniem. Wiedzą określamy dane uczące, które zostały wykorzystane do nauki. System może zostać usprawniony poprzez zwiększenie wiedzy systemu, które powinno pozwolić na usprawnienie procesu rozwiązywania podstawowych problemów.
+Pojęciem uczenia maszynowego \cite{dnn} określa się dziedzinę nauk związanych ze sztuczną inteligencją, zajmującą się badaniem algorytmów i systemów, które usprawniają swoje działanie wraz ze zdobywaniem nowej wiedzy lub też doświadczeniem. Wiedzą określamy dane uczące, które zostały wykorzystane do nauki. System może zostać usprawniony poprzez zwiększenie wiedzy systemu, które powinno pozwolić na usprawnienie procesu rozwiązywania podstawowych problemów.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{schemat_dnn.png}
-	\caption{Budowa głębokiej sieci neuronowej}
+	\caption{Budowa głębokiej sieci neuronowej \cite{dnn}}
 	\label{fig:budowa_dnn}
 \end{figure}
 Algorytmy głębokiego uczenia maszynowego są jednymi z najbardziej zaawansowanych. Zbudowane są one w sposób przypominający biologiczne sieci neuronowe. Głęboka sieć neuronowa składa się z neuronów rozmieszczonych na warstwach. Wiele warstw jest powodem dla którego taki rodzaj algorytmu określa się mianem głębokiego. Przykładowa budowa głębokiej sieci neuronowej została przedstawiona na rysunku \ref{fig:budowa_dnn}.
@@ -172,8 +180,8 @@ Azure jest platformą chmurową firmy Microsoft stworzoną w modelu Paas (Platfo
 \begin{itemize}
     \item App Services,
     \item Azure Cognitive Services,
-    \item bazy danych SQL oraz NoSQL (MSSQL, MySql, CosmicDB)
-    \item maszyny wirtualne oparte o system Windows oraz kilka popularnych dystrybucji Linuxa.
+    \item bazy danych (MSSQL),
+    \item maszyny wirtualne oparte o system Windows.
 \end{itemize}
 \subsection{Web App Services}
 Web App Services jest usługą pozwalającą na hostowanie aplikacji internetowych napisanych w jednym z wybranych języków (między innymi .Net, Node.Js, Python) bez zarządzania infrastrukturą. Do największych zalet należy automatyczna skalowalność serwisu oraz wysoka dostępność. Podczas tworzenia środowiska istnieje możliwość wyboru preferowanego systemu operacyjnego. Dużą zaletą jest możliwość wdrożenia aplikacji za pomocą jednego kliknięcia bezpośrednio z Visual Studio. Sprawne korzystanie z usługi jest możliwe dzięki szerokiemu zakresowi dokumentacji i tutoriali udostepnionych przez producenta.
@@ -182,9 +190,8 @@ Web App Services jest usługą pozwalającą na hostowanie aplikacji internetowy
 Amazon Web Services jest platformą chmurową firmy Amazon stworzoną w modelu Paas (Platform as a Service). Jest to bardzo podobne rozwiązanie do bliźniaczego Azure. Platforma udostępnia obliczenia chmurowe na żądanie. Szeroki zakres usług dostępny jest w darmowej wersji demo, jedynym wymaganiem jest założenie konta w serwisie. Po wykorzystaniu darmowego okresu, opłaty naliczane są według zużycia danej usługi. Do podstawowych usług, które mogłyby zostać wykorzystane dla celów tej pracy należą:
 \begin{itemize}
     \item Elastic Beanstalk,
-    \item Rekognition,
     \item bazy danych (RDS),
-    \item maszyny wirtualne (EC2).
+    \item maszyny wirtualne z systemem operacyjnym Windows (EC2).
 \end{itemize}
 \subsection{Elastic Beanstalk}
-Elastic Beanstalk jest odpowiednikiem Azure Web App Services. Zakres dostępnych języków jest równie szeroki jak w przypadku Azure'a, ale w odróżnieniu od Microsoftu nie zawsze wspiera on najnowszych wersji produktów wymienionej firmy, a zakres możliwości konfiguracyjnych z poziomu strony internetowej jest uboższy. Podobnie jak w przypadku Azure istnieje możliwość wdrożenia aplikacji jednym kliknięciem po doinstalowaniu dedykowanego pluginu do Visual Studio.
+Elastic Beanstalk jest odpowiednikiem Azure Web App Services. Zakres dostępnych języków jest równie szeroki jak w przypadku Azure'a, ale w odróżnieniu od Microsoftu nie zawsze wspiera on najnowszych wersji produktów wymienionej firmy, a zakres możliwości konfiguracyjnych z poziomu strony internetowej jest uboższy. Podobnie jak w przypadku Azure istnieje możliwość wdrożenia aplikacji jednym kliknięciem po zainstalowaniu dedykowanego pluginu do Visual Studio.
