@@ -43,7 +43,7 @@ OpenCv (Open Source Computer Vision Library) jest open sourcową biblioteką nap
 \subsection{Rozpoznawanie twarzy \textcolor{red}{ZRODŁA WZORY I CYTOWANIA}}
 Przed zidentyfikowaniem tożsamości, należy najpierw rozwiązać problem detekcji twarzy. Podstawowym sposobem detekcji twarzy wykorzystywanym przez OpenCv jest kaskadowy klasyfikator Haar'a oparty o cechy Haar'a opisane w rozdziale \ref{haar}. Do innych dostępnych rozwiązań wykorzystanych do stworzenia aplikacji należy wytrenowany model głębokiej sieci neuronowej przygotowany przez autorów biblioteki.
 
-\subsubsection{Eigenfaces} \label{eigen}
+\subsubsection{Eigenfaces} \label{s:eigen}
 Eigenfaces nazywany jest również algorytmem twarzy własnych. Głównym postanowieniem algorytmu jest to że nie wszystkie wymiary w zbiorze danych są równie ważne, więc należy znaleźć elementy, w których występuje największa zmienność bo to one mają największą wartość informacyjną. Obraz o wymiarze $p$x$q$ tworzy wektor o wymiarze $m=pq$, więc przykładowo dla wymiarów 100x100 uzyskuje się wektor o wymiarze 10 000. W celu ekstrakcji głównych składowych wykorzystano analizę głównych składowych (ang principal component analysis,PCA), która potrafi przekształcić wielowymiarowy zbiór danych skorelowanych w mniejszy zbiór danych nieskorelowanych. Informację o sposobie działania algorytmu zaczerpnięto z dokumentacji \cite{opencv_doc}.
 
 Działanie algorytmu:
@@ -75,7 +75,7 @@ Identyfikacja twarzy algorytmem Eigenfaces polega na wykonaniu kroków:
 \end{enumerate}
 
 \subsubsection{Fisherfaces} \label{fisher}
-
+Algorytm Fisherfaces opiera się na liniowej analizie dyskryminacyjnej (ang. latent dirichlet allocation, LDA) i polega na wyznaczeniu wektora cech pozwalającego na rozdzielenie obiektów przynależnych do różnych klas. Przez klasę rozumie się zbiór obrazów przedstawiających tego samego użytkownika. Problem sprowadza się do wyznaczenia wektora, który stanowi przybliżoną granicę między dwiema klasami obiektów, jednak można go uogólnić do problemu wieloklasowego. W efekcie podobne klasy powinny być ze sobą ściśle połączone, podczas gdy różne klasy znajdują się jak najdalej od siebie.
 
 Działanie algorytmu:
 \begin{enumerate}
@@ -99,39 +99,24 @@ a $\mu_{i}$ średnią klasy $i\in \{1,...c\}$
 \begin{equation}
 \mu_{i}=\frac{1}{|X_{i}|}\sum_{x_{j}\in X_{i}}x_{j}
 \end{equation}
-\item Znajdź wektory bazowe $V$ gdzie $S_{W}$ jest zminimalizowane a $S_{B}$ zmaksymalizowane, gdzie $V$ jest macierzą, której kolumny $\nu_{i}$ są wektorami podstawowymi definiującymi podprzestrzeń
+\item Znajdź wektory bazowe $W$ gdzie $S_{W}$ jest zminimalizowane a $S_{B}$ zmaksymalizowane
 \begin{equation}
-J(V)=\frac{\vert V^{T}S_{B}V\vert }{\vert V^{T}S_{W}V\vert }
+W_{optymalne}=\frac{\vert W^{T}S_{B}W\vert }{\vert W^{T}S_{W}W\vert }
+\end{equation}
+\item Rozwiązanie sprowadza się do obliczenia wartości eigena (rozdział \ref{s:eigen})
+\begin{equation}
+S_{B}\nu_{i}=\lambda_{i}S_{W}\nu_{i}
+\end{equation}
+\begin{equation}
+S_{W}^{-1}S_{B}\nu_{i}=\lambda_{i}\nu_{i}
 \end{equation}
 \end{enumerate}
 
-
-
-Algorytm Fisherfaces opiera się na liniowej analizie dyskryminacyjnej (LDA) i polega na wyznaczeniu wektora cech pozwalającego na rozdzielenie obiektów przynależnych do różnych klas. W przypadku problemu rozpoznawania twarzy, przez klasy obiektów rozumiane są zbiory obrazów przedstawiające tego samego użytkownika. Problem sprowadza się do wyznaczenia wektora, który stanowi przybliżoną granicę między dwiema klasami obiektów, jednak można go uogólnić do problemu wieloklasowego.
-Wyznaczanie poszukiwanego wektora rozpoczyna się od wyznaczenia wartości średniej $\nu$ wszystkich obiektów znajdujących się w rozpatrywanym zbiorze, oraz wartości średniej $\nu_{i}$ wewnątrz poszczególnych klas. 
-$$
-\mu=\frac{1}{N}\sum_{i=1}^{N}x_{i}
-$$
-Gdzie $N$ oznacza liczebność rozpatrywanego zbioru $x_{i}$
-$$
-\mu_{i}=\frac{1}{|X_{i}|}\sum_{x_{j}eX_{i}}x_{j}
-$$
-Gdzie $X_{i}$ jest klasą obiektów o indeksie $i$, dla $i=1,2,...,n$ dla $n$ oznaczającego liczbę klas. Następnie wyznaczana jest macierz rozproszenia wewnątrzklasowego $S_{B}$ oraz macierz średniego rozproszenia wewnątrzklasowego $S_{W}$.
-$$
-S_{B}=\sum_{i=1}^{n}N_{i}(\mu-\mu_{i})(\mu-\mu_{i})^{T}
-$$
-$$
-S_{W}=\sum_{i=1}^{n}\sum_{x_{j}eX_{i}}(x_{j}-\mu_{i})(x_{j}-\mu_{i})^{T}
-$$
-Rozwiązanie problemu sprowadza się do znalezienia danych, które pozwolą na otrzymanie największej wartości określającej stosunek rozproszenia wewnątrzklasowego do średniego wewnętrznego rozproszenia klas. Stąd algorytm poszukuje wektora $d$, dla którego poniższa funkcja osiąga maksimum.
-$$
-f(d)=\frac{d^{T}S_{B}d}{d^{T}S_{W}d}
-$$
-W celu zmniejszenia złożoności problemu, stosuje się modyfikację powyższego kryterium, wykorzystując macierz $W$ złożona z $k$ głównych wektorów własnych wyznaczonych dla macierzy kowariancji $C$ wszystkich elementów zbioru.
-$$
-f(d)=\frac{d^{T}W^{T}S_{B}d}{d^{T}S_{W}d}
-$$
-Znalezienie wektora $d$ pozwala na wyznaczenie optymalnego kierunku rozdzielającego dwie klasy obiektów.
+Identyfikacja twarzy algorytmem FisherFaces polega na wykonaniu kroków:
+\begin{enumerate}
+\item Wyznacz wartość twarzy w przestrzeni LDA.
+\item Znajdź najbliższego sąsiada w macierzy $W$.
+\end{enumerate}
 
 \subsubsection{Local Binary Patterns Histograms} \label{lbph}
 W odróżnieniu od holistycznego podejścia w dwóch poprzednich metodach, algorytm histogramów lokalnych binarnych wzorców wykorzystuje lokalne cechy przetwarzanych obiektów.
