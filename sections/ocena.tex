@@ -1,5 +1,5 @@
 \section{Detekcja twarzy}
-W rozdziale tym opisano testy przeprowadzone w celu oceniania skuteczności działania wybranych detektorów twarzy. Podjęto decyzję o wykonaniu kilku zdjęć przedstawiających twarz w różnych pozycjach, częściowo zasłoniętą oraz w zmiennym oświetleniu. Wizualizację wyników przeprowadzonych testów zawarto w tabeli \ref{tab:porownanie_detektorow}.
+W rozdziale tym opisano testy przeprowadzone w celu oceniania skuteczności działania wybranych detektorów twarzy. Podjęto decyzję o wykonaniu kilku zdjęć przedstawiających twarz w różnych pozycjach, częściowo zasłoniętą oraz w zmiennym oświetleniu. Wizualizację wyników przeprowadzonych testów umieszczono w tabeli \ref{tab:porownanie_detektorow}.
 \begin{longtable}{|c|c|c|c|c|c|} 
 \hline
   		& \bfseries Wejście & \bfseries Haar & \bfseries Dnn & \bfseries Azure \\
@@ -160,15 +160,15 @@ W rozdziale tym opisano testy przeprowadzone w celu oceniania skuteczności dzia
 \caption{Porównanie działania detektorów w wybranych warunkach}
 \label{tab:porownanie_detektorow}
 \end{longtable}
-Pierwszą różnicą, którą można zaobserwować w sposobie działania detektorów jest rozmiar obszaru twarzy oznaczany przez algorytmy. Najmniejszym z nich jest twarz wykrywana metodą Haara, oznaczany obszar zaczyna się na wysokości brwi i kończy niewiele poniżej ust. W przypadku detekcji twarzy z wykorzystaniem głębokiej sieci neuronowej prostokąt obejmuje także całe czoło oraz podbródek przedstawionej osoby. Rozmiar obszaru uzyskanego przez ACS(Azure Cognitive Services) mieści się pomiędzy metodą Haara a DNN(Deep Neural Network), obejmuję częściowo czoło i podbródek.
+Pierwszą różnicą, którą można zaobserwować w sposobie działania detektorów jest rozmiar obszaru twarzy oznaczany przez algorytmy. Najmniejszym z nich jest twarz wykrywana metodą Haara. Oznaczany obszar zaczyna się na wysokości brwi i kończy niewiele poniżej ust. W przypadku detekcji twarzy z wykorzystaniem głębokiej sieci neuronowej prostokąt obejmuje także całe czoło oraz podbródek przedstawionej osoby. Rozmiar obszaru uzyskanego przez ACS(Azure Cognitive Services) mieści się pomiędzy metodą Haara a DNN(Deep Neural Network), obejmuję częściowo czoło i podbródek.
 
 Każda z metod dobrze poradziła sobie w przypadku centralnego zdjęcia twarzy przy dobrym jak i słabym oświetleniu. Najskuteczniejszą z metod okazała się metoda DNN, która wykryła twarz na każdym z dziewięciu zdjęć. Metoda wykorzystująca platformę Azure okazała się nieskuteczna w przypadku zdjęcia przedstawiającego częściowo zakrytą twarz oraz z odchyloną głową. 
 
-Najwrażliwszym na jakoś zdjęcia okazała się metoda Haara, która nie była w stanie sobie poradzić choćby z najmniejszymi zmianami w układzie twarzy na zdjęciu. Używając tego detektora nie udało się wykryć twarzy na obrazach, które nie sprawiły problemu pozostałym metodą. Między innymi nie wykryto twarzy na obrazie przedstawiającym profil oraz głowę przechyloną na bok.
+Najwrażliwszym na jakoś zdjęcia okazała się metoda Haara, która nie mogła sobie poradzić choćby z najmniejszymi zmianami w układzie twarzy na zdjęciu. Używając tego detektora nie udało się wykryć twarzy na obrazach, które nie sprawiły problemu pozostałym metodą. Między innymi nie wykryto twarzy na obrazie przedstawiającym profil oraz głowę przechyloną w bok.
 
-Zbadano, że wysoka skuteczność detekcji twarzy metodą DNN wiąże się z większą ilością fałszywych detekcji w porównaniu z pozostałymi metodami. Z tego powodu wyniki uzyskane tą metodą należy filtrować,a jest to możliwe poprzez ustawienie pewności powyżej, której algorytm ma zwracać odpowiedzi.
+Zbadano, że wysoka skuteczność detekcji twarzy metodą DNN wiąże się z większą ilością fałszywych detekcji w porównaniu z pozostałymi metodami. Z tego powodu wyniki uzyskane tą metodą należy filtrować, a jest to możliwe poprzez ustawienie pewności powyżej, której algorytm ma zwracać odpowiedzi.
 
-Średnie czasy odpowiedzi detektorów przedstawiono w tabeli \ref{tab:systemy}. W najkrótszym czasie uzyskano odpowiedź od sieci neuronowej, a najwolniejsza zgodnie z oczekiwania była metoda wykorzystująca ACS. Znacznie dłuższy czas trwania wynika z konieczności skontaktowania się z serwerem z innego kraju.
+Średnie czasy odpowiedzi detektorów przedstawiono w tabeli \ref{tab:systemy}. W najkrótszym czasie uzyskano odpowiedź od sieci neuronowej, a najwolniejsza zgodnie z oczekiwania była metoda wykorzystująca ACS. Znacznie dłuższy czas trwania wynika z konieczności wykorzystania protokołu http w celu skontaktowania się z serwerem znajdującym w innym państwie.
 
 \begin{table}[H]\label{tab:detekcja_czasy}
 	\centering
@@ -194,7 +194,7 @@ W celu potwierdzenia uzyskanych wniosków przeprowadzono końcowy test polegają
 \end{figure}
 
 \section{Dane treningowe}
-Za dane wejściowe do procesu trenowania sieci wybrano \fnurl{Glasgow Unfamiliar Face Database (GUFD)}{http://www.facevar.com/glasgow-unfamiliar-face-database}, która dostępna jest za darmo i można jej używać na potrzeby badań uczelnianych oraz publikacji. Jedynym warunkiem użycia jest zacytowanie jednej z publikacji właściciela bazy.
+Za dane wejściowe do procesu trenowania sieci wybrano Glasgow Unfamiliar Face Database (GUFD)\cite{glasgow}, która dostępna jest za darmo i można jej używać na potrzeby badań uczelnianych oraz publikacji. Jedynym warunkiem użycia jest zacytowanie jednej z publikacji właściciela bazy.
 
 Baza zawiera 303 tożsamości. Na każdą z tożsamości składa się 20 zdjęć jednej osoby wykonanych w różnych warunkach np. różniące się kąty ujęcia, wyrazy twarzy oraz z dodatkowymi akcesoriami(okulary, kaptur, czapka). 
 
@@ -210,7 +210,7 @@ Podczas badania algorytmów rozpoznawania twarzy postanowiono sprawdzić kilka p
 W rozdziale \ref{b:rozpoznawanie} omówiono wpływ wyżej wymienionych parametrów na czas oraz pewność identyfikowania tożsamości.
 
 \subsection{Wpływ wybranych parametrów na przygotowanie danych uczących}
-Zgodnie z oczekiwaniami, preprocessing danych wymagany przed trenowaniem identyfikatorów powiązanych z biblioteką OpenCv jest znacznie szybszy od Azure. Największą wadą wynikającą z chmurowości  ACS(Azure Cognitive Services) jest konieczność wykonania tysięcy zapytań, w tym większość z nich odpowiadających za przekazanie zdjęć do chmury. Prędkość dodawania danych jest ograniczana przez jakość połączenia z serwerem. Na przygotowanie 19 zdjęć dla 100 profili, system potrzebował około 15 minut, które może się wydawać astronomiczne w porównaniu z 24 sekundami potrzebnymi na przygotowanie danych dla metod trenowanych lokalnie.
+Zgodnie z oczekiwaniami, preprocessing danych wymagany przed trenowaniem identyfikatorów z biblioteki OpenCv jest znacznie szybszy od Azure. Największą wadą wynikającą z chmurowości  ACS(Azure Cognitive Services) jest konieczność wykonania tysięcy zapytań, w tym większość z nich odpowiadających za przekazanie zdjęć do chmury. Prędkość dodawania danych jest ograniczana przez jakość połączenia z serwerem. Na przygotowanie 19 zdjęć dla 100 profili, system potrzebował około 15 minut, które może się wydawać astronomiczne w porównaniu z 24 sekundami potrzebnymi na przygotowanie danych dla metod trenowanych lokalnie.
 
 Na rysunku \ref{fig:czas_p_profile} można zaobserwować że czas potrzebny na przygotowanie danych w przypadku OpenCv rósł liniowo. Podobny efekt był oczekiwany dla ACS. Brak liniowości może wynikać z różnych rozmiarów plików oraz chwilowej lepszej/gorszej jakości połączenia z serwerem.
 \begin{figure}[H]
@@ -219,7 +219,7 @@ Na rysunku \ref{fig:czas_p_profile} można zaobserwować że czas potrzebny na p
 	\caption{Wpływ ilości profili użytych podczas treningu na czas przygotowania danych uczących}
 	\label{fig:czas_p_profile}
 \end{figure}
-Wyniki uzyskane podczas drugiego testu, które przedstawiono na grafie \ref{fig:czas_p_zdjecia} potwierdzają tezę o niestabilności połączenia z serwisem chmurowym. Dla tego testu udało się uzyskać zależność ilości zdjęć od czasu zbliżoną do liniowej.
+Wyniki uzyskane podczas drugiego testu, przedstawione na grafie \ref{fig:czas_p_zdjecia} potwierdzają hipotezę o niestabilności połączenia z serwisem chmurowym. Dla tego testu udało się uzyskać zależność ilości zdjęć od czasu zbliżoną do liniowej.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{czas_przygotowania_a_ilosc_zdjec.png}
@@ -228,14 +228,14 @@ Wyniki uzyskane podczas drugiego testu, które przedstawiono na grafie \ref{fig:
 \end{figure}
 
 \subsection{Wpływ wybranych parametrów na czas trwania treningu}
-Kolejnym interesującym testem, który przeprowadzona było zbadanie wpływu ilości użytych profili oraz ilości zdjęć przypisanych profilowi na czas trwania nauki. Zgodnie z oczekiwaniami wraz z przyrostem danych zwiększał się czas wymagany na wytrenowanie sieci. Wyniki przedstawiono na rysunku \ref{fig:czas_t_profile}. Wyjątkiem pozostało rozwiązanie chmurowe Azure, które niezależnie od ilości danych zawsze trwało sekundę (najmniejsza jednostka czasu, którą można uzyskać od usługi). Podobnym zachowaniem wykazał się algorytm LBPH (\ref{lbph}), w przypadku którego czas treningu wydłuż się od 0,7s do maksymalnie 12s. W przypadku pozostałych metod czas treningu wzrósł z początkowej wartości maksymalnie kilku sekund do nawet kilku minut
+Kolejnym interesującym testem, który przeprowadzona było zbadanie wpływu ilości użytych profili oraz ilości zdjęć przypisanych profilom na czas trwania nauki. Zgodnie z oczekiwaniami wraz z przyrostem danych zwiększał się czas wymagany na wytrenowanie sieci. Wyniki przedstawiono na rysunku \ref{fig:czas_t_profile}. Wyjątkiem pozostało rozwiązanie chmurowe Azure, które niezależnie od ilości danych zawsze trwało sekundę (najmniejsza jednostka czasu, którą można uzyskać od usługi). Podobnym zachowaniem wykazał się algorytm LBPH (\ref{lbph}), w przypadku którego czas treningu wydłuż się od 0,7s do maksymalnie 12s. W przypadku pozostałych metod czas treningu wzrósł z początkowej wartości maksymalnie kilku sekund do nawet kilku minut
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{czas_trenowania_a_ilosc_profili.png}
 	\caption{Wpływ ilości profili użytych podczas treningu na czas trenowania sieci}
 	\label{fig:czas_t_profile}
 \end{figure}
-Bliźniaczy test przeprowadzony dla zmiennej ilości zdjęć przypisanej do profilu zakończył się wynikami zbliżonymi do poprzedniego badania. Przyrost czasu pozostał nieliniowy.
+Bliźniaczy test przeprowadzony dla zmiennej ilości zdjęć przypisanej do każdego profilu zakończył się wynikami zbliżonymi do poprzedniego badania. Przyrost czasu pozostał nieliniowy.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{czas_trenowania_a_ilosc_zdjec.png}
@@ -244,7 +244,7 @@ Bliźniaczy test przeprowadzony dla zmiennej ilości zdjęć przypisanej do prof
 \end{figure}
 
 \subsection{Wpływ wybranych parametrów na rozmiar modelu sieci}
-Wyniki uzyskane podczas badaniu wpływu parametrów na rozmiar utworzonego modelu przedstawiono na rysunku \ref{fig:rozmiar_profile} oraz \ref{fig:rozmiar_zdjecia}. Ze względu na brak dostępu do informacji o rozmiarze modelu, Azure Cognitve Services został pominięty podczas tego testu.
+Wyniki uzyskane podczas badaniu wpływu parametrów na rozmiar utworzonego modelu przedstawiono na rysunku \ref{fig:rozmiar_profile} oraz \ref{fig:rozmiar_zdjecia}. Ze względu na brak dostępu do informacji o rozmiarze modelu Azure Cognitve Services, został on pominięty podczas tego testu.
 
 W badaniu z poprzedniego rozdziału okazało się, że proces trenowania algorytmu Eigen jest najbardziej czasochłonny. Ta informacja ma swoje odzwierciedlenie w rozmiarze modelu. Rozmiar modelu uzyskany dla maksymalnej ilości wykorzystanych profili osiągnął wartość aż 3GB, które w porównaniu do 163MB dla LBPH oraz 197MB dla metody Fishera jest ogromną wartością. W uproszczeniu można by powiedzieć że wzrost rozmiaru pliku był liniowy i zwiększał się dwukrotnie wraz z dwukrotnym zwiększeniem się ilości wykorzystanych profili. 
 \begin{figure}[H]
@@ -253,7 +253,7 @@ W badaniu z poprzedniego rozdziału okazało się, że proces trenowania algoryt
 	\caption{Wpływ ilości profili użytych podczas treningu na rozmiar utworzonego modelu}
 	\label{fig:rozmiar_profile}
 \end{figure}
-W przypadku badania wpływu ilości zdjęć przypisanych do profilu na rozmiar pliku, wystąpił problem z uzyskaniem pierwszej próbki dla metody Fishera, która jak się okazało wymaga minimalnie 3 zdjęć przypisanych do profilu. Podobnie jak w poprzednim teście algorytm Eigen oraz LBPH zachowywał się liniowo co jest dobrze widoczne na rysunku \ref{fig:rozmiar_zdjecia}. Interesującym zachowaniem wykazał się model utworzony dla metody Fishera, który już przy 5 zdjęciach osiągnął wartość minimalnie różniącą się od maksymalnej. Dodawanie kolejnych zdjęć każdemu z profili powodowało minimalne zmiany w rozmiarze pliku. Uzyskane zachowanie znacznie różniło się od wyników z testu poprzedniego (rysunek \ref{fig:rozmiar_profile}).
+W przypadku badania wpływu ilości zdjęć przypisanych do profilu na rozmiar pliku, wystąpił problem z uzyskaniem pierwszej próbki dla metody Fishera, która jak się okazało wymaga minimalnie 3 zdjęć przypisanych do profilu. Podobnie jak w poprzednim teście algorytm Eigen oraz LBPH zachowywał się liniowo co jest dobrze widoczne na rysunku \ref{fig:rozmiar_zdjecia}. Interesującym zachowaniem wykazał się model utworzony dla metody Fishera, który już przy 5 zdjęciach osiągnął wartość minimalnie różniącą się od maksymalnej. Dodawanie kolejnych zdjęć każdemu z profili powodowało niewielkie zmiany w rozmiarze pliku. Uzyskane zachowanie znacznie różniło się od wyników z testu poprzedniego (rysunek \ref{fig:rozmiar_profile}).
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{rozmiar_modelu_a_ilosc_zdjec.png}
@@ -262,26 +262,26 @@ W przypadku badania wpływu ilości zdjęć przypisanych do profilu na rozmiar p
 \end{figure}
 
 \section{Rozpoznawanie twarzy} \label{b:rozpoznawanie}
-Kolejnym etapem badań było przetestowanie działania identyfikatorów twarzy, Testy podzielono na 3 kategorie:
+Kolejnym etapem badań było przetestowanie działania identyfikatorów twarzy, Testy podzielono na 4 kategorie:
 \begin{itemize}
 \item wpływ ilości zdjęc przypisanych do profilu na pewność rozpoznania,
 \item wpływ ilości profili użytych podczas treningu na pewność rozpoznania,
 \item wpływ atrybutów oraz błędna identyfikacja,
-\item test wszystkich próbek
+\item test wszystkich próbek.
 \end{itemize}
 \subsection{Wpływ ilości zdjęć przypisanych do profilu na pewność rozpoznania}
-Metody dostępne w bibliotece OpenCv różnią się od Azure sposobem określania pewności identyfikacji. ACS (Azure Cognitive Services) zwraca pewność w postaci procentowej, a OpenCv jako wektor oddalenia od najbliższej próbki, którego im wartość jest mniejsza tym lepiej.
+Metody dostępne w bibliotece OpenCv różnią się od Azure sposobem określania pewności identyfikacji. ACS (Azure Cognitive Services) zwraca pewność w postaci procentowej, a OpenCv jako wektor oddalenia od najbliższej próbki. Mniejsza wartość wektora oznacza wyższą pewność.
 
-W pierwszym etapie wykorzystano sieci nauczone podczas badań z rozdziału poprzedniego do identyfikacji jednego ze zdjęć. Wybrane zdjęcie zostało poprawnie zidentyfikowane przez każdą z metod.
+W pierwszym etapie wykorzystano sieci nauczone podczas badań wykonanych w rozdziale poprzednim w celu identyfikacji wybranego zdjęcia. Zdjęcie zostało poprawnie zidentyfikowane przez każdą z metod.
 
-Dla Azure, którego wyniki przedstawiono na rysunku \ref{fig:azure_zdjecia}. Dla wybranego zdjęcia jedynie 2 próbki dla każdego ze 100 profili zapewniły wysoki poziom pewności równy około 93\%. Największe zmiany w pewności identyfikacji zaszły przy zmianie ilości próbek od 2 do 10 na profil. Po przekroczeniu tej wartości pewność ustabilizowała się w okolicy 96%. 
+Dla Azure(rysunek \ref{fig:azure_zdjecia}) jedynie 2 próbki dla każdego ze 100 profili zapewniły wysoki poziom pewności równy około 93\%. Największe zmiany w pewności identyfikacji zaszły przy zmianie ilości próbek od 2 do 10 na profil. Po przekroczeniu tej wartości pewność ustabilizowała się w okolicy 96%. 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{azure_pewnosc_a_ilosc_zdjec.png}
 	\caption{Wpływ ilości zdjęć przydzielonych profilowi na pewność identyfikacji Azure. Użyto 100 profili}
 	\label{fig:azure_zdjecia}
 \end{figure}
-Podobną sytuację zaobserwowano dla sieci z biblioteki OpenCv przedstawionych na rysunku \ref{fig:opencv_zdjecia}. Wraz ze wzrostem ilości zdjęć malała wartość wektora odległości, którego wartość ustaliła się na 0 po przekroczeniu 10 zdjęć dla każdej z metod. Niewyjaśnionym zjawiskiem pozostaje chwilowy wzrost niepewności dla metody Eigen między ilością zdjęć 2, a 3. Najmniej pewną metodą okazał się algorytm Eigen, którego niepewność w szczytowych momentach była nawet 1,5 raza większa od algorytmu Fishera. Niezależnie od ilości zdjęć, dla testowanego obrazu metoda LBHP była pewna lub wartość wektora oddalenia był zbliżona do zera.
+Podobną sytuację zaobserwowano dla sieci z biblioteki OpenCv przedstawionych na rysunku \ref{fig:opencv_zdjecia}. Wraz ze wzrostem ilości zdjęć malała wartość wektora odległości. Po zwiększeniu ilości zdjęć powyżej dziesięciu, dla każdej z metod wartość wektora ustaliła się na 0. Niewyjaśnionym zjawiskiem pozostaje chwilowy wzrost niepewności dla metody Eigen między ilością zdjęć 2, a 3. Najmniej pewną metodą okazał się algorytm Eigen, którego niepewność w szczytowych momentach była nawet 1,5 raza większa od algorytmu Fishera. Niezależnie od ilości zdjęć, dla testowanego obrazu metoda LBHP była pewna lub wartość wektora oddalenia był zbliżona do zera.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{opencv_pewnosc_a_ilosc_zdjec.png}
@@ -290,7 +290,7 @@ Podobną sytuację zaobserwowano dla sieci z biblioteki OpenCv przedstawionych n
 \end{figure}
 
 \subsection{Wpływ ilości profili użytych podczas treningu na pewność rozpoznania}
-Z powodu zbyt dużej pewności identyfikacji każdej z metod dla ilości zdjęć przypisanych profilowi powyżej 10, podczas tego badania wykorzystano sieci podczas treningu, których wykorzystano maksymalnie 5 zdjęć na profil. 
+W wyniku uzyskania wysokiej pewności identyfikacji powyżej 10 zdjęć uczących na profil, na potrzeby badania wykorzystano sieci nauczone maksymalnie pięcioma zdjęciami przypisanymi do profilu.
 
 Początkowe wyniki uzyskane dla Azure były na tyle zaskakujące, że wykonano test dla dwóch próbek. Dane przedstawiono na rysunku \ref{fig:azure_5__profile}. Azure Cognitive Services wykazało, że jest odporne na poszerzanie zbioru o kolejne profile. Zmiana ilości profili z pięciu na sto nie wywołała żadnej zmiany w pewności identyfikacji.
 \begin{figure}[H]
@@ -344,7 +344,7 @@ Największa skuteczność identyfikacji osiągnęła sieć neuronowa typu Lbph(D
 
 \begin{table}[H]\label{tab:skutecznosc_identyfikacji}
 	\centering
-	\caption{Skuteczność identyfikacji wybranych metod}
+	\caption{Skuteczność identyfikacji wybranych metod w zależności od ilości próbek każdego profilu}
 	\scalebox{1.0}{
 	\begin{tabular}{|c|c|c|c|}
   		\hline 

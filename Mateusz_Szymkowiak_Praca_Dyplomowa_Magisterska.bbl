@@ -133,6 +133,28 @@
     \field{urlyear}{2018}
   \endentry
 
+  \entry{glasgow}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{abstract}{%
+    Academic research group website for the Aberdeen Face Lab, based at the
+  University of Aberdeen, headed by Professor Mike Burton.%
+    }
+    \field{title}{Glasgow {Unfamiliar} {Face} {Database} - {York} {FaceVar}
+  {Lab}}
+    \verb{url}
+    \verb http://www.facevar.com/glasgow-unfamiliar-face-database
+    \endverb
+    \verb{file}
+    \verb Snapshot:C\:\\Users\\Mateusz\\Zotero\\storage\\B3Q5NYDG\\glasgow-unfa
+    \verb miliar-face-database.html:text/html
+    \endverb
+    \field{urlday}{24}
+    \field{urlmonth}{09}
+    \field{urlyear}{2018}
+  \endentry
+
   \entry{_latex_????}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{L}
