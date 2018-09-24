@@ -315,14 +315,14 @@ Na potrzeby testu wszystkie sieci zostały nauczone profilami, którym przypisan
 	\caption{Wyniki uzyskane podczas testu dodatkowego atrybutu w postaci zarostu}
 	\label{fig:bledna_identyfikacja}
 \end{figure}
-Jedyną metodą, która prawidłowo rozpoznała twarz bez zarostu jest Azure. Interesującą informacją, którą można uzyskać z tego testu jest potwierdzenie różnic w sposobie działania każdej z metod identyfikacji. Każdy algorytm OpenCv rozpoznał zdjęcie jako całkiem inną tożsamość. Jest to pierwszy przypadek,w której uzyskano niepewność większą od zera dla metody LBPH. Pozostałe wartości niepewności znacznie się zwiększyły względem wartości wektorów odległości, które uzyskano w poprzednich testach podczas poprawnej identyfikacji.
+Jedyną metodą, która prawidłowo rozpoznała twarz bez zarostu jest Azure. Interesującą informacją, którą można uzyskać z tego testu jest potwierdzenie różnic w sposobie działania każdej z metod identyfikacji. Każdy algorytm OpenCv rozpoznał zdjęcie jako całkiem inną tożsamość. Jest to pierwszy przypadek,w której uzyskano niepewność większą od zera dla metody LBPH. Pozostałe wartości niepewności znacznie się zwiększyły względem wartości wektorów odległości uzyskanych w poprzednich testach przy poprawnej identyfikacji.
 
-Znacznie korzystniej rozwiązano problem błędnej identyfikacji w usłudze Azure. Podczas problemów z identyfikacją serwis zwróci informację o tym, że twarz nie została rozpoznana.
+Znacznie korzystniej rozwiązano problem błędnej identyfikacji w usłudze Azure niż w bibliotece OpenCv. Podczas problemów z identyfikacją serwis zwróci informację o tym, że twarz nie została rozpoznana.
 
 \subsection{Wpływ ilości zdjęć przypisanych do profilu na skuteczność działania}
-W tym rozdziale opisano końcowy test polegający na przetestowaniu 100 profili po 20 zdjęć każdy sieciami wytrenowanymi odpowiednio 5,10,19 zdjęciami z zasobu dwudziestu.
+W tym rozdziale opisano końcowy test polegający na przetestowaniu 100 profili zawierających 20 zdjęć każdy, sieciami wytrenowanymi odpowiednio 5,10,19 zdjęciami z zasobu dwudziestu.
 
-Wyniki uzyskane podczas testu detektorów (patrz rysunek \ref{fig:porownanie_detektorow}) pokazały, że ilość twarzy wykrywanych metodą Haara jest znacznie mniejsza od pozostałych metod, co mogłoby przynieść niezadowalające wyniki dla metod oparty o bibliotekę OpenCv, w wyniku których wyciągnięto by nieprawidłowe wnioski. W związku z tym problemem podjęto decyzję o wytrenowaniu dodatkowych modeli dla algorytmów z biblioteki OpenCv, które do detekcji twarzy podczas treningu oraz identyfikacji wykorzystują głęboką sieć neuronową.
+Wyniki uzyskane podczas testu detektorów (patrz rysunek \ref{fig:porownanie_detektorow}) pokazały, że ilość twarzy wykrywanych metodą Haara jest znacznie mniejsza od pozostałych metod, co mogłoby przynieść niezadowalające wyniki dla metod opartych o bibliotekę OpenCv, w wyniku których wyciągnięto by nieprawidłowe wnioski. W związku z tym problemem podjęto decyzję o wytrenowaniu dodatkowych modeli dla algorytmów z biblioteki OpenCv, które do detekcji twarzy podczas treningu oraz identyfikacji wykorzystują głęboką sieć neuronową.
 
 Wszystkie przeprowadzone testy umieszczono na wykresie \ref{fig:porownanie_identyfikator} w celu łatwiejszej interpretacji danych.
 
