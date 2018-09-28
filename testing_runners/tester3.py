@@ -29,11 +29,7 @@ class Tester:
             self.neuralNetworkToUse)
         self.logger.info("test")
         for person_id, person_image in all_photos_with_people:
-            found_faces = self.faceDetector.get_face_by_dnn_with_load_image(person_image)
-            if found_faces == 0 or len(found_faces) == 0:
-                continue
-            else:
-                faces = faces + 1
+            faces = faces + 1
             azure_result = 0
             fisher_result = 0
             eigen_result = 0
