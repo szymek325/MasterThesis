@@ -18,7 +18,7 @@ class OpenCvFaceRecognizer():
     def recognize_face_from_image(self, request_id, recognizers, image_path):
         detection_start = time.time()
         image = cv2.imread(image_path)
-        detected_faces = self.faceDetectorManager.get_face_by_haar(image)
+        detected_faces = self.faceDetectorManager.get_face_by_dnn(image)
         detection_end = time.time()
         detection_time = detection_end - detection_start
         for face_recognizer, file_id in recognizers:
@@ -30,6 +30,21 @@ class OpenCvFaceRecognizer():
                 predict_image = self.imageConverter.convert_to_np_array(image[startY:endY, startX:endX])
                 nbr_predicted, confidence = face_recognizer.predict(predict_image)
                 self.__add_result__(confidence, file_id, nbr_predicted, request_id, start_time, detection_time)
+
+    def recognize_with_single_recognizer(self, face_recognizer, image_path):
+        detection_start = time.time()
+        image = cv2.imread(image_path)
+        detected_faces = self.faceDetectorManager.get_face_by_haar(image)
+        detection_end = time.time()
+        detection_time = detection_end - detection_start
+        start_time = time.time()
+        self.logger.info(f"Using {face_recognizer} recognizer on {image_path}")
+        if len(detected_faces) is 0:
+            return 0
+        (startX, startY, endX, endY)= detected_faces[0]
+        predict_image = self.imageConverter.convert_to_np_array(image[startY:endY, startX:endX])
+        nbr_predicted, confidence = face_recognizer.predict(predict_image)
+        return nbr_predicted
 
     def __add_result__(self, confidence, file_id, nbr_predicted, request_id, start_time, detection_time):
         self.logger.info(f"Recognized identity: {nbr_predicted} confidence:{confidence}")
