@@ -1,4 +1,4 @@
-\documentclass[11pt, a4paper,polish,twoside]{report}
+\documentclass[11pt, a4paper,polish,oneside]{report}
 \usepackage{graphicx}
 \usepackage{times}
 \usepackage[T1]{fontenc}
@@ -94,9 +94,10 @@
 \null
 \thispagestyle{empty}
 \newpage
-%\includepdf[pages={1}]{./pictures/karta_pracy.pdf}
+\includepdf[pages={1}]{./pictures/karta_pracy.pdf}
 
 %%%%%%%%%%%%%%%%%%%%%%%%		STRESZCZENIE  %%%%OK
+\setcounter{page}{4}
 \input{sections/streszczenie.tex}
 %%%%%%%%%%%%%%%%%%%%%%%%		SPIS TREŚCI
 
