@@ -20,4 +20,4 @@ class NeuralNetworksTrainingManager():
         people_with_image_paths = self.peopleImagesProvider.get_image_paths_for_people(people_ids,
                                                                                        max_photos_per_person)
         self.openCvNnTrainer.train_open_cv(request_id, people_with_image_paths)
-        self.azureGroupTrainer.train_large_group(request_id, request_name, people_with_image_paths)
+        # self.azureGroupTrainer.train_large_group(request_id, request_name, people_with_image_paths)

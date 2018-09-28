@@ -3,6 +3,7 @@ import cv2
 from configuration_global.logger_factory import LoggerFactory
 import numpy as np
 
+from opencv_client.face_detection.dnn_face_detector import DnnFaceDetector
 from opencv_client.face_detection.haar_face_detector import HaarFaceDetector
 from opencv_client.image_converters.image_converter import ImageConverter
 
@@ -10,7 +11,7 @@ from opencv_client.image_converters.image_converter import ImageConverter
 class TrainingDataProvider():
     def __init__(self):
         self.logger = LoggerFactory()
-        self.faceDetector = HaarFaceDetector()
+        self.faceDetector = DnnFaceDetector()
         self.imageConverter = ImageConverter()
         self.face_samples = []
         self.ids = []
@@ -37,8 +38,11 @@ class TrainingDataProvider():
             self.__add_sample__(faces, open_cv_image, person_id)
 
     def __add_sample__(self, faces, open_cv_image, person_id):
-        (startX, startY, endX, endY) = faces[0]
-        cropped_image = open_cv_image[startY:endY, startX:endX]
-        np_image = self.imageConverter.convert_to_np_array(cropped_image)
-        self.face_samples.append(np_image)
-        self.ids.append(person_id)
+        try:
+            (startX, startY, endX, endY) = faces[0]
+            cropped_image = open_cv_image[startY:endY, startX:endX]
+            np_image = self.imageConverter.convert_to_np_array(cropped_image)
+            self.face_samples.append(np_image)
+            self.ids.append(person_id)
+        except Exception as exception:
+            self.logger.error(f"Exception when converting to np array.Ex {exception}")

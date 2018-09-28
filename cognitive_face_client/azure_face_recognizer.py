@@ -21,6 +21,24 @@ class AzureFaceRecognizer():
         if azure_file is not null and azure_file is not None:
             self.__get_result_from_azure__(azure_file, image_file_path, request_id)
 
+    def recognize_face_without_db(self, neural_network_id, image_file_path):
+        azure_file = self.neuralNetworkFilesRepo.get_azure_file_connected_to_neural_network(neural_network_id)
+        if azure_file is not null and azure_file is not None:
+            return self.__get_result_from_azure_without_db__(azure_file, image_file_path)
+
+    def __get_result_from_azure_without_db__(self, azure_file, image_file_path):
+        start_time = time.time()
+        face_ids = self.azureFaceClient.get_face_ids(image_file_path)
+        if len(face_ids) is 0:
+            return 0
+        recognized_azure_ids = self.azureFaceClient.get_faces_identity(face_ids, azure_file.neuralNetworkId)
+        if len(recognized_azure_ids) is 0:
+            return 0
+        for face_id, rec_az_id in recognized_azure_ids.items():
+            person_identity = self.azureNnClient.get_person_in_large_group_name(azure_file.neuralNetworkId,
+                                                                                rec_az_id['personId'])
+            return person_identity
+
     def __get_result_from_azure__(self, azure_file, image_file_path, request_id):
         start_time = time.time()
         face_ids = self.azureFaceClient.get_face_ids(image_file_path)

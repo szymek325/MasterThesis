@@ -58,3 +58,11 @@ class FaceDetectorsManager():
         self.logger.info(f"Faces detected by "
                          f"\n   Azure: {faces_detected_by_azure}")
         return faces_detected_by_azure
+
+    def get_face_by_haar_with_load_image(self, file_path):
+        image = cv2.imread(file_path)
+        return self.get_face_by_haar(image)
+
+    def get_face_by_dnn_with_load_image(self, file_path):
+        image = cv2.imread(file_path)
+        return self.get_face_by_dnn(image)
