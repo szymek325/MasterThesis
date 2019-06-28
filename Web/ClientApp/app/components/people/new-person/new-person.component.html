@@ -1,0 +1,80 @@
+<div class="container">
+    <h1>New person form</h1>
+    <form [formGroup]="personForm" (ngSubmit)="onClickSubmit(personForm.value)">
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3">
+                    <label for="name">Name</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" formControlName="name" id="name" ngModel>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="alert alert-danger" *ngIf="!personForm.controls['name'].valid && personForm.controls['name'].touched">
+                    'Name' field is required. Minimum 3 chars
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3">
+                    <label for="file">Files</label>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <alert></alert>
+                        <label class="btn btn-primary">
+                            add files <input type="file" class="form-control" multiple hidden [ngModelOptions]="{standalone: true}" (change)="validateFile($event)" id="file" accept=".jpeg, .png, .jpg" ngModel #FaceImage>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="alert alert-danger" *ngIf="previewFiles?.length==0">
+                    At least one file required
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-6">
+                <table class="table" *ngIf="previewFiles">
+                    <thead>
+                    <tr>
+                        <th>Filename</th>
+                        <th>Preview</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let file of previewFiles">
+                        <td>{{file.file.name}}</td>
+                        <td>
+                            <div class="slider">
+                                <div class="slide">
+                                    <img src="{{file.url}}"/>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div>
+            <button type="submit" [disabled]="!(personForm.valid && isFileValid)" class="btn btn-success">Submit</button>
+        </div>
+    </form>
+</div>

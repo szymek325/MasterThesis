@@ -1,0 +1,53 @@
+<h1>NeuralNetwork</h1>
+
+<p *ngIf="!neuralNetwork">
+    <em>Loading neural network...</em>
+</p>
+<div *ngIf="neuralNetwork">
+    <div>
+        <label for="name">Id</label>
+        <div id="id">{{neuralNetwork.id}}</div>
+    </div>
+    <div>
+        <label for="name">Name</label>
+        <div id="name">{{neuralNetwork.name}}</div>
+    </div>
+
+    <div>
+        <h3>People data used for training</h3>
+        <table class="table" *ngIf="neuralNetwork.people">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let person of neuralNetwork.people">
+                    <td>{{person.id}}</td>
+                    <td>{{person.name}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h3>Trained files</h3>
+        <table class="table" *ngIf="neuralNetwork.files">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let file of neuralNetwork.files">
+                    <td>{{file.id}}</td>
+                    <td>{{file.name}}</td>
+                    <td>{{file.typeName}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

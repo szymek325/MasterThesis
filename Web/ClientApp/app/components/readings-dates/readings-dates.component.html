@@ -1,0 +1,17 @@
+<p *ngIf="!days">
+    <em>Loading...</em>
+</p>
+
+
+<table class="table" *ngIf="days">
+    <thead>
+    <tr>
+        <th>Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let day of days" >
+        <td (click)="showReadings(day.date)">{{ day.date }}</td>
+    </tr>
+    </tbody>
+</table>

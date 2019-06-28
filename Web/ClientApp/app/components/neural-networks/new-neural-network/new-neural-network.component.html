@@ -1,0 +1,58 @@
+<div class="container">
+    <h1>New neural network</h1>
+    <p *ngIf="!people">
+        <em>Loading...</em>
+    </p>
+
+    <form [formGroup]="neuralNetworkForm" (ngSubmit)="onClickSubmit(neuralNetworkForm.value)" *ngIf="people">
+        <alert></alert>
+        
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3">
+                    <label for="name">Name</label>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" formControlName="name" id="name" ngModel>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="alert alert-danger" *ngIf="!neuralNetworkForm.controls['name'].valid && neuralNetworkForm.controls['name'].touched">
+                    'Name' field is required
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3">
+                    <label for="people">People:</label>
+                </div>
+                <div class="col-md-3">
+                    <div class="row" *ngFor="let person of people">
+                            <div class="col-md-3">
+                                <input type="checkbox"
+                                       name="people"
+                                       value="{{person.id}}"
+                                       [(ngModel)]="person.checked"
+                                       formControlName="people"/>
+                            </div>
+                            <div class="col-md-3">
+                                {{person.name}}
+                            </div>
+                            <div class="col-md-3">
+                                <img src="data:image/jpeg;base64,{{person.thumbnail}}" />
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" [disabled]="!(neuralNetworkForm.valid)" class="btn btn-success">Submit</button>
+        </div>
+    </form>
+</div>

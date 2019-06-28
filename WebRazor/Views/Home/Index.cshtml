@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Master Thesis";
+}
+
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<h4>This website is a part of Master Degree Project created by Mateusz Szymkowiak</h4>
+
+<p>
+    Sections:
+    <ul>
+        <li>
+            <b>Detections</b> - allows to test different face detectors with picked data set. Avaiable face detectors:
+            <ul>
+                <li>
+                    Azure Cognitive Services
+                </li>
+                <li>
+                    Open Cv Deep Neural Network
+                </li>
+                <li>
+                    Open Cv Haar Face Detector
+                </li>
+            </ul>
+        </li>
+        <li>
+            <b>Profiles</b> - allows to create profiles that will be next used as datasets for training <b>Neural Networks</b>
+        </li>
+        <li>
+            <b>Face Recognizers</b> - allows to train face recognizer with chosen <b>Profiles</b>. Avaiable alghoritms:
+            <ul>
+                <li>
+                    Azure Cognitive Services
+                </li>
+                <li>
+                    OpenCv Fisher
+                </li>
+                <li>
+                    OpenCv Eigen
+                </li>
+                <li>
+                    OpenCv LBPH
+                </li>
+            </ul>
+        </li>
+        <li>
+            <b>Recognition</b> - allows to test created <b>Face Recognizers</b> with picked dataset
+        </li>
+        <li>
+            <b>Readings</b> - allows to read data gathered by sensors
+        </li>
+        <li>
+            <b>Notifications</b> - Tab where all notifications created by sensors and camera movement detection warnings can be shown
+        </li>
+    </ul>
+
+</p>

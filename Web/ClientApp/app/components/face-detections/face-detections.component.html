@@ -1,0 +1,29 @@
+<p *ngIf="!requests">
+    <em>Loading...</em>
+</p>
+
+<button type="button" class="btn btn-default" (click)="newRequest()">Create new Face Detection request</button>
+
+<table class="table" *ngIf="requests">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Input</th>
+            <th>Status</th>
+            <th>Creation Time</th>
+            <th>Completion Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let face of requests">
+            <td>{{ face.id }}</td>
+            <td>{{ face.name }}</td>
+            <td><img src="data:image/jpeg;base64,{{face.thumbnail}}" /></td>
+            <td>{{ face.status }}</td>
+            <td>{{ face.creationTime?.replace("T"," ") }}</td>
+            <td>{{ face.completionTime?.replace("T"," ") }}</td>
+            <td class="btn btn-success" (click)="showRequest(face.id)">Show</td>
+        </tr>
+    </tbody>
+</table>

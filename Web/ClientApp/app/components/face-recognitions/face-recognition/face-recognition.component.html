@@ -1,0 +1,80 @@
+<div class="container">
+    <h1>Face Recognition Request</h1>
+
+    <p *ngIf="!request"><em>Loading request data...</em></p>
+    <div *ngIf="request">
+        <div class="row">
+            <div class="col-md-3">
+                <label>Id</label>
+            </div>
+            <div class="col-md-3">{{request.id}}</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label>Name</label>
+            </div>
+            <div class="col-md-3">{{request.name}}</div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3">
+                <label>Creation time</label>
+            </div>
+            <div class="col-md-3">{{request.creationTime?.replace("T"," ")}}</div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3">
+                <label>Completion time</label>
+            </div>
+            <div class="col-md-3">{{request.completionTime?.replace("T"," ")}}</div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3">
+                <label>Status</label>
+            </div>
+            <div class="col-md-3">{{request.status}}</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label for="input">Input image</label>
+            </div>
+            <div class="col-md-3">
+                <div class="slider">
+                    <div class="slide">
+                        <img src="{{request.fileLink.url}}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3>Results</h3>
+            <table class="table" *ngIf="request.results">
+                <thead>
+                    <tr>
+                        <th>Recognised Identity</th>
+                        <th>Confidence</th>
+                        <th>Neural Network Name</th>
+                        <th>Neural Network Type</th>
+                        <th>Comments</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let result of request.results">
+                        <td>{{result.identifiedPersonId}}</td>
+                        <td>{{result.confidence}}</td>
+                        <td>{{result.neuralNetworkFileName}}</td>
+                        <td>{{result.neuralNetworkTypeName}}</td>
+                        <td>{{result.comments}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<alert></alert>

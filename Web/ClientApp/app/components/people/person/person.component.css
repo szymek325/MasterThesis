@@ -1,0 +1,7 @@
+[hidden] { display: none !important; }
+
+div.row { padding-top: 5px; }
+
+.slider { display: flex; }
+
+.slider .slide img { height: 100px; }

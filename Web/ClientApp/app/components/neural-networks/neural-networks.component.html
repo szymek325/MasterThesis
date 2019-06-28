@@ -1,0 +1,31 @@
+<button type="button" class="btn btn-default" (click)="newNetwork()">Create new Neural Network</button>
+
+<p *ngIf="!neuralNetworks">
+    <em>Loading...</em>
+</p>
+
+<table class="table" *ngIf="neuralNetworks">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Trained people count</th>
+            <th>Number of files</th>
+            <th>Status</th>
+            <th>Creation Time</th>
+            <th>Completion Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let network of neuralNetworks">
+            <td>{{ network.id }}</td>
+            <td>{{ network.name }}</td>
+            <td>{{ network.peopleCount  }}</td>
+            <td>{{ network.filesCount  }}</td>
+            <td>{{ network.statusName }}</td>
+            <td>{{ network.creationTime?.replace("T"," ") }}</td>
+            <td>{{ network.completionTime?.replace("T"," ") }}</td>
+            <td class="btn btn-success" (click)="showNetwork(network.id)">Show</td>
+        </tr>
+    </tbody>
+</table>
