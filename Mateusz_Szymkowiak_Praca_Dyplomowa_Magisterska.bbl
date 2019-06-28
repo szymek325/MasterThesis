@@ -1,0 +1,390 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nty/global//global/global}
+  \entry{acs_doc}{misc}{}
+    \list{language}{1}{%
+      {en-us}%
+    }
+    \field{labeltitlesource}{title}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{abstract}{%
+    In this quickstart, you detect faces in an image using the Face service
+  with Python in Cognitive Services.%
+    }
+    \field{title}{Azure Cognitive Services Face Api Documentation}
+    \verb{url}
+    \verb https://docs.microsoft.com/en-us/azure/cognitive-services/face/quicks
+    \verb tarts/python
+    \endverb
+    \verb{file}
+    \verb Snapshot:C\:\\Users\\matsz\\Zotero\\storage\\DFJGP5KD\\Python.html:te
+    \verb xt/html
+    \endverb
+    \field{urlday}{15}
+    \field{urlmonth}{09}
+    \field{urlyear}{2018}
+  \endentry
+
+  \entry{373563}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=DG}{%
+         family={Deng},
+         familyi={D\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=CLW}{%
+         family={Cahill},
+         familyi={C\bibinitperiod},
+         given={L.\bibnamedelima W.},
+         giveni={L\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+    }
+    \keyw{edge detection;adaptive filters;image processing;computer
+  vision;adaptive Gaussian filter;noise reduction;edge detection;noise
+  suppression;preprocessing;signal local variance;edge position
+  displacement;vanishing edges;phantom edges;Adaptive filters;Noise
+  reduction;Image edge detection;Gaussian noise;Imaging phantoms;Filtering
+  algorithms;Digital filters;Image processing;Computer vision;Distortion}
+    \strng{namehash}{DGCLW1}
+    \strng{fullhash}{DGCLW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{booktitle}{1993 IEEE Conference Record Nuclear Science Symposium and
+  Medical Imaging Conference}
+    \verb{doi}
+    \verb 10.1109/NSSMIC.1993.373563
+    \endverb
+    \field{pages}{1615\bibrangedash 1619 vol.3}
+    \field{title}{An adaptive Gaussian filter for noise reduction and edge
+  detection}
+    \field{year}{1993}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{dnn}{misc}{}
+    \list{language}{1}{%
+      {pl}%
+    }
+    \field{labeltitlesource}{title}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{title}{Głębokie uczenie maszyn}
+    \verb{url}
+    \verb http://www.deltami.edu.pl/temat/informatyka/sztuczna_inteligencja/201
+    \verb 7/12/28/Glebokie_uczenie_maszyn/
+    \endverb
+    \verb{file}
+    \verb Snapshot:C\:\\Users\\Mateusz\\Zotero\\storage\\U7KNWE5U\\Glebokie_ucz
+    \verb enie_maszyn.html:text/html
+    \endverb
+    \field{journaltitle}{DeltaMi}
+    \field{urlday}{16}
+    \field{urlmonth}{09}
+    \field{urlyear}{2018}
+  \endentry
+
+  \entry{face_reco_github}{misc}{}
+    \name{author}{1}{}{%
+      {{hash=GA}{%
+         family={Geitgey},
+         familyi={G\bibinitperiod},
+         given={Adam},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GA1}
+    \strng{fullhash}{GA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{note}{original-date: 2017-03-03T21:52:39Z}
+    \field{shorttitle}{The world's simplest facial recognition api for {Python}
+  and the command line}
+    \field{title}{The world's simplest facial recognition api for {Python} and
+  the command line: ageitgey/face\_recognition}
+    \verb{url}
+    \verb https://github.com/ageitgey/face_recognition
+    \endverb
+    \field{month}{09}
+    \field{year}{2018}
+    \field{urlday}{15}
+    \field{urlmonth}{09}
+    \field{urlyear}{2018}
+  \endentry
+
+  \entry{glasgow}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{abstract}{%
+    Academic research group website for the Aberdeen Face Lab, based at the
+  University of Aberdeen, headed by Professor Mike Burton.%
+    }
+    \field{title}{Glasgow {Unfamiliar} {Face} {Database} - {York} {FaceVar}
+  {Lab}}
+    \verb{url}
+    \verb http://www.facevar.com/glasgow-unfamiliar-face-database
+    \endverb
+    \verb{file}
+    \verb Snapshot:C\:\\Users\\Mateusz\\Zotero\\storage\\B3Q5NYDG\\glasgow-unfa
+    \verb miliar-face-database.html:text/html
+    \endverb
+    \field{urlday}{24}
+    \field{urlmonth}{09}
+    \field{urlyear}{2018}
+  \endentry
+
+  \entry{_latex_????}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{title}{{LaTeX} - A document preparation system}
+    \verb{url}
+    \verb https://www.latex-project.org/
+    \endverb
+    \verb{file}
+    \verb LaTeX - A document preparation system:C\:\\Users\\matsz\\AppData\\Roa
+    \verb ming\\Mozilla\\Firefox\\Profiles\\uzex6uf6.default\\zotero\\storage\\
+    \verb 9TFFBCUN\\www.latex-project.org.html:text/html
+    \endverb
+    \field{urlday}{21}
+    \field{urlmonth}{01}
+    \field{urlyear}{2017}
+  \endentry
+
+  \entry{raspberry}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=MS}{%
+         family={Monk},
+         familyi={M\bibinitperiod},
+         given={Simon},
+         giveni={S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MS1}
+    \strng{fullhash}{MS1}
+    \field{labelnamesource}{author}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{booktitle}{Raspberry Pi. Receptury}
+    \field{pages}{61\bibrangedash 95, 302}
+    \field{year}{2014}
+  \endentry
+
+  \entry{open_face}{misc}{}
+    \list{publisher}{1}{%
+      {cmusatyalab}%
+    }
+    \field{labeltitlesource}{title}
+    \field{sortinit}{O}
+    \field{sortinithash}{O}
+    \field{note}{original-date: 2015-09-16T12:47:27Z}
+    \field{title}{Open face. Face recognition with deep neural networks}
+    \verb{url}
+    \verb https://github.com/cmusatyalab/openface
+    \endverb
+    \field{month}{09}
+    \field{year}{2018}
+    \field{urlday}{15}
+    \field{urlmonth}{09}
+    \field{urlyear}{2018}
+  \endentry
+
+  \entry{opencv_doc}{misc}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{O}
+    \field{sortinithash}{O}
+    \field{title}{{OpenCV}: {OpenCV} modules}
+    \verb{url}
+    \verb https://docs.opencv.org/3.4.2/
+    \endverb
+    \verb{file}
+    \verb OpenCV\: OpenCV modules:C\:\\Users\\matsz\\Zotero\\storage\\K4D6ARI6\
+    \verb \3.4.html:text/html
+    \endverb
+    \field{urlday}{15}
+    \field{urlmonth}{09}
+    \field{urlyear}{2018}
+  \endentry
+
+  \entry{image_proc}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=PJR}{%
+         family={Parker},
+         familyi={P\bibinitperiod},
+         given={J.\bibnamedelima R.},
+         giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{PJR1}
+    \strng{fullhash}{PJR1}
+    \field{labelnamesource}{author}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{booktitle}{Algorithms for Image Processing and Computer Vision}
+    \field{pages}{49\bibrangedash 50, 88\bibrangedash 92}
+    \field{year}{2010}
+  \endentry
+
+  \entry{pca_lda}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=SH}{%
+         family={Sahoolizadeh},
+         familyi={S\bibinitperiod},
+         given={H.},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=GYA}{%
+         family={Ghassabeh},
+         familyi={G\bibinitperiod},
+         given={Y.\bibnamedelima Aliyari},
+         giveni={Y\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+    }
+    \keyw{eigenvalues and eigenfunctions;face recognition;feature
+  extraction;image classification;neural nets;principal component
+  analysis;visual databases;face recognition;eigen-faces;Fisher-faces;principal
+  component analysis;PCA;linear discriminant analysis;LDA;feature
+  extraction;neural network classifier;Yale face database;Face
+  recognition;Neural networks;Principal component analysis;Linear discriminant
+  analysis;Feature extraction;Discrete cosine transforms;Pattern
+  recognition;Image databases;Hidden Markov models;Support vector machines;Face
+  recognition;Linear discriminant analysis;Neural networks;Principal component
+  analysis}
+    \strng{namehash}{SHGYA1}
+    \strng{fullhash}{SHGYA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{booktitle}{2008 7th IEEE International Conference on Cybernetic
+  Intelligent Systems}
+    \verb{doi}
+    \verb 10.1109/UKRICIS.2008.4798953
+    \endverb
+    \field{pages}{1\bibrangedash 6}
+    \field{title}{Face recognition using eigen-faces, fisher-faces and neural
+  networks}
+    \field{year}{2008}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{gauss1}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=SGLS}{%
+         family={Shapiro},
+         familyi={S\bibinitperiod},
+         suffix={L.G.\bibnamedelima Stockman},
+         suffixi={L\bibinitperiod\bibinitdelim S\bibinitperiod},
+         given={G.C.},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{SLSG1}
+    \strng{fullhash}{SLSG1}
+    \field{labelnamesource}{author}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{booktitle}{Computer Vision}
+    \field{issn}{Prentice Hall}
+    \field{pages}{137\bibrangedash 150}
+    \field{year}{2001}
+  \endentry
+
+  \entry{tensorflow}{misc}{}
+    \list{language}{1}{%
+      {en}%
+    }
+    \field{labeltitlesource}{title}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{abstract}{%
+    An open source machine learning framework for everyone%
+    }
+    \field{title}{{TensorFlow}}
+    \verb{url}
+    \verb https://www.tensorflow.org/
+    \endverb
+    \verb{file}
+    \verb Snapshot:C\:\\Users\\Mateusz\\Zotero\\storage\\Q5CKRJVX\\www.tensorfl
+    \verb ow.org.html:text/html
+    \endverb
+    \field{journaltitle}{TensorFlow}
+    \field{urlday}{16}
+    \field{urlmonth}{09}
+    \field{urlyear}{2018}
+  \endentry
+
+  \entry{lbph}{inproceedings}{}
+    \name{author}{4}{}{%
+      {{hash=XG}{%
+         family={Xiang},
+         familyi={X\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=QZ}{%
+         family={Qiuyu},
+         familyi={Q\bibinitperiod},
+         given={Z.},
+         giveni={Z\bibinitperiod},
+      }}%
+      {{hash=HW}{%
+         family={Hui},
+         familyi={H\bibinitperiod},
+         given={W.},
+         giveni={W\bibinitperiod},
+      }}%
+      {{hash=YC}{%
+         family={Yan},
+         familyi={Y\bibinitperiod},
+         given={C.},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \keyw{computational complexity;face recognition;feature
+  extraction;regression analysis;facial feature extraction;local binary pattern
+  histogram;computational complexity;LBPH;local binary feature
+  regression;LBPH;face recognition;Face;Face recognition;Histograms;Feature
+  extraction;Facial features;Shape;Image recognition;face alignment;LBP;face
+  recognition;landmark}
+    \strng{namehash}{XG+1}
+    \strng{fullhash}{XGQZHWYC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{X}
+    \field{sortinithash}{X}
+    \field{booktitle}{2016 International Conference on Audio, Language and
+  Image Processing (ICALIP)}
+    \verb{doi}
+    \verb 10.1109/ICALIP.2016.7846668
+    \endverb
+    \field{pages}{414\bibrangedash 417}
+    \field{title}{Face recognition based on LBPH and regression of Local Binary
+  features}
+    \field{year}{2016}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+\enddatalist
+\endinput
